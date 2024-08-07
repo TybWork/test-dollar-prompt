@@ -52,7 +52,6 @@ const AdminHeader = () => {
             await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {
                 withCredentials: true
             })
-            document.cookie = `token= ,path=/ domain=test-dollar-prompt.vercel.app`
             setseller({ text: 'Login', link: '/login' })
             setlogout(false)
             setrole('user')
