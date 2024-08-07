@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "@/app/Components/AdminHeader/AdminHeader.module.css";
 
 // bottom nav imports
-import jwtDecode from "jwt-decode"; // Import as a default
+import { jwtDecode } from "jwt-decode"; // Import as a default
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -22,7 +22,6 @@ const AdminHeader = () => {
         };
 
         const token = getCookieValue('token');
-        console.log(token)
         if (token) {
             const decodedToken = jwtDecode(token);
             setRole(decodedToken.userRole);
