@@ -25,7 +25,7 @@ const loginUser = () => {
         try {
             const request = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, user)
             const response = request.data
-            document.cookie = `token = ${response.token}; path=/; sameSite=None; domain=test-dollar-prompt.vercel.app; secure=true`
+            document.cookie = `token = ${response.token}; path=/; sameSite=None; domain=test-dollar-prompt.vercel.app; httpOnly=true; secure=true`
             window.location.href = '/'
         } catch (error) {
             alert(error.response.data.msg)
