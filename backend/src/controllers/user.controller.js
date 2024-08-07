@@ -74,7 +74,7 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({ email })
         let userName;
         if (user.role == 'seller') {
-            userName = await SellerProfile.findOne({ userId: user._id })
+            userName = await SellerProfile.find({ userId: user._id })
             userName[0].profileHandle
         } else {
             userName = null
