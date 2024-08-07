@@ -23,7 +23,9 @@ const loginUser = () => {
     const submitForms = async (e) => {
         e.preventDefault();
         try {
-            const request = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, user)
+            const request = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, user, {
+                withCredentials: true,
+            })
             const response = request.data
             document.cookie = `token=${response.token}; path=/; secure=true; sameSite=None; domain=test-dollar-prompt.vercel.app`
             window.location.href = '/'
