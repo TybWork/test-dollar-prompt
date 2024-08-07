@@ -1,88 +1,98 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "@/app/Components/AdminHeader/AdminHeader.module.css"
+import styles from "@/app/Components/AdminHeader/AdminHeader.module.css";
 
 // bottom nav imports
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode"; // Import as a default
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const AdminHeader = () => {
     const router = useRouter();
-    const [seller, setseller] = useState({ text: "Login", link: "/login" })
-    const [logout, setlogout] = useState(false)
-    const [role, setrole] = useState('admin')
+    const [seller, setSeller] = useState({ text: "Login", link: "/login" });
+    const [logout, setLogout] = useState(false);
+    const [role, setRole] = useState('user'); // Default to 'user'
 
     useEffect(() => {
-        if (document.cookie.includes('token=')) {
-            const getCookieValue = (name) => {
-                const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                return match ? decodeURIComponent(match[2]) : null;
-            };
+        // Function to get cookie value
+        const getCookieValue = (name) => {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        };
 
-            const token = getCookieValue('token');
-            const decodedToken = jwtDecode(token)
-            setrole(decodedToken.userRole)
-            const userId = decodedToken.userId
-            const profileHandle = decodedToken.profileHandle
-            // if (role === "seller") {
-            //     setseller({ text: "Profile", link: `/user/${profileHandle}/seller-dashboard` })
-            //     setlogout(true)
-            // } else if (role === "user") {
-            //     setseller({ text: "becomeSeller", link: '/sellerinfo' })
-            //     setlogout(true)
-            // }
-            if (role === 'admin') {
-                setseller({ text: 'Admin', link: '/admin' })
-                setlogout(true)
-                router.push('/admin')
+        const token = getCookieValue('token');
+        console.log(token)
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            setRole(decodedToken.userRole);
+            const userId = decodedToken.userId;
+            const profileHandle = decodedToken.profileHandle;
+
+            if (decodedToken.userRole === 'admin') {
+                setSeller({ text: 'Admin', link: '/admin' });
+                setLogout(true);
+                router.push('/admin');
+            } else {
+                setSeller({ text: "Login", link: '/login' });
+                setLogout(false);
+                router.push('/');
             }
-            else {
-                setseller({ text: "Login", link: '/login' })
-                setlogout(false)
-                router.push('/')
-            }
+        } else {
+            setSeller({ text: "Login", link: '/login' });
+            setLogout(false);
+            router.push('/');
         }
-    }, [role])
+    }, [router]);
 
-    // logout Function
+    // Effect to handle role changes
+    useEffect(() => {
+        if (role === 'admin') {
+            setSeller({ text: 'Admin', link: '/admin' });
+            setLogout(true);
+        } else {
+            setSeller({ text: "Login", link: '/login' });
+            setLogout(false);
+        }
+    }, [role]);
+
+    // Logout Function
     const logoutFunc = async () => {
-        console.log('logout from admin clicked')
+        console.log('Logout from admin clicked');
         try {
             await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {
                 withCredentials: true
-            })
-            setseller({ text: 'Login', link: '/login' })
-            setlogout(false)
-            setrole('user')
-            router.push('/')
+            });
+            // Optionally, you might want to clear cookies here if needed
+            document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // Clear cookie
+            setSeller({ text: 'Login', link: '/login' });
+            setLogout(false);
+            setRole('user');
+            router.push('/');
         } catch (error) {
-            console.log(`Failed to logout ${error}`)
+            console.log(`Failed to logout ${error}`);
         }
-    }
+    };
 
     return (
-        <>
-            <header className={styles.headerContainer}>
-                {/* ------------- top header------------- */}
-                <div className={styles.topHeader}>
-                    {/* logo  */}
-                    <Link className={styles.desktopLogo} href='/'><img src="/assets/imageAssets/dollarprompt-desktop-logo.svg" style={{ width: "150px" }} alt="site-logo" /></Link>
-                    <Link className={styles.mobileLogo} href='/'><img style={{ width: '36px' }} src="/assets/imageAssets/dollarprompt-mobile-logo.svg" alt="site-logo" /></Link>
+        <header className={styles.headerContainer}>
+            {/* ------------- top header------------- */}
+            <div className={styles.topHeader}>
+                {/* logo  */}
+                <Link className={styles.desktopLogo} href='/'><img src="/assets/imageAssets/dollarprompt-desktop-logo.svg" style={{ width: "150px" }} alt="site-logo" /></Link>
+                <Link className={styles.mobileLogo} href='/'><img style={{ width: '36px' }} src="/assets/imageAssets/dollarprompt-mobile-logo.svg" alt="site-logo" /></Link>
 
-                    {/* top nav icons */}
-                    <nav className={styles.mainNav}>
-                        <ul>
-                            <li><Link className={styles.link} href='/'>Marketplace</Link></li>
-                            <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
-                            <li className={styles.link} style={{ display: `${logout == true ? 'block' : 'none'}` }} onClick={logoutFunc}>Logout</li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-        </>
-    )
-}
+                {/* top nav icons */}
+                <nav className={styles.mainNav}>
+                    <ul>
+                        <li><Link className={styles.link} href='/'>Marketplace</Link></li>
+                        <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
+                        {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    );
+};
 
 export default AdminHeader;
