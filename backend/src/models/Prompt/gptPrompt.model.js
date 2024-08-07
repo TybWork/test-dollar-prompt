@@ -1,0 +1,73 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+const dallePromptSchema = new Schema(
+    {
+        promptType: {
+            type: String,
+            enum: ["Dall-E", "GPT", "Leonardo Ai", "Llama", "Midjourney", "Stable Diffusion"],
+            default: "Dall-E",
+            required: true,
+        },
+        title: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        price: {
+            type: Number,
+            enum: [2.99, 3.99, 4.99, 5.99, 6.99],
+            default: 2.99,
+            required: true,
+        },
+        gptType: {
+            type: String,
+            enum: ["Completion (Regular Gpt)", "Chat (Chat Gpt)"],
+            default: "Chat (Chat Gpt)",
+            // required: true
+        },
+        gptEngine: {
+            type: String,
+            enum: ["Chat gpt-4o", "Chat gpt-4-turbo", "Chat gpt-4", "Chat gpt-3.5-turbo"],
+            default: "Chat gpt-4o"
+            // required: true,
+        },
+        Image_Url: {
+            type: [String],
+            // required: true,
+            validate: {
+                validator: function (arr) {
+                    return arr.length === 7
+                },
+                message: "Please upload 7 example images."
+            },
+        },
+        promptInstruction: {
+            type: String,
+            required: true
+        },
+        country: {
+            type: String,
+            // required: true
+        },
+        status: {
+            type: String,
+            enum: ['active', 'pending', 'paused'], //unverified:0  verified:1
+            default: 'pending'
+        },
+        verifiedBy: {
+            type: String,
+        },
+        isOpen: {
+            type: Boolean,
+        },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        },
+    }, { timestamps: true }
+)
+
+export const DallE = mongoose.model("DallE", dallePromptSchema)
