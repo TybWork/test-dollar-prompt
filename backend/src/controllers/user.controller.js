@@ -54,7 +54,7 @@ export const loginUser = async (req, res) => {
 
         res.cookie('token', token, {
 
-            httpOnly: false,
+            httpOnly: true,
             secure: true,
             sameSite: 'None',
             domain: 'test-dollar-prompt.vercel.app', // Must match domain used when setting cookie
