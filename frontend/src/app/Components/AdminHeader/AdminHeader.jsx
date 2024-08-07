@@ -62,7 +62,7 @@ const AdminHeader = () => {
                 withCredentials: true
             });
             // Optionally, you might want to clear cookies here if needed
-            // document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // Clear cookie
+            document.cookie = 'token='; // Clear cookie
             setSeller({ text: 'Login', link: '/login' });
             setLogout(false);
             setRole('user');
