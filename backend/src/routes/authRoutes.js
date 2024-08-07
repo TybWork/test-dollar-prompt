@@ -5,5 +5,5 @@ export const authRout = express.Router()
 
 authRout.post('/signup', signUp)
 authRout.post('/login', loginUser)
-authRout.post('/logout', clearCookie)
+authRout.get('/logout', clearCookie)
 authRout.post('/refreshcookie', refreshCookie)

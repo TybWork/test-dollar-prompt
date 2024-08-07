@@ -112,15 +112,18 @@ export const loginUser = async (req, res) => {
 // controller for clear cookie route
 export const clearCookie = (req, res) => {
     const cookieName = 'token';
-    res.clearCookie(cookieName, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
-        domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
-        path: '/'
-    });
-    return res.status(200).json({ msg: `cookie ${cookieName} deleted successfully!` })
-
+    try {
+        res.clearCookie(cookieName, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
+            path: '/'
+        });
+        return res.status(200).json({ msg: `cookie ${cookieName} deleted successfully!` })
+    } catch (error) {
+        return res.status(400).json({ msg: 'Failed to delete cookie' })
+    }
 }
 
 // controller for refreshig cookie
