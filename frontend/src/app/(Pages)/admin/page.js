@@ -1,103 +1,79 @@
-'use client';
-
-import styles from '@/app/(Pages)/admin/admin.module.css';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import jwtDecode from 'jwt-decode'; // Updated import
-import axios from 'axios';
-import ReviewCard from '@/app/Components/reviewCard/ReviewCard';
-import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
-
-const AdminPage = () => {
+'use client'
+import styles from '@/app/(Pages)/admin/admin.module.css'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { jwtDecode } from 'jwt-decode'
+import axios from 'axios'
+import ReviewCard from '@/app/Components/reviewCard/ReviewCard'
+import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
+const page = () => {
     const router = useRouter();
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [prompt, setPrompt] = useState('');
-    const [promptData, setPromptData] = useState([]);
-    const [loading, setLoading] = useState(true); // Added loading state
+    const [isAdmin, setisAdmin] = useState(false)
+    const [prompt, setprompt] = useState('')
+    const [promptData, setpromptData] = useState([])
+
+    function selectCategory(e) {
+        const category = e.target.value;
+        if (category == 'dalle') {
+            setprompt(category)
+        }
+    }
 
     const getCookieValue = (name) => {
         const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         return match ? decodeURIComponent(match[2]) : null;
     };
-
     useEffect(() => {
-        const validateUser = async () => {
-            if (typeof window !== 'undefined') {
-                const token = getCookieValue('token');
-                if (token) {
-                    try {
-                        const decodedToken = jwtDecode(token);
-                        const userRole = decodedToken.userRole;
+        if (typeof window !== 'undefined') {
+            const token = getCookieValue('token');
+            if (token) {
+                const decodeCookie = jwtDecode(token);
+                const userRole = decodeCookie.userRole;
 
-                        if (userRole === 'admin') {
-                            setIsAdmin(true);
-                            // Fetch data after setting isAdmin to true
-                            await fetchData();
-                        } else {
-                            setIsAdmin(false);
-                            router.push('/');
-                        }
-                    } catch (error) {
-                        console.error('Token validation failed:', error);
-                        setIsAdmin(false);
-                        router.push('/login');
+                if (userRole == 'admin') {
+                    setisAdmin(true);
+                    const fetchData = async () => {
+                        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&&promptType=Dall-E`, {
+                            withCredentials: true
+                        })
+                        setpromptData(response.data)
                     }
+                    fetchData()
                 } else {
-                    setIsAdmin(false);
-                    router.push('/login');
+                    setisAdmin(false);
+                    router.push('/');
                 }
-                setLoading(false); // Stop loading after validation
+            } else {
+                setisAdmin(false);
+                router.push('/login');
             }
-        };
+        }
 
-        validateUser();
+
     }, [router]);
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&promptType=Dall-E`, {
-                withCredentials: true
-            });
-            setPromptData(response.data);
-        } catch (error) {
-            console.error('Failed to fetch data:', error);
-        }
-    };
+    if (!isAdmin) return null
 
-    const handleCategoryChange = (e) => {
-        const category = e.target.value;
-        if (category === 'dalle') {
-            setPrompt(category);
-        }
-    };
-
-    if (loading) return <Loading />;
-    if (!isAdmin) return null;
+    if (!promptData) return <Loading />
 
     return (
         <div className={styles.parentContainer}>
-            <select onChange={handleCategoryChange} className='select' defaultValue="select category" name="categories" id="categories">
+            <select onChange={selectCategory} className='select' defaultValue="select category" name="categories" id="categories">
                 <option key="select category" value="select category" disabled>Select Category</option>
                 <option value="dalle" key="dalle">Dalle Prompts</option>
                 <option value="midjourney" key="midjourney">Midjourney Prompts</option>
             </select>
 
-            {/* Prompts type */}
+            {/* prompts type */}
             <div className={styles.promptsContainer}>
                 {
-                    promptData.map((e, index) => (
-                        <ReviewCard
-                            key={index}
-                            label={e.promptType}
-                            image={e.Image_Url[0]}
-                            description={`${e.description.slice(0, 48)}...`}
-                            onClick={() => router.push(`/admin/review/dalle/${e._id}`)}
-                        />
-                    ))
+                    promptData.map((e, index) =>
+                        <ReviewCard key={index} label={e.promptType} image={e.Image_Url[0]} description={`${e.description.slice(0, 48)}...`} onClick={() => router.push(`/admin/review/dalle/${e._id}`)} />
+                    )
                 }
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AdminPage;
+export default page
