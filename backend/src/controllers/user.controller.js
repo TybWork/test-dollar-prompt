@@ -72,7 +72,13 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await User.findOne({ email })
-        const userName = await SellerProfile.find({ userId: user._id })
+        let userName;
+        if (user.role == 'seller') {
+            userName = await SellerProfile.find({ userId: user._id })
+            userName[0].profileHandle
+        } else {
+            userName = null
+        }
         if (!user) {
             return res.status(400).json({ msg: "No such user!!" })
         }
@@ -83,7 +89,7 @@ export const loginUser = async (req, res) => {
         }
 
         // const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName[0].profileHandle }, process.env.JWT_SECRET)
-        const token = jwt.sign({ userId: user._id, userRole: user.role }, process.env.JWT_SECRET)
+        const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName }, process.env.JWT_SECRET)
 
 
         res.cookie('token', token, {
