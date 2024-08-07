@@ -48,6 +48,7 @@ const AdminHeader = () => {
 
     // logout Function
     const logoutFunc = async () => {
+        console.log('logout from admin clicked')
         try {
             await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {
                 withCredentials: true
