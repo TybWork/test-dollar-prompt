@@ -1,5 +1,5 @@
 'use client'
-import styles from '@/app/(Pages)/Profile/page.module.css'
+import styles from '@/app/(Pages)/profile/page.module.css'
 import Image from 'next/image'
 
 import { LuGlobe } from "react-icons/lu";
