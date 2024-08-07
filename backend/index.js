@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 // app.use(bodyParser.json());
 app.use(cors({
-    origin: ["https://test-dollar-prompt.onrender.com"], // Replace with your client URL
+    origin: ["https://test-dollar-prompt.onrender.com/"], // Replace with your client URL
     methods: ['POST', 'PUT', 'GET', 'DELETE'],
     credentials: true, // Allow credentials (cookies) to be included in requests
 }));
