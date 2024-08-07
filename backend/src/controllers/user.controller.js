@@ -57,8 +57,8 @@ export const loginUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            // domain: 'dollar-prompt.vercel.app', // Must match domain used when setting cookie
-            // path: '/'
+            domain: 'test-dollar-prompt.vercel.app', // Must match domain used when setting cookie
+            path: '/'
         });
 
 
@@ -76,8 +76,8 @@ export const clearCookie = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        // domain: 'dollar-prompt.vercel.app', // Must match domain used when setting cookie
-        // path: '/'
+        domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
+        path: '/'
     });
     return res.status(200).json({ msg: `cookie ${cookieName} deleted successfully!` })
 
@@ -94,8 +94,8 @@ export const refreshCookie = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            // domain: 'dollar-prompt.vercel.app', // Must match domain used when setting cookie
-            // path: '/'
+            domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
+            path: '/'
         })
 
         return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken })
