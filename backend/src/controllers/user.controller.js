@@ -122,7 +122,7 @@ export const clearCookie = (req, res) => {
         });
         return res.status(200).json({ msg: `cookie ${cookieName} deleted successfully!` })
     } catch (error) {
-        return res.status(400).json({ msg: 'Failed to delete cookie' })
+        return res.status(400).json({ msg: `Failed to delete cookie ${error}` })
     }
 }
 
