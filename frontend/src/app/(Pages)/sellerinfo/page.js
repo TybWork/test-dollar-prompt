@@ -35,7 +35,7 @@ const Page = () => {
     };
 
     // Refresh cookie after user becomes a seller
-    const refreshCookie = async (userId, userRole, profileHandle) => {
+    const refreshCookie = async (userId, userRole) => {
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/refreshcookie`, {
                 userId,
@@ -60,7 +60,7 @@ const Page = () => {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
             const profileHandle = decodedToken.profileHandle
-            await refreshCookie(userId, 'seller', profileHandle);
+            await refreshCookie(userId, 'seller');
             router.push(`/user/${profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Failed to decode token or become seller', error);

@@ -128,7 +128,15 @@ export const clearCookie = (req, res) => {
 
 // controller for refreshig cookie
 export const refreshCookie = async (req, res) => {
-    const { userId, userRole, profileHandle } = req.body;
+    const { userId, userRole } = req.body;
+
+    let profileHandle = null
+    if (userRole == 'seller') {
+        const findSeller = SellerProfile.findOne({ userId: userId }).select('profileHandle')
+        if (findSeller) {
+            profileHandle = findSeller.profileHandle
+        }
+    }
 
     try {
         const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
