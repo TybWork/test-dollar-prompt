@@ -88,6 +88,7 @@ const Page = () => {
             });
 
             await becomeSeller(); // Ensure this completes before proceeding
+            const token = getTokenFromCookie('token');
             const decodedToken = jwtDecode(token);
             profileHandle = decodedToken.profileHandle;
             router.push(`/user/${profileHandle}/seller-dashboard`);
