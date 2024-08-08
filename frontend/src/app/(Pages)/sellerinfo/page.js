@@ -1,13 +1,13 @@
 'use client';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from '@/app/(Pages)/sellerinfo/sellerinfo.module.css';
 import TextArea from '@/app/Components/(liteComponents)/TextAreaComponent/TextArea';
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
 import FieldInfo from '@/app/Components/(liteComponents)/FieldInfo/FieldInfo';
 import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/ImageUploader';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode'; // Make sure the import is correct
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
@@ -21,16 +21,16 @@ const Page = () => {
     };
 
     const getAuthorizationHeader = () => {
-        const token = getTokenFromCookie('token')
-        return token ? `Bearer ${token}` : ''
-    }
+        const token = getTokenFromCookie('token');
+        return token ? `Bearer ${token}` : '';
+    };
 
     // Handle input and file changes
     const getValue = (val) => {
         const { name, value, type, files } = val.target;
         setUser((prevUser) => ({
             ...prevUser,
-            [name]: type === "file" ? files : value
+            [name]: type === 'file' ? files : value
         }));
     };
 
@@ -43,10 +43,10 @@ const Page = () => {
             }, {
                 withCredentials: true
             });
-            document.cookie = `token=${response.data.newToken}; path=/; secure; sameSite=None; domain=.test-dollar-prompt.vercel.app`;
-            console.log('Cookie refreshed successfully', response.data);
+            return response.data.newToken; // Return the new token
         } catch (error) {
             console.error('Failed to refresh cookie', error);
+            throw error; // Throw error to be handled in caller
         }
     };
 
@@ -58,8 +58,9 @@ const Page = () => {
         try {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
-            const profileHandle = decodedToken.profileHandle
-            await refreshCookie(userId, 'seller');
+            const profileHandle = decodedToken.profileHandle;
+            const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
+            document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=test-dollar-prompt.vercel.app`; // Update cookie
             router.push(`/user/${profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
@@ -68,18 +69,18 @@ const Page = () => {
 
     // Handle form submission
     const onSubmitFunc = async () => {
-        await becomeSeller(); // Ensure this completes before proceeding
-
-        const formData = new FormData();
-        for (const key in user) {
-            if (user[key] instanceof FileList) {
-                Array.from(user[key]).forEach(file => formData.append(key, file));
-            } else {
-                formData.append(key, user[key]);
-            }
-        }
-
         try {
+            await becomeSeller(); // Ensure this completes before proceeding
+
+            const formData = new FormData();
+            for (const key in user) {
+                if (user[key] instanceof FileList) {
+                    Array.from(user[key]).forEach(file => formData.append(key, file));
+                } else {
+                    formData.append(key, user[key]);
+                }
+            }
+
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/postdata`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -87,6 +88,7 @@ const Page = () => {
                 },
                 withCredentials: true
             });
+
             console.log('Server response: ', response.data);
         } catch (error) {
             console.error('Error submitting form:', error);
