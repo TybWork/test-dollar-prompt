@@ -40,7 +40,6 @@ const Page = () => {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/refreshcookie`, {
                 userId,
                 userRole,
-                profileHandle
             }, {
                 withCredentials: true
             });
