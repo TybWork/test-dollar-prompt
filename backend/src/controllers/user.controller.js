@@ -94,7 +94,7 @@ export const loginUser = async (req, res) => {
 
         res.cookie('token', token, {
 
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: 'test-dollar-prompt.vercel.app', // Must match domain used when setting cookie
@@ -114,7 +114,7 @@ export const clearCookie = (req, res) => {
     const cookieName = 'token';
     try {
         res.clearCookie(cookieName, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
@@ -134,7 +134,7 @@ export const refreshCookie = async (req, res) => {
         const newToken = jwt.sign({ userId, userRole }, process.env.JWT_SECRET)
 
         res.cookie('token', newToken, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
