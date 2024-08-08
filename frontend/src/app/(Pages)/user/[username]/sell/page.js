@@ -92,6 +92,7 @@ const page = () => {
                 },
                 withCredentials: true
             });
+            alert('prompt submitted and is under Review')
         } catch (error) {
             console.log("myError is here:", error);
         }
