@@ -40,7 +40,7 @@ const SellerHeader = () => {
                 if (role === 'seller') {
                     setseller({ text: 'Profile', link: `/user/${profileHandle}/seller-dashboard` })
                     setlogout(true)
-                    // router.push('/')
+                    router.push('/')
                 }
                 else {
                     setseller({ text: "Login", link: '/login' })
