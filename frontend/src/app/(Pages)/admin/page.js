@@ -30,9 +30,10 @@ const page = () => {
     // }
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const token = getTokenFunction()
-            if (token) {
-                const decodeCookie = jwtDecode(token);
+            const cookie = getTokenFunction().cookie
+            const token = getTokenFunction().token
+            if (cookie) {
+                const decodeCookie = jwtDecode(cookie);
                 const userRole = decodeCookie.userRole;
 
                 if (userRole == 'admin') {
