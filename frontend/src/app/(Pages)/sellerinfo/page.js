@@ -35,16 +35,16 @@ const Page = () => {
     };
 
     // Refresh cookie after user becomes a seller
-    const refreshCookie = async (userId, userRole) => {
+    const refreshCookie = async (userId, userRole, profileHandle) => {
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/refreshcookie`, {
                 userId,
-                userRole
+                userRole,
+                profileHandle
             }, {
                 withCredentials: true
             });
             document.cookie = `token=${response.data.newToken}; path=/; secure; sameSite=None; domain=.test-dollar-prompt.vercel.app`;
-            // setSeller({ text: 'Profile', link: `/` });
             console.log('Cookie refreshed successfully', response.data);
         } catch (error) {
             console.error('Failed to refresh cookie', error);
@@ -59,8 +59,9 @@ const Page = () => {
         try {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
-            await refreshCookie(userId, 'seller');
-            // router.push(`/seller/${userId}`);
+            const profileHandle = decodedToken.profileHandle
+            await refreshCookie(userId, 'seller', profileHandle);
+            router.push(`/user/${profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
         }

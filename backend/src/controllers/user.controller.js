@@ -128,10 +128,10 @@ export const clearCookie = (req, res) => {
 
 // controller for refreshig cookie
 export const refreshCookie = async (req, res) => {
-    const { userId, userRole } = req.body;
+    const { userId, userRole, profileHandle } = req.body;
 
     try {
-        const newToken = jwt.sign({ userId, userRole }, process.env.JWT_SECRET)
+        const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
 
         res.cookie('token', newToken, {
             httpOnly: true,
