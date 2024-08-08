@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
 import ReviewCard from '@/app/Components/reviewCard/ReviewCard'
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
+import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 const page = () => {
     const router = useRouter();
     const [isAdmin, setisAdmin] = useState(false)
@@ -19,14 +20,14 @@ const page = () => {
         }
     }
 
-    const getCookieValue = (name) => {
-        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        return match ? decodeURIComponent(match[2]) : null;
-    };
-    const getTokenFromCookie = () => {
-        const token = getCookieValue('token')
-        return token ? `Bearer ${token}` : ''
-    }
+    // const getCookieValue = (name) => {
+    //     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    //     return match ? decodeURIComponent(match[2]) : null;
+    // };
+    // const getTokenFromCookie = () => {
+    //     const token = getCookieValue('token')
+    //     return token ? `Bearer ${token}` : ''
+    // }
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const token = getCookieValue('token');
@@ -39,7 +40,7 @@ const page = () => {
                     const fetchData = async () => {
                         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&promptType=Dall-E`, {
                             headers: {
-                                'Authorization': getTokenFromCookie()
+                                'Authorization': getTokenFunction()
                             },
                             withCredentials: true
                         })
