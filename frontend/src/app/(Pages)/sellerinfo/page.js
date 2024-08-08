@@ -20,6 +20,11 @@ const Page = () => {
         return match ? decodeURIComponent(match[2]) : null;
     };
 
+    const getAuthorizationHeader = () => {
+        const token = getAuthorizationHeader('token')
+        return token ? `Bearer ${token}` : ''
+    }
+
     // Handle input and file changes
     const getValue = (val) => {
         const { name, value, type, files } = val.target;
@@ -78,7 +83,8 @@ const Page = () => {
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/postdata`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': getAuthorizationHeader()
                 },
                 withCredentials: true
             });
