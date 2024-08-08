@@ -46,7 +46,7 @@ const SellerHeader = () => {
 
     const logoutFunc = async () => {
         try {
-            await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {
+            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {
                 withCredentials: true
             });
             setseller({ text: 'Login', link: '/login' });
