@@ -12,8 +12,10 @@ import Leonardo from "./ThirdStep/leonardo/Leonardo"
 import Llama from "./ThirdStep/Llama/Llama"
 import Midjourney from "./ThirdStep/Midjourney/Midjourney"
 import StableDiffusion from "./ThirdStep/StableDiffusion/StableDiffusion"
+import { getTokenFunction } from "@/app/utilities/getTokenFunction.js"
 
 const page = () => {
+    const bearerToken = getTokenFunction().token
     const [step, setstep] = useState(1);
     const [selected, setselected] = useState('');
     const [counter, setcounter] = useState(20);
@@ -85,6 +87,7 @@ const page = () => {
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/create`, formData, {
                 headers: {
+                    'Authorization': bearerToken,
                     'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true
