@@ -70,7 +70,7 @@ const Tab = ({ sellerId, sellerHandle }) => {
                         </ul>
 
                         {/* <CategoriesBtn title="Create Prompt" btnClass="active" /> */}
-                        <Link href="/sell" className={styles.createPrompt}>Create Prompt</Link>
+                        <Link href={`/user/${sellerHandle}/sell`} className={styles.createPrompt}>Create Prompt</Link>
                     </div>
 
                     <div className={styles.sellerPrompt}>

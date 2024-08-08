@@ -79,7 +79,7 @@ const SellerHeader = () => {
                     {/* top nav icons */}
                     <nav className={styles.mainNav}>
                         <ul>
-                            <li><Link className={styles.link} href='/Marketplace'>Marketplace</Link></li>
+                            <li><Link className={styles.link} href='/market'>Marketplace</Link></li>
                             <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                             <li className={styles.link} style={{ display: `${logout == true ? 'block' : 'none'}` }} onClick={logoutFunc}>Logout</li>
                             {/* <Link href='/'><Image src={userImage} className={styles.profileImage} width={0} height={0} sizes="100vw" alt="site-logo" /></Link> */}

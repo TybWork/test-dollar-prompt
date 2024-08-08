@@ -17,8 +17,8 @@ const HomeTopSlider = () => {
                 <h2 className={styles.subHeading}>Search 100,000 AI prompts from the world's best AI creators</h2>
                 <div className={styles.highligtedText}>Midjourney, ChatGPT, DALL.E, Stable Diffusion & more</div>
                 <div className={styles.buttonContainer}>
-                    <Link href='/Marketplace'><GradientButton title="Explore prompts" /></Link>
-                    <Link href='/sell'><BorderButton title="Sell prompts" /></Link>
+                    <Link href='/market'><GradientButton title="Explore prompts" /></Link>
+                    <Link href='/'><BorderButton title="Sell prompts" /></Link>
                 </div>
 
             </div>
