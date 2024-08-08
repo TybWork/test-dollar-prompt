@@ -81,7 +81,7 @@ const Page = () => {
                 }
             }
 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/postdata`, formData, {
+            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/postdata`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': getAuthorizationHeader()
@@ -89,7 +89,6 @@ const Page = () => {
                 withCredentials: true
             });
 
-            console.log('Server response: ', response.data);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
