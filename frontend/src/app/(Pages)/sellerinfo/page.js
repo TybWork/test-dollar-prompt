@@ -22,30 +22,6 @@ const Page = () => {
         return match ? decodeURIComponent(match[2]) : null;
     };
 
-    useEffect(() => {
-        const token = getTokenFromCookie('token');
-        if (token) {
-            try {
-                const decodedToken = jwtDecode(token);
-                const userId = decodedToken.userId;
-                const userRole = decodedToken.userRole;
-
-                if (userRole === 'seller') {
-                    setSeller({ text: "Profile", link: `/seller/${userId}` });
-                    setLogout(true);
-                } else if (userRole === 'user') {
-                    setSeller({ text: "Become Seller", link: '/sellerinfo' });
-                    setLogout(true);
-                } else if (userRole === 'admin') {
-                    setSeller({ text: 'Admin', link: '/admin' });
-                    setLogout(true);
-                }
-            } catch (error) {
-                console.error('Token decoding error:', error);
-            }
-        }
-    }, []);
-
     // Handle input and file changes
     const getValue = (val) => {
         const { name, value, type, files } = val.target;
