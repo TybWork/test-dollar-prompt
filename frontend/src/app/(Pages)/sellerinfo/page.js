@@ -58,10 +58,9 @@ const Page = () => {
         try {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
-            const profileHandle = decodedToken.profileHandle;
+            profileHandle = decodedToken.profileHandle;
             const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
             document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=test-dollar-prompt.vercel.app`; // Update cookie
-            router.push(`/user/${profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
         }
@@ -89,6 +88,9 @@ const Page = () => {
             });
 
             await becomeSeller(); // Ensure this completes before proceeding
+            const decodedToken = jwtDecode(token);
+            profileHandle = decodedToken.profileHandle;
+            router.push(`/user/${profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
