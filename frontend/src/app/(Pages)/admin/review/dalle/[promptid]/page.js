@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 
 const Page = ({ params }) => {
     const router = useRouter();
@@ -15,9 +16,13 @@ const Page = ({ params }) => {
     const [status, setstatus] = useState('')
 
     useEffect(() => {
+        const token = getTokenFunction().token
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?_id=${promptid}`, {
+                    headers: {
+                        'Authorization': token
+                    },
                     withCredentials: true,
                 });
                 setPromptData(response.data[0]);
