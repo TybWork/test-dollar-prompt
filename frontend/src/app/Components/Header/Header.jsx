@@ -116,7 +116,7 @@ const Header = () => {
                     {/* top nav icons */}
                     <nav className={styles.mainNav}>
                         <ul>
-                            <li><Link className={styles.link} style={{ display: role === 'admin' ? 'none' : 'block' }} href="/Marketplace">Marketplace</Link></li>
+                            <li><Link className={styles.link} style={{ display: role === 'admin' ? 'none' : 'block' }} href="/market">Marketplace</Link></li>
                             <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                             {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                         </ul>

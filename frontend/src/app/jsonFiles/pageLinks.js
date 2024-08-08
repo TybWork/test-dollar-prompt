@@ -5,7 +5,7 @@ let pageArr = [
     },
     {
         title: "Marketplace",
-        link: "/Marketplace"
+        link: "/market"
     },
     {
         title: "Apps",
@@ -23,9 +23,9 @@ let pageArr = [
         title: "Login",
         link: "/login"
     },
-    {
-        title: "Sell",
-        link: "/Sell"
-    },
+    // {
+    //     title: "Sell",
+    //     link: "/sell"
+    // },
 ]
 export default pageArr;
