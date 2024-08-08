@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
 import ReviewCard from '@/app/Components/reviewCard/ReviewCard'
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
-import { getTokenFunction } from '@/app/utilities/getTokenFunction'
+import { getTokenFunction } from '@/app/utilities/getTokenFunction.js'
 const page = () => {
     const router = useRouter();
     const [isAdmin, setisAdmin] = useState(false)
