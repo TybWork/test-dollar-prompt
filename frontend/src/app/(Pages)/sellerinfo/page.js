@@ -70,7 +70,6 @@ const Page = () => {
     // Handle form submission
     const onSubmitFunc = async () => {
         try {
-            await becomeSeller(); // Ensure this completes before proceeding
 
             const formData = new FormData();
             for (const key in user) {
@@ -89,6 +88,7 @@ const Page = () => {
                 withCredentials: true
             });
 
+            await becomeSeller(); // Ensure this completes before proceeding
         } catch (error) {
             console.error('Error submitting form:', error);
         }
