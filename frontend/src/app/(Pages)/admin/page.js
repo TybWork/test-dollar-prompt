@@ -30,7 +30,7 @@ const page = () => {
     // }
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const token = getCookieValue('token');
+            const token = getTokenFunction()
             if (token) {
                 const decodeCookie = jwtDecode(token);
                 const userRole = decodeCookie.userRole;
@@ -40,7 +40,7 @@ const page = () => {
                     const fetchData = async () => {
                         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&promptType=Dall-E`, {
                             headers: {
-                                'Authorization': getTokenFunction()
+                                'Authorization': token
                             },
                             withCredentials: true
                         })
