@@ -58,7 +58,6 @@ const Page = () => {
         try {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
-            profileHandle = decodedToken.profileHandle;
             const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
             document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=test-dollar-prompt.vercel.app`; // Update cookie
         } catch (error) {
