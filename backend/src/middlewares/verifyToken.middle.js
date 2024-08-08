@@ -1,31 +1,70 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User/user.model.js';
 
+// export const isAdmin = async (req, res, next) => {
+//     try {
+//         // const token = await req.cookies.token;
+//         const authHeader = req.headers['Authorization']
+
+//         if (!authHeader) {
+//             return res.status(400).json({ msg: "Unauthorized: You don't have token" });
+//         }
+
+//         const token = authHeader.split(' ')[1];
+//         const decode = jwt.verify(token, process.env.JWT_SECRET);
+//         const user = await User.findById(decode.userId);
+
+//         if (!user) {
+//             return res.status(400).json({ msg: "User not found" });
+//         }
+
+//         if (user.role !== "admin") {
+//             return res.status(400).json({ msg: "Unauthorized: User is not admin!" });
+//         }
+
+//         req.user = user;
+//         next();
+//     } catch (error) {
+//         return res.status(400).json(error);
+//     }
+// };
+
+
 export const isAdmin = async (req, res, next) => {
     try {
-        // const token = await req.cookies.token;
-        const authHeader = req.headers['Authorization']
+        // Check for the Authorization header
+        const authHeader = req.headers['authorization'] || req.headers['Authorization'];
 
         if (!authHeader) {
-            return res.status(400).json({ msg: "Unauthorized: You don't have token" });
+            return res.status(401).json({ msg: "Unauthorized: No token provided" });
         }
 
-        const token = authHeader.split(' ')[1];
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decode.userId);
+        // Extract the token
+        const [bearer, token] = authHeader.split(' ');
+
+        if (bearer !== 'Bearer' || !token) {
+            return res.status(401).json({ msg: "Unauthorized: Invalid token format" });
+        }
+
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId);
 
         if (!user) {
-            return res.status(400).json({ msg: "User not found" });
+            return res.status(401).json({ msg: "Unauthorized: User not found" });
         }
 
+        // Check if the user is an admin
         if (user.role !== "admin") {
-            return res.status(400).json({ msg: "Unauthorized: User is not admin!" });
+            return res.status(403).json({ msg: "Forbidden: User is not an admin" });
         }
 
+        // Attach user to request
         req.user = user;
         next();
     } catch (error) {
-        return res.status(400).json(error);
+        console.error('Authentication error:', error.message);
+        return res.status(401).json({ msg: "Unauthorized: Invalid token or user" });
     }
 };
 

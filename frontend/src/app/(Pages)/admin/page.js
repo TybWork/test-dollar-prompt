@@ -37,7 +37,7 @@ const page = () => {
                 if (userRole == 'admin') {
                     setisAdmin(true);
                     const fetchData = async () => {
-                        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&&promptType=Dall-E`, {
+                        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&promptType=Dall-E`, {
                             headers: {
                                 'Authorization': getTokenFromCookie()
                             },
