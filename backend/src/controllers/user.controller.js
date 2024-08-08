@@ -133,32 +133,27 @@ export const refreshCookie = async (req, res) => {
     let profileHandle = null;
 
     try {
-        // Check userRole before querying
         if (userRole === 'seller') {
-            console.log(`Fetching profileHandle for userId: ${userId}`);
-            const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle').exec();
-
+            const findSeller = await SellerProfile.findOne({ userId }).select('profileHandle').exec();
             if (findSeller) {
                 profileHandle = findSeller.profileHandle;
-                console.log(`Found profileHandle: ${profileHandle}`);
             } else {
-                console.log('No seller profile found');
+                console.log(`No seller profile found for userId: ${userId}`);
             }
         }
 
-        // Create JWT token
+        // Create JWT token with user details and profileHandle
         const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET);
 
-        // Set the cookie
+        // Set the cookie with the new token
         res.cookie('token', newToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
+            domain: 'test-dollar-prompt.vercel.app', // Must match domain used when setting cookie
             path: '/'
         });
 
-        // Send response
         return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken });
 
     } catch (error) {
@@ -167,5 +162,5 @@ export const refreshCookie = async (req, res) => {
             msg: `Failed to refresh cookie ${error}`
         });
     }
-}
+};
 
