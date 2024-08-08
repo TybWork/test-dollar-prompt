@@ -44,7 +44,7 @@ const Page = () => {
                 withCredentials: true
             });
             document.cookie = `token=${response.data.newToken}; path=/; secure; sameSite=None domain=test-dollar-prompt.vercel.app`;
-            setSeller({ text: 'Profile', link: `/` });
+            // setSeller({ text: 'Profile', link: `/` });
             console.log('Cookie refreshed successfully', response.data);
         } catch (error) {
             console.error('Failed to refresh cookie', error);
