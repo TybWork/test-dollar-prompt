@@ -132,7 +132,7 @@ export const refreshCookie = async (req, res) => {
 
     let profileHandle = null
     if (userRole == 'seller') {
-        const findSeller = SellerProfile.findOne({ userId: userId }).select('profileHandle')
+        const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
         if (findSeller) {
             profileHandle = findSeller.profileHandle
         }
