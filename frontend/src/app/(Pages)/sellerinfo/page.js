@@ -21,7 +21,7 @@ const Page = () => {
     };
 
     const getAuthorizationHeader = () => {
-        const token = getAuthorizationHeader('token')
+        const token = getTokenFromCookie('token')
         return token ? `Bearer ${token}` : ''
     }
 
