@@ -130,29 +130,42 @@ export const clearCookie = (req, res) => {
 export const refreshCookie = async (req, res) => {
     const { userId, userRole } = req.body;
 
-    let profileHandle = null
-    if (userRole == 'seller') {
-        const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
-        if (findSeller) {
-            profileHandle = findSeller.profileHandle
-        }
-    }
+    let profileHandle = null;
 
     try {
-        const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
+        // Check userRole before querying
+        if (userRole === 'seller') {
+            console.log(`Fetching profileHandle for userId: ${userId}`);
+            const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle').exec();
 
+            if (findSeller) {
+                profileHandle = findSeller.profileHandle;
+                console.log(`Found profileHandle: ${profileHandle}`);
+            } else {
+                console.log('No seller profile found');
+            }
+        }
+
+        // Create JWT token
+        const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET);
+
+        // Set the cookie
         res.cookie('token', newToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
             domain: "test-dollar-prompt.vercel.app", // Must match domain used when setting cookie
             path: '/'
-        })
+        });
 
-        return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken })
+        // Send response
+        return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken });
+
     } catch (error) {
+        console.error('Error refreshing cookie:', error);
         return res.status(400).json({
             msg: `Failed to refresh cookie ${error}`
-        })
+        });
     }
 }
+
