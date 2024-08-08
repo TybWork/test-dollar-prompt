@@ -23,6 +23,10 @@ const page = () => {
         const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         return match ? decodeURIComponent(match[2]) : null;
     };
+    const getTokenFromCookie = () => {
+        const token = getCookieValue('token')
+        return token ? `Bearer ${token}` : ''
+    }
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const token = getCookieValue('token');
@@ -34,6 +38,9 @@ const page = () => {
                     setisAdmin(true);
                     const fetchData = async () => {
                         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&&promptType=Dall-E`, {
+                            headers: {
+                                'Authorization': getTokenFromCookie()
+                            },
                             withCredentials: true
                         })
                         setpromptData(response.data)
