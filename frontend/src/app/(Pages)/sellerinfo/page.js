@@ -13,8 +13,6 @@ import { useRouter } from 'next/navigation';
 const Page = () => {
     const router = useRouter();
     const [user, setUser] = useState({});
-    const [logout, setLogout] = useState(false);
-    const [seller, setSeller] = useState({ text: "Login", link: "/login" });
 
     // Extract token from cookies
     const getTokenFromCookie = (name) => {
@@ -42,7 +40,7 @@ const Page = () => {
             });
             document.cookie = `token=${response.data.newToken}; path=/; secure; sameSite=None`;
             setLogout(true);
-            setSeller({ text: 'Profile', link: `/seller/${userId}` });
+            setSeller({ text: 'Profile', link: `/` });
             console.log('Cookie refreshed successfully', response.data);
         } catch (error) {
             console.error('Failed to refresh cookie', error);
@@ -58,7 +56,7 @@ const Page = () => {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
             await refreshCookie(userId, 'seller');
-            router.push(`/seller/${userId}`);
+            // router.push(`/seller/${userId}`);
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
         }
