@@ -25,7 +25,7 @@ const SelectCountry = ({ onClick }) => {
 
                 {/* next button proceed to payouts */}
                 <div className={styles.btnContainer}>
-                    <GradientButton title="Enable Payouts" onClick={onClick} />
+                    <GradientButton title="Submit" onClick={onClick} />
                 </div>
             </div>
         </div>
