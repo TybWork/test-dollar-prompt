@@ -7,7 +7,7 @@ import InputField from '@/app/Components/(liteComponents)/InputField/InputField'
 import FieldInfo from '@/app/Components/(liteComponents)/FieldInfo/FieldInfo';
 import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/ImageUploader';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
-import jwtDecode from 'jwt-decode'; // Make sure the import is correct
+import { jwtDecode } from 'jwt-decode'; // Make sure the import is correct
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
