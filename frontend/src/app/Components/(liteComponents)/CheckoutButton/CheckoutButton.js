@@ -33,7 +33,6 @@ export default function CheckoutButton() {
     }
 
     const cartProducts = useSelector((item => item.cart.cartItems))
-    console.log('cartProducts', cartProducts)
     const transformDataArray = (dataArray) => {
         return dataArray.map(item => ({
             a: {
