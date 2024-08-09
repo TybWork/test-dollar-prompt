@@ -15,8 +15,8 @@ const Page = ({ params }) => {
     const [promptData, setPromptData] = useState(null); // Initialize with an empty object
     const [status, setstatus] = useState('')
 
+    const token = getTokenFunction().token
     useEffect(() => {
-        const token = getTokenFunction().token
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?_id=${promptid}`, {
@@ -40,6 +40,9 @@ const Page = ({ params }) => {
         const newStatus = target === 'Approve' ? 'active' : 'paused';
         setstatus(newStatus)
         await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dalle/update/${promptid}`, { status: newStatus }, {
+            headers: {
+                'Authorization': token
+            },
             withCredentials: true
         })
         router.push('/admin')
