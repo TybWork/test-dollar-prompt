@@ -63,8 +63,8 @@ const MobileNavbar = () => {
     }
 
     // logout logic
-    const logoutLogic = () => {
-        logoutFunc()
+    const logoutLogic = async () => {
+        await logoutFunc()
         setRole('user')
         setLogout(false)
         dispatch(hideNav())
