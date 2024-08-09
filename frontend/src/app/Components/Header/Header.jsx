@@ -1,37 +1,40 @@
-'use client';
+'use client'
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MdOutlineMessage } from "react-icons/md";
 import { GoBell } from "react-icons/go";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import styles from "@/app/Components/Header/Header.module.css"
 import { RxHamburgerMenu } from "react-icons/rx";
+
+// bottom nav imports
 import { TbBoxModel } from "react-icons/tb";
+import Search from "../(liteComponents)/Search/Search";
+import { useDispatch } from "react-redux";
+import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
+import categoriesArr from "@/app/jsonFiles/promptsCategories";
 import { ImArrowRight2 } from "react-icons/im";
 import { PiCaretRightBold } from "react-icons/pi";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import styles from "@/app/Components/Header/Header.module.css";
-import Search from "../(liteComponents)/Search/Search";
-import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 import { showCart } from "@/app/Redux/Features/cart/cartSlice";
-import categoriesArr from "@/app/jsonFiles/promptsCategories";
+import { userData } from "@/app/utilities/userData";
 
 const Header = () => {
     const router = useRouter();
-    const dispatch = useDispatch();
-    const cartProducts = useSelector((state) => state.cart.cartItems);
 
-    const [categoryHeading, setCategoryHeading] = useState('');
-    const [subHeadingTitle, setSubHeadingTitle] = useState('');
-    const [seller, setSeller] = useState({ text: "Login", link: "/login" });
-    const [showHeaderBox, setShowHeaderBox] = useState(false);
-    const [checkActiveHeader, setCheckActiveHeader] = useState(false);
-    const [subCategory, setSubCategory] = useState([]);
-    const [innerLinks, setInnerLinks] = useState([]);
-    const [logout, setLogout] = useState(false);
-    const [role, setRole] = useState('user');
+    const [categoryHeading, setcategoryHeading] = useState()
+    const [subHeadingTitle, setsubHeadingTitle] = useState()
+    const [seller, setSeller] = useState({ text: "Login", link: "/login" })
+    const [showHeaderBox, setshowHeaderBox] = useState(false)
+    const [checkActiveHeader, setcheckActiveHeader] = useState(false)
+    const [subCategory, setsubCategory] = useState([]);
+    const [innerLinks, setinnerLinks] = useState([])
+    const dispatch = useDispatch();
+    const [logout, setLogout] = useState(false)
+    const [role, setRole] = useState('user')
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -73,8 +76,8 @@ const Header = () => {
                 withCredentials: true
             });
             document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=test-dollar-prompt.vercel.app; secure; sameSite=None';
-            setSeller({ text: 'Login', link: '/login' });
-            setLogout(false);
+            setseller({ text: 'Login', link: '/login' });
+            setlogout(false);
             setRole('user');
             router.push('/');
         } catch (error) {
@@ -82,31 +85,45 @@ const Header = () => {
         }
     };
 
-    const showSubCategories = (val) => {
-        setCheckActiveHeader(true);
-        setSubCategory(val.SubCategories);
-        setCategoryHeading(val.name);
-    };
+
+    // ...........................functions for hide/show sub categories......................
+
+    const [hideTimeOut, sethideTimeOut] = useState(null)
+
+    // show sub categories container
+    const showSubCategories = (val, index) => {
+        clearTimeout(hideTimeOut)
+        setcheckActiveHeader(true)
+        setsubCategory(val.SubCategories);
+        setcategoryHeading(val.name);
+    }
 
     const hideSubCategories = () => {
-        setCheckActiveHeader(false);
-    };
+        sethideTimeOut(setTimeout(() => {
+            setcheckActiveHeader(false)
+        }, 200)
+        )
+    }
 
     const categoryContainer = () => {
-        setCheckActiveHeader(true);
-    };
+        clearTimeout(hideTimeOut)
+        setcheckActiveHeader(true)
+    }
 
-    const innerLinksFunc = (showCategory) => {
-        setSubHeadingTitle(showCategory.subCategoryTitle);
-        setInnerLinks(showCategory.innerCategories);
-    };
+    // showing innerLinks function 
+    function innerLinksFunc(showCategory) {
+        setsubHeadingTitle(showCategory.subCategoryTitle);
+        setinnerLinks(showCategory.innerCategroies);
+    }
+
+    const cartProducts = useSelector((state) => state.cart.cartItems)
 
     return (
         <>
             <header className={styles.headerContainer}>
-                {/* ------------- top header ------------- */}
+                {/* ------------- top header------------- */}
                 <div className={styles.topHeader}>
-                    {/* logo */}
+                    {/* logo  */}
                     <Link className={styles.desktopLogo} href='/'><img src="/assets/imageAssets/dollarprompt-desktop-logo.svg" style={{ width: "150px" }} alt="site-logo" /></Link>
                     <Link className={styles.mobileLogo} href='/'><img style={{ width: '36px' }} src="/assets/imageAssets/dollarprompt-mobile-logo.svg" alt="site-logo" /></Link>
 
@@ -116,9 +133,9 @@ const Header = () => {
                     {/* top nav icons */}
                     <nav className={styles.mainNav}>
                         <ul>
-                            <li><Link className={styles.link} style={{ display: role === 'admin' ? 'none' : 'block' }} href="/market">Marketplace</Link></li>
+                            <li><Link className={styles.link} style={{ display: role === 'admin' ? 'none' : 'block' }} href="/Marketplace">Marketplace</Link></li>
                             <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
-                            {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
+                            <li className={styles.link} style={{ display: `${logout == true ? 'block' : 'none'}` }} onClick={logoutFunc}>Logout</li>
                         </ul>
                     </nav>
                     <div className={styles.topNavIconsContainer} style={{ display: role === "admin" ? 'none' : 'flex' }}>
@@ -131,38 +148,43 @@ const Header = () => {
                         <RxHamburgerMenu className={`${styles.topNavIcons} ${styles.hamburgerIcon}`} onClick={() => dispatch(showNav())} />
                     </div>
                 </div>
-                {/* ------------- bottom navbar --------------- */}
+                {/*------------- bottom navbar --------------- */}
                 <nav className={styles.bottomNav} style={{ display: role === 'admin' ? 'none' : 'block' }}>
                     <ul>
-                        {categoriesArr.map((val, index) =>
-                            <li onMouseLeave={hideSubCategories} onMouseEnter={() => showSubCategories(val)} key={index}>
-                                <TbBoxModel /> <span>{val.name}</span>
-                            </li>
-                        )}
+                        {
+                            categoriesArr.map((val, index) =>
+                                <li onMouseLeave={hideSubCategories} onMouseEnter={() => showSubCategories(val, index)} key={index}><TbBoxModel /> <span>{val.name}</span></li>
+                            )
+                        }
                     </ul>
                 </nav>
             </header>
             {/* subcategories links */}
-            <div className={styles.subCategoriesContainer} style={{ display: checkActiveHeader ? 'flex' : 'none' }}
+            <div className={styles.subCategoriesContainer} style={{ display: `${checkActiveHeader ? 'flex' : 'none'}` }}
                 onMouseOver={categoryContainer} onMouseLeave={hideSubCategories}
             >
+
                 <div className={styles.subCategories}>
+
                     <div className={styles.categoryHeading}>All {categoryHeading}<ImArrowRight2 className={styles.arrowIcons} /></div>
-                    {subCategory.map((val, subIndex) =>
-                        <div className={styles.singleSubCategory} key={subIndex} onMouseEnter={() => innerLinksFunc(val)}>
-                            {val.subCategoryTitle} <PiCaretRightBold className={styles.arrowIcons} />
-                        </div>
-                    )}
+
+                    {
+                        subCategory.map((val, subIndex) => <div className={styles.singleSubCategory} key={subIndex} onMouseEnter={() => innerLinksFunc(val, subIndex)}>{val.subCategoryTitle} <PiCaretRightBold className={styles.arrowIcons} /></div>
+                        )
+                    }
                 </div>
+
                 <div className={styles.innerPromptLinksContainer}>
                     <div className={styles.subHeadingTitle}>All {subHeadingTitle}</div>
-                    {innerLinks.map((e, index) =>
-                        <div className={styles.innerPromptLink} key={index}>{e.name}</div>
-                    )}
+                    {
+                        innerLinks.map((e) =>
+                            <div className={styles.innerPromptLink}>{e.name}</div>
+                        )
+                    }
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 export default Header;
