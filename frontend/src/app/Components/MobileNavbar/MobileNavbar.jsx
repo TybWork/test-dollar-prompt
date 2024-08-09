@@ -26,7 +26,7 @@ const MobileNavbar = () => {
     const [role, setRole] = useState('user')
     const [profileHandle, setprofileHandle] = useState(null)
     const [userLinks, setuserLinks] = useState(getUserLinks().users)
-    const [logout, setLogout] = useState(false)
+    const [logout, setLogout] = useState(true)
 
 
 
@@ -119,7 +119,7 @@ const MobileNavbar = () => {
                         </div>
                     )
                 }
-                <Link href={logout ? '/login' : '/'} className={styles.link} onClick={logout ? logoutLogic : null}>{logout ? 'Login' : 'Logout'}</Link>
+                <Link href={logout ? '/login' : '#'} className={styles.link} onClick={logout ? null : logoutLogic}>{logout ? 'Login' : 'Logout'}</Link>
             </div>
         </div >
     )
