@@ -44,7 +44,6 @@ body {
   font-family: var(--font-finlandica);
   background-color: var(--primaryClr);
   color: var(--textClr);
-  cursor: url('/assets/imageAssets/cursor.png'), auto;
 }
 
 body::-webkit-scrollbar {
