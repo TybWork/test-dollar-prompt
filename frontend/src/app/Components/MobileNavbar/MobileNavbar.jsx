@@ -72,7 +72,7 @@ const MobileNavbar = () => {
             } else {
                 await logoutFunc();
                 setRole('user');
-                setLogout(false);
+                setLogout(true);
             }
             dispatch(hideNav());
         } catch (error) {
