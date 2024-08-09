@@ -31,6 +31,11 @@
 }
 
 /* categories styling */
+.promptCategories {
+    height: 30vh;
+    overflow-y: auto;
+}
+
 .mainCategories {
     font-weight: 500;
     padding-bottom: 24px;
@@ -75,6 +80,8 @@
 .linksContainer {
     display: flex;
     flex-direction: column;
+    height: 30vh;
+    overflow-y: auto;
 }
 
 .link {
