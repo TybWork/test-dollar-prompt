@@ -119,7 +119,7 @@ const MobileNavbar = () => {
                         </div>
                     )
                 }
-                <Link href={logout ? '/' : '/login'} className={styles.link} onClick={!logout ? logoutLogic : null}>{logout ? 'Login' : 'Logout'}</Link>
+                <Link href={logout ? '/login' : '/'} className={styles.link} onClick={logout ? logoutLogic : null}>{logout ? 'Login' : 'Logout'}</Link>
             </div>
         </div >
     )
