@@ -76,8 +76,8 @@ const Header = () => {
                 withCredentials: true
             });
             document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=test-dollar-prompt.vercel.app; secure; sameSite=None';
-            setseller({ text: 'Login', link: '/login' });
-            setlogout(false);
+            setSeller({ text: 'Login', link: '/login' });
+            setLogout(false);
             setRole('user');
             router.push('/');
         } catch (error) {

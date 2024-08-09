@@ -4,11 +4,13 @@ import { RxCross2 } from "react-icons/rx";
 import Image from 'next/image'
 import Link from 'next/link';
 import { FaAngleRight } from "react-icons/fa6";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import categoriesArr from '@/app/jsonFiles/promptsCategories';
 import pageArr from '@/app/jsonFiles/pageLinks';
 import { hideNav } from '@/app/Redux/Features/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction.js';
+import { jwtDecode } from 'jwt-decode';
 
 const MobileNavbar = () => {
 
@@ -19,6 +21,28 @@ const MobileNavbar = () => {
     const [hideSubCategory, sethideSubCategory] = useState(null);
     const [arrowIcon, setarrowIcon] = useState(null)
     const [subArrowIcon, setsubArrowIcon] = useState(null)
+    const [role, setRole] = useState('user')
+    const [profileHandle, setprofileHandle] = useState(null)
+    const [userLinks, setuserLinks] = useState(pageArr.users)
+
+    useEffect(() => {
+        const cookie = getTokenFunction().cookie
+        const decodedToken = jwtDecode(cookie)
+        const decodeRole = decodedToken.userRole;
+        const decodeProfileHandle = decodedToken.profileHandle;
+
+        setRole(decodeRole);
+        setprofileHandle(decodeProfileHandle);
+
+        if (role == 'user') {
+            setuserLinks(userLinks.users)
+        } else if (role == 'seller') {
+            setuserLinks(userLinks.seller)
+        } else if (role == 'admin') {
+            setuserLinks(userLinks.admin)
+        }
+    }, [])
+
     function appendFunc(index) {
         sethideCategory(hideCategory === index ? null : index)
         setarrowIcon(arrowIcon === index ? null : index)
@@ -75,7 +99,7 @@ const MobileNavbar = () => {
             <div className={styles.pagesLinkContainer}>
                 <div className={styles.general}>GENERAL</div>
                 {
-                    pageArr.map((linksData, linkIndex) =>
+                    userLinks.map((linksData, linkIndex) =>
                         <div key={linkIndex} className={styles.linksContainer}>
                             <Link className={styles.link} href={linksData.link}>{linksData.title}</Link>
                         </div>

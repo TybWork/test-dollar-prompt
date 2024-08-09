@@ -7,12 +7,17 @@ import styles from "@/app/Components/AdminHeader/AdminHeader.module.css";
 import { jwtDecode } from "jwt-decode"; // Import as a default
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
+
 
 const AdminHeader = () => {
     const router = useRouter();
     const [seller, setSeller] = useState({ text: "Login", link: "/login" });
     const [logout, setLogout] = useState(false);
-    const [role, setRole] = useState('user'); // Default to 'user'
+    const [role, setRole] = useState('user');
+    const dispatch = useDispatch()
 
     useEffect(() => {
         // Function to get cookie value
@@ -89,6 +94,9 @@ const AdminHeader = () => {
                         <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                         {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                     </ul>
+
+                    <RxHamburgerMenu onClick={() => dispatch(showNav())} />
+
                 </nav>
             </div>
         </header>

@@ -26,7 +26,6 @@ const Page = ({ params }) => {
                     withCredentials: true,
                 });
                 setPromptData(response.data[0]);
-                console.log(response.data[0])
             } catch (error) {
                 console.error('Error fetching prompt data:', error);
             }
