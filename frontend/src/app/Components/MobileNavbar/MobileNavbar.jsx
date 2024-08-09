@@ -97,53 +97,59 @@ const MobileNavbar = () => {
             {/* categories */}
             <div style={{ display: role == 'user' ? 'block' : 'none' }} className={styles.categoryWrapper}>
                 <div className={styles.explore}>Explore</div>
-                {/* Prompts categories */}
-                {categoriesArr.map((e, index) => (
-                    <div className={styles.promptCategories} key={index}>
-                        <div className={styles.mainCategories} onClick={() => appendFunc(index)}>
-                            {e.name}
-                            <FaAngleRight
-                                className={styles.bottomIcon}
-                                style={{ transform: arrowIcon === index ? 'rotate(-90deg)' : 'rotate(90deg)' }}
-                            />
-                        </div>
-                        <div className={styles.subCategories} style={{ display: hideCategory === index ? 'block' : 'none' }}>
-                            {e.SubCategories.map((subCat, subIndex) => (
-                                <div key={subIndex}>
-                                    <div className={styles.subCategoryHeading} onClick={() => appendSubCategory(subIndex)}>
-                                        {subCat.subCategoryTitle}
-                                        <FaAngleRight
-                                            style={{ transform: subArrowIcon === subIndex ? 'rotate(-90deg)' : 'rotate(90deg)' }}
-                                            className={styles.bottomIcon}
-                                        />
+                {/* Prompts categories*/}
+                <div className={styles.subCategoriesWraper}>
+
+                    {categoriesArr.map((e, index) => (
+                        <div className={styles.promptCategories} key={index}>
+                            <div className={styles.mainCategories} onClick={() => appendFunc(index)}>
+                                {e.name}
+                                <FaAngleRight
+                                    className={styles.bottomIcon}
+                                    style={{ transform: arrowIcon === index ? 'rotate(-90deg)' : 'rotate(90deg)' }}
+                                />
+                            </div>
+                            <div className={styles.subCategories} style={{ display: hideCategory === index ? 'block' : 'none' }}>
+                                {e.SubCategories.map((subCat, subIndex) => (
+                                    <div key={subIndex}>
+                                        <div className={styles.subCategoryHeading} onClick={() => appendSubCategory(subIndex)}>
+                                            {subCat.subCategoryTitle}
+                                            <FaAngleRight
+                                                style={{ transform: subArrowIcon === subIndex ? 'rotate(-90deg)' : 'rotate(90deg)' }}
+                                                className={styles.bottomIcon}
+                                            />
+                                        </div>
+                                        <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
+                                            {subCat.innerCategroies.map((val, innerIndex) => (
+                                                <div onClick={() => dispatch(hideNav())} key={innerIndex} className={styles.innerCategories}>{val.name}</div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
-                                        {subCat.innerCategroies.map((val, innerIndex) => (
-                                            <div onClick={() => dispatch(hideNav())} key={innerIndex} className={styles.innerCategories}>{val.name}</div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
             {/* Pages link container */}
             <div className={styles.pagesLinkContainer}>
                 <div className={styles.general}>GENERAL</div>
-                {userLinks.map((linksData, linkIndex) => (
-                    <div key={linkIndex} className={styles.linksContainer}>
-                        <Link onClick={() => dispatch(hideNav())} className={styles.link} href={linksData.link}>{linksData.title}</Link>
-                    </div>
-                ))}
-                <Link
-                    href='/'
-                    className={styles.link}
-                    onClick={logoutLogic}
-                >
-                    {logout ? 'Login' : 'Logout'}
-                </Link>
+                {/* pages link wraper  */}
+                <div className={styles.pageLinksWraper}>
+                    {userLinks.map((linksData, linkIndex) => (
+                        <div key={linkIndex} className={styles.linksContainer}>
+                            <Link onClick={() => dispatch(hideNav())} className={styles.link} href={linksData.link}>{linksData.title}</Link>
+                        </div>
+                    ))}
+                    <Link
+                        href='/'
+                        className={styles.link}
+                        onClick={logoutLogic}
+                    >
+                        {logout ? 'Login' : 'Logout'}
+                    </Link>
+                </div>
             </div>
         </div>
     );

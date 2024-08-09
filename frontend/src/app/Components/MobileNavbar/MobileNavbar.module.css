@@ -31,7 +31,8 @@
 }
 
 /* categories styling */
-.promptCategories {
+.subCategoriesWraper,
+.pageLinksWraper {
     height: 30vh;
     overflow-y: auto;
 }
@@ -80,8 +81,6 @@
 .linksContainer {
     display: flex;
     flex-direction: column;
-    height: 30vh;
-    overflow-y: auto;
 }
 
 .link {
