@@ -12,7 +12,7 @@ import { hideNav } from '@/app/Redux/Features/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction.js';
 import { jwtDecode } from 'jwt-decode';
-import { logoutFunc } from '@/app/utilities/logoutFunction';
+import { logoutFunc } from '@/app/utilities/logoutFunction.js';
 
 const MobileNavbar = () => {
 
