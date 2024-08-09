@@ -35,6 +35,9 @@ const MobileNavbar = () => {
         setRole(decodeRole);
         setprofileHandle(decodeProfileHandle);
 
+    }, [])
+
+    useEffect(() => {
         if (role == 'user') {
             setuserLinks(getUserLinks().users)
         } else if (role == 'seller') {
@@ -42,7 +45,7 @@ const MobileNavbar = () => {
         } else if (role == 'admin') {
             setuserLinks(getUserLinks().admin)
         }
-    }, [])
+    }, [role, profileHandle])
 
     function appendFunc(index) {
         sethideCategory(hideCategory === index ? null : index)
