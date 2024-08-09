@@ -95,7 +95,7 @@ const AdminHeader = () => {
                         {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                     </ul>
 
-                    <RxHamburgerMenu onClick={() => dispatch(showNav())} />
+                    <RxHamburgerMenu className={styles.hamburgerIcon} onClick={() => dispatch(showNav())} />
 
                 </nav>
             </div>

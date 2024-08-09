@@ -56,8 +56,6 @@ const MobileNavbar = () => {
         sethideSubCategory(hideSubCategory === index ? null : index)
         setsubArrowIcon(subArrowIcon === index ? null : index)
     }
-
-
     return (
         <div className={styles.parentContainer} style={{ left: `${hideNavbar}` }}>
             <div className={styles.header}>

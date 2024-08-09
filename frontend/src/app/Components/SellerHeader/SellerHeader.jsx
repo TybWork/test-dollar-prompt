@@ -6,12 +6,16 @@ import Image from "next/image";
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 
 const SellerHeader = () => {
     const router = useRouter();
     const [seller, setseller] = useState({ text: "Login", link: "/login" });
     const [logout, setlogout] = useState(false);
     const [role, setrole] = useState('user'); // Default role
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -79,6 +83,7 @@ const SellerHeader = () => {
                         <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                         {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                     </ul>
+                    <RxHamburgerMenu className={styles.hamburgerIcon} onClick={() => dispatch(showNav())} />
                 </nav>
             </div>
         </header>
