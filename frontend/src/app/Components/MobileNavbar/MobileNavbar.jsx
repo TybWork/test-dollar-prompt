@@ -66,6 +66,7 @@ const MobileNavbar = () => {
         logoutFunc()
         setRole('user')
         setLogout(true)
+        dispatch(hideNav())
     }
     return (
         <div className={styles.parentContainer} style={{ left: `${hideNavbar}` }}>
@@ -118,7 +119,7 @@ const MobileNavbar = () => {
                         </div>
                     )
                 }
-                <Link href={logout ? '/' : '/login'} className={styles.link} onClick={logoutLogic}>{logout ? 'Login' : 'Logout'}</Link>
+                <Link href={logout ? '/' : '/login'} className={styles.link} onClick={!logout ? logoutLogic : null}>{logout ? 'Login' : 'Logout'}</Link>
             </div>
         </div >
     )
