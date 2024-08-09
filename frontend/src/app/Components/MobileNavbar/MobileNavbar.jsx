@@ -32,12 +32,13 @@ const MobileNavbar = () => {
 
     useEffect(() => {
         const cookie = getTokenFunction().cookie
-        const decodedToken = jwtDecode(cookie)
-        const decodeRole = decodedToken.userRole;
-        const decodeProfileHandle = decodedToken.profileHandle;
-
-        setRole(decodeRole);
-        setprofileHandle(decodeProfileHandle);
+        if (cookie) {
+            const decodedToken = jwtDecode(cookie)
+            const decodeRole = decodedToken.userRole;
+            const decodeProfileHandle = decodedToken.profileHandle;
+            setRole(decodeRole);
+            setprofileHandle(decodeProfileHandle);
+        }
 
     }, [])
 
