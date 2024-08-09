@@ -66,7 +66,7 @@ const MobileNavbar = () => {
     const logoutLogic = () => {
         logoutFunc()
         setRole('user')
-        setLogout(true)
+        setLogout(false)
         dispatch(hideNav())
     }
     return (
