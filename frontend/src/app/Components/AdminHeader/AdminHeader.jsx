@@ -90,7 +90,7 @@ const AdminHeader = () => {
                 {/* top nav icons */}
                 <nav className={styles.mainNav}>
                     <ul>
-                        <li><Link className={styles.link} href='/'>Marketplace</Link></li>
+                        <li><Link className={styles.link} href='/market'>Marketplace</Link></li>
                         <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                         {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                     </ul>

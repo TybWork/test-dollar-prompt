@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { FaAngleRight } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import categoriesArr from '@/app/jsonFiles/promptsCategories';
-import pageArr from '@/app/jsonFiles/pageLinks';
+// import pageArr from '@/app/jsonFiles/getUserLinks';
+import { getUserLinks } from '@/app/jsonFiles/getUserLinks.js';
 import { hideNav } from '@/app/Redux/Features/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction.js';
@@ -23,7 +24,7 @@ const MobileNavbar = () => {
     const [subArrowIcon, setsubArrowIcon] = useState(null)
     const [role, setRole] = useState('user')
     const [profileHandle, setprofileHandle] = useState(null)
-    const [userLinks, setuserLinks] = useState(pageArr.users)
+    const [userLinks, setuserLinks] = useState(getUserLinks().users)
 
     useEffect(() => {
         const cookie = getTokenFunction().cookie
@@ -35,11 +36,11 @@ const MobileNavbar = () => {
         setprofileHandle(decodeProfileHandle);
 
         if (role == 'user') {
-            setuserLinks(userLinks.users)
+            setuserLinks(getUserLinks().users)
         } else if (role == 'seller') {
-            setuserLinks(userLinks.seller)
+            setuserLinks(getUserLinks(profileHandle).seller)
         } else if (role == 'admin') {
-            setuserLinks(userLinks.admin)
+            setuserLinks(getUserLinks().admin)
         }
     }, [])
 
