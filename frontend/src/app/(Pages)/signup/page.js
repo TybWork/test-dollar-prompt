@@ -33,7 +33,7 @@ const CreateUser = () => {
 
     return (
         <div className={styles.container}>
-            <Image src="/assets/imageAssets/logo.png" width={0} height={0} className={styles.logo} sizes="100vw" />
+            <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" />
             {/* heading */}
             <h1 className={styles.heading}>Create An Account</h1>
             <form onSubmit={submitForm} action="" className={styles.formContainer}>
