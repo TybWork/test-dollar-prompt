@@ -39,7 +39,7 @@ const MobileNavbar = () => {
             setuserLinks(getUserLinks().users)
         } else if (role == 'seller') {
             setuserLinks(getUserLinks(profileHandle).seller)
-        } else if (role == 'admin') {
+        } else if (role == null) {
             setuserLinks(getUserLinks().admin)
         }
     }, [])
