@@ -160,7 +160,8 @@ const Header = () => {
                 </nav>
             </header>
             {/* subcategories links */}
-            <div className={styles.subCategoriesContainer} style={{ display: `${checkActiveHeader ? 'flex' : 'none'}` }}
+            {/* <div className={styles.subCategoriesContainer} style={{ display: `${checkActiveHeader ? 'flex' : 'none'}` }} */}
+            <div className={styles.subCategoriesContainer} style={{ height: `${checkActiveHeader ? '400px' : '0px'}` }}
                 onMouseOver={categoryContainer} onMouseLeave={hideSubCategories}
             >
 

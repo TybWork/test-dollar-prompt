@@ -96,7 +96,7 @@ const MobileNavbar = () => {
 
             {/* categories */}
             <div style={{ display: role == 'user' ? 'block' : 'none' }} className={styles.categoryWrapper}>
-                <div className={styles.explore}>Explore</div>
+                <div className={styles.explore}>Explore Categories</div>
                 {/* Prompts categories*/}
                 <div className={styles.subCategoriesWraper}>
 
