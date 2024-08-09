@@ -21,10 +21,6 @@ export const getUserLinks = (profileHandle) => {
                 title: "Hire",
                 link: "/Hire"
             },
-            {
-                title: "Login",
-                link: "/login"
-            },
         ],
         seller: [
             {
@@ -39,10 +35,6 @@ export const getUserLinks = (profileHandle) => {
                 title: "Profile",
                 link: `/user/${profileHandle}/seller-dashboard`
             },
-            {
-                title: "Logout",
-                link: "/logout"
-            },
         ],
         admin: [
             {
@@ -56,10 +48,6 @@ export const getUserLinks = (profileHandle) => {
             {
                 title: "Admin",
                 link: "/admin"
-            },
-            {
-                title: "Logout",
-                link: "/"
             },
         ]
     }

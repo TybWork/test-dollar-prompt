@@ -12,6 +12,7 @@ import { hideNav } from '@/app/Redux/Features/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction.js';
 import { jwtDecode } from 'jwt-decode';
+import { logoutFunc } from '@/app/utilities/logoutFunction';
 
 const MobileNavbar = () => {
 
@@ -25,6 +26,9 @@ const MobileNavbar = () => {
     const [role, setRole] = useState('user')
     const [profileHandle, setprofileHandle] = useState(null)
     const [userLinks, setuserLinks] = useState(getUserLinks().users)
+    const [logout, setLogout] = useState(false)
+
+
 
     useEffect(() => {
         const cookie = getTokenFunction().cookie
@@ -55,6 +59,13 @@ const MobileNavbar = () => {
     function appendSubCategory(index) {
         sethideSubCategory(hideSubCategory === index ? null : index)
         setsubArrowIcon(subArrowIcon === index ? null : index)
+    }
+
+    // logout logic
+    const logoutLogic = () => {
+        logoutFunc()
+        setRole('user')
+        setLogout(true)
     }
     return (
         <div className={styles.parentContainer} style={{ left: `${hideNavbar}` }}>
@@ -107,6 +118,7 @@ const MobileNavbar = () => {
                         </div>
                     )
                 }
+                <Link href={logout ? '/' : '/login'} className={styles.link} onClick={logoutLogic}>{logout ? 'Login' : 'Logout'}</Link>
             </div>
         </div >
     )
