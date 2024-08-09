@@ -66,7 +66,7 @@
 
 .general,
 .explore {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--customBorder);
     padding-bottom: 1em;
     margin-bottom: 1em;
     opacity: .7;

@@ -9,18 +9,6 @@ export const getUserLinks = (profileHandle) => {
                 title: "Marketplace",
                 link: "/market"
             },
-            {
-                title: "Apps",
-                link: "/our-apps"
-            },
-            {
-                title: "Create",
-                link: "/create"
-            },
-            {
-                title: "Hire",
-                link: "/Hire"
-            },
         ],
         seller: [
             {
