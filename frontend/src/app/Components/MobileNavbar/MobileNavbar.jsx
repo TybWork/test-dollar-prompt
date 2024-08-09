@@ -61,8 +61,9 @@ const MobileNavbar = () => {
         setSubArrowIcon(subArrowIcon === index ? null : index);
     }
 
-    const logoutLogic = async () => {
+    const logoutLogic = async (e) => {
         try {
+            e.preventDefault()
             await logoutFunc();
             setRole('user');
             setLogout(true); // Ensure logout state is updated to show 'Login'
