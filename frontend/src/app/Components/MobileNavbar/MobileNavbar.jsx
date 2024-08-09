@@ -1,7 +1,7 @@
 "use client";
-import styles from '@/app/Components/MobileNavbar/MobileNavbar.module.css';
+import styles from '@/app/Components/MobileNavbar/MobileNavbar.module.css'
 import { RxCross2 } from "react-icons/rx";
-import Image from 'next/image';
+import Image from 'next/image'
 import Link from 'next/link';
 import { FaAngleRight } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { logoutFunc } from '@/app/utilities/logoutFunction.js';
 
 const MobileNavbar = () => {
-    const router = useRouter();
+    const router = useRouter()
     const dispatch = useDispatch();
     const hideNavbar = useSelector((state) => state.navbar.position);
 
@@ -26,7 +26,7 @@ const MobileNavbar = () => {
     const [role, setRole] = useState('user');
     const [profileHandle, setProfileHandle] = useState(null);
     const [userLinks, setUserLinks] = useState(getUserLinks().users);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [logout, setLogout] = useState(true);
 
     useEffect(() => {
         const cookie = getTokenFunction().cookie;
@@ -37,11 +37,10 @@ const MobileNavbar = () => {
                 const decodeProfileHandle = decodedToken.profileHandle;
                 setRole(decodeRole);
                 setProfileHandle(decodeProfileHandle);
+                setLogout(false)
             } catch (error) {
                 console.error('Error decoding token:', error);
             }
-        } else {
-            setIsLoggedIn(false); // Set login state if no cookie is found
         }
     }, []);
 
@@ -55,23 +54,27 @@ const MobileNavbar = () => {
         }
     }, [role, profileHandle]);
 
-    const appendFunc = (index) => {
+    function appendFunc(index) {
         setHideCategory(hideCategory === index ? null : index);
         setArrowIcon(arrowIcon === index ? null : index);
-    };
+    }
 
-    const appendSubCategory = (index) => {
+    function appendSubCategory(index) {
         setHideSubCategory(hideSubCategory === index ? null : index);
         setSubArrowIcon(subArrowIcon === index ? null : index);
-    };
+    }
 
-    const handleLogout = async (e) => {
-        e.preventDefault();
+    const logoutLogic = async (e) => {
+        e.preventDefault()
         try {
-            await logoutFunc();
-            setIsLoggedIn(false); // Update login state
+            if (logout === true) {
+                router.push('/login')
+            } else {
+                await logoutFunc();
+                setRole('user');
+                setLogout(false);
+            }
             dispatch(hideNav());
-            router.push('/login'); // Redirect to login page
         } catch (error) {
             console.error("Logout failed:", error);
         }
@@ -112,7 +115,7 @@ const MobileNavbar = () => {
                                     />
                                 </div>
                                 <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
-                                    {subCat.innerCategories.map((val, innerIndex) => (
+                                    {subCat.innerCategroies.map((val, innerIndex) => (
                                         <div key={innerIndex} className={styles.innerCategories}>{val.name}</div>
                                     ))}
                                 </div>
@@ -131,11 +134,11 @@ const MobileNavbar = () => {
                     </div>
                 ))}
                 <Link
-                    href={isLoggedIn ? '#' : '/login'}
+                    href='/'
                     className={styles.link}
-                    onClick={isLoggedIn ? handleLogout : undefined}
+                    onClick={logoutLogic}
                 >
-                    {isLoggedIn ? 'Logout' : 'Login'}
+                    {logout ? 'Login' : 'Logout'}
                 </Link>
             </div>
         </div>
