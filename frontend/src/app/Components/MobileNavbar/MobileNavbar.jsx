@@ -62,8 +62,8 @@ const MobileNavbar = () => {
     }
 
     const logoutLogic = async (e) => {
+        e.preventDefault()
         try {
-            e.preventDefault()
             await logoutFunc();
             setRole('user');
             setLogout(true); // Ensure logout state is updated to show 'Login'
