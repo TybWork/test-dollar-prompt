@@ -73,6 +73,7 @@ const MobileNavbar = () => {
                 await logoutFunc();
                 setRole('user');
                 setLogout(true);
+                router.push('/')
             }
             dispatch(hideNav());
         } catch (error) {
@@ -116,7 +117,7 @@ const MobileNavbar = () => {
                                 </div>
                                 <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
                                     {subCat.innerCategroies.map((val, innerIndex) => (
-                                        <div key={innerIndex} className={styles.innerCategories}>{val.name}</div>
+                                        <div onClick={() => dispatch(hideNav())} key={innerIndex} className={styles.innerCategories}>{val.name}</div>
                                     ))}
                                 </div>
                             </div>
@@ -130,7 +131,7 @@ const MobileNavbar = () => {
                 <div className={styles.general}>GENERAL</div>
                 {userLinks.map((linksData, linkIndex) => (
                     <div key={linkIndex} className={styles.linksContainer}>
-                        <Link className={styles.link} href={linksData.link}>{linksData.title}</Link>
+                        <Link onClick={() => dispatch(hideNav())} className={styles.link} href={linksData.link}>{linksData.title}</Link>
                     </div>
                 ))}
                 <Link
