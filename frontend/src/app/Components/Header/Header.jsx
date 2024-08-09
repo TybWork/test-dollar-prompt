@@ -101,7 +101,7 @@ const Header = () => {
     const hideSubCategories = () => {
         sethideTimeOut(setTimeout(() => {
             setcheckActiveHeader(false)
-        }, 150)
+        }, 100)
         )
     }
 
