@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import styles from '@/app/Components/MobileNavbar/MobileNavbar.module.css'
 import { RxCross2 } from "react-icons/rx";
 import Image from 'next/image'
@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { FaAngleRight } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import categoriesArr from '@/app/jsonFiles/promptsCategories';
-// import pageArr from '@/app/jsonFiles/getUserLinks';
 import { getUserLinks } from '@/app/jsonFiles/getUserLinks.js';
 import { hideNav } from '@/app/Redux/Features/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,66 +14,71 @@ import { jwtDecode } from 'jwt-decode';
 import { logoutFunc } from '@/app/utilities/logoutFunction.js';
 
 const MobileNavbar = () => {
-
     const dispatch = useDispatch();
-    const hideNavbar = useSelector((state) => state.navbar.position)
+    const hideNavbar = useSelector((state) => state.navbar.position);
 
-    const [hideCategory, sethideCategory] = useState(null);
-    const [hideSubCategory, sethideSubCategory] = useState(null);
-    const [arrowIcon, setarrowIcon] = useState(null)
-    const [subArrowIcon, setsubArrowIcon] = useState(null)
-    const [role, setRole] = useState('user')
-    const [profileHandle, setprofileHandle] = useState(null)
-    const [userLinks, setuserLinks] = useState(getUserLinks().users)
-    const [logout, setLogout] = useState(true)
-
-
+    const [hideCategory, setHideCategory] = useState(null);
+    const [hideSubCategory, setHideSubCategory] = useState(null);
+    const [arrowIcon, setArrowIcon] = useState(null);
+    const [subArrowIcon, setSubArrowIcon] = useState(null);
+    const [role, setRole] = useState('user');
+    const [profileHandle, setProfileHandle] = useState(null);
+    const [userLinks, setUserLinks] = useState(getUserLinks().users);
+    const [logout, setLogout] = useState(true);
 
     useEffect(() => {
-        const cookie = getTokenFunction().cookie
+        const cookie = getTokenFunction().cookie;
         if (cookie) {
-            const decodedToken = jwtDecode(cookie)
-            const decodeRole = decodedToken.userRole;
-            const decodeProfileHandle = decodedToken.profileHandle;
-            setRole(decodeRole);
-            setprofileHandle(decodeProfileHandle);
+            try {
+                const decodedToken = jwtDecode(cookie);
+                const decodeRole = decodedToken.userRole;
+                const decodeProfileHandle = decodedToken.profileHandle;
+                setRole(decodeRole);
+                setProfileHandle(decodeProfileHandle);
+            } catch (error) {
+                console.error('Error decoding token:', error);
+            }
         }
-
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if (role == 'user') {
-            setuserLinks(getUserLinks().users)
-        } else if (role == 'seller') {
-            setuserLinks(getUserLinks(profileHandle).seller)
-        } else if (role == 'admin') {
-            setuserLinks(getUserLinks().admin)
+        if (role === 'user') {
+            setUserLinks(getUserLinks().users);
+        } else if (role === 'seller') {
+            setUserLinks(getUserLinks(profileHandle).seller);
+        } else if (role === 'admin') {
+            setUserLinks(getUserLinks().admin);
         }
-    }, [role, profileHandle])
+    }, [role, profileHandle]);
 
     function appendFunc(index) {
-        sethideCategory(hideCategory === index ? null : index)
-        setarrowIcon(arrowIcon === index ? null : index)
+        setHideCategory(hideCategory === index ? null : index);
+        setArrowIcon(arrowIcon === index ? null : index);
     }
 
     function appendSubCategory(index) {
-        sethideSubCategory(hideSubCategory === index ? null : index)
-        setsubArrowIcon(subArrowIcon === index ? null : index)
+        setHideSubCategory(hideSubCategory === index ? null : index);
+        setSubArrowIcon(subArrowIcon === index ? null : index);
     }
 
-    // logout logic
     const logoutLogic = async () => {
-        await logoutFunc()
-        setRole('user')
-        setLogout(false)
-        dispatch(hideNav())
-    }
+        try {
+            await logoutFunc();
+            setRole('user');
+            setLogout(true); // Ensure logout state is updated to show 'Login'
+            dispatch(hideNav());
+            console.log("Logout successful, state updated.");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
     return (
         <div className={styles.parentContainer} style={{ left: `${hideNavbar}` }}>
             <div className={styles.header}>
                 <div className={styles.headerContent}>
                     <div className={styles.logo}>
-                        <Image src="/assets/imageAssets/logo.png" width={30} height={30} />
+                        <Image src="/assets/imageAssets/logo.png" width={30} height={30} alt="Logo" />
                     </div>
                     <div className={styles.crossIcon}>
                         <RxCross2 onClick={() => dispatch(hideNav())} />
@@ -83,46 +87,55 @@ const MobileNavbar = () => {
                 <div className={styles.explore}>Explore</div>
             </div>
 
-            {/* ................................. */}
-            {/* prompts categories */}
-            {
-                categoriesArr.map((e, index) =>
-                    <div className={styles.promptCategories} key={index}>
-                        <div className={styles.mainCategories} onClick={() => appendFunc(index)}>{e.name} <FaAngleRight className={styles.bottomIcon} style={{ transform: arrowIcon === index ? `rotate(-90deg)` : `rotate(90deg)` }} /></div>
-                        <div className={styles.subCategories} style={{ display: hideCategory === index ? 'block' : 'none' }}>
-                            {e.SubCategories.map((subCat, subIndex) => (
-                                <div key={subIndex}>
-                                    <div className={styles.subCategoryHeading} onClick={() => appendSubCategory(subIndex)}>
-                                        {subCat.subCategoryTitle}
-                                        <FaAngleRight style={{ transform: subArrowIcon === subIndex ? `rotate(-90deg)` : `rotate(90deg)` }} className={styles.bottomIcon} />
-                                    </div>
-
-                                    <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
-                                        {
-                                            subCat.innerCategroies.map((val, innerIndex) =>
-                                                <div key={innerIndex} className={styles.innerCategories}>{val.name}</div>
-                                            )
-                                        }
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+            {/* Prompts categories */}
+            {categoriesArr.map((e, index) => (
+                <div className={styles.promptCategories} key={index}>
+                    <div className={styles.mainCategories} onClick={() => appendFunc(index)}>
+                        {e.name}
+                        <FaAngleRight
+                            className={styles.bottomIcon}
+                            style={{ transform: arrowIcon === index ? 'rotate(-90deg)' : 'rotate(90deg)' }}
+                        />
                     </div>
-                )
-            }
-            {/* .................................... */}
+                    <div className={styles.subCategories} style={{ display: hideCategory === index ? 'block' : 'none' }}>
+                        {e.SubCategories.map((subCat, subIndex) => (
+                            <div key={subIndex}>
+                                <div className={styles.subCategoryHeading} onClick={() => appendSubCategory(subIndex)}>
+                                    {subCat.subCategoryTitle}
+                                    <FaAngleRight
+                                        style={{ transform: subArrowIcon === subIndex ? 'rotate(-90deg)' : 'rotate(90deg)' }}
+                                        className={styles.bottomIcon}
+                                    />
+                                </div>
+                                <div className={styles.subCategoryTitle} style={{ display: hideSubCategory === subIndex ? 'block' : 'none' }}>
+                                    {subCat.innerCategroies.map((val, innerIndex) => (
+                                        <div key={innerIndex} className={styles.innerCategories}>{val.name}</div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+
+            {/* Pages link container */}
             <div className={styles.pagesLinkContainer}>
                 <div className={styles.general}>GENERAL</div>
-                {
-                    userLinks.map((linksData, linkIndex) =>
-                        <div key={linkIndex} className={styles.linksContainer}>
-                            <Link className={styles.link} href={linksData.link}>{linksData.title}</Link>
-                        </div>
-                    )
-                }
-                <Link href={logout ? '/login' : '#'} className={styles.link} onClick={logout ? null : logoutLogic}>{logout ? 'Login' : 'Logout'}</Link>
+                {userLinks.map((linksData, linkIndex) => (
+                    <div key={linkIndex} className={styles.linksContainer}>
+                        <Link className={styles.link} href={linksData.link}>{linksData.title}</Link>
+                    </div>
+                ))}
+                <Link
+                    href={logout ? '/login' : '#'}
+                    className={styles.link}
+                    onClick={logout ? null : logoutLogic}
+                >
+                    {logout ? 'Login' : 'Logout'}
+                </Link>
             </div>
-        </div >
-    )
-}
+        </div>
+    );
+};
+
 export default MobileNavbar;
