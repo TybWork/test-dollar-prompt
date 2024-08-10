@@ -26,8 +26,8 @@ export const postSellerData = async (req, res) => {
         // ...............
         const newSeller = new SellerProfile({
             ...req.body,
-            profileBanner: urls[0], // Assuming first image as profile banner
-            profileImage: urls[1],
+            profileImage: urls[0],
+            profileBanner: urls[1],
             userId: req.userId,
         })
         const savedSeller = await newSeller.save()

@@ -31,9 +31,11 @@ const Page = () => {
         setUser((prevUser) => ({
             ...prevUser,
             [name]: type === 'file' ? files : value
+
         }));
     };
 
+    console.log('This is sellerIno', user)
     // Refresh cookie after user becomes a seller
     const refreshCookie = async (userId, userRole) => {
         try {
@@ -59,7 +61,7 @@ const Page = () => {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
             const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
-            document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=test-dollar-prompt.vercel.app`; // Update cookie
+            document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`; // Update cookie
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
         }

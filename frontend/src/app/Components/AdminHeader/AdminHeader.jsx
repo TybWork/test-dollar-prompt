@@ -68,7 +68,7 @@ const AdminHeader = () => {
             });
             // Optionally, you might want to clear cookies here if needed
             // Delete a cookie named 'token'
-            document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=test-dollar-prompt.vercel.app; secure; sameSite=None';
+            document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}; secure; sameSite=None`;
 
             setSeller({ text: 'Login', link: '/login' });
             setLogout(false);

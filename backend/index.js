@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 // app.use(bodyParser.json());
 app.use(cors({
-    origin: "https://test-dollar-prompt.vercel.app", // Replace with your client URL
+    origin: process.env.CLIENT_BASE_URL, // Replace with your client URL
     methods: ['POST', 'PUT', 'GET', 'DELETE'],
     credentials: true, // Allow credentials (cookies) to be included in requests
 }));

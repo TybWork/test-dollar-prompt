@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import AdminHeader from "./Components/AdminHeader/AdminHeader";
 import { userData } from "./utilities/userData";
 import SellerHeader from "./Components/SellerHeader/SellerHeader";
+import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
 
 const finlandica = Finlandica({ subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
           {renderHeader()}
           <MobileNavbar />
           <Cart />
+          <ScrollToTop />
           {children}
           <Footer />
         </body>

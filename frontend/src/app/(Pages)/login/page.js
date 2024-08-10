@@ -27,7 +27,7 @@ const loginUser = () => {
                 withCredentials: true,
             })
             const response = request.data
-            document.cookie = `token=${response.token}; path=/; secure; sameSite=None; domain=test-dollar-prompt.vercel.app`
+            document.cookie = `token=${response.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`
             window.location.href = '/'
         } catch (error) {
             alert(error.response.data.msg)
