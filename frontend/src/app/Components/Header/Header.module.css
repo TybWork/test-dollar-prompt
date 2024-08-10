@@ -154,6 +154,10 @@
     .bottomNav {
         display: none !important;
     }
+
+    .subCategoriesContainer {
+        display: none;
+    }
 }
 
 @media screen and (max-width:658px) {
