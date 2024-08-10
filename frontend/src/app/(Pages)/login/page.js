@@ -1,22 +1,34 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from '@/app/(Pages)/login/login.module.css'
 import Image from "next/image";
 import InputField from "@/app/Components/(liteComponents)/InputField/InputField";
 import Link from "next/link";
 import { post } from "@/app/Services/ApiEndpoint.js";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeOffSharp } from "react-icons/io5";
 const loginUser = () => {
     const users = {
         email: "",
         password: "",
     }
     const [user, setuser] = useState(users);
+    const [isPasswordHidden, setisPasswordHidden] = useState(true)
+
+    // useEffect(() => {
+    //     if(isPasswordHidden){
+
+    //     }
+    // })
+
+    const showPassword = () => {
+        isPasswordHidden ? setisPasswordHidden(false) : setisPasswordHidden(true)
+    }
 
     // function to get input handle
     const inputHandler = (e) => {
         const { name, value } = e.target;
         setuser({ ...user, [name]: value })
-        console.log(user)
     }
 
     // function to handle submit
@@ -36,14 +48,23 @@ const loginUser = () => {
 
     return (
         <div className={styles.container}>
-            <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" />
+            <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
             {/* heading */}
             <h1 className={styles.heading}>Account Login</h1>
             <form onSubmit={submitForms} action="" className={styles.formContainer}>
 
                 <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} />
 
-                <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" value={user.password} />
+                <div className={styles.passwordContainer} >
+                    {
+                        isPasswordHidden ? (
+                            <IoEyeSharp className={styles.showPassword} onClick={showPassword} />
+                        ) : (
+                            <IoEyeOffSharp className={styles.showPassword} onClick={showPassword} />
+                        )
+                    }
+                    <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
+                </div>
 
                 <input className={styles.submitBtn} type="submit" value="Login" />
 
@@ -54,7 +75,7 @@ const loginUser = () => {
             </form>
 
             <button className={styles.googleBtn}>
-                <Image src="/assets/icons/googleIcon.png" width={30} height={30} />
+                <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="google-logo" />
                 Google
             </button>
 

@@ -2,10 +2,8 @@
     position: relative;
     height: 300px;
     overflow: hidden;
-    /* border: 1px solid rgb(0, 255, 76); */
     border-radius: 10px;
     margin-top: 1em;
-    border: 1px solid black;
 }
 
 .sliderImage {

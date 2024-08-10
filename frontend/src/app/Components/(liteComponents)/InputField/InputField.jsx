@@ -2,7 +2,7 @@ import styles from '@/app/Components/(liteComponents)/InputField/InputField.modu
 
 const InputField = (props) => {
     return (
-        <input className={styles.inputField} type="text" name={props.name} id={props.id} placeholder={props.placeholder} onChange={props.onchangeFunc} value={props.value} />
+        <input className={styles.inputField} type={props.type || 'text'} name={props.name} id={props.id} placeholder={props.placeholder} onChange={props.onchangeFunc} value={props.value} />
     )
 }
 

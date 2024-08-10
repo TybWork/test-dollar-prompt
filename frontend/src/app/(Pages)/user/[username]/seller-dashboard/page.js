@@ -40,7 +40,7 @@ const page = ({ params }) => {
                 <div className={styles.userLogo}>
                     {
                         sellerData.profileImage && (
-                            <Image className={styles.logoImage} alt="profile Image" src={sellerData.profileImage[0]} width={0} height={0} sizes='100vw' />
+                            <Image className={styles.logoImage} alt="profile-Image" src={sellerData.profileImage[0]} width={0} height={0} sizes='100vw' />
                         )
                     }
                 </div>

@@ -35,6 +35,20 @@
     width: 100%;
 }
 
+.passwordContainer {
+    position: relative;
+    width: 100%;
+}
+
+.showPassword {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #44C151;
+    cursor: pointer;
+}
+
 .genderInputContainer {
     display: flex;
     justify-content: left;

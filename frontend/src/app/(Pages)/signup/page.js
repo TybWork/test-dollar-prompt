@@ -6,6 +6,9 @@ import Image from "next/image";
 import InputField from "@/app/Components/(liteComponents)/InputField/InputField";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeOffSharp } from "react-icons/io5";
+
 const CreateUser = () => {
     const router = useRouter();
     const users = {
@@ -16,6 +19,8 @@ const CreateUser = () => {
         password: "",
     }
     const [user, setuser] = useState(users);
+    const [isPasswordHidden, setisPasswordHidden] = useState(true)
+
 
     // function to get input handle
     const inputHandler = (e) => {
@@ -31,9 +36,13 @@ const CreateUser = () => {
         router.push('/login')
     }
 
+    const showPassword = () => {
+        isPasswordHidden ? setisPasswordHidden(false) : setisPasswordHidden(true)
+    }
+
     return (
         <div className={styles.container}>
-            <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" />
+            <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
             {/* heading */}
             <h1 className={styles.heading}>Create An Account</h1>
             <form onSubmit={submitForm} action="" className={styles.formContainer}>
@@ -44,7 +53,16 @@ const CreateUser = () => {
 
                 <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} />
 
-                <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" value={user.password} />
+                <div className={styles.passwordContainer} >
+                    {
+                        isPasswordHidden ? (
+                            <IoEyeSharp className={styles.showPassword} onClick={showPassword} />
+                        ) : (
+                            <IoEyeOffSharp className={styles.showPassword} onClick={showPassword} />
+                        )
+                    }
+                    <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
+                </div>
 
                 <div className={styles.genderInputContainer}>
                     <div className={styles.genderInput}>
@@ -65,7 +83,7 @@ const CreateUser = () => {
             </form>
 
             <button className={styles.googleBtn}>
-                <Image src="/assets/icons/googleIcon.png" width={30} height={30} />
+                <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="site-logo" />
                 Google
             </button>
 

@@ -27,7 +27,6 @@ const page = () => {
     fetchData();
   }, []);
 
-  console.log(promptData)
   if (!promptData) {
     return <Loading />
   }
@@ -37,8 +36,8 @@ const page = () => {
       <div className={styles.filterComponent}><Filter /></div>
       <div className={styles.mobileFilterComponent}><PromptFilterMobile /></div>
       <div className={styles.leftContainer}>
-        {promptData.map((item) => (
-          <SinglePromptCard image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
+        {promptData.map((item, index) => (
+          <SinglePromptCard key={index} image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
         ))}
       </div>
     </div>
