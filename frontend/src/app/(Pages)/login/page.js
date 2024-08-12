@@ -30,15 +30,19 @@ const LoginUser = () => {
     const submitForms = async (e) => {
         e.preventDefault();
         const token = captchaToken;
-        try {
-            const response = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
-                withCredentials: true,
-            });
-            document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
-            window.location.href = '/';
-            captchaRef.current.reset();
-        } catch (error) {
-            alert(error.response?.data?.msg || 'Login failed');
+        if (!token) {
+            alert(`To proceed, please verify the reCAPTCHA.`)
+        } else {
+            try {
+                const response = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
+                    withCredentials: true,
+                });
+                document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
+                window.location.href = '/';
+                captchaRef.current.reset();
+            } catch (error) {
+                alert(error.response?.data?.msg || 'Login failed');
+            }
         }
     };
 
