@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose, { startSession } from 'mongoose';
+import { googleOAuth } from './src/utils/googleOAuth.js';
 import dotenv from 'dotenv';
 import stripe from 'stripe';
 // import bodyParser from 'body-parser';
@@ -13,6 +14,9 @@ import cors from 'cors'
 import { sellerRoutes } from './src/routes/sellerRoutes.js';
 import { logRouts } from './src/routes/logs.js';
 import { webhookRoute } from './src/routes/webhook.js';
+import passport from 'passport';
+import './src/utils/googleOAuth.js';
+import { User } from './src/models/User/user.model.js';
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -75,6 +79,69 @@ app.post('/create-checkout-session', async (req, res) => {
         res.status(500).json({ error: 'Failed to create checkout session' });
     }
 });
+
+// google auth
+// we need to hit this url from client
+googleOAuth()
+app.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// GOOGLE LOGIN CALLBACK
+app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    async (req, res) => {
+        console.log("req.user", req.body);
+        const users = {
+            firstName: req.user.displayName,
+            lastName: req.user.name.familyName,
+            email: req.user.emails[0].value,
+            lastLogin: Date.now(),
+        };
+        const user = await User.findOne({ email: users.email })
+        // await User.findOne({ email: users.email }, async (err, user) => {
+        if (user) {
+            // User already exists in our database
+            console.debug("User already exists in our database");
+
+            // Update the last login timestamp
+            user.lastLogin = Date.now();
+
+            await user.save()
+            const token = jwt.sign({ userId: req.user._id, userRole: req.user.role, profileHandle: userName }, process.env.JWT_SECRET)
+
+
+            res.cookie('token', token, {
+
+                httpOnly: true,
+                secure: true,
+                sameSite: 'None',
+                domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
+                path: '/'
+            });
+
+            return res.status(200).json({ msg: "User loged in successfully!!", user, token })
+        } else {
+            User(users).save();
+
+            let token = jwt.sign(
+                {
+                    data: users,
+                },
+                process.env.JWT_SECRET,
+                { expiresIn: "24h" }
+            ); // expiry in 24 hours
+            res.cookie("jwt", token);
+
+            res.redirect(process.env.CLIENT_AUTH_REDIRECT_URL);
+        }
+        // });
+
+    }
+);
+
 
 // app.use('/api/', user);
 app.use('/api', dalleRoute)

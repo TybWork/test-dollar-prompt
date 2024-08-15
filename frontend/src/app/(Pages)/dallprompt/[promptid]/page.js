@@ -17,6 +17,7 @@ import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import { addToCart } from '@/app/Redux/Features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import Archieve from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve';
 
 const page = ({ params }) => {
     const { promptid } = params;
@@ -60,8 +61,6 @@ const page = ({ params }) => {
             {/* leftContainer */}
             <div className={styles.leftContainer}>
                 <div className={styles.favouriteIcon} onClick={heartFunc}>
-                    {/* <CiHeart className={styles.favouriteIcon} style={{ transform: `scale(${heart ? 0 : 1})` }} />
-                    <FaHeart className={styles.favouriteIcon} style={{ transform: `scale(${heart ? 0 : 1})` }} /> */}
                     {
                         heart ? <CiHeart className={styles.favouriteIcon} /> : <FaHeart className={styles.favouriteIcon} style={{ fontSize: '30px' }} />
                     }
@@ -112,7 +111,10 @@ const page = ({ params }) => {
 
                 {/* Get your prompt */}
                 <div className={styles.getPromptContainer}>
-                    <GradientButton title="Get prompt" />
+                    {/* Archieve download button */}
+                    <Archieve promptId={promptid} />
+
+                    {/* Add to Cart button */}
                     <div className={styles.cartContainer}>
                         <MdOutlineAddShoppingCart className={styles.cart} onClick={localStorageFunc} />
                     </div>

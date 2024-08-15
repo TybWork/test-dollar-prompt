@@ -46,6 +46,12 @@ const LoginUser = () => {
         }
     };
 
+    // google Login function
+    const googleLoginFunc = async () => {
+        // const response = await axios.get(process.env.NEXT_PUBLIC_SERVER_URL)
+        window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`, '_self')
+    }
+
     return (
         <div className={styles.container}>
             <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
@@ -70,7 +76,7 @@ const LoginUser = () => {
                 <input className={styles.submitBtn} type="submit" value="Login" />
                 <div className={styles.borderBottom}></div>
             </form>
-            <button className={styles.googleBtn}>
+            <button className={styles.googleBtn} onClick={googleLoginFunc}>
                 <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="google-logo" />
                 Google
             </button>

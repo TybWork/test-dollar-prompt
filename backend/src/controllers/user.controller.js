@@ -109,7 +109,6 @@ export const loginUser = async (req, res) => {
                     path: '/'
                 });
 
-
                 return res.status(200).json({ msg: "User loged in successfully!!", user, token })
 
             } catch (error) {
@@ -122,8 +121,21 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ msg: `Recaptch Failed!! ${error}` })
     }
 
-
 }
+
+//........................google login/signup..................
+
+// // we need to hit this url from client
+// app.get('/auth/google',
+//     passport.authenticate('google', { session: false, scope: ['profile'] }));
+
+// // after strategy checks redirects to
+// app.get('/auth/google/callback',
+//     passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+//     function (req, res) {
+//         // Successful authentication, redirect home.
+//         res.redirect('/');
+//     });
 
 // controller for clear cookie route
 export const clearCookie = (req, res) => {
