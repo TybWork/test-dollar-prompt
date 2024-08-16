@@ -7,6 +7,7 @@ import MultiFuntionBtn from '../(liteComponents)/MultiFunctionBtn/MultiFuntionBt
 import CheckoutButton from '../(liteComponents)/CheckoutButton/CheckoutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, hideCart } from '@/app/Redux/Features/cart/cartSlice';
+import MultipleFilesDownload from '../(liteComponents)/ArchievesDownload/MultipleFilesDownload';
 
 const Cart = () => {
     const dispatch = useDispatch()
@@ -88,7 +89,8 @@ const Cart = () => {
                 </div>
 
                 {/* checkout button */}
-                <CheckoutButton />
+                {/* <CheckoutButton /> */}
+                <MultipleFilesDownload />
             </div>
 
         </div>
