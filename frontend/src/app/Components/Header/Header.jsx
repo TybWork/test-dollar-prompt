@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { showCart } from "@/app/Redux/Features/cart/cartSlice";
-import { userData } from "@/app/utilities/userData";
 import { useCartQuery } from "@/app/utilities/hooks/useCartQuery";
 
 const Header = () => {
@@ -29,7 +28,6 @@ const Header = () => {
     const [categoryHeading, setcategoryHeading] = useState()
     const [subHeadingTitle, setsubHeadingTitle] = useState()
     const [seller, setSeller] = useState({ text: "Login", link: "/login" })
-    const [showHeaderBox, setshowHeaderBox] = useState(false)
     const [checkActiveHeader, setcheckActiveHeader] = useState(false)
     const [subCategory, setsubCategory] = useState([]);
     const [innerLinks, setinnerLinks] = useState([])

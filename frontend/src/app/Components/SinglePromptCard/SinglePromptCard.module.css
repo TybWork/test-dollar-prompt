@@ -29,7 +29,7 @@
     top: -120px;
     left: 0px;
     background-color: var(--primaryClr);
-    z-index: 100;
+    z-index: 0;
     opacity: .7px;
     border-bottom-right-radius: 5px;
     padding: 4px 8px;

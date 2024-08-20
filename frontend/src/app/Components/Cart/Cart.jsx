@@ -91,7 +91,7 @@ const Cart = () => {
 
                 {/* total wrapper */}
                 <div className={styles.totalWrapper}>
-                    <div className={styles.itemCounter}>Total ( <span>{cartProducts.length}</span> items)</div>
+                    <div className={styles.itemCounter}>Total ( <span>{data && data.length}</span> items)</div>
                     {/* pricingContainer */}
                     <div className={styles.pricingContainer}>
                         {/* original price */}
