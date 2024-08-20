@@ -17,6 +17,7 @@ import { webhookRoute } from './src/routes/webhook.js';
 import passport from 'passport';
 import './src/utils/googleOAuth.js';
 import { User } from './src/models/User/user.model.js';
+import { cartRoutes } from './src/routes/cartRoutes.js';
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -150,6 +151,7 @@ app.use('/api', dalleRoute)
 app.use('/api/user', authRout)
 app.use('/api/admin', adminRoutes)
 app.use('/api/seller', sellerRoutes)
+app.use('/api/cart', cartRoutes)
 
 //log routes
 app.use('/api', logRouts)

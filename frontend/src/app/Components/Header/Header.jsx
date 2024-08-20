@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { showCart } from "@/app/Redux/Features/cart/cartSlice";
 import { userData } from "@/app/utilities/userData";
+import { useCartQuery } from "@/app/utilities/hooks/useCartQuery";
 
 const Header = () => {
     const router = useRouter();
@@ -35,6 +36,7 @@ const Header = () => {
     const dispatch = useDispatch();
     const [logout, setLogout] = useState(false)
     const [role, setRole] = useState('user')
+    const { data } = useCartQuery()
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -143,7 +145,7 @@ const Header = () => {
                         <GoBell className={`${styles.topNavIcons} ${styles.bellIcon}`} />
                         <div className={styles.cartContainer}>
                             <HiOutlineShoppingCart className={styles.topNavIcons} onClick={() => dispatch(showCart())} />
-                            <div className={styles.cartCounter}>{cartProducts.length}</div>
+                            <div className={styles.cartCounter}>{data ? data.length : 0}</div>
                         </div>
                         <RxHamburgerMenu className={`${styles.topNavIcons} ${styles.hamburgerIcon}`} onClick={() => dispatch(showNav())} />
                     </div>

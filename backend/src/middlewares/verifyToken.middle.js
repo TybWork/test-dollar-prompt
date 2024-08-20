@@ -72,7 +72,7 @@ export const isAdmin = async (req, res, next) => {
 
 export const getUserId = async (req, res, next) => {
     try {
-        const authHeader = req.headers['authorization'];
+        const authHeader = req.headers['authorization'] || req.headers['Authorization'];
         if (!authHeader) {
             return res.status(401).json({ msg: "Unauthorized: No token provided" });
         }

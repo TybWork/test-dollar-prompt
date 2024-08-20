@@ -8,18 +8,44 @@ import CheckoutButton from '../(liteComponents)/CheckoutButton/CheckoutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, hideCart } from '@/app/Redux/Features/cart/cartSlice';
 import MultipleFilesDownload from '../(liteComponents)/ArchievesDownload/MultipleFilesDownload';
+import { useCartQuery } from '@/app/utilities/hooks/useCartQuery';
+import axios from 'axios';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Cart = () => {
     const dispatch = useDispatch()
     const cartProducts = useSelector((item) => item.cart.cartItems || [])
     const cartVisible = useSelector((item) => item.cart.isVisible)
+    const { data } = useCartQuery()
     // get total of all cart products
-    let totalPayable = cartProducts.reduce((accumulator, currentItem) => {
-        let price = accumulator + currentItem.price
+    let totalPayable = data && data.reduce((accumulator, currentItem) => {
+        let price = accumulator + currentItem.promptId.price
         return parseFloat(price)
     }, 0)
     // for rounding of to 7 digits after decimal simply multipy and divide by 10^7 = 10000000 for 3, 10^3
     totalPayable = Math.round(totalPayable * 100) / 100
+
+    // cartItemRemove function to remove cart item
+    const filterCart = async (cartId) => {
+        const token = getTokenFunction().token
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/cart/delete/${cartId}`, {
+            headers: {
+                'Authorization': token
+            }
+        })
+    }
+    const queryQlient = useQueryClient()
+    const cartRemoveMutation = useMutation({
+        mutationFn: filterCart,
+        onSuccess: () => {
+            queryQlient.invalidateQueries(['cart'])
+        },
+        onError: (error) => {
+            console.log('error', error)
+        }
+
+    })
     return (
         <div className={styles.container} style={{ right: cartVisible ? '0%' : "-175%" }}>
             {/* header content */}
@@ -35,10 +61,10 @@ const Cart = () => {
             <div className={styles.cartItemsContainer}>
                 {/* single cart item */}
                 {
-                    cartProducts.map((cartItem, index) =>
+                    data && data.map((cartItem, index) =>
                         <div className={styles.singleCartItem} key={index}>
-                            <SinglePromptCard image={cartItem.Image_Url[0]} label={cartItem.promptType} title={cartItem.title} price={cartItem.price} />
-                            <MultiFuntionBtn title="Remove" onClick={() => dispatch(removeFromCart(cartItem._id))} />
+                            <SinglePromptCard image={cartItem.promptId.Image_Url[0]} label={cartItem.promptId.promptType} title={cartItem.promptId.title} price={cartItem.promptId.price} />
+                            <MultiFuntionBtn title="Remove" onClick={() => cartRemoveMutation.mutate(cartItem.promptId._id)} />
                         </div>
                     )
                 }

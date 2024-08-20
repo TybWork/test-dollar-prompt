@@ -11,7 +11,6 @@ import TopItemSingleList from './Components/TopItemSingleList/TopItemSingleList'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Loading from './Components/(liteComponents)/Loading/Loading';
-// import Loading from './(Pages)/Loading';
 
 export default function Home() {
   const [dallprompt, setDallPrompt] = useState(null);
@@ -34,6 +33,7 @@ export default function Home() {
   if (!dallprompt || !trendingPrompt) {
     return <Loading />
   }
+
   return (
     <div className={styles.mainContainer}>
       {/* Top slider */}

@@ -15,17 +15,52 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
-import { addToCart } from '@/app/Redux/Features/cart/cartSlice';
-import { useDispatch } from 'react-redux';
 import Archieve from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import { jwtDecode } from 'jwt-decode';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const page = ({ params }) => {
     const { promptid } = params;
 
+
+
     const [prompt, setPrompt] = useState(null)
     const [heart, setheart] = useState(true)
-    const dispatch = useDispatch()
+    const [id, setId] = useState('')
+    // function to store data on local storage
+    const localStorageFunc = () => {
+        const token = getTokenFunction().token
+        return async () => {
+            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/cart/add`, {
+                "items": [
+                    { "promptId": promptid }
+                ],
+            },
+                {
+                    headers: {
+                        'Authorization': token
+                    }
+                },
+            )
+        }
+    }
+    const queryClient = useQueryClient()
+    const cartMutation = useMutation({
+        mutationFn: localStorageFunc(),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['cart'] });
+        },
+        onError: (error) => {
+            console.log('Error:', error);
+        },
+    });
     useEffect(() => {
+        const cookie = getTokenFunction().cookie
+        if (cookie) {
+            const newUser = jwtDecode(cookie).userId
+            setId(newUser)
+        }
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get/${promptid}`)
             .then((response) => {
                 setPrompt(response.data)
@@ -36,10 +71,7 @@ const page = ({ params }) => {
         return <Loading />
     }
 
-    // function to store data on local storage
-    const localStorageFunc = () => {
-        dispatch(addToCart(prompt))
-    }
+
 
     // save prompt to local storage
 
@@ -116,7 +148,7 @@ const page = ({ params }) => {
 
                     {/* Add to Cart button */}
                     <div className={styles.cartContainer}>
-                        <MdOutlineAddShoppingCart className={styles.cart} onClick={localStorageFunc} />
+                        <MdOutlineAddShoppingCart className={styles.cart} onClick={() => cartMutation.mutate()} />
                     </div>
                 </div>
 
