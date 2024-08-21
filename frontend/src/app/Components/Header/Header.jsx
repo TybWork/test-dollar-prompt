@@ -6,6 +6,7 @@ import { GoBell } from "react-icons/go";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import styles from "@/app/Components/Header/Header.module.css"
 import { RxHamburgerMenu } from "react-icons/rx";
+import { PiCaretRightBold } from "react-icons/pi";
 
 // bottom nav imports
 import { TbBoxModel } from "react-icons/tb";
@@ -14,10 +15,9 @@ import { useDispatch } from "react-redux";
 import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 import categoriesArr from "@/app/jsonFiles/promptsCategories";
 import { ImArrowRight2 } from "react-icons/im";
-import { PiCaretRightBold } from "react-icons/pi";
-import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { showCart } from "@/app/Redux/Features/cart/cartSlice";
 import { useCartQuery } from "@/app/utilities/hooks/useCartQuery";
@@ -54,7 +54,7 @@ const Header = () => {
                         setSeller({ text: "Profile", link: `/user/${profileHandle}/seller-dashboard` });
                         setLogout(true);
                     } else if (decodedToken.userRole === 'user') {
-                        setSeller({ text: "Become Seller", link: '/sellerinfo' });
+                        setSeller({ text: "Start Selling", link: '/sellerinfo' });
                         setLogout(true);
                     } else if (decodedToken.userRole === 'admin') {
                         setSeller({ text: 'Admin', link: '/admin' });

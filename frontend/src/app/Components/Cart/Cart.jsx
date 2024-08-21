@@ -61,12 +61,12 @@ const Cart = () => {
             <div className={styles.cartItemsContainer}>
                 {/* single cart item */}
                 {
-                    data && data.map((cartItem, index) =>
+                    data ? data.map((cartItem, index) =>
                         <div className={styles.singleCartItem} key={index}>
                             <SinglePromptCard image={cartItem.promptId.Image_Url[0]} label={cartItem.promptId.promptType} title={cartItem.promptId.title} price={cartItem.promptId.price} />
                             <MultiFuntionBtn title="Remove" onClick={() => cartRemoveMutation.mutate(cartItem.promptId._id)} />
                         </div>
-                    )
+                    ) : <div><b>Looks Cart is empty.</b> <br /> Add some exciting prompts to spark your imagination!</div>
                 }
             </div>
 
@@ -91,7 +91,7 @@ const Cart = () => {
 
                 {/* total wrapper */}
                 <div className={styles.totalWrapper}>
-                    <div className={styles.itemCounter}>Total ( <span>{data && data.length}</span> items)</div>
+                    <div className={styles.itemCounter}>Total ( <span>{data ? data.length : 0}</span> items)</div>
                     {/* pricingContainer */}
                     <div className={styles.pricingContainer}>
                         {/* original price */}
@@ -108,7 +108,7 @@ const Cart = () => {
                         {/* Price after discount */}
                         <div className={styles.price}>
                             <div className={styles.originalPrice}>
-                                <span>$</span>{totalPayable}
+                                <span>$</span>{totalPayable || '0.00'}
                             </div>
                         </div>
                     </div>
