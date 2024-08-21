@@ -13,8 +13,11 @@ import Llama from "./ThirdStep/Llama/Llama"
 import Midjourney from "./ThirdStep/Midjourney/Midjourney"
 import StableDiffusion from "./ThirdStep/StableDiffusion/StableDiffusion"
 import { getTokenFunction } from "@/app/utilities/getTokenFunction.js"
+import { useRouter } from "next/navigation"
 
-const page = () => {
+const page = ({ params }) => {
+    const { username } = params
+    const router = useRouter()
     const bearerToken = getTokenFunction().token
     const [step, setstep] = useState(1);
     const [selected, setselected] = useState('');
@@ -58,7 +61,6 @@ const page = () => {
             setuser(prevUser => ({ ...prevUser, examplePrompts: myObj }))
         }
     }
-
     function handleOnchange(changeVal) {
         const { name, value, type } = changeVal.target;
 
@@ -69,7 +71,6 @@ const page = () => {
             setuser(prevUser => ({ ...prevUser, [name]: value }));
         }
         setdata(user);
-        console.log(data)
     }
 
     // get sample prompts
@@ -92,10 +93,12 @@ const page = () => {
                 },
                 withCredentials: true
             });
+            router.push(`/user/${username}/seller-dashboard`)
             alert('prompt submitted and is under Review')
         } catch (error) {
             console.log("myError is here:", error);
         }
+
     };
 
     return (
