@@ -16,8 +16,8 @@ const userProfileSchema = new Schema({
     },
     profileHandle: {
         type: String,
-        unique: true
-        // required: true
+        unique: true,
+        required: true,
     },
     socialLinks: {
         type: [String],

@@ -134,7 +134,7 @@ const Header = () => {
                     <nav className={styles.mainNav}>
                         <ul>
                             <li><Link className={styles.link} style={{ display: role === 'admin' ? 'none' : 'block' }} href="/market">Marketplace</Link></li>
-                            <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
+                            <li style={{ width: seller.text == 'Start Selling' ? '105px' : 'initial' }}><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
                             <li className={styles.link} style={{ display: `${logout == true ? 'block' : 'none'}` }} onClick={logoutFunc}>Logout</li>
                         </ul>
                     </nav>

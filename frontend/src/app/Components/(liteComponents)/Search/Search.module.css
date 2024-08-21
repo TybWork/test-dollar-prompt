@@ -2,12 +2,10 @@
     display: flex;
     align-items: center;
     position: relative;
-    width: 100%;
 }
 
 .inputContainer input {
     width: 100%;
-    /* min-width: 400px; */
     padding: 12px 48px 12px 12px;
     background-color: var(--tertiaryClr);
     border-radius: 4px;
