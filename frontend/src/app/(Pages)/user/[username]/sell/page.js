@@ -102,9 +102,9 @@ const page = ({ params }) => {
             }
         )
             .then(response => {
-                console.log('Response:', response);
-                // Perform any additional actions on success, e.g., redirect
-                router.push(`/user/${username}/seller-dashboard`);
+                setTimeout(() => {
+                    router.push(`/user/${username}/seller-dashboard`);
+                }, 2300);
             })
             .catch(error => {
                 console.error('Submission error:', error);
