@@ -5,6 +5,8 @@ import Tab from '@/app/Components/Tab/Tab';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { userData } from '@/app/utilities/userData';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const page = ({ params }) => {
     const data = userData()

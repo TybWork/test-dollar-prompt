@@ -14,6 +14,8 @@ import Midjourney from "./ThirdStep/Midjourney/Midjourney"
 import StableDiffusion from "./ThirdStep/StableDiffusion/StableDiffusion"
 import { getTokenFunction } from "@/app/utilities/getTokenFunction.js"
 import { useRouter } from "next/navigation"
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const page = ({ params }) => {
     const { username } = params
@@ -85,24 +87,34 @@ const page = ({ params }) => {
             }
         }
 
-        try {
-            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/create`, formData, {
+        toast.promise(
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/create`, formData, {
                 headers: {
                     'Authorization': bearerToken,
                     'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true
+            }),
+            {
+                pending: 'Prompt Submitting...',
+                success: 'Prompt submitted and is under review...',
+                error: 'Failed to post data!'
+            }
+        )
+            .then(response => {
+                console.log('Response:', response);
+                // Perform any additional actions on success, e.g., redirect
+                router.push(`/user/${username}/seller-dashboard`);
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
             });
-            router.push(`/user/${username}/seller-dashboard`)
-            alert('prompt submitted and is under Review')
-        } catch (error) {
-            console.log("myError is here:", error);
-        }
-
     };
+
 
     return (
         <div className={styles.parentContainer}>
+            <ToastContainer />
             <StepsCounter stepCount={stepCount} onPrev={handlePrev} width={counter} />
             {step === 1 && <First onNext={handleNext} />}
             {step === 2 && <Second onSelect={handleSelect} onNext={handleNext} onChange={handleOnchange} />}
