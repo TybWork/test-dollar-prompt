@@ -1,3 +1,4 @@
+'use client'
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { getTokenFunction } from "../getTokenFunction";
@@ -13,11 +14,13 @@ const fetchCart = async () => {
 }
 
 export const useCartQuery = () => {
-    const token = getTokenFunction().cookie
     let userRole = 'guest'
-    if (token) {
-        const decodeToken = jwtDecode(token)
-        userRole = decodeToken.userRole || 'guest'
+    if (typeof window !== "undefined") {
+        const token = getTokenFunction().cookie
+        if (token) {
+            const decodeToken = jwtDecode(token)
+            userRole = decodeToken.userRole || 'guest'
+        }
     }
     return useQuery({
         queryKey: ['cart'],
