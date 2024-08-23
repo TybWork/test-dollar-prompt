@@ -47,7 +47,7 @@
 .submitButton {
     width: 150px;
     margin: auto;
-    margin-top: 16px;
+    margin: 16px auto;
 }
 
 @media screen and (max-width:833px) {
@@ -59,11 +59,16 @@
         top: 48%;
     }
 
+    .siteLogo {
+        top: 16px;
+        left: 16px;
+    }
+
 }
 
 @media screen and (max-width:500px) {
     .mainContainer {
-        min-height: 500px;
+        min-height: 470px;
     }
 
     .container {
