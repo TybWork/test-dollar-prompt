@@ -1,0 +1,28 @@
+.container {
+    position: relative;
+}
+
+.container input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid var(--customBorder);
+    color: var(--textClr);
+    padding: 16px 16px 16px 40px;
+    outline: none;
+    /* font-size: 20px; */
+}
+
+.container input::placeholder {
+    color: var(--textClr);
+    opacity: .8;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    font-size: 28px;
+
+}

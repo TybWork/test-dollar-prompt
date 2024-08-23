@@ -22,7 +22,10 @@ export default function RootLayout({ children }) {
       if (pathname.includes('/admin')) {
         return <AdminHeader />
         // } else if (data.userRole == 'seller' || pathname.includes('/sell') || pathname.includes('/seller') || pathname.includes('/updateprompt')) {
-      } else if (data.userRole == 'seller') {
+      } else if (pathname.includes('/master-dashboard') && data.userRole === null) {
+        return null
+      }
+      else if (data.userRole == 'seller') {
         return <SellerHeader />
       } else {
         if (data.userRole == 'admin') {

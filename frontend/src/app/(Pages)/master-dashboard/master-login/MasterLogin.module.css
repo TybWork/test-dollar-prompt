@@ -1,0 +1,73 @@
+.mainContainer {
+    width: 100%;
+    height: calc(100vh - 153px);
+    min-height: 440px;
+}
+
+.siteLogo {
+    position: absolute;
+    width: 148px;
+    height: auto;
+    top: 32px;
+    left: 32px;
+    display: block;
+}
+
+.container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: var(--tertiaryClr);
+    border-radius: 8px;
+    position: relative;
+    padding: 24px;
+}
+
+
+.userImage {
+    position: absolute;
+    top: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96px;
+    height: auto;
+    border-radius: 50px;
+    border: 6px solid var(--primaryClr);
+}
+
+.form {
+    margin-top: 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.submitButton {
+    width: 150px;
+    margin: auto;
+    margin-top: 16px;
+}
+
+@media screen and (max-width:833px) {
+    .mainContainer {
+        min-height: 500px;
+    }
+
+    .container {
+        top: 48%;
+    }
+
+}
+
+@media screen and (max-width:500px) {
+    .mainContainer {
+        min-height: 500px;
+    }
+
+    .container {
+        width: calc(100% - 32px);
+        top: 57%;
+    }
+}
