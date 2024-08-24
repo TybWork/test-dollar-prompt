@@ -3,14 +3,64 @@
     overflow: hidden;
 }
 
+/*........... left tab styling .......... */
 .leftSettingsTab {
     background: var(--secondryClr);
     width: 300px;
     height: 100vh;
-    padding: 16px;
-    /* border-right: 1px solid var(--customBorder); */
+    padding: 16px 24px;
 }
 
+.logoContainer {
+    height: 69px;
+    border-bottom: 1px solid var(--customBorder);
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.siteLogo {
+    width: 140px;
+    height: auto;
+    padding-bottom: 16px;
+}
+
+.btnContainer {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    height: calc(100vh - 320px);
+    overflow-y: auto;
+}
+
+.btnContainer::-webkit-scrollbar {
+    width: 4px;
+}
+
+.btnContainer:hover::-webkit-scrollbar {
+    background: rgba(0, 0, 0, 0.226);
+}
+
+.btnContainer:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 243, 32, 0.466);
+}
+
+.border {
+    border: none;
+    border-bottom: 1px solid var(--customBorder);
+    margin: 16px 0px;
+}
+
+.illustration {
+    width: 57%;
+    text-align: center;
+    align-self: center;
+    height: auto;
+    display: block;
+    margin: 16px auto;
+}
+
+/* ......right detail tab....... */
 .rightDetailTab {
     width: calc(100% - 300px);
     overflow-y: auto;
