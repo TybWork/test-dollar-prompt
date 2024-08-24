@@ -122,20 +122,39 @@ export const loginUser = async (req, res) => {
     }
 
 }
+// superAdmin login
+export const superAdminLogin = async (req, res) => {
+    const { email, password } = req.body
+    try {
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).json({ msg: "No such user!!" })
+        }
+
+        const compare = bcrypt.compareSync(password, user.password)
+        if (!compare) {
+            return res.status(400).json({ msg: "Password not matched!!" })
+        }
+
+        // const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName[0].profileHandle }, process.env.JWT_SECRET)
+        const token = jwt.sign({ userId: user._id, userRole: user.role }, process.env.JWT_SECRET)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
+            path: '/'
+        });
+
+        return res.status(200).json({ msg: "User loged in successfully!!", user, token })
+
+    } catch (error) {
+        console.log(`User log in failed ${error}`)
+    }
+}
 
 //........................google login/signup..................
 
-// // we need to hit this url from client
-// app.get('/auth/google',
-//     passport.authenticate('google', { session: false, scope: ['profile'] }));
-
-// // after strategy checks redirects to
-// app.get('/auth/google/callback',
-//     passport.authenticate('google', { session: false, failureRedirect: '/login' }),
-//     function (req, res) {
-//         // Successful authentication, redirect home.
-//         res.redirect('/');
-//     });
 
 // controller for clear cookie route
 export const clearCookie = (req, res) => {

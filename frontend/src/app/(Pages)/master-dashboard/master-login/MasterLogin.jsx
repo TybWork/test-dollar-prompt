@@ -4,19 +4,17 @@ import GradientButton from '@/app/Components/GradientButton/GradientButton';
 import Image from 'next/image'
 import { AiOutlineUser } from "react-icons/ai";
 import { CiLock } from "react-icons/ci";
-const MasterLogin = () => {
-    const getvalue = (e) => {
-        console.log(e.target.name, ":", e.target.value)
-    }
+const MasterLogin = ({ onChange, onSubmit }) => {
+
 
     return (
         <div className={styles.mainContainer}>
             <Image className={styles.siteLogo} width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' />
             <div className={styles.container}>
                 <Image className={styles.userImage} width={0} height={0} sizes='100vw' src='/assets/imageAssets/ceo_dollarprompt.PNG' />
-                <form className={styles.form} onSubmit='/'>
-                    <AdminLoginInput placeholder="admin@gmail.com" label={'Email'} onChange={getvalue} icon={<AiOutlineUser />} />
-                    <AdminLoginInput type="password" placeholder="Password" label={'Password'} onChange={getvalue} icon={<CiLock />} />
+                <form className={styles.form} onSubmit={onSubmit}>
+                    <AdminLoginInput placeholder="admin@gmail.com" label={'email'} onChange={onChange} icon={<AiOutlineUser />} />
+                    <AdminLoginInput type="password" placeholder="Password" label={'password'} onChange={onChange} icon={<CiLock />} />
                     {/* submit button */}
                     <div className={styles.submitButton}>
                         <GradientButton title='Login' type='submit' width="100%" />

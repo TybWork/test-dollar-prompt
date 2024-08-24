@@ -1,33 +1,44 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User/user.model.js';
 
-// export const isAdmin = async (req, res, next) => {
-//     try {
-//         // const token = await req.cookies.token;
-//         const authHeader = req.headers['Authorization']
+export const isSuperAdmin = async (req, res, next) => {
+    try {
+        // Check for the Authorization header
+        const authHeader = req.headers['authorization'] || req.headers['Authorization'];
 
-//         if (!authHeader) {
-//             return res.status(400).json({ msg: "Unauthorized: You don't have token" });
-//         }
+        if (!authHeader) {
+            return res.status(401).json({ msg: "Unauthorized: No token provided" });
+        }
 
-//         const token = authHeader.split(' ')[1];
-//         const decode = jwt.verify(token, process.env.JWT_SECRET);
-//         const user = await User.findById(decode.userId);
+        // Extract the token
+        const [bearer, token] = authHeader.split(' ');
 
-//         if (!user) {
-//             return res.status(400).json({ msg: "User not found" });
-//         }
+        if (bearer !== 'Bearer' || !token) {
+            return res.status(401).json({ msg: "Unauthorized: Invalid token format" });
+        }
 
-//         if (user.role !== "admin") {
-//             return res.status(400).json({ msg: "Unauthorized: User is not admin!" });
-//         }
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId);
 
-//         req.user = user;
-//         next();
-//     } catch (error) {
-//         return res.status(400).json(error);
-//     }
-// };
+        if (!user) {
+            return res.status(401).json({ msg: "Unauthorized: User not found" });
+        }
+
+        // Check if the user is an admin
+        if (user.role !== "super-admin") {
+            return res.status(403).json({ msg: "Forbidden:Only Super Admin can access this Dashboard!!!" });
+        }
+
+
+        // Attach user to request
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error('Authentication error:', error.message);
+        return res.status(401).json({ msg: "Unauthorized: Invalid token or user" });
+    }
+};
 
 
 export const isAdmin = async (req, res, next) => {
