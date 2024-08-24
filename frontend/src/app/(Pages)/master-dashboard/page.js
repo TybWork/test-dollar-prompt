@@ -7,7 +7,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'
 
 const page = () => {
-    const [step, setstep] = useState(0)
+    const [step, setstep] = useState(1)
 
     const [user, setuser] = useState({ email: "", password: "" })
     const getvalue = (e) => {

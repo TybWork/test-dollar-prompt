@@ -1,0 +1,19 @@
+.container {
+    font-size: 24px;
+    color: var(--textClr);
+    position: relative;
+    width: fit-content;
+}
+
+.counter {
+    font-size: 12px;
+    position: absolute;
+    top: -2px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

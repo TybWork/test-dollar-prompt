@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: max-content;
+}
+
+.image {
+    width: 52px;
+    height: 52px;
+    border-radius: 50px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.role {
+    font-size: 12px;
+}

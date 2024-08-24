@@ -1,0 +1,19 @@
+.parentContainer {
+    display: flex;
+    overflow: hidden;
+}
+
+.leftSettingsTab {
+    background: var(--secondryClr);
+    width: 300px;
+    height: 100vh;
+    padding: 16px;
+    /* border-right: 1px solid var(--customBorder); */
+}
+
+.rightDetailTab {
+    width: calc(100% - 300px);
+    overflow-y: auto;
+    height: 100vh;
+    padding: 16px 48px;
+}

@@ -11,13 +11,15 @@ import AdminHeader from "./Components/AdminHeader/AdminHeader";
 import { userData } from "./utilities/userData";
 import SellerHeader from "./Components/SellerHeader/SellerHeader";
 import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
+import { getTokenFunction } from "./utilities/getTokenFunction";
+import { jwtDecode } from "jwt-decode";
 
 const finlandica = Finlandica({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
+  const data = userData()
+  const pathname = usePathname()
   const renderHeader = () => {
-    const data = userData()
-    const pathname = usePathname()
     if (typeof window !== 'undefined') {
       if (pathname.includes('/admin')) {
         return <AdminHeader />
@@ -39,6 +41,17 @@ export default function RootLayout({ children }) {
     return <Header />
 
   }
+
+  const renderFooter = () => {
+    if (typeof window !== 'undefined') {
+      if (pathname.includes('/master-dashboard')) {
+        return null
+      }
+      else {
+        return <Footer />
+      }
+    }
+  }
   return (
     <html lang="en">
       <Providers>
@@ -50,7 +63,7 @@ export default function RootLayout({ children }) {
           <Cart />
           <ScrollToTop />
           {children}
-          <Footer />
+          {renderFooter()}
         </body>
       </Providers>
     </html>
