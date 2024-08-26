@@ -5,6 +5,8 @@ import { useState } from 'react'
 import MasterPanel from './master-panel/MasterPanel'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'
+import { buttons } from '@/app/jsonFiles/dashboardCategoryBtns'
+import DashboardHeader from '@/app/Components/DashboardHeader/DashboardHeader'
 
 const page = () => {
     const [step, setstep] = useState(1)
@@ -43,7 +45,7 @@ const page = () => {
     }
     return (
         <div>
-            {step === 0 ? <MasterLogin onSubmit={submitForm} onChange={getvalue} /> : <MasterPanel />}
+            {step === 0 ? <MasterLogin onSubmit={submitForm} onChange={getvalue} /> : <MasterPanel headerComponent={<DashboardHeader />} buttonMaping={buttons.superAdmin} />}
         </div>
     )
 }
