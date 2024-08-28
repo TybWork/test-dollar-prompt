@@ -3,10 +3,11 @@
     color: var(--textClr);
     position: relative;
     width: fit-content;
+    cursor: pointer;
 }
 
 .counter {
-    font-size: 12px;
+    font-size: 8px;
     position: absolute;
     top: -2px;
     right: -5px;
@@ -16,4 +17,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: .3s;
+}
+
+.container:hover .counter {
+    transform: scale(1.2);
 }

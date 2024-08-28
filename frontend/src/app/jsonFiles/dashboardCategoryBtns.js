@@ -4,12 +4,10 @@ import { GrAnalytics } from "react-icons/gr";
 import { HiOutlineCreditCard } from "react-icons/hi2";
 import { GrOverview } from "react-icons/gr";
 import { RiAiGenerate } from "react-icons/ri";
-import { VscUnverified } from "react-icons/vsc";
-import { VscVerified } from "react-icons/vsc";
-import { BsExclamationOctagon } from "react-icons/bs";
 import { BsPatchExclamation } from "react-icons/bs";
 import { BsPatchCheck } from "react-icons/bs";
 import { BsPatchQuestion } from "react-icons/bs";
+import PeopleView from "../Components/(Dashbords)/PeopleView/PeopleView";
 
 export const buttons = {
     superAdmin: [
@@ -17,7 +15,7 @@ export const buttons = {
             id: 0,
             icon: <RxDashboard />,
             title: 'Dashboard',
-            component: 'This Dashboard'
+            component: <PeopleView />
         },
         {
             id: 1,

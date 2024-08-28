@@ -1,6 +1,5 @@
 .parentContainer {
     display: flex;
-    overflow: hidden;
 }
 
 /*........... left tab styling .......... */
@@ -66,4 +65,6 @@
     overflow-y: auto;
     height: 100vh;
     padding: 16px 48px;
+    overflow: hidden;
+
 }
