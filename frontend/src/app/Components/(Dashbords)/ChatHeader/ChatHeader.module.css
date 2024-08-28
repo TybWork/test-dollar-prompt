@@ -1,0 +1,44 @@
+.headerContainer {
+    padding: 8px 16px;
+    background: var(--tertiaryClr);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.281);
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--textClr);
+}
+
+.image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+
+/*....... options ....... */
+.options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--textClr);
+}
+
+.options a {
+    color: var(--textClrs);
+}
+
+.icon {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50px;
+    transition: .3s;
+}
+
+.icon:hover {
+    background: var(--primaryClr);
+}

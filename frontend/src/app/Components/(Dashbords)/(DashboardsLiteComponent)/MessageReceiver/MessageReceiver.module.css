@@ -11,8 +11,6 @@
 
 .chatContainer {
     position: relative;
-    width: 220px;
-    height: max-content;
     border-radius: 8px;
     transform: translateY(8px);
 }
@@ -23,7 +21,7 @@
     height: 20px;
     top: 0;
     right: 0;
-    background: var(--primaryClr);
+    background: var(--secondryClr);
     border-top-left-radius: 50px;
 }
 
@@ -40,7 +38,7 @@
 }
 
 .leftSide {
-    width: 200px;
+    width: calc(100% - 20px);
     background: var(--tertiaryClr);
     background: var(--messageBg);
 

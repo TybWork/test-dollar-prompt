@@ -1,10 +1,10 @@
 import styles from '@/app/Components/(Dashbords)/(DashboardsLiteComponent)/MessageReceiver/MessageReceiver.module.css'
 import Image from "next/image"
 
-const MessageReceiver = ({ text, time }) => {
+const MessageReceiver = ({ text, time, width }) => {
     return (
         <div className={styles.mainContainer}>
-            <div className={styles.chatContainer}>
+            <div className={styles.chatContainer} style={{ width: width || '220px' }}>
                 <div className={styles.topSide}></div>
                 <div className={styles.leftSide}>
                     {text}
