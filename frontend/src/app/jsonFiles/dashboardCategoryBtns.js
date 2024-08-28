@@ -8,6 +8,7 @@ import { BsPatchExclamation } from "react-icons/bs";
 import { BsPatchCheck } from "react-icons/bs";
 import { BsPatchQuestion } from "react-icons/bs";
 import PeopleView from "../Components/(Dashbords)/PeopleView/PeopleView";
+import ChatComponent from "../Components/(Dashbords)/ChatComponent/ChatComponent";
 
 export const buttons = {
     superAdmin: [
@@ -21,7 +22,7 @@ export const buttons = {
             id: 1,
             icon: <IoChatbubblesOutline />,
             title: 'Conversation',
-            component: 'This Conversation'
+            component: <ChatComponent />
         },
         {
             id: 2,

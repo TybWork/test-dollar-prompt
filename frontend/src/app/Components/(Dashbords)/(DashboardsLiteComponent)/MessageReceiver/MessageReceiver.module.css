@@ -1,0 +1,57 @@
+.mainContainer {
+    display: flex;
+    gap: 12px;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.chatContainer {
+    position: relative;
+    width: 220px;
+    height: max-content;
+    border-radius: 8px;
+    transform: translateY(8px);
+}
+
+.rightSide {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    background: var(--primaryClr);
+    border-top-left-radius: 50px;
+}
+
+.topSide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 160px;
+    height: 20px;
+    background: var(--tertiaryClr);
+    background: var(--messageBg);
+    z-index: -1;
+
+}
+
+.leftSide {
+    width: 200px;
+    background: var(--tertiaryClr);
+    background: var(--messageBg);
+
+    border-radius: 8px;
+    padding: 8px 16px;
+    z-index: 1;
+}
+
+.time {
+    font-size: 12px;
+    display: block;
+    color: var(--timeClr);
+    text-align: right;
+}

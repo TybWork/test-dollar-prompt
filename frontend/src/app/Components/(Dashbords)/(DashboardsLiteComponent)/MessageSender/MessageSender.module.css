@@ -1,0 +1,52 @@
+.mainContainer {
+    display: flex;
+    gap: 12px;
+    height: max-content;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.chatContainer {
+    position: relative;
+    width: 220px;
+    border-radius: 8px;
+    transform: translateY(8px);
+}
+
+.leftSide {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background: var(--primaryClr);
+    border-top-right-radius: 50px;
+}
+
+.topSide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 20px;
+    background: var(--tertiaryClr);
+}
+
+.rightSide {
+    transform: translateX(20px);
+    width: 200px;
+    background: var(--tertiaryClr);
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+.time {
+    font-size: 12px;
+    display: block;
+    color: var(--timeClr);
+    text-align: right;
+}
