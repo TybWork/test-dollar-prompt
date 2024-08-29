@@ -3,7 +3,7 @@ import MessageSender from '../(DashboardsLiteComponent)/MessageSender/MessageSen
 import MessageReceiver from '../(DashboardsLiteComponent)/MessageReceiver/MessageReceiver'
 import ChatHeader from '../ChatHeader/ChatHeader'
 import PicWithNameRole from '../../(liteComponents)/PicWithNameRole/PicWithNameRole'
-import Search from '../../(liteComponents)/Search/Search'
+import InputChat from '../(DashboardsLiteComponent)/InputChat/InputChat'
 
 const history = [
     {
@@ -146,6 +146,11 @@ const ChatComponent = () => {
                             </div>
                         )
                     }
+                </div>
+                {/* input chat */}
+                <InputChat />
+                <div className={styles.inputChat}>
+
                 </div>
             </div>
         </div>

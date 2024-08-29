@@ -1,0 +1,43 @@
+.inputChatContainer {
+    background: var(--tertiaryClr);
+    border-top: 1px solid var(--customBorder);
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.input {
+    border: none;
+    outline: none;
+    background: transparent;
+    border: none;
+    flex: 1;
+    color: var(--textClr);
+    padding-right: 16px;
+    padding: 8px 0px;
+}
+
+.input::placeholder {
+    color: var(--timeClr);
+    opacity: .7;
+    font-size: 12px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 50px;
+}
+
+.icons svg {
+    cursor: pointer;
+}
+
+.divider {
+    margin: 0px 16px;
+}
