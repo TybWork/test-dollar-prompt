@@ -1,0 +1,8 @@
+.parentContainer {
+    display: flex;
+    width: 100%;
+    margin-top: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+    height: calc(100vh - 140px);
+}

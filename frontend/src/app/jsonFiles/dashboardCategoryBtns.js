@@ -9,6 +9,7 @@ import { BsPatchCheck } from "react-icons/bs";
 import { BsPatchQuestion } from "react-icons/bs";
 import PeopleView from "../Components/(Dashbords)/PeopleView/PeopleView";
 import ChatComponent from "../Components/(Dashbords)/ChatComponent/ChatComponent";
+import Analytics from "../Components/(Dashbords)/Analytics/Analytics";
 
 export const buttons = {
     superAdmin: [
@@ -28,7 +29,7 @@ export const buttons = {
             id: 2,
             icon: <GrAnalytics />,
             title: 'Analytics',
-            component: 'This Analytics'
+            component: <Analytics />
         },
         {
             id: 3,

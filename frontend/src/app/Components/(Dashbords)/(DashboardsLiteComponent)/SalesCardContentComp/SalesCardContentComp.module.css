@@ -1,0 +1,45 @@
+/*... content compoent .... */
+.revenue {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.revenue svg {
+    font-size: 64px;
+    color: var(--timeClr);
+}
+
+.sale {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+}
+
+.today {
+    font-size: 12px;
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.percentage {
+    color: var(--timeClr);
+    display: flex;
+    align-items: center;
+}
+
+.percentage svg {
+    font-size: 20px;
+}
+
+.todaySales {
+    color: var(--textClr);
+    opacity: .8;
+}
