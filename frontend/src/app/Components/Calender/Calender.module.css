@@ -1,0 +1,186 @@
+/* CustomCalendar.module.css */
+.pickDateButton {
+    padding: 8px;
+    border-radius: 4px;
+    background: var(--tertiaryClr);
+    width: fit-content;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.pickDateButton svg {
+    font-size: 24px;
+}
+
+.calendar {
+    border-radius: 10px;
+    width: 350px;
+    height: fit-content;
+    background: var(--secondryClr);
+    overflow: hidden;
+    color: var(--textClr);
+    border: 1px solid var(--customBorder);
+    position: relative;
+    /* Ensure positioning context for dropdowns */
+    transform: scale(0);
+    transition: .3s;
+    transform-origin: top left;
+}
+
+.header {
+    background: var(--tertiaryClr);
+    color: var(--textClr);
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    font-size: 1.2em;
+    position: relative;
+    /* Context for absolute positioning of pickers */
+}
+
+.headerMonthYear {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.headerMonthValue,
+.headerYearValue {
+    cursor: pointer;
+}
+
+.headerYearValue {
+    font-size: 14px;
+}
+
+.monthPicker,
+.yearPicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--secondryClr);
+    border: 1px solid var(--customBorder);
+    border-radius: 5px;
+    box-shadow: 0px 3px 10px rgba(10, 77, 1, 0.486);
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow-y: scroll;
+    gap: 4px;
+    padding: 4px;
+}
+
+.monthPicker::-webkit-scrollbar,
+.yearPicker::-webkit-scrollbar {
+    width: 6px;
+    background: var(--tertiaryClr);
+}
+
+.monthPicker:hover::-webkit-scrollbar-thumb,
+.yearPicker:hover::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: var(--customBorder);
+}
+
+.monthPickerItem,
+.yearPickerItem {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--tertiaryClr);
+    border-radius: 4px;
+}
+
+.monthPickerItem:hover,
+.yearPickerItem:hover {
+    background-color: var(--customBorder);
+}
+
+.monthPickerItem.selected,
+.yearPickerItem.selected {
+    background-color: var(--customBorder);
+    color: var(--textClr);
+}
+
+.navBtn {
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--timeClr);
+    transition: .3s;
+}
+
+.navBtn:hover {
+    transform: scale(1.2);
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--primaryClr);
+    box-shadow: 0px 3px 10px rgba(10, 77, 1, 0.486);
+    font-weight: lighter;
+    padding: 0px 8px;
+}
+
+.dayName {
+    padding: 8px 15px;
+    text-align: center;
+}
+
+.calendarContent {
+    position: relative;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    padding: 8px;
+}
+
+.date {
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date:hover {
+    background-color: var(--tertiaryClr);
+    color: var(--textClr);
+}
+
+.date.selected {
+    background-color: var(--customBorder);
+    color: var(--textClr);
+}
+
+.blank {
+    background-color: transparent;
+    border-radius: 0px;
+    cursor: initial;
+}
+
+.blank:hover {
+    background-color: transparent;
+}

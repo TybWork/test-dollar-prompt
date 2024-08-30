@@ -12,6 +12,7 @@ const InfoCardDashboard = ({ mainTitle, contentComponent, width }) => {
                         <span className={styles.headerText}>{mainTitle || 'dummyTitle'}</span>
                     </div>
                     <PiDotsThreeOutlineFill />
+                    <div>Calendar</div>
                 </div>
             </div>
 
