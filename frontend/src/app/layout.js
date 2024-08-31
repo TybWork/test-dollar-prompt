@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
           {renderHeader()}
           <MobileNavbar />
           <Cart />
-          <CalendarComp />
+          <div style={{ display: 'none' }}> <CalendarComp /></div>
           <ScrollToTop />
           {children}
           {renderFooter()}
