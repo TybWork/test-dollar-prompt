@@ -6,6 +6,7 @@ import styles from "@/app/Components/AdminHeader/AdminHeader.module.css";
 // bottom nav imports
 import { jwtDecode } from "jwt-decode"; // Import as a default
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import axios from "axios";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch } from "react-redux";
@@ -14,6 +15,7 @@ import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 
 const AdminHeader = () => {
     const router = useRouter();
+    const pathname = usePathname()
     const [seller, setSeller] = useState({ text: "Login", link: "/login" });
     const [logout, setLogout] = useState(false);
     const [role, setRole] = useState('user');
@@ -36,7 +38,9 @@ const AdminHeader = () => {
             if (decodedToken.userRole === 'admin') {
                 setSeller({ text: 'Admin', link: '/admin' });
                 setLogout(true);
-                router.push('/admin');
+                if (!pathname.includes('/admin')) {
+                    router.push('/admin');
+                }
             } else {
                 setSeller({ text: "Login", link: '/login' });
                 setLogout(false);
