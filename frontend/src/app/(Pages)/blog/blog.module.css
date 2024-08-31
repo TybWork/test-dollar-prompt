@@ -1,0 +1,35 @@
+.container {
+    width: 800px;
+    margin: 32px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.mainTitle {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.blogPostCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* mediaQueries */
+@media screen and (max-width:800px) {
+    .container {
+        width: calc(100% - 64px);
+        margin: 16px auto;
+        gap: 16px;
+    }
+}
+
+@media screen and (max-width:658px) {
+    .container {
+        width: calc(100% - 28px);
+        margin: 14px auto;
+        gap: 14px;
+    }
+}
