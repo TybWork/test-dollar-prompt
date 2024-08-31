@@ -38,7 +38,7 @@ const Page = ({ params }) => {
         const target = e.target.innerText;
         const newStatus = target === 'Approve' ? 'active' : 'paused';
         setstatus(newStatus)
-        await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dalle/update/${promptid}`, { status: newStatus }, {
+        await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dalle/update/${promptid}`, { status: status }, {
             headers: {
                 'Authorization': token
             },

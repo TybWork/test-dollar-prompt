@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import styles from '@/app/Components/Calender/Calender.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from '@/app/Components/CalendarComp/CalendarComp.module.css';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from "react-icons/hi2";
 import { CiCalendarDate } from "react-icons/ci";
+import { useDispatch } from 'react-redux';
+import { setDate } from '@/app/Redux/Features/datePicker/datePickerSlice';
 
-const CustomCalendar = () => {
+const CalendarComp = () => {
+    const dispatch = useDispatch()
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -19,11 +22,12 @@ const CustomCalendar = () => {
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
     const [selectedYear, setSelectedYear] = useState(currentYear);
     const [selectedDate, setSelectedDate] = useState(currentDay);
+    const [fullDate, setfullDate] = useState('')
     const [showMonthPicker, setShowMonthPicker] = useState(false);
     const [showYearPicker, setShowYearPicker] = useState(false);
     const [isCalendarVisible, setisCalendarVisible] = useState(false)
 
-    const fullDate = `${selectedDate} ${months[selectedMonth].slice(0, 3)} ${selectedYear}`
+    // const fullDate = ``
 
     const years = [];
     for (let year = currentYear - 50; year <= currentYear; year++) {
@@ -76,7 +80,11 @@ const CustomCalendar = () => {
         setSelectedDate(day);
         setisCalendarVisible(prev => !prev)
         console.log(`Date selected: ${day}/${selectedMonth + 1}/${selectedYear}`);
+        setfullDate(`${day} ${months[selectedMonth].slice(0, 3)} ${selectedYear}`)
     };
+    useEffect(() => {
+        dispatch(setDate(fullDate))
+    }, [fullDate])
 
     const renderCalendar = () => {
         const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
@@ -180,4 +188,4 @@ const CustomCalendar = () => {
     );
 };
 
-export default CustomCalendar;
+export default CalendarComp;

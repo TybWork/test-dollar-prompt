@@ -5,4 +5,6 @@
     border-radius: 8px;
     overflow: hidden;
     height: calc(100vh - 140px);
+    flex-direction: column;
+
 }

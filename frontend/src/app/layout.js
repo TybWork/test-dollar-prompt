@@ -13,6 +13,7 @@ import SellerHeader from "./Components/SellerHeader/SellerHeader";
 import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
 import { getTokenFunction } from "./utilities/getTokenFunction";
 import { jwtDecode } from "jwt-decode";
+import CalendarComp from "./Components/CalendarComp/CalendarComp";
 
 const finlandica = Finlandica({ subsets: ["latin"] });
 
@@ -61,6 +62,7 @@ export default function RootLayout({ children }) {
           {renderHeader()}
           <MobileNavbar />
           <Cart />
+          <CalendarComp />
           <ScrollToTop />
           {children}
           {renderFooter()}

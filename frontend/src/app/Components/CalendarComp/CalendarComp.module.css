@@ -1,8 +1,15 @@
 /* CustomCalendar.module.css */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50000;
+}
+
 .pickDateButton {
     padding: 8px;
     border-radius: 4px;
-    background: var(--tertiaryClr);
     width: fit-content;
     cursor: pointer;
     display: flex;
@@ -25,7 +32,6 @@
     color: var(--textClr);
     border: 1px solid var(--customBorder);
     position: relative;
-    /* Ensure positioning context for dropdowns */
     transform: scale(0);
     transition: .3s;
     transform-origin: top left;

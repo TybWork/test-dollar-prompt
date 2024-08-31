@@ -1,0 +1,18 @@
+.pickDateButton {
+    padding: 4px 8px;
+    border: 1px solid var(--customBorder);
+    border-radius: 4px;
+    background: var(--tertiaryClr);
+    width: fit-content;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.pickDateButton svg {
+    padding: 0px;
+    font-size: 22px;
+}
