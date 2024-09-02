@@ -1,0 +1,9 @@
+.appContainer {
+    margin: 8px auto;
+    padding: 20px;
+    border: 1px solid var(--customBorder);
+    border-radius: 8px;
+    background: var(--tertiaryClr);
+    width: 100%;
+
+}

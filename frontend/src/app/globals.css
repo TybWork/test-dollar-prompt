@@ -63,3 +63,56 @@ body::-webkit-scrollbar-thumb {
   padding: 8px;
   color: var(--textClr);
 }
+
+
+/* ..................................... */
+
+/* Ensure you apply this style to the Quill editor container */
+.quill {
+  box-shadow: 0px 5px 10px #0000003b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ql-toolbar {
+  background: var(--secondryClr);
+  /* Background color of the toolbar */
+}
+
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+  /* border-color: var(--customBorder); */
+  border: none;
+}
+
+.ql-picker-label {
+  color: var(--textClr);
+}
+
+.ql-picker-label:hover::before {
+  color: var(--timeClr);
+}
+
+.ql-toolbar .ql-stroke {
+  stroke: var(--textClr) !important;
+  /* Color for SVG strokes (icons) */
+}
+
+.ql-toolbar .ql-fill {
+  fill: var(--textClr);
+  /* Color for SVG fills (icons) */
+}
+
+.ql-editor {
+  min-height: 300px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* place holder text */
+.ql-blank::before {
+  color: var(--textClr) !important;
+  opacity: 0.6;
+}

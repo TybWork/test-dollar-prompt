@@ -1,9 +1,8 @@
 import styles from '@/app/Components/(liteComponents)/InputField/InputField.module.css'
 
-const InputField = (props) => {
+const InputField = ({ type, name, id, placeholder, onchangeFunc, value }) => {
     return (
-        <input className={styles.inputField} type={props.type || 'text'} name={props.name} id={props.id} placeholder={props.placeholder} onChange={props.onchangeFunc} value={props.value} />
+        <input className={styles.inputField} type={type || 'text'} name={name} id={id} placeholder={placeholder} onChange={onchangeFunc} value={value} />
     )
 }
-
 export default InputField
