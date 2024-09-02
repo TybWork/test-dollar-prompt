@@ -1,4 +1,3 @@
-// 'use client'
 import styles from '@/app/Components/(liteComponents)/ImageUploader/ImageUploader.module.css'
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useState } from 'react';
