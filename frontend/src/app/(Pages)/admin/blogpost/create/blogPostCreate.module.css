@@ -1,0 +1,16 @@
+.container {
+    width: 800px;
+    margin: 32px auto;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.jodit-wysiwyg {
+    color: black !important;
+}

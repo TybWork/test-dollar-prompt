@@ -1,0 +1,45 @@
+/* Ensure you apply this style to the Quill editor container */
+.appContainer {
+    margin: 8px auto;
+    padding: 20px;
+    border: 1px solid var(--customBorder);
+    border-radius: 8px;
+    /* background: var(--tertiaryClr); */
+    background: var(--textClr);
+    width: 100%;
+
+}
+
+.ql-toolbar {
+    background: #007bff;
+    /* Background color of the toolbar */
+}
+
+.ql-toolbar .ql-stroke {
+    stroke: #e91a1a !important;
+    /* Color for SVG strokes (icons) */
+}
+
+.ql-toolbar .ql-fill {
+    fill: #fff;
+    /* Color for SVG fills (icons) */
+}
+
+.ql-editor {
+    min-height: 300px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.output {
+    margin-top: 20px;
+}
+
+.ql-editor.ql-blank::before {
+    color: #999;
+}
+
+.ql-editor:focus {
+    border-color: #a6ff00;
+}
