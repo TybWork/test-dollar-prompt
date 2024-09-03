@@ -7,11 +7,18 @@
 
 :root {
 
-  --primaryClr: #0b1e0d;
+  /* --primaryClr: #0b1e0d;
   --secondryClr: #102e13;
   --tertiaryClr: #153d19;
   --messageBg: #2C502F;
+  --timeClr: #97ff7f; */
+
+  --primaryClr: #080908;
+  --secondryClr: #061208;
+  --tertiaryClr: #0f2c12;
+  --messageBg: #2C502F;
   --timeClr: #97ff7f;
+
   --buttonGradient: linear-gradient(122deg, #1B1D5E, #44C151);
   --activeClr: rgb(45, 151, 19);
 
@@ -63,7 +70,6 @@ body::-webkit-scrollbar-thumb {
   padding: 8px;
   color: var(--textClr);
 }
-
 
 /* ..................................... */
 

@@ -9,12 +9,13 @@ import 'react-quill/dist/quill.snow.css';
 import styles from '@/app/Components/TextEditor/TextEditor.module.css';
 import '@/app/globals.css';
 
-const TextEditor = () => {
+const TextEditor = ({ onChangeFunc }) => {
     const [editorHtml, setEditorHtml] = useState('');
 
     // Update editorHtml state when editor content changes
     const handleChange = (value) => {
         setEditorHtml(value);
+        onChangeFunc(value);
         console.log(value); // Log the editor content for debugging
     };
 

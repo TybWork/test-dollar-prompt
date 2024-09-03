@@ -4,6 +4,8 @@ import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/Image
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
 import TextEditor from '@/app/Components/TextEditor/TextEditor';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import axios from 'axios';
 import { useState } from 'react';
 
 const Page = () => {
@@ -11,12 +13,22 @@ const Page = () => {
     const [data, setData] = useState({});
 
     const getValue = (val) => {
-        const { name, value, type, files } = val.target;
+        const { name, value, type, files } = val.target || {};
         setData((prevData) => ({
             ...prevData,
             [name]: type === 'file' ? files : value
         }));
     };
+
+    // Handle the content from TextEditor separately
+    const handleEditorChange = (content) => {
+        setData((prevData) => ({
+            ...prevData,
+            content: content
+        }));
+    };
+
+    console.log(data)
 
     const onSubmitFunc = async () => {
         try {
@@ -28,13 +40,12 @@ const Page = () => {
                     formData.append(key, data[key]);
                 }
             }
-            formData.append('postContent', content);
+            console.log(formData)
 
-            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blogpost/create`, {
-                method: 'POST',
-                body: formData,
+            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/create`, formData, {
                 headers: {
-                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`
+                    'Authorization': getTokenFunction().token,
+                    'Content-Type': 'multipart/form-data'
                 }
             });
 
@@ -45,19 +56,19 @@ const Page = () => {
     };
     return (
         <div className={styles.container}>
-            <h1 className={styles.h1}>Create New Post</h1>
+            <h1 className={styles.h1}>Create New Posts</h1>
             <div className={styles.imageUploader}>
                 <ImageUploader
                     containerWidth={'100%'}
                     containerHeight={'200px'}
-                    labelFor={'postBanner'}
+                    labelFor={'banner'}
                     onChangeFunc={getValue}
                 />
             </div>
             <InputField
                 placeholder={'Post Title...'}
                 onchangeFunc={getValue}
-                name='postTitle'
+                name='title'
             />
             {/* <textarea
                 name="postContent"
@@ -65,13 +76,16 @@ const Page = () => {
                 placeholder="Enter content here..."
             ></textarea> */}
 
-            <TextEditor />
+            <TextEditor onChangeFunc={handleEditorChange} />
 
             <GradientButton
                 title='Publish Post'
                 width={'fit-content'}
                 onClick={onSubmitFunc}
             />
+
+            {/* tags */}
+
         </div>
     );
 };
