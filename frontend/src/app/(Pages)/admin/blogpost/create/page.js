@@ -46,12 +46,14 @@ const Page = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.h1}>Create New Post</h1>
-            <ImageUploader
-                containerWidth={'100%'}
-                containerHeight={'200px'}
-                labelFor={'postBanner'}
-                onChangeFunc={getValue}
-            />
+            <div className={styles.imageUploader}>
+                <ImageUploader
+                    containerWidth={'100%'}
+                    containerHeight={'200px'}
+                    labelFor={'postBanner'}
+                    onChangeFunc={getValue}
+                />
+            </div>
             <InputField
                 placeholder={'Post Title...'}
                 onchangeFunc={getValue}
