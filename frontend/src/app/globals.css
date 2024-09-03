@@ -82,7 +82,7 @@ body::-webkit-scrollbar-thumb {
 .ql-container.ql-snow,
 .ql-toolbar.ql-snow {
   /* border-color: var(--customBorder); */
-  border: none;
+  border: none !important;
 }
 
 .ql-picker-label {
