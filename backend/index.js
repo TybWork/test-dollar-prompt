@@ -15,6 +15,8 @@ import { logRouts } from './src/routes/logs.js';
 import { webhookRoute } from './src/routes/webhook.js';
 import { cartRoutes } from './src/routes/cartRoutes.js';
 import { superAdminRoutes } from './src/routes/superAdminRoutes.js';
+import { blogRoutes } from './src/routes/blog.Routes.js';
+
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -87,6 +89,8 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/seller', sellerRoutes)
 app.use('/api/cart', cartRoutes)
 app.use('/api/super-admin', superAdminRoutes)
+
+app.use('/api/blog', blogRoutes)
 
 //log routes
 app.use('/api', logRouts)
