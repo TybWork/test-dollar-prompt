@@ -10,12 +10,12 @@ const page = () => {
                 Blog
             </h1>
             <div className={styles.blogPostCard}>
-                <BlogPostCard onClick={router.push('/blog/3242')} />
-                <BlogPostCard onClick={router.push('/blog/3242')} />
-                <BlogPostCard onClick={router.push('/blog/3242')} />
-                <BlogPostCard onClick={router.push('/blog/3242')} />
-                <BlogPostCard onClick={router.push('/blog/3242')} />
-                <BlogPostCard onClick={router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
+                <BlogPostCard onClick={() => router.push('/blog/3242')} />
             </div>
         </div>
     )
