@@ -70,11 +70,11 @@ const Page = () => {
                 onchangeFunc={getValue}
                 name='title'
             />
-            {/* <textarea
-                name="postContent"
-                onChange={getValue}
-                placeholder="Enter content here..."
-            ></textarea> */}
+            <InputField
+                placeholder={'Short Description...'}
+                onchangeFunc={getValue}
+                name='description'
+            />
 
             <TextEditor onChangeFunc={handleEditorChange} />
 
