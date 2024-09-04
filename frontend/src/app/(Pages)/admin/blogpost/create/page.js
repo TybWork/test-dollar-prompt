@@ -3,13 +3,12 @@ import styles from '@/app/(Pages)/admin/blogpost/create/blogPostCreate.module.cs
 import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/ImageUploader';
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
-import TextEditor from '@/app/Components/TextEditor/TextEditor';
+import JoditEditorComp from '@/app/Components/JoditEditor/JoditEditor';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import axios from 'axios';
 import { useState } from 'react';
 
 const Page = () => {
-    // const [content, setContent] = useState('');
     const [data, setData] = useState({});
 
     const getValue = (val) => {
@@ -29,7 +28,6 @@ const Page = () => {
     };
 
     console.log(data)
-
     const onSubmitFunc = async () => {
         try {
             const formData = new FormData();
@@ -76,7 +74,8 @@ const Page = () => {
                 name='description'
             />
 
-            <TextEditor onChangeFunc={handleEditorChange} />
+            {/* <TextEditor onChangeFunc={handleEditorChange} /> */}
+            <JoditEditorComp onChange={handleEditorChange} />
 
             <GradientButton
                 title='Publish Post'
