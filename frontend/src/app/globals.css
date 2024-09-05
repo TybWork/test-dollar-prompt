@@ -180,6 +180,11 @@ body::-webkit-scrollbar-thumb {
   /* min-height: 100vh !important; */
 }
 
+td {
+  /* border-collapse: separate; */
+  border: 1px solid;
+}
+
 
 /*............. jodit footer.......... */
 
