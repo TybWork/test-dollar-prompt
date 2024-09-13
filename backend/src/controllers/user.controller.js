@@ -35,7 +35,7 @@ export const signUp = async (req, res) => {
     }
 }
 
-// login user
+//login user
 // export const loginUser = async (req, res) => {
 //     const { email, password } = req.body
 //     try {
@@ -68,7 +68,8 @@ export const signUp = async (req, res) => {
 //         console.log(`User log in failed ${error}`)
 //     }
 // }
-// login user
+
+// login user with recaptcha enabled
 export const loginUser = async (req, res) => {
     const { email, password, token } = req.body
 
@@ -122,6 +123,7 @@ export const loginUser = async (req, res) => {
     }
 
 }
+
 // superAdmin login
 export const superAdminLogin = async (req, res) => {
     const { email, password } = req.body

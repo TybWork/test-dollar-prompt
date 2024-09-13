@@ -1,9 +1,9 @@
 import express from 'express'
 import { clearCookie, loginUser, refreshCookie, signUp } from '../controllers/user.controller.js'
 
-export const authRout = express.Router()
+export const authRoutes = express.Router()
 
-authRout.post('/signup', signUp)
-authRout.post('/login', loginUser)
-authRout.post('/logout', clearCookie)
-authRout.post('/refreshcookie', refreshCookie)
+authRoutes.post('/signup', signUp)
+authRoutes.post('/login', loginUser)
+authRoutes.post('/logout', clearCookie)
+authRoutes.post('/refreshcookie', refreshCookie)
