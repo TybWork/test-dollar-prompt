@@ -26,6 +26,10 @@ export const getUserLinks = (profileHandle) => {
         ],
         admin: [
             {
+                title: "Create Blog",
+                link: "/admin/blogpost/create"
+            },
+            {
                 title: "Home",
                 link: "/"
             },

@@ -1,25 +1,44 @@
+'use client'
 import styles from '@/app/(Pages)/blog/[postid]/blogpost.module.css'
+import axios from 'axios'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 const page = ({ params }) => {
     const { postid } = params
+    const [blog, setblog] = useState(null)
+    useEffect(() => {
+        const fetchBlog = async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/filter?_id=${postid}`)
+            setblog(response.data)
+        }
+        fetchBlog();
+    }, [])
+
+    if (!blog) {
+        return <div>loading...</div>
+    }
     return (
         <div className={styles.parentContainer}>
-            <div className={styles.imageContainer}>
-                <Image className={styles.bannerImg} width={0} height={0} sizes='100vw' src={'/assets/imageAssets/placeholder-banner.png'} alt='banner-image' />
-            </div>
+            {
+                blog && blog.map((content) =>
+                    <div>
+                        <div className={styles.imageContainer}>
+                            <Image className={styles.bannerImg} width={0} height={0} sizes='100vw' src={content.banner[0]} alt='banner-image' />
+                        </div>
 
-            <article className={styles.article}>
-                <h1 className={styles.postTitle}>Post title</h1>
-                <time className={styles.time} datetime="">01 Aug 2024</time>
-                <p className={styles.content}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas accusamus nostrum ut sapiente asperiores soluta porro veniam magni optio labore neque incidunt quia ipsam sint ex esse quae, id commodi! Culpa exercitationem non animi quisquam cum obcaecati voluptatibus, expedita, ipsum hic ipsa voluptates minus eos architecto accusantium labore itaque illo?
-                </p>
-            </article>
-            <address>
-                <p>Written by <a href="mailto:author@example.com">Author Name</a></p>
-            </address>
+                        <article className={styles.article}>
+                            <h1 className={styles.postTitle}>{content.title}</h1>
+                            <time className={styles.time} datetime="">01 Aug 2024</time>
+                            <p className={styles.content} dangerouslySetInnerHTML={{ __html: content.content }}>
 
-
+                            </p>
+                        </article>
+                        <address>
+                            <p>Written by <a href="mailto:author@example.com">Author Name</a></p>
+                        </address>
+                    </div>
+                )
+            }
         </div>
     )
 }
