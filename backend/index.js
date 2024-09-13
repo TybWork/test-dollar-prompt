@@ -4,18 +4,21 @@ import dotenv from 'dotenv';
 import stripe from 'stripe';
 // import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
-import { authRout } from './src/routes/authRoutes.js';
+import { authRoutes } from './src/routes/authRoutes.js';
 import { adminRoutes } from './src/routes/adminRoutes.js';
 // import { route as user } from './src/routes/User/user.js';
 import { route as dalleRoute } from './src/routes/Prompts/DallE/Dalle.js';
 
 import cors from 'cors'
 import { sellerRoutes } from './src/routes/sellerRoutes.js';
-import { logRouts } from './src/routes/logs.js';
+import { logRoutes } from './src/routes/logs.js';
 import { webhookRoute } from './src/routes/webhook.js';
 import { cartRoutes } from './src/routes/cartRoutes.js';
 import { superAdminRoutes } from './src/routes/superAdminRoutes.js';
 import { blogRoutes } from './src/routes/blog.Routes.js';
+import { Server } from 'socket.io';
+import http from 'http';
+import { chatRouter } from './src/routes/chat.routes.js';
 
 
 dotenv.config();
@@ -46,6 +49,73 @@ app.use(cors({
         console.log("Failed to connect mongo db")
     }
 })();
+
+//......................socket.io.......................
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: process.env.CLIENT_BASE_URL,
+        methods: ['GET', 'POST'],
+        credentials: true,
+    },
+});
+
+io.on('connection', (socket) => {
+    console.log('New user connected', socket.id);
+
+    // Handle user joining rooms based on their roles
+    socket.on('joinRoom', ({ userId, role }) => {
+        socket.join(userId);  // User joins their own room
+        socket.join(role);  // User joins their role-based room (e.g., admin, seller)
+        io.emit('userConnected', userId);  // Broadcast online status
+    });
+
+
+    // Update user's online status
+    socket.on('joinRoom', async ({ userId }) => {
+        socket.userId = userId;  // Store the user ID in the socket session
+        await User.findByIdAndUpdate(userId, { isOnline: true });  // Mark user as online
+        io.emit('userConnected', userId);  // Notify other users
+    });
+
+
+    socket.on('joinRoom', async ({ userId }) => {
+        await User.findByIdAndUpdate(userId, { isOnline: true });
+    });
+
+    socket.on('disconnect', async () => {
+        await User.findByIdAndUpdate(socket.userId, { isOnline: false, lastActive: new Date() });
+    });
+
+
+    socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
+        const newMessage = await new Message({ senderId, receiverId, message }).save();
+        io.to(receiverId).emit('newMessage', newMessage);  // Emit the message to the receiver
+    });
+
+    socket.on('typing', ({ receiverId }) => {
+        io.to(receiverId).emit('userTyping', socket.id);
+    });
+
+    socket.on('stopTyping', ({ receiverId }) => {
+        io.to(receiverId).emit('userStoppedTyping', socket.id);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected', socket.id);
+        io.emit('userDisconnected', socket.id);  // Broadcast offline status
+    });
+
+    // Handle user disconnecting (update last active and set offline)
+    socket.on('disconnect', async () => {
+        if (socket.userId) {
+            await User.findByIdAndUpdate(socket.userId, { isOnline: false, lastActive: new Date() });
+            io.emit('userDisconnected', socket.userId);  // Notify other users
+        }
+    });
+
+});
+
 
 // ............................stripe code.....................
 app.post('/create-checkout-session', async (req, res) => {
@@ -84,7 +154,7 @@ app.post('/create-checkout-session', async (req, res) => {
 app.use('/api', dalleRoute)
 
 // routes
-app.use('/api/user', authRout)
+app.use('/api/user', authRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/seller', sellerRoutes)
 app.use('/api/cart', cartRoutes)
@@ -93,10 +163,11 @@ app.use('/api/super-admin', superAdminRoutes)
 app.use('/api/blog', blogRoutes)
 
 //log routes
-app.use('/api', logRouts)
+app.use('/api', logRoutes)
+
+//chat route
+app.use('/api', chatRouter)
 
 app.listen(port, () => {
     console.log(`App is running on port: ${port}`);
-})
-
-
+});

@@ -31,7 +31,16 @@ const userSchema = new Schema(
         },
         isDeleted: {
             type: Boolean,
-        }
+        },
+        // other fields...
+        isOnline: {
+            type: Boolean,
+            default: false
+        },
+        lastActive: {
+            type: Date,
+            default: Date.now
+        },
     }, { timestamps: true }
 )
 
