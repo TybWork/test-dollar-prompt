@@ -88,8 +88,6 @@ export const filterSender = async (req, res) => {
         const senders = messages.map(msg => msg.receiverId.toString());
         const uniqueSenders = [...new Set(senders)]
 
-
-        // const chats = await Message.find({ receiverId: uniqueSenders }).populate('message');
         const msgRooms = await Promise.all(
             uniqueSenders.map(async (id) => {
                 const userChats = await Message.find({ receiverId: id });
@@ -107,8 +105,6 @@ export const filterSender = async (req, res) => {
                 }
             })
         );
-        // const chats1 = await Message.find({ receiverId: uniqueSenders[1] }).populate('message');
-
         res.status(200).json({ uniqueSenders, msgRooms });
     } catch (err) {
         res.status(500).json(err);
