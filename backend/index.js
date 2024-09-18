@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose, { startSession } from 'mongoose';
 import dotenv from 'dotenv';
 import stripe from 'stripe';
+import http from 'http'
+import { Server } from 'socket.io';
+
 // import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
 import { authRoutes } from './src/routes/authRoutes.js';
@@ -15,7 +18,8 @@ import { logRoutes } from './src/routes/logs.js';
 import { webhookRoute } from './src/routes/webhook.js';
 import { cartRoutes } from './src/routes/cartRoutes.js';
 import { superAdminRoutes } from './src/routes/superAdminRoutes.js';
-import { blogRoutes } from './src/routes/blog.Routes.js';
+import { blogRoutes } from './src/routes/blogRoutes.js';
+import { chatRoutes } from './src/routes/chatRoutes.js';
 
 
 dotenv.config();
@@ -163,7 +167,7 @@ app.use('/api/blog', blogRoutes)
 app.use('/api', logRoutes)
 
 //chat route
-app.use('/api', chatRouter)
+app.use('/api/chat', chatRoutes)
 
 app.listen(port, () => {
     console.log(`App is running on port: ${port}`);
