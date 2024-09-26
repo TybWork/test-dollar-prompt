@@ -1,160 +1,118 @@
-import styles from '@/app/Components/(Dashbords)/ChatComponent/ChatComponent.module.css'
-import MessageSender from '../(DashboardsLiteComponent)/MessageSender/MessageSender'
-import MessageReceiver from '../(DashboardsLiteComponent)/MessageReceiver/MessageReceiver'
-import ChatHeader from '../ChatHeader/ChatHeader'
-import PicWithNameRole from '../../(liteComponents)/PicWithNameRole/PicWithNameRole'
-import InputChat from '../(DashboardsLiteComponent)/InputChat/InputChat'
+'use client';
+import styles from '@/app/Components/(Dashbords)/ChatComponent/ChatComponent.module.css';
+import MessageSender from '../(DashboardsLiteComponent)/MessageSender/MessageSender';
+import MessageReceiver from '../(DashboardsLiteComponent)/MessageReceiver/MessageReceiver';
+import ChatHeader from '../ChatHeader/ChatHeader';
+import PicWithNameRole from '../../(liteComponents)/PicWithNameRole/PicWithNameRole';
+import InputChat from '../(DashboardsLiteComponent)/InputChat/InputChat';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const history = [
-    {
-        type: 'sender',
-        sms: '1send 1',
-        timestamp: '12:03PM'
-    },
-    {
-        type: 'sender',
-        sms: '2send 2 asdfasdfasdfasdfasdsf as fass dsasaf assdfasdsfasdsfasdfsadsa  dasfs asdfas s asdsf asds',
-        timestamp: '12:04PM'
-    },
-    {
-        type: 'receiver',
-        sms: '3receive 1 asdfass asdsf asdsf asdsf sadf asdsdfas ds',
-        timestamp: '12:06PM'
-    },
-    {
-        type: 'sender',
-        sms: '4send 3',
-        timestamp: '12:06PM'
-    },
-    {
-        type: 'receiver',
-        sms: '5receive 1 asdfass asdsf asdsf asdsf sadf asdsdfas ds asdf asdf adfa sdfa ss',
-        timestamp: '12:06PM'
-    },
-    {
-        type: 'sender',
-        sms: '6send 3',
-        timestamp: '12:06PM'
-    },
-    {
-        type: 'receiver',
-        sms: '7receive 1 asdfass asdsf asdsf asdsf sadf asdsdfas ds',
-        timestamp: '12:06PM'
-    },
-    {
-        type: 'receiver',
-        sms: '8receive 1 asdfass asdsf asdsf asdsf sadf asdsdfas ds',
-        timestamp: '12:06PM'
-    },
-]
-
-const profiles = [
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '12:32pm',
-        status: 'online'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '08:13pm',
-        status: 'offline'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '11:10am',
-        status: ''
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '03:02pm',
-        status: 'online'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '10:01pm',
-        status: 'offline'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '06:19pm',
-        status: 'offline'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '08:40pm',
-        status: 'offline'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '07:50pm',
-        status: 'offline'
-    },
-    {
-        Name: 'Ahmad',
-        sms: 'Hello! I hope youre having a fantastic day.',
-        time: '10:05pm',
-        status: 'offline'
-    },
-]
-
-
+import io from 'socket.io-client'
+const socket = io(process.env.NEXT_PUBLIC_SERVER_URL)
 
 const ChatComponent = () => {
+    const [chatRoom, setChatRoom] = useState(null);
+    const [senderId, setsenderId] = useState('');
+    const [userChat, setuserChat] = useState([]);
+
+
+    useEffect(() => {
+        socket.on('receiveMessage')
+    }, [])
+
+    // Fetch chat rooms functionality
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`http://localhost:4001/api/chat/chatRoom/6662ff2b1c4e19a5896f2bfe`);
+            setChatRoom(response.data);
+        };
+        fetchData();
+    }, [senderId]);
+
+    // handle incoming messages
+    useEffect(() => {
+        socket.on('receiveMessage', (message) => {
+            setuserChat((prevUserChat) => [...prevUserChat, message])
+        })
+        return () => {
+            socket.off('receiveMessage')
+        }
+    }, [])
+
+    useEffect(() => {
+        if (chatRoom && senderId) {
+            const specificChat = chatRoom.msgRooms.find((item) => item.id === senderId)
+            setuserChat(specificChat ? specificChat.chat : [])
+        }
+    }, [userChat, senderId])
+
+    if (!chatRoom) return <div>Loading...</div>;
+
     return (
         <div className={styles.parentContainer}>
-
-            {/* profiles container */}
+            {/* Profiles container */}
             <div className={styles.profilesContainer}>
-                {
-                    profiles.map((profile) =>
-                        <div className={styles.singleProfile}>
-                            <PicWithNameRole
-                                width={'40px'}
-                                role={`${profile.sms.slice(0, 20)}..`}
-                                hidePicDot={false}
-                                dotSize={'16px'}
-                                picDot={profile.status}
-                                dotBorder={'3px solid var(--tertiaryClr)'}
-                            />
-                            <span className={styles.time}>{profile.time}</span>
-                        </div>
-                    )
-                }
+                {chatRoom.msgRooms.map((profile, index) => (
+                    <div className={styles.singleProfile} key={index}>
+                        <PicWithNameRole
+                            width={'40px'}
+                            name={profile.name}
+                            role={`${profile.chat[0].message.slice(0, 20)}..`}
+                            hidePicDot={false}
+                            dotSize={'16px'}
+                            picDot={profile.status}
+                            dotBorder={'3px solid var(--tertiaryClr)'}
+                            onClick={() => setsenderId(profile.id)}
+                        />
+                        <span className={styles.time}>{profile.time}</span>
+                    </div>
+                ))}
             </div>
 
-
-            {/* chats container */}
+            {/* Chats container */}
             <div className={styles.chatParentContainer}>
                 <ChatHeader />
                 <div className={styles.chatsContainer}>
-                    {
-                        history.map((sms, index) =>
-                            <div
-                                key={index}
-                                className={sms.type === 'sender' ? styles.senderMessage : styles.receiverMessage}
-                            >
 
-                                {sms.type === "sender" ? <MessageSender text={sms.sms} time={sms.timestamp} width={'260px'} /> : <div ><MessageReceiver text={sms.sms} time={sms.timestamp} width={'260px'} /></div>}
-                            </div>
-                        )
-                    }
+                    {userChat && userChat.map((chat, index) => (
+                        <div
+                            key={index}
+                            className={chat.id === senderId ? styles.senderMessage : styles.receiverMessage}
+                        >
+                            {chat.id === senderId ? (
+                                <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
+                            ) : (
+                                <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
+                            )}
+                        </div>
+                        // <div
+                        //     key={index}
+                        //     className={room.id === chat.id ? styles.senderMessage : styles.receiverMessage}
+                        // >
+                        //     {room.id === chat.id ? (
+                        //         <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
+                        //     ) : (
+                        //         <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
+                        //     )}
+                        // </div>
+                        // <div
+                        //     key={index}
+                        //     className={chat.type === 'sender' ? styles.senderMessage : styles.receiverMessage}
+                        // >
+                        //     {chat.type === 'sender' ? (
+                        //         <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
+                        //     ) : (
+                        //         <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
+                        //     )}
+                        // </div>
+                    ))}
                 </div>
-                {/* input chat */}
+                {/* Input chat */}
                 <InputChat />
-                <div className={styles.inputChat}>
-
-                </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ChatComponent
+export default ChatComponent;

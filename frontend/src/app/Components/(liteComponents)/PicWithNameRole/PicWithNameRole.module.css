@@ -3,6 +3,7 @@
     align-items: center;
     gap: 12px;
     width: max-content;
+    cursor: pointer;
 }
 
 .imageContainer {

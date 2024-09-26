@@ -2,6 +2,9 @@ import styles from '@/app/Components/(Dashbords)/PeopleView/PeopleView.module.cs
 import SingleUser from '../SingleUser/SingleUser'
 import Search from '../../(liteComponents)/Search/Search'
 const PeopleView = () => {
+    const showChat = () => {
+        console.log('chat pressed')
+    }
     return (
         <div className={styles.container}>
             <div className={styles.descriptionHeading}>
@@ -19,7 +22,7 @@ const PeopleView = () => {
 
                 {/* single admin */}
                 <div className={styles.usersDetail}>
-                    <SingleUser isActive={true} picDot={'online'} />
+                    <SingleUser isActive={true} picDot={'online'} chatClickFunc={showChat} />
                     <SingleUser isActive={false} picDot={'offline'} />
                     <SingleUser isActive={true} picDot={'inactive'} />
                     <SingleUser isActive={true} picDot={'online'} />

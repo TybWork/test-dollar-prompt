@@ -11,7 +11,7 @@ export const sendMessage = async (req, res) => {
         const newMessage = new Message({
             senderId,
             receiverId,
-            message
+            message,
         });
         await newMessage.save();
 
@@ -55,32 +55,10 @@ export const markAsRead = async (req, res) => {
     }
 };
 
-// export const filterSender = async (req, res) => {
-//     const { id } = req.params;
-
-//     try {
-//         const messages = await Message.find({
-//             $or: [
-//                 { receiverId: id },
-//                 { senderId: id }
-//             ]
-//         }).sort({ timestamp: 1 }); // Sort by timestamp if needed
-
-//         // Optionally, you can extract unique senders from the messages
-//         const currentUser = [...new Set(messages.map(msg => msg.senderId.toString()))];
-//         const senders = messages.map(msg => msg.receiverId.toString());
-//         const uniqueSenders = [...new Set(senders)]
-
-//         const chats = await Message.find({ $or: [{ senderId: id }, { receiverId: id }] }).populate('message')
-
-//         res.status(200).json({ uniqueSenders, currentUser, chats });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// }
-
+// find chat rooms for specific user
 export const filterSender = async (req, res) => {
     const { userId } = req.params;
+    // const { senderId } = req.body;
 
     try {
         const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
@@ -90,13 +68,15 @@ export const filterSender = async (req, res) => {
 
         const msgRooms = await Promise.all(
             uniqueSenders.map(async (id) => {
-                const userChats = await Message.find({ receiverId: id });
-                const user = await User.findById(id).populate('firstName lastName role')
+                const userChats = await Message.find({ $or: [{ receiverId: id, senderId: userId }, { receiverId: userId, senderId: id }] });
+                const user = await User.findById(id).populate('firstName lastName role _id')
                 return {
+                    id: user._id,
                     name: `${user.firstName} ${user.lastName}`,
                     role: user.role,
                     chat: userChats.map((e) => {
                         return {
+                            id: e.senderId,
                             message: e.message,
                             isRead: e.isRead,
                             timestamp: e.timestamp,
@@ -110,3 +90,72 @@ export const filterSender = async (req, res) => {
         res.status(500).json(err);
     }
 }
+// // find chat rooms for specific user
+// export const filterSender = async (req, res) => {
+//     const { userId } = req.params;
+//     // const { senderId } = req.body;
+
+//     try {
+//         const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
+
+//         const senders = messages.map(msg => msg.receiverId.toString());
+//         const uniqueSenders = [...new Set(senders)]
+//         console.log(uniqueSenders)
+
+//         const msgRooms = await Promise.all(
+//             uniqueSenders.map(async (id) => {
+//                 const userChats = await Message.find({ receiverId: id, senderId: userId });
+//                 const user = await User.findById(id).populate('firstName lastName role _id')
+//                 return {
+//                     id: user._id,
+//                     name: `${user.firstName} ${user.lastName}`,
+//                     role: user.role,
+//                     chat: userChats.map((e) => {
+//                         return {
+//                             id: e.senderId,
+//                             message: e.message,
+//                             isRead: e.isRead,
+//                             timestamp: e.timestamp,
+//                         }
+//                     })
+//                 }
+//             })
+//         );
+//         res.status(200).json({ uniqueSenders, msgRooms });
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// }
+
+// export const filterSender = async (req, res) => {
+//     const { userId } = req.params;
+
+//     try {
+//         const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
+
+//         const senders = messages.map(msg => msg.receiverId.toString());
+//         const uniqueSenders = [...new Set(senders)]
+
+//         const msgRooms = await Promise.all(
+//             uniqueSenders.map(async (id) => {
+//                 const userChats = await Message.find({ receiverId: id });
+//                 const user = await User.findById(id).populate('firstName lastName role _id')
+//                 return {
+//                     id: user._id,
+//                     name: `${user.firstName} ${user.lastName}`,
+//                     role: user.role,
+//                     chat: userChats.map((e) => {
+//                         return {
+//                             message: e.message,
+//                             isRead: e.isRead,
+//                             timestamp: e.timestamp,
+//                         }
+//                     })
+//                 }
+//             })
+//         );
+//         res.status(200).json({ uniqueSenders, msgRooms });
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// }

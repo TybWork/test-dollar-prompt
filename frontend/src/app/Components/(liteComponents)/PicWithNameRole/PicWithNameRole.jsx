@@ -1,8 +1,8 @@
 import styles from '@/app/Components/(liteComponents)/PicWithNameRole/PicWithNameRole.module.css'
 import Image from 'next/image'
-const PicWithNameRole = ({ imgSrc, name, role, picDot, hidePicDot, width, dotSize, dotBorder }) => {
+const PicWithNameRole = ({ imgSrc, name, role, picDot, hidePicDot, width, dotSize, dotBorder, onClick }) => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={onClick}>
             <div className={styles.imageContainer}>
                 <Image
                     width={0}

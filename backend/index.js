@@ -52,6 +52,7 @@ app.use(cors({
 })();
 
 //......................socket.io.......................
+
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -116,7 +117,6 @@ io.on('connection', (socket) => {
     });
 
 });
-
 
 // ............................stripe code.....................
 app.post('/create-checkout-session', async (req, res) => {

@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { RxUpdate } from "react-icons/rx";
 import IconWithCoutner from '../../(liteComponents)/IconWithCounter/IconWithCoutner';
 import { IoChatbubblesOutline } from "react-icons/io5";
-const SingleUser = ({ isActive, picDot }) => {
+const SingleUser = ({ isActive, picDot, chatClickFunc }) => {
     return (
         <ul className={styles.detail}>
             <li><PicWithNameRole name={'Mudasir'} role={'admin'} picDot={picDot} hidePicDot={false} /></li>
@@ -25,7 +25,7 @@ const SingleUser = ({ isActive, picDot }) => {
                     <MdDelete />
                 </span>
                 <span>
-                    <IconWithCoutner icon={<IoChatbubblesOutline />} />
+                    <IconWithCoutner icon={<IoChatbubblesOutline />} chatClickFunc={chatClickFunc} />
                 </span>
             </li>
         </ul>
