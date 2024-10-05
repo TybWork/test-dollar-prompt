@@ -5,7 +5,7 @@ import EyeIcon from '../(icons)/EyeIcon'
 import HeartIcon from '../(icons)/HeartIcon'
 import ArrowIcon from '../(icons)/ArrowIcon'
 import { useState } from 'react'
-const AdaptiveCard = () => {
+const AdaptiveCard = ({ title, views, likes, shares }) => {
     const [isEnter, setisEnter] = useState(false)
     const mouseEnter = () => {
         setisEnter(prev => !prev)
@@ -23,7 +23,7 @@ const AdaptiveCard = () => {
                 <Image src={'/assets/ImageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
                 <div className={styles.contentContainer}>
                     <div className={styles.header}>
-                        <div className={styles.title}>Painting Flower Dall-E Prompt...</div>
+                        <div className={styles.title}>{typeof title === 'string' ? title.slice(0, 20) : "Painting Flower Dall-E Prompt"}...</div>
                         <PrimaryBtn />
                     </div>
 
@@ -31,18 +31,18 @@ const AdaptiveCard = () => {
 
                     <div className={styles.cardFooter}>
                         <span className={styles.iconText}>
-                            <EyeIcon stroke={isEnter ? '' : 'var(--homeMainBtn)'} />
-                            10+
+                            <EyeIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
+                            <span>{`${views || '20'}+`}</span>
                         </span>
 
                         <span className={styles.iconText}>
-                            <HeartIcon stroke={isEnter ? '' : 'var(--homeMainBtn)'} />
-                            10+
+                            <HeartIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
+                            <span>{`${likes || "10"}+`}</span>
                         </span>
 
                         <span className={styles.iconText}>
-                            <ArrowIcon fill={isEnter ? '' : 'var(--homeMainBtn)'} />
-                            10+
+                            <ArrowIcon fill={isEnter ? 'var(--homeMainBtn)' : ''} />
+                            <span>{`${shares || '4'}+`}</span>
                         </span>
                     </div>
 
