@@ -193,9 +193,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* jodit break fetur hide */
-.jodit-wysiwyg {
-  /* min-height: 100vh !important; */
-}
 
 td {
   /* border-collapse: separate; */
