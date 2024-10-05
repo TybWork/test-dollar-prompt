@@ -82,11 +82,15 @@
 
 .designerSocialHandle {
     color: var(--primaryClr);
-    padding: 4px;
-    background-color: var(--textClr);
-    border-radius: 4px;
     width: fit-content;
+}
+.designerSocialHandle a{
+    background: var(--buttonGradient);
+    border-radius: 4px;
+    padding: 4px;
     font-size: 12px;
+    text-decoration: none;
+    color: var(--textClr);
 }
 
 /* price */

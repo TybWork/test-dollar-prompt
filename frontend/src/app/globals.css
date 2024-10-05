@@ -27,6 +27,23 @@
   --textClr: rgb(255, 255, 255);
   --buttonGradientHover: linear-gradient(122deg, #44C151, #1B1D5E);
 
+
+  /* new colors */
+  --homePrimaryClr: #ffffff;
+  --homeSecondryClr: #F8FDF8;
+  --homeTertiaryClr: #205B26;
+  --homeMainBtn: #44C151;
+  --homeIconClr: #8FAD92;
+  --homeCardBorder: #D2DED4;
+  --homeIconText: #D9D9D9;
+  --blackClr: #000000;
+
+  /* new cardGradient */
+  --homeCardGradient: linear-gradient(90deg, rgba(5, 236, 28, 1) 0%, rgba(20, 156, 34, 1) 33%, rgba(5, 236, 28, 1) 77%, rgba(20, 156, 34, 1) 100%);
+
+  /* utilities */
+  --mainPadding: 48px;
+
   /* text styles */
   --logo: 2rem;
   --navLinks: 16px;

@@ -3,14 +3,17 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema({
     senderId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        // type: Schema.Types.ObjectId,
+        // ref: 'User',
+        type: 'String',
+
         required: true
     },
     receiverId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        // type: Schema.Types.ObjectId,
+        // ref: 'User',
+        type: String
+        // required: true
     },
     message: {
         type: String,
@@ -26,4 +29,20 @@ const messageSchema = new Schema({
     },
 }, { timestamps: true });
 
-export const Message = mongoose.model('Message', messageSchema);
+const chatRoomSchema = new Schema({
+    roomId: {
+        type: String,
+    },
+    senderId: {
+        type: String,
+    },
+    receiverId: {
+        type: String
+    },
+    messages: {
+        type: [messageSchema]
+    }
+})
+
+// export const Message = mongoose.model('Message', messageSchema);
+export const ChatRoom = mongoose.model('ChatRoom', chatRoomSchema);

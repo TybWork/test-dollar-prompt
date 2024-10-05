@@ -1,14 +1,21 @@
+'use client'
 import styles from '@/app/Components/(Dashbords)/(DashboardsLiteComponent)/MessageReceiver/MessageReceiver.module.css'
 import Image from "next/image"
+import { formateDate } from '@/app/utilities/formateDate'
+import { useState, useEffect } from 'react'
 
 const MessageReceiver = ({ text, time, width }) => {
+    const [formatedTime, setformatedTime] = useState('')
+    useEffect(() => {
+        setformatedTime(formateDate(time).date)
+    }, [time])
     return (
         <div className={styles.mainContainer}>
             <div className={styles.chatContainer} style={{ width: width || '220px' }}>
                 <div className={styles.topSide}></div>
                 <div className={styles.leftSide}>
                     {text}
-                    <span className={styles.time}>{time || 'time: ...AM'}</span>
+                    <span className={styles.time}>{formatedTime || 'time: ...AM'}</span>
                 </div>
                 <div className={styles.rightSide}>
                 </div>

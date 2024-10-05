@@ -19,6 +19,7 @@ import Archieve from '@/app/Components/(liteComponents)/ArchievesDownload/Archie
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Link from 'next/link';
 
 const page = ({ params }) => {
     const { promptid } = params;
@@ -129,8 +130,8 @@ const page = ({ params }) => {
 
                 {/* designerInfo */}
                 <div className={styles.designerInfoContainer}>
-                    <Image src="/assets/imageAssets/logo.png" width={25} height={25} />
-                    <div className={styles.designerSocialHandle}>@{prompt.userId}</div>
+                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={25} height={25} />
+                    <div className={styles.designerSocialHandle}><Link href={`/profile/${prompt.userId}`}>@{(prompt.userId).slice(0, 5)}</Link></div>
                 </div>
 
                 {/* prompt info */}

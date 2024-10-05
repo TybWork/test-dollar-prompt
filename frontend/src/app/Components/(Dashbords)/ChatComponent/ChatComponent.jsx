@@ -7,45 +7,66 @@ import PicWithNameRole from '../../(liteComponents)/PicWithNameRole/PicWithNameR
 import InputChat from '../(DashboardsLiteComponent)/InputChat/InputChat';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 
-import io from 'socket.io-client'
-const socket = io(process.env.NEXT_PUBLIC_SERVER_URL)
+const socket = io(process.env.NEXT_PUBLIC_SERVER_URL);
 
-const ChatComponent = () => {
+const ChatComponent = ({ senderIdString, receiverIdString }) => {
     const [chatRoom, setChatRoom] = useState(null);
-    const [senderId, setsenderId] = useState('');
-    const [userChat, setuserChat] = useState([]);
+    //if we provide senderIdString getting my profile
+    const [senderId, setSenderId] = useState('');
+    const [roomId, setroomId] = useState('')
+    const [userChat, setUserChat] = useState([]);
+    const [input, setInput] = useState('');
+    const [separateRoom, setseparateRoom] = useState([])
 
-
-    useEffect(() => {
-        socket.on('receiveMessage')
-    }, [])
-
-    // Fetch chat rooms functionality
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get(`http://localhost:4001/api/chat/chatRoom/6662ff2b1c4e19a5896f2bfe`);
+    const fetchData = async () => {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/chat/fetch-rooms/${senderIdString}`);
+        if (response) {
             setChatRoom(response.data);
-        };
+        } else {
+            setChatRoom(null)
+        }
+    };
+
+    // Fetch chat room data
+
+    useEffect(() => {
         fetchData();
-    }, [senderId]);
+    }, [receiverIdString]);
 
-    // handle incoming messages
+    const onChangeFunc = (e) => {
+        setInput(e.target.value);
+    };
+
+    const sendMessageFunc = () => {
+        if (!input) return;
+
+        socket.emit('msgSend', {
+            roomId: roomId || `${senderIdString}-${receiverIdString}`,
+            senderId: senderIdString,
+            receiverId: receiverIdString,
+            message: input
+        });
+        socket.emit('fetchRoom', senderIdString)
+
+        setInput('');
+    };
+
     useEffect(() => {
-        socket.on('receiveMessage', (message) => {
-            setuserChat((prevUserChat) => [...prevUserChat, message])
-        })
+        const handleIncomingMessage = (message) => {
+            console.log('this is message', message)
+            setChatRoom([message])
+        };
+
+        socket.on('Message Sent', handleIncomingMessage);
+
         return () => {
-            socket.off('receiveMessage')
-        }
-    }, [])
+            socket.off('Message Sent', handleIncomingMessage);
+        };
+    }, [chatRoom]);
 
-    useEffect(() => {
-        if (chatRoom && senderId) {
-            const specificChat = chatRoom.msgRooms.find((item) => item.id === senderId)
-            setuserChat(specificChat ? specificChat.chat : [])
-        }
-    }, [userChat, senderId])
+    console.log(separateRoom)
 
     if (!chatRoom) return <div>Loading...</div>;
 
@@ -53,17 +74,17 @@ const ChatComponent = () => {
         <div className={styles.parentContainer}>
             {/* Profiles container */}
             <div className={styles.profilesContainer}>
-                {chatRoom.msgRooms.map((profile, index) => (
+                {chatRoom.map((profile, index) => (
                     <div className={styles.singleProfile} key={index}>
                         <PicWithNameRole
                             width={'40px'}
-                            name={profile.name}
-                            role={`${profile.chat[0].message.slice(0, 20)}..`}
+                            name={profile.roomId}
+                            role={`${profile.messages[0].message.slice(0, 20)}..`}
                             hidePicDot={false}
                             dotSize={'16px'}
                             picDot={profile.status}
                             dotBorder={'3px solid var(--tertiaryClr)'}
-                            onClick={() => setsenderId(profile.id)}
+                            onClick={() => setroomId(profile.roomId)}
                         />
                         <span className={styles.time}>{profile.time}</span>
                     </div>
@@ -74,42 +95,20 @@ const ChatComponent = () => {
             <div className={styles.chatParentContainer}>
                 <ChatHeader />
                 <div className={styles.chatsContainer}>
-
-                    {userChat && userChat.map((chat, index) => (
-                        <div
-                            key={index}
-                            className={chat.id === senderId ? styles.senderMessage : styles.receiverMessage}
-                        >
-                            {chat.id === senderId ? (
-                                <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
-                            ) : (
+                    {chatRoom && chatRoom.length > 0 ? (chatRoom[0].messages.map((chat, index) => (
+                        <div key={index} className={chat.senderId === senderIdString ? styles.receiverMessage : styles.senderMessage}>
+                            {chat.senderId === senderIdString ? (
                                 <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
+                            ) : (
+                                <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
                             )}
                         </div>
-                        // <div
-                        //     key={index}
-                        //     className={room.id === chat.id ? styles.senderMessage : styles.receiverMessage}
-                        // >
-                        //     {room.id === chat.id ? (
-                        //         <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
-                        //     ) : (
-                        //         <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
-                        //     )}
-                        // </div>
-                        // <div
-                        //     key={index}
-                        //     className={chat.type === 'sender' ? styles.senderMessage : styles.receiverMessage}
-                        // >
-                        //     {chat.type === 'sender' ? (
-                        //         <MessageSender text={chat.message} time={chat.timestamp} width={'260px'} />
-                        //     ) : (
-                        //         <MessageReceiver text={chat.message} time={chat.timestamp} width={'260px'} />
-                        //     )}
-                        // </div>
-                    ))}
+                    ))) : (
+                        <div>hello</div>
+                    )}
                 </div>
                 {/* Input chat */}
-                <InputChat />
+                <InputChat inputValue={input} onChange={onChangeFunc} onSendMsg={sendMessageFunc} />
             </div>
         </div>
     );

@@ -44,19 +44,35 @@
 }
 
 /* follow button */
-.followBtn {
+.mainBtnContainer{
     position: absolute;
     bottom: -36px;
     right: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+}
+.mainBtnContainer button{
     padding: 4px;
     border-radius: 4px;
     cursor: pointer;
     transition: var(--transition);
     border: none;
     outline: none;
+    background: var(--buttonGradient);
+    color: var(--textClr);
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.followBtn:hover {
+.chatBtn a{
+    text-decoration: none;
+    color: var(--textClr);
+}
+
+.mainBtnContainer button:hover {
     opacity: .8;
 }
 

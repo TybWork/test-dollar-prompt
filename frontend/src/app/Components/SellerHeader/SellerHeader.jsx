@@ -15,6 +15,7 @@ const SellerHeader = () => {
     const [seller, setseller] = useState({ text: "Login", link: "/login" });
     const [logout, setlogout] = useState(false);
     const [role, setrole] = useState('user'); // Default role
+    const [profileHandle, setprofileHandle] = useState('')
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const SellerHeader = () => {
                     const userId = decodedToken.userId;
                     const profileHandle = decodedToken.profileHandle;
                     const userRole = decodedToken.userRole;
+                    setprofileHandle(profileHandle)
 
                     setrole(userRole);
 
@@ -81,6 +83,7 @@ const SellerHeader = () => {
                     <ul>
                         <li><Link className={styles.link} href='/market'>Marketplace</Link></li>
                         <li><Link className={styles.link} href={seller.link}>{seller.text}</Link></li>
+                        <li><Link className={styles.link} href={`/user/${profileHandle}/chat`}>Chat</Link></li>
                         {logout && <li className={styles.link} onClick={logoutFunc}>Logout</li>}
                     </ul>
                     <RxHamburgerMenu className={styles.hamburgerIcon} onClick={() => dispatch(showNav())} />

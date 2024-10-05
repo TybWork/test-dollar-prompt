@@ -10,6 +10,15 @@ import { BsPatchQuestion } from "react-icons/bs";
 import PeopleView from "../Components/(Dashbords)/PeopleView/PeopleView";
 import ChatComponent from "../Components/(Dashbords)/ChatComponent/ChatComponent";
 import Analytics from "../Components/(Dashbords)/Analytics/Analytics";
+import { getTokenFunction } from "../utilities/getTokenFunction";
+import { jwtDecode } from "jwt-decode";
+
+let userId;
+if (typeof window !== 'undefined') {
+    const token = getTokenFunction().cookie
+    const decodedToken = jwtDecode(token)
+    userId = decodedToken.userId
+}
 
 export const buttons = {
     superAdmin: [
@@ -19,12 +28,12 @@ export const buttons = {
             title: 'Dashboard',
             component: <PeopleView />
         },
-        {
-            id: 1,
-            icon: <IoChatbubblesOutline />,
-            title: 'Conversation',
-            component: <ChatComponent />
-        },
+        // {
+        //     id: 1,
+        //     icon: <IoChatbubblesOutline />,
+        //     title: 'Conversation',
+        //     component: <ChatComponent senderIdString={userId} />
+        // },
         {
             id: 2,
             icon: <GrAnalytics />,

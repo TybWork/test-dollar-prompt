@@ -15,8 +15,8 @@ import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import SinglePromptCard from '@/app/Components/SinglePromptCard/SinglePromptCard';
 import AnimatedHeading from '@/app/Components/(liteComponents)/AnimatedHeading/AnimatedHeading';
-
-
+import { IoChatbubblesSharp } from "react-icons/io5";
+import Link from 'next/link';
 const page = async ({ params }) => {
     const [prompt, setprompt] = useState(null)
     const [sellerDetail, setsellerDetail] = useState(null)
@@ -45,9 +45,14 @@ const page = async ({ params }) => {
                     <Image className={styles.logoImage} src={sellerDetail.profileImage[0]} width={0} height={0} sizes='100vw' />
                 </div>
                 {/* follow button */}
-                <button className={styles.followBtn}>
-                    Follow <FaUserPlus />
-                </button>
+                <div className={styles.mainBtnContainer}>
+                    <button className={styles.chatBtn}>
+                        <Link href={`/user-chat/${userid}`}>Chat <IoChatbubblesSharp /></Link>
+                    </button>
+                    <button className={styles.followBtn}>
+                        Follow <FaUserPlus />
+                    </button>
+                </div>
             </div>
 
             {/* profile content wrapper */}

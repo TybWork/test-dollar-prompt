@@ -1,0 +1,41 @@
+.slider {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background: #ffffff;
+    text-align: center;
+    font-size: 24px;
+    border-right: 2px solid #ccc;
+    color: black;
+}
+
+.dots {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #205B26;
+}

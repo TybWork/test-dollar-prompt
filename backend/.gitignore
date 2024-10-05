@@ -27,16 +27,13 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
+# *.tsbuildinfo
+# next-env.d.ts
 
 /designImages
-
-# environment variable
-.env
-

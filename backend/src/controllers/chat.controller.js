@@ -1,161 +1,119 @@
-import mongoose from 'mongoose';
-import { Message } from '../models/message.model.js';
-import { User } from '../models/User/user.model.js';
-// import { User } from '../models/user.model.js';
+import { ChatRoom } from "../models/message.model.js"
 
-// Send a message
-export const sendMessage = async (req, res) => {
-    const { senderId, receiverId, message } = req.body;
-
+export const createRoom = async (req, res) => {
+    const { senderId, receiverId, message } = req.body
     try {
-        const newMessage = new Message({
-            senderId,
-            receiverId,
-            message,
-        });
-        await newMessage.save();
+        const roomId = senderId + receiverId
 
-        return res.status(200).json({ msg: 'Message sent successfully', newMessage });
+
+        let chatRoom = await ChatRoom.findOne({ roomId })
+        if (!chatRoom) {
+            if (!message) {
+                return res.status(400).json({ msg: 'please write message' })
+            }
+            chatRoom = new ChatRoom({ roomId, senderId, receiverId, messages: [{ senderId, message }] });
+            await chatRoom.save()
+        }
+        res.status(200).json(chatRoom)
     } catch (error) {
-        return res.status(500).json({ msg: `Failed to send message: ${error.message}` });
-    }
-};
-
-// Fetch chat history
-export const fetchChat = async (req, res) => {
-    const { userId, otherUserId } = req.params;
-
-    try {
-        const chatHistory = await Message.find({
-            $or: [{
-                senderId: userId,
-                receiverId: otherUserId
-            },
-            {
-                senderId: otherUserId,
-                receiverId: userId
-            }]
-        }).sort({ createdAt: 1 });
-
-        return res.status(200).json(chatHistory);
-    } catch (error) {
-        return res.status(500).json({ msg: `Failed to retrieve chat history: ${error.message}` });
-    }
-};
-
-// Mark message as read
-export const markAsRead = async (req, res) => {
-    const { messageId } = req.params;
-
-    try {
-        await Message.findByIdAndUpdate(messageId, { isRead: true });
-        return res.status(200).json({ msg: 'Message marked as read' });
-    } catch (error) {
-        return res.status(500).json({ msg: `Failed to mark message as read: ${error.message}` });
-    }
-};
-
-// find chat rooms for specific user
-export const filterSender = async (req, res) => {
-    const { userId } = req.params;
-    // const { senderId } = req.body;
-
-    try {
-        const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
-
-        const senders = messages.map(msg => msg.receiverId.toString());
-        const uniqueSenders = [...new Set(senders)]
-
-        const msgRooms = await Promise.all(
-            uniqueSenders.map(async (id) => {
-                const userChats = await Message.find({ $or: [{ receiverId: id, senderId: userId }, { receiverId: userId, senderId: id }] });
-                const user = await User.findById(id).populate('firstName lastName role _id')
-                return {
-                    id: user._id,
-                    name: `${user.firstName} ${user.lastName}`,
-                    role: user.role,
-                    chat: userChats.map((e) => {
-                        return {
-                            id: e.senderId,
-                            message: e.message,
-                            isRead: e.isRead,
-                            timestamp: e.timestamp,
-                        }
-                    })
-                }
-            })
-        );
-        res.status(200).json({ uniqueSenders, msgRooms });
-    } catch (err) {
-        res.status(500).json(err);
+        res.status(400).json({ msg: `error is here ${error}` })
     }
 }
-// // find chat rooms for specific user
-// export const filterSender = async (req, res) => {
-//     const { userId } = req.params;
-//     // const { senderId } = req.body;
 
+
+// export const sendMessage = async (req, res, roomId, senderId, receiverId, message) => {
+//     if (!req.body) {
+//         return res.status(400).json({ msg: 'Request body is missing.' });
+//     }
 //     try {
-//         const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
 
-//         const senders = messages.map(msg => msg.receiverId.toString());
-//         const uniqueSenders = [...new Set(senders)]
-//         console.log(uniqueSenders)
+//         if (!message) {
+//             return res.status(400).json({ msg: 'please write message' })
+//         }
 
-//         const msgRooms = await Promise.all(
-//             uniqueSenders.map(async (id) => {
-//                 const userChats = await Message.find({ receiverId: id, senderId: userId });
-//                 const user = await User.findById(id).populate('firstName lastName role _id')
-//                 return {
-//                     id: user._id,
-//                     name: `${user.firstName} ${user.lastName}`,
-//                     role: user.role,
-//                     chat: userChats.map((e) => {
-//                         return {
-//                             id: e.senderId,
-//                             message: e.message,
-//                             isRead: e.isRead,
-//                             timestamp: e.timestamp,
-//                         }
-//                     })
-//                 }
-//             })
-//         );
-//         res.status(200).json({ uniqueSenders, msgRooms });
-//     } catch (err) {
-//         res.status(500).json(err);
+//         let chatRoom = await ChatRoom.findOne({ roomId })
+//         if (!chatRoom) {
+//             if (!senderId) {
+//                 return res.status(400).json({ msg: `failed to get senderId` })
+//             }
+//             if (!receiverId) {
+//                 return res.status(400).json({ msg: `failed to get receiverId` })
+//             }
+//             const newRoomId = senderId + receiverId
+//             chatRoom = new ChatRoom({ roomId: newRoomId, senderId, receiverId, messages: [{ senderId, message }] });
+//             await chatRoom.save()
+//             return res.status(200).json(chatRoom)
+//         }
+//         chatRoom.messages.push({ senderId, message })
+//         await chatRoom.save()
+//         return res.status(200).json(chatRoom)
+//     } catch (error) {
+//         return res.status(400).json({ msg: `message not send ${error}` })
 //     }
 // }
 
-// export const filterSender = async (req, res) => {
-//     const { userId } = req.params;
+export const sendMessage = async (roomId, senderId, receiverId, message) => {
+    // Validate input parameters
+    if (!message) {
+        throw new Error('Please write a message.');
+    }
 
-//     try {
-//         const messages = await Message.find({ senderId: userId }).sort({ timestamp: 1 });
+    try {
+        let chatRoom = await ChatRoom.findOne({ roomId });
+        if (!chatRoom) {
+            if (!senderId) {
+                throw new Error('Failed to get senderId');
+            }
+            if (!receiverId) {
+                throw new Error('Failed to get receiverId');
+            }
+            const newRoomId = `${senderId}-${receiverId}`;
+            chatRoom = new ChatRoom({
+                roomId: newRoomId,
+                senderId,
+                receiverId,
+                messages: [{ senderId, message }],
+            });
+            await chatRoom.save();
+            return chatRoom; // Return the newly created room
+        }
 
-//         const senders = messages.map(msg => msg.receiverId.toString());
-//         const uniqueSenders = [...new Set(senders)]
+        // If the room exists, push the new message
+        chatRoom.messages.push({ senderId, message });
+        await chatRoom.save();
+        return chatRoom; // Return the updated chat room
+    } catch (error) {
+        throw new Error(`Message not sent: ${error.message}`);
+    }
+};
 
-//         const msgRooms = await Promise.all(
-//             uniqueSenders.map(async (id) => {
-//                 const userChats = await Message.find({ receiverId: id });
-//                 const user = await User.findById(id).populate('firstName lastName role _id')
-//                 return {
-//                     id: user._id,
-//                     name: `${user.firstName} ${user.lastName}`,
-//                     role: user.role,
-//                     chat: userChats.map((e) => {
-//                         return {
-//                             message: e.message,
-//                             isRead: e.isRead,
-//                             timestamp: e.timestamp,
-//                         }
-//                     })
-//                 }
-//             })
-//         );
-//         res.status(200).json({ uniqueSenders, msgRooms });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// }
+
+export const fetchRooms = async (id) => {
+    try {
+        const commonRooms = await ChatRoom.find({
+            $or: [
+                { senderId: id || myId },
+                { receiverId: id || myId }
+            ],
+        })
+        return commonRooms;
+    } catch (error) {
+        // res.status(400).json({ msg: `Failed to fetch rooms ${error}` })
+        throw new error(`rooms not fetch ${error}`)
+    }
+}
+
+export const fetchRoomsController = async (req, res) => {
+    const { id } = req.params
+    try {
+        const commonRooms = await ChatRoom.find({
+            $or: [
+                { senderId: id || myId },
+                { receiverId: id || myId }
+            ],
+        })
+        return res.status(200).json(commonRooms);
+    } catch (error) {
+        res.status(400).json({ msg: `Failed to fetch rooms ${error}` })
+    }
+}

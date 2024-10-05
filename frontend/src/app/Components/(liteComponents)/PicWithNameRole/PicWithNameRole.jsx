@@ -7,6 +7,7 @@ const PicWithNameRole = ({ imgSrc, name, role, picDot, hidePicDot, width, dotSiz
                 <Image
                     width={0}
                     height={0}
+                    alt='user image'
                     sizes='100vw'
                     src={imgSrc || '/assets/imageAssets/ceo_dollarprompt.PNG'}
                     style={{ width: width || '52px' }}
