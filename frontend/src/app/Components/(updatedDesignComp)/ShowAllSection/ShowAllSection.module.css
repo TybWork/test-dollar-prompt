@@ -1,0 +1,61 @@
+.parentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--homeTertiaryClr);
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--blackClr);
+}
+
+.link {
+    font-size: 16px;
+    color: var(--blackClr);
+}
+
+
+.gradientContainer {
+    position: relative;
+}
+
+.gradientDivLeft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 100%;
+    background: linear-gradient(to right, var(--homeSecondryClr) 42%, rgb(248, 253, 248, 0.20) 100%);
+    z-index: 233;
+}
+
+.gradientDivRight {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    z-index: 233;
+    width: 48px;
+    height: 100%;
+    background: linear-gradient(to left, var(--homeSecondryClr) 42%, rgb(248, 253, 248, 0.20) 100%);
+}
+
+.content {
+    width: 100%;
+    overflow: auto;
+    z-index: 1;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
+}

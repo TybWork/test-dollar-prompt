@@ -1,0 +1,15 @@
+.input {
+    padding: 14px 8px;
+    border: 1px solid var(--homeMainBtn);
+    color: var(--homeTertiaryClr);
+    border-radius: 4px;
+    width: 100%;
+}
+
+.input:focus {
+    outline: 2px solid var(--homeBtnClr);
+}
+
+.input::placeholder {
+    color: var(--homeTertiaryClr);
+}

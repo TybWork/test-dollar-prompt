@@ -1,0 +1,15 @@
+.button {
+    background: var(--homeMinBtn);
+    color: var(--homeTertiaryClr);
+    border: 1px solid;
+    border-radius: 50px;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.button:hover {
+    background: var(--homeMainBtn);
+    color: var(--homePrimaryClr);
+}

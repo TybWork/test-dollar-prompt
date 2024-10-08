@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn.module.css'
-const PrimaryBtn = () => {
+const PrimaryBtn = ({ title, width, padding, height }) => {
     return (
-        <button className={styles.btns}>View Prompt</button>
+        <button style={{ width: width || '118px', padding: padding, height: height }} className={styles.btns}>{title || 'View Prompt'}</button>
     )
 }
 

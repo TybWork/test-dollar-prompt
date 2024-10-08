@@ -29,3 +29,162 @@
     color: var(--homeTertiaryClr);
     font-size: 16px;
 }
+
+.btnsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* prompts section */
+.promptsSection {
+    background: linear-gradient(to top, rgb(248, 253, 248, 0.40) 0%, rgb(246, 255, 247) 53%, rgb(248, 253, 248, 0.40) 100%);
+    padding: 32px var(--mainPadding);
+    display: flex;
+    gap: 100px;
+    overflow: auto;
+}
+
+.promptsSection::-webkit-scrollbar {
+    display: none;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+
+/* timeline section */
+.timelineSection {
+    display: flex;
+    /* align-items: center; */
+    color: var(--homeTertiaryClr);
+    gap: 122px;
+    margin: 80px var(--mainPadding);
+}
+
+.timelineContent {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.timelineContent h2 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.timelineContent p {
+    font-size: 16px;
+}
+
+/* timeline */
+.timeline {
+    flex: 1;
+    border-left: 2px solid var(--homeMainBtn);
+    width: 100px;
+    /* height: 200px; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timelineItem {
+    margin-left: 20px;
+    background: #F5FFF7;
+    position: relative;
+    box-shadow: 0px 4px 5.8px #8fad9225;
+    transform: translateY(-7px);
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    gap: 8px;
+    width: 300px;
+}
+
+.timelineItem::before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background: var(--homeMainBtn);
+    top: 2px;
+    left: -26px;
+}
+
+.timelineItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.timelineItemContent h3 {
+    color: var(--blackClr);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gearIcon {
+    width: 48px;
+    height: 48px;
+}
+
+
+/* newsletter section */
+.newsletterContainer {
+    display: flex;
+    gap: 24px;
+    max-width: 1024px;
+    text-align: center;
+    color: var(--homeTertiaryClr);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto 80px;
+}
+
+.newsletterContainer h2 {
+    font-size: 48px;
+}
+
+.newsletterContainer p {
+    font-size: 16px;
+}
+
+.emailCredentials {
+    width: 752px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.inputsContainer {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.input {
+    flex: 1;
+}
+
+@media screen and (max-width:1412px) {
+
+    .cardContainer {
+        width: 1330px;
+        overflow: hidden;
+    }
+
+}
+
+@media screen and (max-width:1111px) {
+    .btnsContainer {
+        width: 1100px;
+    }
+}

@@ -1,0 +1,70 @@
+.parentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px var(--mainPadding);
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex: 1;
+}
+
+.input {
+    flex: 1;
+}
+
+.logoContainer {
+    display: flex;
+    color: var(--homeTertiaryClr);
+    margin-right: 100px;
+    gap: 8px;
+    align-items: center;
+}
+
+.logoContainer img {
+    width: 42px;
+    height: 42px;
+}
+
+.logoHeading {
+    font-size: 18px;
+    font-weight: bolder;
+    color: var(--homeMainBtn);
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.logoSubHeading {
+    color: var(--homeTertiaryClr);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: medium;
+    text-align: right;
+}
+
+
+.parentContainer .ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: var(--blackClr);
+}
+
+.li {
+    list-style: none;
+}
+
+.li a {
+    color: var(--homeTertiaryClr);
+    text-decoration: none;
+    padding: 10px;
+    transition: .3s;
+}
+
+.li a:hover {
+    color: var(--homeMainBtn);
+}

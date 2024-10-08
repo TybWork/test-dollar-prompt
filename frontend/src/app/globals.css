@@ -37,6 +37,7 @@
   --homeCardBorder: #D2DED4;
   --homeIconText: #D9D9D9;
   --blackClr: #000000;
+  --ratingColor: #B5C8B7;
 
   /* new cardGradient */
   --homeCardGradient: linear-gradient(90deg, rgba(5, 236, 28, 1) 0%, rgba(20, 156, 34, 1) 33%, rgba(5, 236, 28, 1) 77%, rgba(20, 156, 34, 1) 100%);
