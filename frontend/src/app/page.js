@@ -10,6 +10,7 @@ import Image from 'next/image';
 import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import GuestHeader from './Components/(updatedDesignComp)/GuestHeader/GuestHeader';
+import NewFooter from './Components/(updatedDesignComp)/NewFooter/NewFooter';
 
 const categoriesArr = [
   {
@@ -260,6 +261,9 @@ export default function Home() {
         <div className={styles.info}>By signing up you are agreeing our Term of use and Privacy policy</div>
 
       </div>
+
+      {/* footer section */}
+      {/* <NewFooter /> */}
 
     </div>
   );

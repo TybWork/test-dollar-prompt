@@ -14,6 +14,7 @@ import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
 import { getTokenFunction } from "./utilities/getTokenFunction";
 import { jwtDecode } from "jwt-decode";
 import CalendarComp from "./Components/CalendarComp/CalendarComp";
+import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 
 const finlandica = Finlandica({ subsets: ["latin"] });
 
@@ -49,7 +50,8 @@ export default function RootLayout({ children }) {
         return null
       }
       else {
-        return <Footer />
+        // return <Footer />
+        return <NewFooter />
       }
     }
   }

@@ -27,7 +27,7 @@ const GuestHeader = () => {
                         <Link href={'/'}>Sell Prompts</Link>
                     </li>
                     <li className={styles.li}>
-                        <PrimaryBtn />
+                        <PrimaryBtn title={'Sign Up'} />
                     </li>
                 </ul>
             </div>
