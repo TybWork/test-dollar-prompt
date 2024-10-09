@@ -4,9 +4,9 @@ import VerifiedIcon from '../(icons)/VerifiedIcon'
 import StarIcon from '../(icons)/StarIcon'
 const FeaturedCardNew = ({ headerImgArray, profileImage, name, profileHandle, rating, ratingPeopleCount, promptsCount, followersCount }) => {
     const imgArray = [
-        '/assets/ImageAssets/sampleCardImage.png',
-        '/assets/ImageAssets/sampleCardImage.png',
-        '/assets/ImageAssets/sampleCardImage.png',
+        '/assets/imageAssets/sampleCardImage.png',
+        '/assets/imageAssets/sampleCardImage.png',
+        '/assets/imageAssets/sampleCardImage.png',
     ]
     return (
         <div className={styles.mainContainer}>
@@ -30,7 +30,7 @@ const FeaturedCardNew = ({ headerImgArray, profileImage, name, profileHandle, ra
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.profile}>
-                        <Image src={profileImage || '/assets/ImageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.profileImg} />
+                        <Image src={profileImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.profileImg} />
                         <div className={styles.userName}>
                             {name || 'Shawan Michel'}
                             <VerifiedIcon />

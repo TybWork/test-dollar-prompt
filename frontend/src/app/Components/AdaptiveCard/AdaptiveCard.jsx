@@ -20,7 +20,7 @@ const AdaptiveCard = ({ title, views, likes, shares }) => {
             </div>
             <div className={styles.innerContentContainer} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
 
-                <Image src={'/assets/ImageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
+                <Image src={'/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
                 <div className={styles.contentContainer}>
                     <div className={styles.header}>
                         <div className={styles.title}>{typeof title === 'string' ? title.slice(0, 20) : "Painting Flower Dall-E Prompt"}...</div>
