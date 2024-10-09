@@ -9,7 +9,7 @@
     padding: 36px 48px 16px;
     width: calc(100% - 2 * var(--mainPadding));
     margin: auto;
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .innerContainer {
@@ -80,4 +80,105 @@
     list-style: none;
     color: var(--homePrimaryClr);
     text-decoration: none;
+}
+
+/* media queries */
+@media screen and (max-width:1024px) {
+    .liteContainer {
+        width: 100%;
+        border-radius: 0px;
+    }
+
+    .termsSection {
+        top: -80px;
+        right: 0px;
+    }
+
+    .termsSection::before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: -42px;
+        width: 2px;
+        transform: translate(0%, -50%);
+        height: 56px;
+        background: var(--homePrimaryClr);
+    }
+}
+
+@media screen and (max-width:772px) {
+    .liteContainer {
+        padding: 16px;
+    }
+
+    .termsSection {
+        flex-direction: column;
+        gap: 8px;
+        top: -96px;
+        text-align: left;
+        align-items: baseline;
+    }
+
+    .hyperlinksContainer {
+        gap: 48px;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .termsSection {
+        top: 0px;
+        left: 0px;
+    }
+
+    .termsSection::before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 0px;
+        width: 48px;
+        transform: translate(0%, -50%);
+        height: 2px;
+        background: var(--homePrimaryClr);
+    }
+
+    .termsSection {
+        flex-direction: row;
+    }
+
+    .termsSection::before {
+        top: -10px;
+        left: 0px;
+        width: 204px;
+        height: 2px;
+    }
+
+    .copyrightSection {
+        padding-top: 12px;
+    }
+
+    .footerTitle {
+        padding-bottom: 4px;
+    }
+
+    .hyperlinksContainer {
+        gap: 48px;
+        flex-direction: column;
+        gap: 24px;
+        /* align-items: center;
+        text-align: center; */
+    }
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .termsSection {
+        transform: rotate(90deg);
+        top: -257px;
+        left: 0px;
+        transform-origin: left;
+        display: none;
+    }
 }

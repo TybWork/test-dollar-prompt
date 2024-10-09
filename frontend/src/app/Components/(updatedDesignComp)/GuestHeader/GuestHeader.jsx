@@ -4,6 +4,7 @@ import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import Link from 'next/link'
 import NewSearchInput from '../NewSearchInput/NewSearchInput'
 import Image from 'next/image'
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const GuestHeader = () => {
     return (
@@ -30,6 +31,9 @@ const GuestHeader = () => {
                         <PrimaryBtn title={'Sign Up'} />
                     </li>
                 </ul>
+
+                {/* hamburger icon */}
+                <RxHamburgerMenu className={styles.hamburgerIcon} />
             </div>
         </div>
     )

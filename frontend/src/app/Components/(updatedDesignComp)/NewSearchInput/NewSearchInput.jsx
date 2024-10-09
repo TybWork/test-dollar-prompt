@@ -24,6 +24,12 @@ const aiTools = [
 ]
 
 const NewSearchInput = () => {
+
+    let screenWidth;
+    if (typeof window !== 'undefined') {
+        screenWidth = window.screen.width;
+    }
+
     const [isActiveDropdown, setisActiveDropdown] = useState(false)
     const [dropdownText, setdropdownText] = useState('Ai Tool')
     const [placeholder, setplaceholder] = useState('Search email template...');
@@ -54,7 +60,7 @@ const NewSearchInput = () => {
     return (
         <div className={styles.parentContainer}>
             <div className={styles.dropdownContainer} onClick={dropdownFunc}>
-                <span className={styles.selectedText}>{dropdownText}</span>
+                <span className={styles.selectedText}>{screenWidth < '450' ? dropdownText.slice(0, 6) : dropdownText}</span>
                 <div
                     className={styles.cheveron}
                     style={{

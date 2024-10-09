@@ -10,8 +10,8 @@
 .header {
     display: flex;
     justify-content: space-between;
-    text-align: center;
     text-transform: capitalize;
+    align-items: center;
 }
 
 .title {
@@ -58,4 +58,24 @@
 
 .content::-webkit-scrollbar {
     display: none;
+}
+
+@media screen and (max-width:768px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .gradientDivRight {
+        width: 18px !important;
+    }
+
+    .gradientDivLeft {
+        width: 18px !important;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .title {
+        font-size: 18px;
+    }
 }

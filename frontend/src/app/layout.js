@@ -15,6 +15,7 @@ import { getTokenFunction } from "./utilities/getTokenFunction";
 import { jwtDecode } from "jwt-decode";
 import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
+import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 
 const finlandica = Finlandica({ subsets: ["latin"] });
 
@@ -35,12 +36,14 @@ export default function RootLayout({ children }) {
         if (data.userRole == 'admin') {
           return <AdminHeader />
         } else {
-          return <Header />
+          // return <Header />
+          return <GuestHeader />
         }
       }
     }
 
-    return <Header />
+    // return <Header />
+    return <GuestHeader />
 
   }
 

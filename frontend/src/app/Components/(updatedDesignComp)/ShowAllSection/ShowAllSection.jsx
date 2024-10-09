@@ -17,7 +17,7 @@ const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin
                 </div>
 
                 <Link className={styles.link} href={link || '/'}>
-                    {linkText || 'View All Categories'}
+                    {linkText || window.screen.width < '500' ? 'View All' : 'View All Categories'}
                 </Link>
 
 

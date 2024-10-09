@@ -59,3 +59,22 @@
 .dot.active {
     background: #205B26;
 }
+
+@media screen and (max-width:768px) {
+    .slide {
+        overflow: scroll;
+        padding: 20px 0px;
+    }
+
+    .slide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gradientDivLeft {
+        width: 18px;
+    }
+
+    .gradientDivRight {
+        width: 18px;
+    }
+}

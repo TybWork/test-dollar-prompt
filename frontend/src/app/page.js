@@ -46,7 +46,6 @@ const categoriesArr = [
 export default function Home() {
   return (
     <div className={styles.parentContainer}>
-      <GuestHeader />
       <div className={styles.heroSlider}>
         {/* left side text in slider */}
         <div className={styles.content}>
@@ -82,21 +81,22 @@ export default function Home() {
       </div>
 
       {/* main categories section */}
-      <ShowAllSection
-        title={' '}
-        leftGradientWidth={'0px'}
-        rightGradientWidth={'0px'}
-        padding={'0px var(--mainPadding)'}
-        content={
-          <div className={styles.btnsContainer}>
-            {
-              categoriesArr.map((btn) =>
-                <NewCategoryBtn url={btn.url} text={btn.title} />
-              )
-            }
-          </div>
-        }
-      />
+      <div className={styles.categoriesSection}>
+        <ShowAllSection
+          title={' '}
+          leftGradientWidth={'0px'}
+          rightGradientWidth={'0px'}
+          content={
+            <div className={styles.btnsContainer}>
+              {
+                categoriesArr.map((btn) =>
+                  <NewCategoryBtn url={btn.url} text={btn.title} />
+                )
+              }
+            </div>
+          }
+        />
+      </div>
 
       {/* Trending prompts */}
       <div className={styles.promptsSection}>
@@ -204,34 +204,41 @@ export default function Home() {
         </div>
 
         {/* timeline */}
-        <div className={styles.timeline}>
-          <div className={styles.timelineItem}>
-            <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-            <div className={styles.timelineItemContent}>
-              <h3>Easy Account Setup</h3>
-              <span>Create your account in minutes and start selling AI prompts.</span>
-            </div>
-          </div>
-          <div className={styles.timelineItem}>
-            <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-            <div className={styles.timelineItemContent}>
-              <h3>Earn as You Create</h3>
-              <span>Get paid automatically when your prompts sell.</span>
-            </div>
-          </div>
+        <div className={styles.timelineCardsContainer}>
+          <div className={styles.timelineGradient}></div>
 
-          <div className={styles.timelineItem}>
-            <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-            <div className={styles.timelineItemContent}>
-              <h3>Effortless Payments</h3>
-              <span>Get paid automatically when your prompts sell.</span>
+          <div className={styles.timelineWraper}>
+            <div className={styles.timeline}>
+              <div className={styles.timelineItem}>
+                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                <div className={styles.timelineItemContent}>
+                  <h3>Easy Account Setup</h3>
+                  <span>Create your account in minutes and start selling AI prompts.</span>
+                </div>
+              </div>
+              <div className={styles.timelineItem}>
+                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                <div className={styles.timelineItemContent}>
+                  <h3>Earn as You Create</h3>
+                  <span>Get paid automatically when your prompts sell.</span>
+                </div>
+              </div>
+
+              <div className={styles.timelineItem}>
+                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                <div className={styles.timelineItemContent}>
+                  <h3>Effortless Payments</h3>
+                  <span>Get paid automatically when your prompts sell.</span>
+                </div>
+              </div>
+
+              <div className={styles.timelineItem}>
+                <PrimaryBtn width={'100%'} title={'SignUp'} />
+              </div>
+
             </div>
-          </div>
 
-          <div className={styles.timelineItem}>
-            <PrimaryBtn width={'100%'} title={'SignUp'} />
           </div>
-
         </div>
 
       </div>
@@ -255,7 +262,9 @@ export default function Home() {
               <NewInput placeholder={'Email'} />
             </div>
           </div>
-          <PrimaryBtn title={'Subscribe'} width={'256px'} height={'48px'} />
+          <div className={styles.primaryBtnContainer}>
+            <PrimaryBtn title={'Subscribe'} width={'100%'} height={'100%'} />
+          </div>
         </div>
 
         <div className={styles.info}>By signing up you are agreeing our Term of use and Privacy policy</div>

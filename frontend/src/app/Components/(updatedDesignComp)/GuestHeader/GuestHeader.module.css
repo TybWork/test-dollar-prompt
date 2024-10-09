@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 28px var(--mainPadding);
+    background: var(--homePrimaryClr);
 }
 
 .navLinks {
@@ -67,4 +68,80 @@
 
 .li a:hover {
     color: var(--homeMainBtn);
+}
+
+.hamburgerIcon {
+    color: var(--homeTertiaryClr);
+    display: none;
+    font-size: 32px;
+}
+
+/* media queries */
+@media screen and (max-width:1100px) {
+    .logoContainer {
+        margin-right: 24px;
+    }
+}
+
+@media screen and (max-width:1100px) {
+    .logoContainer {
+        margin-right: 24px;
+    }
+
+    .navLinks {
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .navLinks .ul {
+        display: none;
+    }
+
+    .navLinks .hamburgerIcon {
+        display: block;
+    }
+
+    .logoContainer {
+        margin-right: 32px;
+    }
+
+    .navLinks {
+        gap: 32px;
+    }
+
+}
+
+@media screen and (max-width:780px) {
+    .parentContainer {
+        padding: 14px 24px;
+        background: var(--homePrimaryClr);
+    }
+
+    .logoText {
+        display: none;
+    }
+
+    .hamburgerIcon {
+        font-size: 26px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .parentContainer {
+        padding: 12px 12px;
+        background: var(--homePrimaryClr);
+    }
+
+    .logoContainer {
+        margin-right: 12px;
+    }
+
+    .navLinks {
+        gap: 12px;
+    }
+
+    .logoContainer img {
+        width: 38px;
+    }
 }

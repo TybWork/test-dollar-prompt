@@ -82,3 +82,13 @@
     color: var(--homeTertiaryClr);
     background: var(--homeCardBorder);
 }
+
+@media screen and (max-width:500px) {
+    .parentContainer {
+        border: 1px solid var(--homeMainBtn);
+        border-radius: 4px;
+        display: flex;
+        padding: 0px 4px;
+        gap: 4px;
+    }
+}
