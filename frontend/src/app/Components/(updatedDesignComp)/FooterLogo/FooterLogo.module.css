@@ -1,0 +1,28 @@
+.logoContainer {
+    display: flex;
+    color: var(--homeTertiaryClr);
+    margin-right: 100px;
+    gap: 8px;
+    align-items: center;
+}
+
+.logoContainer img {
+    width: 42px;
+    height: 42px;
+}
+
+.logoHeading {
+    font-size: 16px;
+    font-weight: bolder;
+    color: var(--homePrimaryClr);
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.logoSubHeading {
+    color: var(--homePrimaryClr);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: medium;
+    text-align: right;
+}

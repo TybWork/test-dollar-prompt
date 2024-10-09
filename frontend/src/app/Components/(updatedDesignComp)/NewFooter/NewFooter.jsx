@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/NewFooter/NewFooter.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import FooterLogo from '../FooterLogo/FooterLogo'
 
 const NewFooter = () => {
     return (
@@ -10,7 +11,7 @@ const NewFooter = () => {
 
                 <div className={styles.innerContainer}>
                     {/* logo */}
-                    <Image src={'/assets/imageAssets/dollar-prompt-lite-logo.png'} width={0} height={0} sizes='100vw' />
+                    <FooterLogo />
 
                     {/* hyperlinks section */}
                     <div className={styles.hyperlinksContainer}>
