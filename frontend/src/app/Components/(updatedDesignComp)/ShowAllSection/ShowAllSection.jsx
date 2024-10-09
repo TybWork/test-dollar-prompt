@@ -1,6 +1,11 @@
 import styles from '@/app/Components/(updatedDesignComp)/ShowAllSection/ShowAllSection.module.css'
 import Link from 'next/link'
 const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin, title, link, linkText, content }) => {
+
+    let screenWidth;
+    if (typeof window !== 'undefined') {
+        screenWidth = window.screen.width;
+    }
     return (
         <div
             className={styles.parentContainer}
@@ -17,7 +22,7 @@ const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin
                 </div>
 
                 <Link className={styles.link} href={link || '/'}>
-                    {linkText || window.screen.width < '500' ? 'View All' : 'View All Categories'}
+                    {linkText || screenWidth < '500' ? 'View All' : 'View All Categories'}
                 </Link>
 
 
