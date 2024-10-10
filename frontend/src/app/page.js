@@ -11,6 +11,7 @@ import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import GuestHeader from './Components/(updatedDesignComp)/GuestHeader/GuestHeader';
 import NewFooter from './Components/(updatedDesignComp)/NewFooter/NewFooter';
+import { useRef, useEffect, useState } from 'react';
 
 const categoriesArr = [
   {
@@ -44,6 +45,43 @@ const categoriesArr = [
 ]
 
 export default function Home() {
+
+  const targetRef = useRef(null);
+  const [isOverflowHidden, setIsOverflowHidden] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (targetRef.current) {
+        const rect = targetRef.current.getBoundingClientRect();
+        if (rect.top <= 300 && rect.bottom >= 0) {
+          setIsOverflowHidden(true);
+        } else {
+          setIsOverflowHidden(false);
+        }
+      }
+    };
+
+    // Attach scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup function to remove the listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isOverflowHidden) {
+      document.body.style.overflowY = 'hidden';
+      const timer = setTimeout(() => {
+        document.body.style.overflowY = 'scroll';
+      }, 6000);
+      return () => clearTimeout(timer);
+    } else {
+      document.body.style.overflowY = '';
+    }
+  }, [isOverflowHidden]);
+
   return (
     <div className={styles.parentContainer}>
       <div className={styles.heroSlider}>
@@ -99,7 +137,7 @@ export default function Home() {
       </div>
 
       {/* Trending prompts */}
-      <div className={styles.promptsSection}>
+      <div className={styles.promptsSection} >
 
         {/* main categories section */}
         <ShowAllSection
@@ -204,11 +242,17 @@ export default function Home() {
         </div>
 
         {/* timeline */}
-        <div className={styles.timelineCardsContainer}>
+        <div className={styles.timelineCardsContainer} >
           <div className={styles.timelineGradient}></div>
 
-          <div className={styles.timelineWraper}>
-            <div className={styles.timeline}>
+          <div className={styles.timelineWraper} ref={targetRef}>
+            <div className={styles.timeline}
+
+              style={{
+                animation: isOverflowHidden ? '6s timelineAnim' : '',
+              }}
+
+            >
               <div className={styles.timelineItem}>
                 <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
                 <div className={styles.timelineItemContent}>
@@ -274,6 +318,6 @@ export default function Home() {
       {/* footer section */}
       {/* <NewFooter /> */}
 
-    </div>
+    </div >
   );
 }

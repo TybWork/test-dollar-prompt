@@ -89,6 +89,22 @@ body::-webkit-scrollbar-thumb {
   color: var(--textClr);
 }
 
+
+@keyframes timelineAnim {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-200px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
 /* ..................................... */
 
 /* Ensure you apply this style to the Quill editor container */
