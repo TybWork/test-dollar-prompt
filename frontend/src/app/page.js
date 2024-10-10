@@ -46,8 +46,14 @@ const categoriesArr = [
 
 export default function Home() {
 
+  let screenWidth;
+  if (typeof window !== 'undefined') {
+    screenWidth = window.screen.width
+  }
+
   const targetRef = useRef(null);
   const [isOverflowHidden, setIsOverflowHidden] = useState(false);
+  const [timelineScroll, settimelineScroll] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,14 +79,19 @@ export default function Home() {
   useEffect(() => {
     if (isOverflowHidden) {
       document.body.style.overflowY = 'hidden';
+      settimelineScroll(false)
+      // setIsOverflowHidden(false)
       const timer = setTimeout(() => {
         document.body.style.overflowY = 'scroll';
+        settimelineScroll(true)
       }, 6000);
       return () => clearTimeout(timer);
     } else {
       document.body.style.overflowY = '';
     }
   }, [isOverflowHidden]);
+
+  console.log(isOverflowHidden)
 
   return (
     <div className={styles.parentContainer}>
@@ -235,21 +246,33 @@ export default function Home() {
 
 
       {/* timeline section */}
-      <div className={styles.timelineSection}>
+      <div className={styles.timelineSection}
+      // style={{
+      //   height: screenWidth < 520 ? (isOverflowHidden ? '600px' : 'initial') : 'initial',
+      //   background: 'green'
+      // }}
+      >
         <div className={styles.timelineContent}>
           <h2 >Make your AI enthusiasm work and sell the AI prompts you've created.</h2>
           <p>Dollar Prompts is where AI creators can shine. Upload your best prompts, set your price, and get paid effortlessly when they sell. Build your brand and make your AI work for you.</p>
         </div>
 
         {/* timeline */}
-        <div className={styles.timelineCardsContainer} >
+        <div className={styles.timelineCardsContainer}
+        >
           <div className={styles.timelineGradient}></div>
 
-          <div className={styles.timelineWraper} ref={targetRef}>
+          <div className={styles.timelineWraper} ref={targetRef}
+            style={{
+              height: screenWidth < 520 ? (timelineScroll ? 'max-content' : '300px') : '',
+              overflowY: timelineScroll ? 'scroll' : 'hidden'
+            }}
+          >
+
             <div className={styles.timeline}
 
               style={{
-                animation: isOverflowHidden ? '6s timelineAnim' : '',
+                animation: isOverflowHidden ? '6s timelineAnim' : 'none',
               }}
 
             >
@@ -277,7 +300,9 @@ export default function Home() {
               </div>
 
               <div className={styles.timelineItem}>
-                <PrimaryBtn width={'100%'} title={'SignUp'} />
+                {/* <div className={styles.timelineBtn}> */}
+                <PrimaryBtn width={'100%'} height={'100%'} title={'SignUp'} />
+                {/* </div> */}
               </div>
 
             </div>
