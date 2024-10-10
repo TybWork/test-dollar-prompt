@@ -104,9 +104,6 @@ export default function Home() {
             over 130,000 curated prompts. List your AI prompts, and let buyers
             Dollarize Your Prompts to see your side hustle grow.</p>
         </div>
-
-        {/* right side text in slider */}
-        {/* <div className={styles.slider}></div> */}
         <HeroSlider
           slidesArray={
             [
@@ -247,10 +244,6 @@ export default function Home() {
 
       {/* timeline section */}
       <div className={styles.timelineSection}
-      // style={{
-      //   height: screenWidth < 520 ? (isOverflowHidden ? '600px' : 'initial') : 'initial',
-      //   background: 'green'
-      // }}
       >
         <div className={styles.timelineContent}>
           <h2 >Make your AI enthusiasm work and sell the AI prompts you've created.</h2>
