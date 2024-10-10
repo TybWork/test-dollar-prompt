@@ -32,9 +32,9 @@ const GuestHeader = () => {
                     </li>
                 </ul>
 
-                {/* hamburger icon */}
-                <RxHamburgerMenu className={styles.hamburgerIcon} />
             </div>
+            {/* hamburger icon */}
+            <RxHamburgerMenu className={styles.hamburgerIcon} />
         </div>
     )
 }

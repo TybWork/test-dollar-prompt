@@ -98,8 +98,9 @@
         display: none;
     }
 
-    .navLinks .hamburgerIcon {
+    .hamburgerIcon {
         display: block;
+        margin-left: 32px;
     }
 
     .logoContainer {
@@ -143,5 +144,9 @@
 
     .logoContainer img {
         width: 38px;
+    }
+
+    .input {
+        display: none;
     }
 }
