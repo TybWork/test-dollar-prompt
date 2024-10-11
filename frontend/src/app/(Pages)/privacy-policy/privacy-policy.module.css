@@ -21,6 +21,11 @@
     font-weight: bold;
 }
 
+.mainHeading div,
+.subDetail p {
+    font-family: var(--secondryFont);
+}
+
 
 /* content section */
 .contentSection {

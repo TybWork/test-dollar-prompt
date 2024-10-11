@@ -4,7 +4,7 @@ const page = () => {
         <div className={styles.parentContainer}>
             <div className={styles.headingContainer}>
                 <h1 className={styles.mainHeading}>Dollar Prompts Privacy Policy</h1>
-                <div>Lasr Updated: 10.10.2024</div>
+                <div>Last Updated: 10.10.2024</div>
             </div>
 
             {/* content section */}
