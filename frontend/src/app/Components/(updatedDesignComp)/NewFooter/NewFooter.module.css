@@ -9,7 +9,8 @@
     padding: 36px 48px 16px;
     width: calc(100% - 2 * var(--mainPadding));
     margin: auto;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 8px;
+    margin-bottom: 24px;
 }
 
 .innerContainer {
