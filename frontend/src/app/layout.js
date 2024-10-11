@@ -1,5 +1,5 @@
 'use client'
-import { Finlandica } from "next/font/google";
+import { Finlandica, Inter, Lato } from "next/font/google";
 import "./globals.css";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
@@ -17,7 +17,17 @@ import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 
-const finlandica = Finlandica({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: '--primaryFont',
+  weight: ['100', '300', '400', '700', '900']
+});
+
+const lato = Lato({
+  subsets: ['latin'],
+  variable: '--secondryFont',
+  weight: ['100', '300', '400', '700', '900']
+})
 
 export default function RootLayout({ children }) {
   const data = userData()
@@ -61,7 +71,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Providers>
-        <body className={finlandica.className} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
+        <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
 
           {/* condition header rendering */}
           {renderHeader()}

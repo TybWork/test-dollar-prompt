@@ -125,6 +125,10 @@
 }
 
 @media screen and (max-width:576px) {
+    .innerContainer {
+        padding: 0px;
+    }
+
     .termsSection {
         top: 0px;
         left: 0px;
