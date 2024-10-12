@@ -1,6 +1,6 @@
 .mainContainer {
-    width: 262px;
-    height: 262px;
+    width: 306px;
+    height: 324px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,8 +11,8 @@
 
 .coloredContainer {
     background-image: conic-gradient(from -45deg, transparent 80%, rgba(5, 236, 28, 1), rgba(20, 156, 34, 1) 97%);
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     z-index: 0;
     position: absolute;
     transition: 1.8s;
@@ -23,8 +23,8 @@
 
 .innerContentContainer {
     z-index: 132;
-    width: 256px;
-    height: 256px;
+    width: 300px;
+    height: 318px;
     padding: 12px 8px;
     border-radius: 8px;
     background: var(--homePrimaryClr);
@@ -34,6 +34,21 @@
     flex-direction: column;
     gap: 12px;
     position: relative;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.category {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: var(--categoryClr);
+    color: var(--homePrimaryClr);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 .mainContainer:hover .coloredContainer {
@@ -75,10 +90,14 @@
     display: flex;
     gap: 16px;
     font-size: 14px;
+    flex-direction: column;
 }
 
 .title {
-    width: 106px;
+    width: 100%;
+    text-align: left;
+    font-family: var(--secondryFont);
+    font-weight: 600;
 }
 
 .hr {
@@ -102,4 +121,14 @@
     gap: 3px;
     align-items: center;
     color: var(--homeIconText);
+}
+
+.shareIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shareIcon span:not(.shareIcon span:nth-child(3)) {
+    color: var(--ratingClr);
 }

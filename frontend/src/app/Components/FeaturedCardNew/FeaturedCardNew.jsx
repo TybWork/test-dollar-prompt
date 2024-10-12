@@ -31,12 +31,13 @@ const FeaturedCardNew = ({ headerImgArray, profileImage, name, profileHandle, ra
                 <div className={styles.contentContainer}>
                     <div className={styles.profile}>
                         <Image src={profileImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.profileImg} />
-                        <div className={styles.userName}>
+                        {/* <div className={styles.userName}>
                             {name || 'Shawan Michel'}
                             <VerifiedIcon />
-                        </div>
+                        </div> */}
                         <div className={styles.profileHandle}>
                             @{profileHandle || 'sha12'}
+                            <VerifiedIcon />
                         </div>
                     </div>
 

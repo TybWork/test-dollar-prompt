@@ -107,6 +107,9 @@
 .profileHandle {
     color: var(--homeIconClr);
     font-weight: 600;
+    display: flex;
+    gap: 4px;
+    align-items: center;
 }
 
 .hr {

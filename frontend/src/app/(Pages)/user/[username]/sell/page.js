@@ -75,6 +75,8 @@ const page = ({ params }) => {
         setdata(user);
     }
 
+    console.log(data)
+
     // get sample prompts
 
     const handleSubmit = async () => {

@@ -151,7 +151,9 @@ export default function Home() {
             <div className={styles.cardContainer}>
               {
                 categoriesArr.slice(0, 5).map((btn) =>
-                  <AdaptiveCard />
+                  <div className={styles.adaptive}>
+                    <AdaptiveCard />
+                  </div>
                 )
               }
             </div>
@@ -171,7 +173,9 @@ export default function Home() {
             <div className={styles.cardContainer}>
               {
                 categoriesArr.slice(0, 5).map((btn) =>
-                  <FeaturedCardNew />
+                  <div className={styles.adaptive}>
+                    <FeaturedCardNew />
+                  </div>
                 )
               }
             </div>
@@ -191,7 +195,9 @@ export default function Home() {
             <div className={styles.cardContainer}>
               {
                 categoriesArr.slice(0, 5).map((btn) =>
-                  <AdaptiveCard />
+                  <div className={styles.adaptive}>
+                    <AdaptiveCard />
+                  </div>
                 )
               }
             </div>
@@ -209,7 +215,9 @@ export default function Home() {
             <div className={styles.cardContainer}>
               {
                 categoriesArr.slice(0, 5).map((btn) =>
-                  <AdaptiveCard />
+                  <div className={styles.adaptive}>
+                    <AdaptiveCard />
+                  </div>
                 )
               }
             </div>
@@ -227,7 +235,9 @@ export default function Home() {
             <div className={styles.cardContainer}>
               {
                 categoriesArr.slice(0, 5).map((btn) =>
-                  <AdaptiveCard />
+                  <div className={styles.adaptive}>
+                    <AdaptiveCard />
+                  </div>
                 )
               }
             </div>

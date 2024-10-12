@@ -40,7 +40,8 @@
   --ratingColor: #B5C8B7;
   --homeBorderClr: #D6EDD9;
   --infoCardClr: #F6FFF7;
-
+  --ratingClr: #FFE838;
+  --categoryClr: #102E13;
   /* new cardGradient */
   --homeCardGradient: linear-gradient(90deg, rgba(5, 236, 28, 1) 0%, rgba(20, 156, 34, 1) 33%, rgba(5, 236, 28, 1) 77%, rgba(20, 156, 34, 1) 100%);
 
@@ -66,7 +67,8 @@ body {
   max-width: 1440px;
   font-family: mainFont;
   font-family: var(--primaryFont);
-  background-color: var(--homePrimaryClr);
+  /* background-color: var(--homePrimaryClr); */
+  background: black;
   color: var(--textClr);
 }
 

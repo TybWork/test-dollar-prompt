@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     gap: 26px;
-    max-width: 850px;
+    max-width: 900px;
 }
 
 .header h1 {
@@ -25,6 +25,11 @@
 
 .header p {
     font-size: 16px;
+}
+
+.headerBtn {
+    width: 228px;
+    height: 48px;
 }
 
 /* cards section */
@@ -44,8 +49,8 @@
 }
 
 .cardsContainer div {
-    width: 288px;
-    height: 288px;
+    /* width: 288px;
+    height: 288px; */
 }
 
 .buttonContainer {
