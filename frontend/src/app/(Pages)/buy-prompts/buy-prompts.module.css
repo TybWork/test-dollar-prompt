@@ -1,0 +1,139 @@
+.mainContainer {
+    margin: 120px 0px;
+    color: var(--homeTertiaryClr);
+    padding: 0px var(--mainPadding);
+}
+
+.topSection {
+    gap: 68px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 850px;
+}
+
+.header h1 {
+    font-family: var(--primaryFont);
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.header p {
+    font-size: 16px;
+}
+
+/* cards section */
+.cardsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.cardsContainer div {
+    width: 288px;
+    height: 288px;
+}
+
+.buttonContainer {
+    min-width: 228px !important;
+    height: 48px !important;
+    margin: auto;
+}
+
+.message a {
+    color: var(--homeTertiaryClr);
+}
+
+@media screen and (max-width:1024px) {
+    .mainContainer {
+        margin: 72px 0px;
+    }
+
+    .header {
+        max-width: 650px;
+    }
+
+    .header h1 {
+        font-size: 36px;
+
+    }
+}
+
+@media screen and (max-width:780px) {
+    .mainContainer {
+        margin: 24px 0px;
+    }
+
+    .header {
+        max-width: 100%;
+    }
+
+    .header h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .header p {
+        text-align: center;
+    }
+
+    .topSection {
+        gap: 56px;
+    }
+}
+
+
+
+
+@media screen and (max-width:690px) {
+    .cardsContainer div {
+        width: 100%;
+        height: max-content;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .mainContainer {
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .mainContainer {
+        margin: 12px 0px;
+    }
+
+    .topSection {
+        gap: 40px;
+    }
+
+    .header {
+        max-width: 100%;
+        gap: 12px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .header p {
+        text-align: center;
+        font-size: 14px;
+    }
+
+}

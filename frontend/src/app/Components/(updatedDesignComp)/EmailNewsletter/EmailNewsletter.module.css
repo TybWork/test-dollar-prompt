@@ -1,0 +1,131 @@
+/* newsletter section */
+.newsletterContainer {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 1024px !important;
+    text-align: center;
+    color: var(--homeTertiaryClr);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto 80px;
+    padding: 0px 48px;
+}
+
+.headerSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.newsletterContainer h2 {
+    font-size: 48px;
+}
+
+.newsletterContainer p {
+    font-size: 16px;
+}
+
+.emailCredentials {
+    width: 752px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.inputsContainer {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.input {
+    flex: 1;
+}
+
+.primaryBtnContainer {
+    width: 256px;
+    height: 48px;
+}
+
+
+/* media queries */
+@media screen and (max-width:1244px) {
+
+    .newsletterContainer h2 {
+        font-size: 36px;
+    }
+}
+
+@media screen and (max-width:900px) {
+
+    .emailCredentials {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .newsletterContainer {
+        padding: 0 16px;
+        margin-bottom: 24px;
+    }
+
+    .newsletterContainer h2 {
+        font-size: 24px;
+    }
+
+    .headerSection {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+}
+
+@media screen and (max-width:648px) {
+
+    .newsletterContainer {
+        margin-bottom: 16px;
+        gap: 32px;
+    }
+}
+
+@media screen and (max-width:554px) {
+
+    .newsletterContainer h2 {
+        font-size: 20px;
+    }
+
+    .headerSection {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width:480px) {
+
+    .inputsContainer {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .newsletterContainer h2 {
+        font-size: 20px;
+    }
+
+    .newsletterContainer p {
+        font-size: 14px;
+    }
+
+    .info {
+        font-size: 14px;
+    }
+
+}

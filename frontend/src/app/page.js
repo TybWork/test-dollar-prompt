@@ -5,12 +5,9 @@ import AdaptiveCard from './Components/AdaptiveCard/AdaptiveCard';
 import FeaturedCardNew from './Components/FeaturedCardNew/FeaturedCardNew';
 import NewCategoryBtn from './Components/(updatedDesignComp)/NewCategoryBtn/NewCateogryBtn';
 import ShowAllSection from './Components/(updatedDesignComp)/ShowAllSection/ShowAllSection';
-import GearIcon from './Components/(icons)/GearIcon';
 import Image from 'next/image';
 import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
-import GuestHeader from './Components/(updatedDesignComp)/GuestHeader/GuestHeader';
-import NewFooter from './Components/(updatedDesignComp)/NewFooter/NewFooter';
 import { useRef, useEffect, useState } from 'react';
 
 const categoriesArr = [
