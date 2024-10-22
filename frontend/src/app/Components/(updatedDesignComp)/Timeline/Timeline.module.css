@@ -1,0 +1,167 @@
+.parentContainer {
+    color: var(--homeTertiaryClr);
+    margin: 24px;
+}
+
+.singleTimelineContainer {
+    position: relative;
+    padding-left: 8px;
+    height: 130px;
+    width: max-content;
+}
+
+.singleTimelineContainer::before {
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50px;
+    background: var(--homePrimaryClr);
+    border: 2px solid var(--homeMainBtn);
+    top: 2px;
+    left: 0px;
+}
+
+.singleTimelineContainer::after {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 0%;
+    background: var(--homeMainBtn);
+    top: 12px;
+    left: 4px;
+}
+
+/* animation effect on line */
+.singleTimelineContainer:nth-child(1)::after {
+    animation: lineAnimation 2s forwards;
+}
+
+.singleTimelineContainer:nth-child(2)::after {
+    animation: lineAnimation 2s 2s forwards;
+}
+
+.singleTimelineContainer:nth-child(3)::after {
+    animation: lineAnimation 2s 4s forwards;
+}
+
+/* animation effect on dot */
+.singleTimelineContainer:nth-child(1)::before {
+    animation: dotAnimation .1s forwards;
+}
+
+.singleTimelineContainer:nth-child(2)::before {
+    animation: dotAnimation .1s 2s forwards;
+}
+
+.singleTimelineContainer:nth-child(3)::before {
+    animation: dotAnimation .1s 4s forwards;
+}
+
+.singleTimelineContainer:nth-child(4)::before {
+    animation: dotAnimation .1s 5.4s forwards;
+}
+
+
+
+/* last element effect */
+.singleTimelineContainer:nth-child(4) .timelineItem:hover {
+    background: #F5FFF7;
+}
+
+.singleTimelineContainer:nth-child(4)::after {
+    height: 0px;
+}
+
+.timelineItem {
+    margin-left: 20px;
+    background: #F5FFF7;
+    box-shadow: 0px 4px 5.8px #8fad9225;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    gap: 8px;
+    width: 300px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+/* timeline item animations */
+.singleTimelineContainer:nth-child(1) .timelineItem {
+    animation: timelineItemAnimation 2s 1s forwards;
+}
+
+.singleTimelineContainer:nth-child(2) .timelineItem {
+    animation: timelineItemAnimation 2s 2.5s forwards;
+}
+
+.singleTimelineContainer:nth-child(3) .timelineItem {
+    animation: timelineItemAnimation 2s 4.5s forwards;
+}
+
+.singleTimelineContainer:nth-child(4) .timelineItem {
+    animation: timelineItemAnimation 1s 5.5s forwards;
+}
+
+.timelineItem:hover {
+
+    color: var(--homePrimaryClr);
+    background: var(--homeTertiaryClr);
+    transition: .3s;
+}
+
+.timelineItemContent h3 {
+    color: var(--blackClr);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.timelineItem:hover .timelineItemContent h3 {
+    color: var(--homePrimaryClr);
+}
+
+
+.timelineItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gearIcon {
+    width: 48px;
+    height: 48px;
+}
+
+
+/* animation  */
+@keyframes lineAnimation {
+    0% {
+        height: 0%;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+
+/* dot animation */
+@keyframes dotAnimation {
+    0% {
+        background: var(--homePrimaryClr);
+    }
+
+    100% {
+        background: var(--homeMainBtn);
+    }
+}
+
+/* timelineItem animation */
+@keyframes timelineItemAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

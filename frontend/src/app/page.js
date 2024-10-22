@@ -9,6 +9,7 @@ import Image from 'next/image';
 import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import { useRef, useEffect, useState } from 'react';
+import Timeline from './Components/(updatedDesignComp)/Timeline/Timeline';
 
 const categoriesArr = [
   {
@@ -92,6 +93,9 @@ export default function Home() {
 
   return (
     <div className={styles.parentContainer}>
+
+      {/* <Timeline /> */}
+
       <div className={styles.heroSlider}>
         {/* left side text in slider */}
         <div className={styles.content}>
@@ -300,9 +304,7 @@ export default function Home() {
               </div>
 
               <div className={styles.timelineItem}>
-                {/* <div className={styles.timelineBtn}> */}
                 <PrimaryBtn width={'100%'} height={'100%'} title={'SignUp'} />
-                {/* </div> */}
               </div>
 
             </div>

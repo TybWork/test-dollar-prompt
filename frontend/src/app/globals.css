@@ -93,7 +93,6 @@ body::-webkit-scrollbar-thumb {
   color: var(--textClr);
 }
 
-
 @keyframes timelineAnim {
   0% {
     transform: translateY(0px);
