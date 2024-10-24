@@ -6,10 +6,10 @@ import UserSingleReview from '../(snipets)/UserSingleReview/UserSingleReview'
 const Reviews = ({ totalReviews, totalRating }) => {
     return (
         <div className={styles.reviewsContainer}>
-            <div className={styles.title}>Reviews</div>
 
             {/*............. rating container....... */}
             <div className={styles.ratingContainer}>
+                <div className={styles.title}>Reviews</div>
 
                 {/* rating heading */}
                 <div className={styles.heading}>
@@ -36,10 +36,6 @@ const Reviews = ({ totalReviews, totalRating }) => {
                 <UserSingleReview imgUrl={'/assets/imageAssets/logo.webp'} />
                 <UserSingleReview />
             </div>
-
-
-
-
 
         </div >
     )

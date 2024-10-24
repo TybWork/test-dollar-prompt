@@ -20,31 +20,43 @@ const page = () => {
                     <Reviews />
                 </div>
 
-
                 {/*........... right section (prompt detail section)............ */}
                 <PromptDetail />
             </div>
-            <ContentWithHeading
-                title={'Similar Prompts'}
-                linkText={'View All'}
 
-                content={
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                        }}
-                    >
-                        <AdaptiveCard />
-                        <AdaptiveCard />
-                        <AdaptiveCard />
-                        <AdaptiveCard />
-                    </div>
-                }
-                padding={'var(--mainPadding)'}
-            />
+            {/* single row prompts */}
+            <div className={styles.promptSlider}>
+                <ContentWithHeading
+                    title={'Similar Prompts'}
+                    linkText={'View All'}
+
+                    content={
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                flexWrap: 'wrap'
+                            }}
+                        >
+                            <div className={styles.adaptive}>
+                                <AdaptiveCard />
+                            </div>
+                            <div className={styles.adaptive}>
+                                <AdaptiveCard />
+                            </div>
+                            <div className={styles.adaptive}>
+                                <AdaptiveCard />
+                            </div>
+                            <div className={styles.adaptive}>
+                                <AdaptiveCard />
+                            </div>
+                        </div>
+                    }
+                // padding={'var(--mainPadding)'}
+                />
+            </div>
 
         </div>
     )

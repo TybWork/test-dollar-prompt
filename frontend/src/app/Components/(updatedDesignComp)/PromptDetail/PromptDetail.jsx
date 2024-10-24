@@ -80,15 +80,23 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 <div className={styles.btnSection}>
                     <div className={styles.priceSection}>
                         <div className={styles.salePrice}>${salePrice || 4.99}</div>
-                        <div className={styles.originalPrice}>$<s>{originalPrice || 8.99}</s></div>
-                        <div className={styles.percentageOff}>${percentageOff || 50}% off</div>
+                        {/* <div className={styles.originalPrice}>$<s>{originalPrice || 8.99}</s></div>
+                        <div className={styles.percentageOff}>${percentageOff || 50}% off</div> */}
                     </div>
-                    <PrimaryBtn
-                        title={'Buy Prompt'}
-                        height={'48px'}
-                        width={'150px'}
-                    />
-                    <CartIcon />
+                    <div className={styles.btns}>
+                        <div className={styles.primaryBtn}>
+                            <PrimaryBtn
+                                title={'Buy Prompt'}
+                                height={'100%'}
+                                width={'100%'}
+                            />
+                        </div>
+                        <div className={styles.cartIcon}>
+                            <CartIcon
+                                width={'100%'}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <p className={styles.note}>

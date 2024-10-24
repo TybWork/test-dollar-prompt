@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HeadingCounts = ({ count, heading }) => {
+const HeadingCounts = ({ count, heading, textAlign }) => {
 
     const parentContainer = {
         display: "flex",
@@ -12,6 +12,7 @@ const HeadingCounts = ({ count, heading }) => {
     const countStyle = {
         fontSize: '14px',
         fontWeight: 'bold',
+        textAlign: textAlign
     };
 
     const headingStyle = {
