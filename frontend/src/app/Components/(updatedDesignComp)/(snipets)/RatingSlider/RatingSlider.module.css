@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    color: var(--blackClr);
+}
+
+.slider {
+    flex: 1;
+    height: 8px;
+    border-radius: 50px;
+    background: var(--homeIconClr);
+    position: relative;
+    overflow: hidden;
+}
+
+.fillSlider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--homeTertiaryClr);
+    border-radius: 50px;
+}

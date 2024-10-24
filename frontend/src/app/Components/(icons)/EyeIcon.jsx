@@ -1,6 +1,7 @@
 import * as React from "react"
 const EyeIcon = ({ width, stroke }) => (
     <svg
+        viewBox="0 0 20 20"
         width={width || 20}
         height={width || 20}
         fill="none"

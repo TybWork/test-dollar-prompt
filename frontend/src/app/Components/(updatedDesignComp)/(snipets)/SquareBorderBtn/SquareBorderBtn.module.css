@@ -1,0 +1,12 @@
+.btn {
+    background: transparent;
+    color: var(--homeMainBtn);
+    border: 1px solid var(--blackClr);
+    padding: 12px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: var(--blackClr);
+}

@@ -1,0 +1,132 @@
+/* ..........right section.......... */
+.promptDetail {
+    width: 548px;
+    height: max-content;
+    padding: 40px 40px 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--homeTertiaryClr);
+    color: var(--homePrimaryClr);
+
+}
+
+.aiToolBadge {
+    padding: 4px;
+    color: var(--homeTertiaryClr);
+    background: var(--homePrimaryClr);
+    align-self: flex-end;
+}
+
+/* image section */
+
+.promptImages {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+
+}
+
+.img {
+    flex: 1;
+    width: 100%;
+    height: 132px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+/* about prompt */
+.aboutPrompt {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.promptTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.promptDescription {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.categoryContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category span {
+    font-weight: 600;
+}
+
+.authenticity {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* .........parameters......... */
+.parametersContainer {
+    display: flex;
+    margin-top: 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ..........lastSection........... */
+.lastSection {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+/*hr*/
+.hr {
+    width: 100%;
+    background: var(--categoryClr);
+    border: none;
+    height: 1px;
+}
+
+/* button section */
+.btnSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.priceSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.salePrice {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.originalPrice {
+    font-size: 16px;
+    color: var(--homeIconText);
+    font-weight: 600;
+}
+
+.percentageOff {
+    font-size: 14px;
+    background: var(--blackClr);
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 50px;
+    color: var(--homePrimaryClr);
+}
+
+.note {
+    font-size: 14px;
+}

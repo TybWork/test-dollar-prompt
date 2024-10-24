@@ -1,6 +1,7 @@
 import * as React from "react"
 const StarIcon = ({ width, fill }) => (
     <svg
+        viewBox="0 0 14 14"
         width={width || 14}
         height={width || 14}
         fill="none"

@@ -1,0 +1,48 @@
+.parentContainer {
+    display: flex;
+    gap: 26px;
+    color: var(--homeTertiaryClr);
+}
+
+.profileHandle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--homeMainBtn);
+    border-radius: 50%;
+    margin-top: 12px;
+}
+
+.rightContainer {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 400px;
+}
+
+.counts {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hr {
+    display: block;
+    width: 100%;
+    background: var(--ratingClr);
+    opacity: .12;
+    height: 1px;
+    outline: none;
+    border: none;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}

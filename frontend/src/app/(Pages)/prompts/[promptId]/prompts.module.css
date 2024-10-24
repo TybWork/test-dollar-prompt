@@ -1,0 +1,42 @@
+.mainContainer {
+    display: flex;
+    padding: var(--mainPadding);
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.profileInfo {
+    max-width: 750px;
+}
+
+.sellerDescription {
+    font-size: 14px;
+    color: var(--homeTertiaryClr);
+    padding-bottom: 32px;
+}
+
+.sellerDescription a {
+    color: var(--homeTertiaryClr);
+    text-transform: capitalize;
+}
+
+
+/* ..........right section.......... */
+.promptDetail {
+    width: 548px;
+    height: 609px;
+    padding: 40px;
+    border-radius: 8px;
+    background: var(--homeTertiaryClr);
+}
+
+.promptImages {
+    width: 100%;
+    display: flex;
+
+}
+
+.img {
+    flex: 1;
+
+}

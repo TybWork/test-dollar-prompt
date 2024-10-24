@@ -1,0 +1,56 @@
+.parentContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--homeTertiaryClr);
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+    align-items: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--blackClr);
+}
+
+.link {
+    font-size: 16px;
+    color: var(--blackClr);
+}
+
+.content {
+    width: 100%;
+    overflow: auto;
+    z-index: 1;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
+}
+
+@media screen and (max-width:768px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .gradientDivRight {
+        width: 18px !important;
+    }
+
+    .gradientDivLeft {
+        width: 18px !important;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .title {
+        font-size: 18px;
+    }
+}

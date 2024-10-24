@@ -1,0 +1,38 @@
+.parentContainer {
+    max-width: 444px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mainContainer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.hr {
+    background: var(--ratingClr);
+    opacity: .12;
+}
+
+.reviewContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rating {
+    display: flex;
+    gap: 44px;
+}
+
+.ratingTime {
+    text-transform: capitalize;
+    color: var(--blackClr);
+    font-size: 14px;
+}
+
+.review {
+    font-size: 16px;
+}

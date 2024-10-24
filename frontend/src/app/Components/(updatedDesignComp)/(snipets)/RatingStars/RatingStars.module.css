@@ -1,0 +1,29 @@
+.mainContainer {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.starsWrapper {
+    display: flex;
+    align-items: center;
+    /* Apply the gradient to the text */
+    -webkit-background-clip: text;
+    /* Clip the background to the text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text transparent to show the gradient */
+    text-fill-color: transparent;
+    /* Non-webkit browsers support */
+}
+
+.starsWrapper span {
+    font-size: 24px;
+    padding: 0;
+    line-height: 1;
+}
+
+.rating {
+    color: var(--ratingClr);
+    font-size: 14px;
+    font-weight: 600;
+}

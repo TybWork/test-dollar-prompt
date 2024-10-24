@@ -1,7 +1,7 @@
 import * as React from "react"
 const VerifiedIcon = ({ width, fill }) => (
     <svg
-        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 12 12"
         width={width || 12}
         height={width || 12}
         fill="none"

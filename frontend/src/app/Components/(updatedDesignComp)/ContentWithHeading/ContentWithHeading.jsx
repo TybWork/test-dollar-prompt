@@ -1,6 +1,6 @@
-import styles from '@/app/Components/(updatedDesignComp)/ShowAllSection/ShowAllSection.module.css'
+import styles from '@/app/Components/(updatedDesignComp)/ContentWithHeading/ContentWithHeading.module.css'
 import Link from 'next/link'
-const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin, title, link, linkText, content }) => {
+const ContentWithHeading = ({ padding, margin, title, link, linkText, content }) => {
 
     let screenWidth;
     if (typeof window !== 'undefined') {
@@ -28,8 +28,6 @@ const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin
 
             </div>
             <div className={styles.gradientContainer}>
-                <div className={styles.gradientDivLeft} style={{ width: leftGradientWidth || '48px' }}></div>
-                <div className={styles.gradientDivRight} style={{ width: rightGradientWidth || '48px' }}></div>
                 <div className={styles.content}>
                     {content || 'content add content'}
                 </div>
@@ -38,4 +36,4 @@ const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin
     )
 }
 
-export default ShowAllSection
+export default ContentWithHeading
