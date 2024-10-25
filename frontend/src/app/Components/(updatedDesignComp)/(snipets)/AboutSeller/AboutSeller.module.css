@@ -54,7 +54,7 @@
 .hr {
     display: block;
     width: 100%;
-    background: var(--ratingClr);
+    background: #B5C8B7;
     opacity: .12;
     height: 1px;
     outline: none;
