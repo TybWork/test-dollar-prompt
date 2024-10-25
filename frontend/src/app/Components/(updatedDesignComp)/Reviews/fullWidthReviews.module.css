@@ -7,8 +7,7 @@
 
 .ratingMainContainer {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    gap: 48px;
 }
 
 .title {
@@ -58,7 +57,7 @@
 
     .ratingContainer {
         max-width: 1000px;
-        min-width: 330px;
+        min-width: 350px;
         flex: 1;
     }
 }

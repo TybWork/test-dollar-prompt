@@ -18,13 +18,18 @@ const AboutSeller = ({ profileHandle }) => {
                         @{profileHandle || 'Sha12'} <VerifiedIcon />
                     </div>
                 </div>
-                <div className={styles.counts}>
-                    <HeadingCounts count={50} heading={'Prompts'} />
-                    <HeadingCounts count={5} heading={'Followers'} />
-                    <HeadingCounts count={100} heading={'Prompts Sold'} />
-                    <div className={styles.starIconContainer}>
-                        <StarIcon width={'20px'} />
-                        <HeadingCounts heading={'( 159 )'} count={4.9} textAlign={'center'} />
+                <div>
+                    <div className={styles.profileHandleLarge}>
+                        @{profileHandle || 'Sha12'} <VerifiedIcon />
+                    </div>
+                    <div className={styles.counts}>
+                        <HeadingCounts count={50} heading={'Prompts'} />
+                        <HeadingCounts count={5} heading={'Followers'} />
+                        <HeadingCounts count={100} heading={'Prompts Sold'} />
+                        <div className={styles.starIconContainer}>
+                            <StarIcon width={'20px'} />
+                            <HeadingCounts heading={'( 159 )'} count={4.9} textAlign={'center'} />
+                        </div>
                     </div>
                 </div>
                 <hr className={styles.hr} />

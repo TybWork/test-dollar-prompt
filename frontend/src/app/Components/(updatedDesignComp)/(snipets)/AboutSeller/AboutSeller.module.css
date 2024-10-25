@@ -10,6 +10,12 @@
     font-weight: bold;
 }
 
+.profileHandleLarge {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
 .image {
     width: 144px;
     height: 144px;
@@ -80,10 +86,18 @@
     .rightContainer {
         padding: 0px 0px 24px;
     }
+
+    .profileHandleLarge {
+        display: none;
+    }
 }
 
 @media screen and (max-width:425px) {
     .profileHandle {
         font-size: 20px;
+    }
+
+    .rightContainer {
+        padding: 0px;
     }
 }
