@@ -18,7 +18,7 @@
     background: var(--homePrimaryClr);
     border: 2px solid var(--homeMainBtn);
     top: 2px;
-    left: 0px;
+    left: -1px;
 }
 
 .singleTimelineContainer::after {
@@ -84,6 +84,7 @@
     width: 100%;
     cursor: pointer;
     opacity: 0;
+
 }
 
 /* timeline item animations */
@@ -178,6 +179,7 @@
     .parentContainer {
         width: 93%;
         max-width: 500px;
+        margin-left: 1px;
     }
 
     .singleTimelineContainer {
