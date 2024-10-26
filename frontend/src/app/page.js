@@ -247,7 +247,6 @@ export default function Home() {
       {/* <AdaptiveCard />
       <FeaturedCardNew /> */}
 
-
       {/* timeline section */}
       <div className={styles.timelineSection}
       >

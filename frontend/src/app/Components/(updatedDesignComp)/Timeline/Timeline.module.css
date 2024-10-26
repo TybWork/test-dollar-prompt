@@ -18,7 +18,7 @@
     background: var(--homePrimaryClr);
     border: 2px solid var(--homeMainBtn);
     top: 2px;
-    left: -1px;
+    left: 0px;
 }
 
 .singleTimelineContainer::after {
@@ -175,6 +175,13 @@
 
 
 /* media queries */
+@media screen and (max-width:1280px) {
+    .singleTimelineContainer::before {
+        /* left: -1px; */
+    }
+}
+
+
 @media screen and (max-width:768px) {
     .parentContainer {
         width: 93%;
@@ -191,6 +198,7 @@
         width: 100%;
     }
 }
+
 
 @media screen and (max-width:425px) {
 
