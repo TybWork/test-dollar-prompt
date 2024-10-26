@@ -93,16 +93,15 @@
 /* timeline */
 .timelineCardsContainer {
     flex: 1;
-    height: 250px;
+    /* height: 250px; */
     position: relative;
     transition: 6s;
 }
 
 .timelineWraper {
-    padding: 8px;
+    padding: 8px 0px;
     height: 100%;
-    overflow-y: scroll;
-
+    /* overflow: scroll; */
 }
 
 .timelineGradient {
@@ -275,7 +274,7 @@
     }
 
     .timelineContent {
-        flex: auto
+        /* flex: auto */
     }
 
     .timelineWraper {
@@ -349,7 +348,8 @@
         width: 100% !important;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        flex: 1;
     }
 
     .timeline {

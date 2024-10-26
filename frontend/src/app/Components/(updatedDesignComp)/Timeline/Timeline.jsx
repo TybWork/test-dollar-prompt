@@ -2,10 +2,10 @@ import React from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/Timeline/Timeline.module.css'
 import Image from 'next/image'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
-const Timeline = () => {
+const Timeline = ({ shouldAnimate }) => {
     return (
-        <div className={styles.parentContainer}>
-            <div className={styles.singleTimelineContainer}>
+        <div className={`${styles.parentContainer} ${shouldAnimate ? styles.animate : ''}`}>
+            <div className={`${styles.singleTimelineContainer}`}>
                 <div className={styles.timelineItem}>
                     <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
                     <div className={styles.timelineItemContent}>

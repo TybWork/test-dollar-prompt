@@ -5,7 +5,6 @@ import AdaptiveCard from './Components/AdaptiveCard/AdaptiveCard';
 import FeaturedCardNew from './Components/FeaturedCardNew/FeaturedCardNew';
 import NewCategoryBtn from './Components/(updatedDesignComp)/NewCategoryBtn/NewCateogryBtn';
 import ShowAllSection from './Components/(updatedDesignComp)/ShowAllSection/ShowAllSection';
-import Image from 'next/image';
 import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import { useRef, useEffect, useState } from 'react';
@@ -82,7 +81,7 @@ export default function Home() {
       const timer = setTimeout(() => {
         document.body.style.overflowY = 'scroll';
         settimelineScroll(true)
-      }, 6000);
+      }, 3000);
       return () => clearTimeout(timer);
     } else {
       document.body.style.overflowY = '';
@@ -93,8 +92,6 @@ export default function Home() {
 
   return (
     <div className={styles.parentContainer}>
-
-      {/* <Timeline /> */}
 
       <div className={styles.heroSlider}>
         {/* left side text in slider */}
@@ -163,9 +160,7 @@ export default function Home() {
             </div>
           }
         />
-
       </div>
-
 
       {/* Featured Prompt Engineers section */}
       <div className={styles.promptsSection}>
@@ -262,52 +257,11 @@ export default function Home() {
         </div>
 
         {/* timeline */}
-        <div className={styles.timelineCardsContainer}
-        >
-          <div className={styles.timelineGradient}></div>
+        <div className={styles.timelineCardsContainer}>
 
-          <div className={styles.timelineWraper} ref={targetRef}
-            style={{
-              height: screenWidth < 520 ? (timelineScroll ? 'max-content' : '300px') : '',
-              overflowY: timelineScroll ? 'scroll' : 'hidden'
-            }}
-          >
+          <div className={styles.timelineWraper} ref={targetRef}>
 
-            <div className={styles.timeline}
-
-              style={{
-                animation: isOverflowHidden ? '6s timelineAnim' : 'none',
-              }}
-
-            >
-              <div className={styles.timelineItem}>
-                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-                <div className={styles.timelineItemContent}>
-                  <h3>Easy Account Setup</h3>
-                  <span>Create your account in minutes and start selling AI prompts.</span>
-                </div>
-              </div>
-              <div className={styles.timelineItem}>
-                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-                <div className={styles.timelineItemContent}>
-                  <h3>Earn as You Create</h3>
-                  <span>Get paid automatically when your prompts sell.</span>
-                </div>
-              </div>
-
-              <div className={styles.timelineItem}>
-                <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
-                <div className={styles.timelineItemContent}>
-                  <h3>Effortless Payments</h3>
-                  <span>Get paid automatically when your prompts sell.</span>
-                </div>
-              </div>
-
-              <div className={styles.timelineItem}>
-                <PrimaryBtn width={'100%'} height={'100%'} title={'SignUp'} />
-              </div>
-
-            </div>
+            <Timeline shouldAnimate={isOverflowHidden} />
 
           </div>
         </div>
