@@ -8,6 +8,7 @@
 .ratingMainContainer {
     display: flex;
     gap: 48px;
+    flex-direction: column;
 }
 
 .title {
@@ -50,13 +51,13 @@
 /* media queries */
 @media screen and (max-width:1024px) {
     .ratingMainContainer {
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         gap: 48px;
     }
 
     .ratingContainer {
-        max-width: 1000px;
+        /* max-width: 1000px; */
         min-width: 350px;
         flex: 1;
     }
