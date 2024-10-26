@@ -9,6 +9,7 @@ import PrimaryBtn from './Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import { useRef, useEffect, useState } from 'react';
 import Timeline from './Components/(updatedDesignComp)/Timeline/Timeline';
+import EmailNewletter from './Components/(updatedDesignComp)/EmailNewsletter/EmailNewletter';
 
 const categoriesArr = [
   {
@@ -259,9 +260,7 @@ export default function Home() {
         <div className={styles.timelineCardsContainer}>
 
           <div className={styles.timelineWraper} ref={targetRef}>
-
             <Timeline shouldAnimate={isOverflowHidden} />
-
           </div>
         </div>
 
@@ -269,34 +268,13 @@ export default function Home() {
 
 
       {/* email newsletter section */}
-      <div className={styles.newsletterContainer}>
-        <h2>
-          AI Growth Starts Here: Get News & Join Our Creative Community
-        </h2>
-        <p>
-          We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Subscribe for regular AI news, updates, and tips. Join our growing community
-        </p>
 
-        <div className={styles.emailCredentials}>
-          <div className={styles.inputsContainer}>
-            <div className={styles.input}>
-              <NewInput placeholder={'Name'} />
-            </div>
-            <div className={styles.input}>
-              <NewInput placeholder={'Email'} />
-            </div>
-          </div>
-          <div className={styles.primaryBtnContainer}>
-            <PrimaryBtn title={'Subscribe'} width={'100%'} height={'100%'} />
-          </div>
-        </div>
-
-        <div className={styles.info}>By signing up you are agreeing our Term of use and Privacy policy</div>
-
-      </div>
-
-      {/* footer section */}
-      {/* <NewFooter /> */}
+      <EmailNewletter
+        title={'AI Growth Starts Here: Get News & Join Our Creative Community'}
+        description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Subscribe for regular AI news, updates, and tips. Join our growing community"}
+        leftInputPlaceholder={'Name'}
+        rightInputPlaceholder={'Email Address'}
+      />
 
     </div >
   );

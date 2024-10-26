@@ -2,14 +2,17 @@ import styles from '@/app/Components/FeaturedCardNew/FeaturedCardNew.module.css'
 import Image from 'next/image'
 import VerifiedIcon from '../(icons)/VerifiedIcon'
 import StarIcon from '../(icons)/StarIcon'
+import { useRouter } from 'next/navigation'
 const FeaturedCardNew = ({ headerImgArray, profileImage, name, profileHandle, rating, ratingPeopleCount, promptsCount, followersCount }) => {
+    const router = useRouter()
+
     const imgArray = [
         '/assets/imageAssets/sampleCardImage.png',
         '/assets/imageAssets/sampleCardImage.png',
         '/assets/imageAssets/sampleCardImage.png',
     ]
     return (
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} onClick={() => router.push('/profile/342309832489')}>
 
             <div className={styles.coloredContainer}>
             </div>

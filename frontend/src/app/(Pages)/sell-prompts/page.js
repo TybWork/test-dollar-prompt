@@ -52,7 +52,6 @@ const page = () => {
                 <EmailNewletter
                     title={'Are you ready to earn from your side hustle? Start selling your curated AI prompts today!'}
                     description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Sign up and join our waitlist to start selling."}
-                    msg={<div className={styles.message}>By signing up you are agreeing our <a href="/">Term of Use</a> and <a href="/">Privacy Policy</a></div>}
                 />
             </div>
 

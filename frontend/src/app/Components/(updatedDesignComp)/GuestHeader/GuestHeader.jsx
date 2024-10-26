@@ -22,13 +22,13 @@ const GuestHeader = () => {
                 </div>
                 <ul className={styles.ul}>
                     <li className={styles.li}>
-                        <Link href={'/'}>Buy Prompts</Link>
+                        <Link href={'/buy-prompts'}>Buy Prompts</Link>
                     </li>
                     <li className={styles.li}>
-                        <Link href={'/'}>Sell Prompts</Link>
+                        <Link href={'/sell-prompts'}>Sell Prompts</Link>
                     </li>
                     <li className={styles.li}>
-                        <PrimaryBtn title={'Sign Up'} />
+                        <PrimaryBtn title={'Sign Up'} href={'/signup'} />
                     </li>
                 </ul>
 

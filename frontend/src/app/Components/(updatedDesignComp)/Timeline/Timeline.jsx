@@ -33,9 +33,9 @@ const Timeline = ({ shouldAnimate }) => {
                 </div>
             </div>
             <div className={styles.singleTimelineContainer}>
-                <div className={styles.timelineItem}>
-                    <PrimaryBtn width={'100%'} height={'100%'} title={'SignUp'} />
-                </div>
+                <PrimaryBtn width={'100%'} height={'32px'} title={'SignUp'} />
+                {/* <div className={styles.timelineItem}>
+                </div> */}
             </div>
         </div>
     )

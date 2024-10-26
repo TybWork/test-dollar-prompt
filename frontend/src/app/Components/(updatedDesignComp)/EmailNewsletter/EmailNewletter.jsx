@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNewsletter.module.css'
 import NewInput from '../NewInput/NewInput'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
+import Link from 'next/link'
 const EmailNewletter = ({ title, description, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, fieldName }) => {
     return (
         <div className={styles.newsletterContainer}>
@@ -38,7 +39,7 @@ const EmailNewletter = ({ title, description, msg, leftInputPlaceholder, rightIn
                 </div>
             </div>
 
-            <div className={styles.info}>{msg || "By signing up you are agreeing our Term of use and Privacy policy"}</div>
+            <div className={styles.info}>{msg || <div className={styles.message}>By signing up you are agreeing our <Link href="/tandcs">Term of Use</Link> and <Link href="/privacy-policy">Privacy Policy</Link></div>}</div>
 
         </div>
     )

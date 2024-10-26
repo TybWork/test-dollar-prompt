@@ -16,16 +16,16 @@ const NewFooter = () => {
                     {/* hyperlinks section */}
                     <div className={styles.hyperlinksContainer}>
                         <ul className={styles.section}>
-                            <li><Link href={'/'}>Sell on Dollar Prompt</Link></li>
+                            <li><Link href={'/sell-prompts'}>Sell on Dollar Prompt</Link></li>
                             <li><Link href={'/'}>Categories</Link></li>
                             <li><Link href={'/'}>AI Tools</Link></li>
-                            <li><Link href={'/'}>AI News</Link></li>
+                            <li><Link href={'/blog'}>AI News</Link></li>
                         </ul>
 
                         <ul className={styles.section}>
                             <li><Link href={'/'}>Join our Community</Link></li>
-                            <li><Link href={'/'}>Buy Prompts</Link></li>
-                            <li><Link href={'/'}>Sign Up</Link></li>
+                            <li><Link href={'/buy-prompts'}>Buy Prompts</Link></li>
+                            <li><Link href={'/signup'}>Sign Up</Link></li>
                         </ul>
                     </div>
 
@@ -39,7 +39,7 @@ const NewFooter = () => {
                         {/* terms of use links */}
                         <ul className={styles.termsSection}>
                             <li><Link href={'/'}>Join our Community</Link></li>
-                            <li><Link href={'/'}>Buy Prompts</Link></li>
+                            <li><Link href={'/buy-prompts'}>Buy Prompts</Link></li>
                         </ul>
                     </div>
 
