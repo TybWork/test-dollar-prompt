@@ -18,7 +18,7 @@
     background: var(--homePrimaryClr);
     border: 2px solid var(--homeMainBtn);
     top: 2px;
-    left: 0px;
+    left: -1px;
 }
 
 .singleTimelineContainer::after {
