@@ -123,15 +123,9 @@
 
 .borderBottom {
     width: 100%;
-    height: 4px;
-    color: red;
-}
-
-.borderBottom {
-    width: 100%;
     height: 1px;
-    background: var(--textClr);
-    opacity: .7;
+    background: var(--ratingClr);
+    opacity: .3;
 }
 
 .googleBtn {

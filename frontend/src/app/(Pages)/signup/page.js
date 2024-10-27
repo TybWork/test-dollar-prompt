@@ -80,7 +80,7 @@ const CreateUser = () => {
                 <input className={styles.submitBtn} type="submit" value="Register" />
 
                 {/* borderbottom  */}
-                <div className={styles.borderBottom}></div>
+                <hr className={styles.borderBottom} />
 
                 {/* google button */}
             </form>
