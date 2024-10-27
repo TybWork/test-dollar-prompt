@@ -7,9 +7,14 @@ const BlogPostCard = ({ onClick, title, description }) => {
             <p className={styles.content}>{description}</p>
 
             <div>
-                <PicWithNameRole width={'40px'} name={"Admin"} role={'12 Aug 2024'} />
+                <PicWithNameRole
+                    width={'40px'}
+                    name={"Admin"}
+                    role={'12 Aug 2024'}
+                    roleColor={'var(--homeMainBtn'}
+                    roleWeight={700}
+                />
             </div>
-
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import styles from '@/app/Components/(liteComponents)/PicWithNameRole/PicWithNameRole.module.css'
 import Image from 'next/image'
-const PicWithNameRole = ({ imgSrc, name, role, picDot, hidePicDot, width, dotSize, dotBorder, onClick }) => {
+const PicWithNameRole = ({ imgSrc, name, role, roleWeight, roleColor, picDot, hidePicDot, width, dotSize, dotBorder, onClick }) => {
     return (
         <div className={styles.container} onClick={onClick}>
             <div className={styles.imageContainer}>
@@ -30,7 +30,15 @@ const PicWithNameRole = ({ imgSrc, name, role, picDot, hidePicDot, width, dotSiz
             {/* role and name container */}
             <div className={styles.info}>
                 <b className={styles.name}>{name || 'name'}</b>
-                <span className={styles.role}>{role || 'role'}</span>
+                <span
+                    className={styles.role}
+                    style={{
+                        fontWeight: roleWeight,
+                        color: roleColor
+                    }}
+                >
+                    {role || 'role'}
+                </span>
             </div>
 
         </div >

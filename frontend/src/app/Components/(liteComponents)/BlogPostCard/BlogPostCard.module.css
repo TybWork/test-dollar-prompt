@@ -1,20 +1,23 @@
 .cardContainer {
     width: 100%;
-    background: var(--tertiaryClr);
+    background: var(--homeMainBtn);
+    background: var(--homePrimaryClr);
     padding: 20px;
-    color: var(--textClr);
+    color: var(--homeTertiaryClr);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 16px;
     cursor: pointer;
-    border-bottom: 6px solid var(--customBorder);
+    box-shadow: 0px 5px 8px rgba(32, 91, 38, 0.08);
+    border: 1px solid var(--homeCardBorder);
+    border-bottom: 6px solid var(--homeMainBtn);
     transition: .7s linear;
 }
 
 .cardContainer:hover {
     transform: translateY(-2px);
-    border-block-color: var(--timeClr);
+    border-bottom-color: var(--homeTertiaryClr);
 }
 
 .cardContainer .h2 {

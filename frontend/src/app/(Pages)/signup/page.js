@@ -81,10 +81,9 @@ const CreateUser = () => {
 
                 {/* borderbottom  */}
                 <hr className={styles.borderBottom} />
-
-                {/* google button */}
             </form>
 
+            {/* google button */}
             <button className={styles.googleBtn}>
                 <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="site-logo" />
                 Google
