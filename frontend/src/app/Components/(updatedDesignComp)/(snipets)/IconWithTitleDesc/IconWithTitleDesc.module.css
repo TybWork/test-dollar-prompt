@@ -1,0 +1,32 @@
+.parentContainer {
+    width: max-content;
+    display: flex;
+    gap: 16px;
+}
+
+.icon {
+    color: var(--homePrimaryClr);
+    width: 40px;
+    height: 40px;
+    background: var(--homeMainBtn);
+    border-radius: 50px;
+    display: inline-block;
+    padding: 8px;
+}
+
+.textContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    font-size: 16px;
+    color: var(--blackClr);
+}
+
+.description {
+    color: var(--homeIconClr);
+    font-size: 14px;
+}

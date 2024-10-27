@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         return null
       }
       else if (data.userRole == 'seller') {
-        return <SellerHeader />
+        // return <SellerHeader />
       } else {
         if (data.userRole == 'admin') {
           return <AdminHeader />

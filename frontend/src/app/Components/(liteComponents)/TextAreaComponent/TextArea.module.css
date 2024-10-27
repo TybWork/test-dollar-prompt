@@ -1,22 +1,22 @@
 .textInput {
     padding: 8px;
     border-radius: 4px;
-    background: var(--tertiaryClr);
+    background: var(--homePrimaryClr);
     width: 100%;
-    border: none;
-    color: var(--textClr);
-    caret-color: --textClr;
+    border: 2px solid var(--homeMainBtn);
+    color: var(--homeTertiaryClr);
+    caret-color: var(--textClr);
     outline: none;
     resize: vertical;
     margin-bottom: 2.4em;
 }
 
 .textInput:focus {
-    outline: 3px solid var(--activeClr);
+    outline: 2px solid var(--homeMainBtn);
 }
 
 .textInput::placeholder {
-    color: var(--textClr);
+    color: var(--homeTertiaryClr);
     opacity: .6;
 }
 

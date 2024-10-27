@@ -9,6 +9,8 @@ import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/Image
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
 import { jwtDecode } from 'jwt-decode'; // Make sure the import is correct
 import { useRouter } from 'next/navigation';
+import NewImageUploader from '@/app/Components/(updatedDesignComp)/NewImageUploader/NewImageUploader';
+import PrimaryBtn from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
 
 const Page = () => {
     const router = useRouter();
@@ -101,7 +103,7 @@ const Page = () => {
     return (
         <div className={styles.container}>
             <div>
-                <FieldInfo title="Upload Profile Image" />
+                {/* <FieldInfo title="Upload Profile Image" />
                 <ImageUploader
                     onChangeFunc={getValue}
                     labelFor="profileImage"
@@ -109,10 +111,16 @@ const Page = () => {
                     containerHeight="100px"
                     iconWidth="50px"
                     iconHeight="50px"
+                /> */}
+                <NewImageUploader
+                    onChangeFunc={getValue} labelFor="profileImage"
+                    title={'Upload profile image'} imgDimensions={"400 x 400 or 200 x 200"}
+                    mainImgWidth={'100px'}
+                    mainImgHeight={'100px'}
                 />
             </div>
             <div>
-                <FieldInfo title="Upload Banner Image" />
+                {/* <FieldInfo title="Upload Banner Image" />
                 <ImageUploader
                     onChangeFunc={getValue}
                     labelFor="profileBanner"
@@ -120,10 +128,19 @@ const Page = () => {
                     containerHeight="150px"
                     iconWidth="70px"
                     iconHeight="70px"
+                /> */}
+                <NewImageUploader
+                    onChangeFunc={getValue} labelFor="profileBanner"
+                    title={'Upload profile banner'} imgDimensions={'1500 x 400 , in app-cropping'}
+                    mainImgWidth={'100%'}
+                    mainImgHeight={'170px'}
                 />
             </div>
             <div>
-                <FieldInfo title="Profile Handle" />
+                {/* <FieldInfo title="Profile Handle" /> */}
+                <h3 className={styles.heading}>
+                    Profile Handle
+                </h3>
                 <InputField
                     name="profileHandle"
                     onchangeFunc={getValue}
@@ -131,7 +148,11 @@ const Page = () => {
                 />
             </div>
             <div>
-                <FieldInfo title="Profile Description" />
+                {/* <FieldInfo title="Profile Description" /> */}
+                <h3 className={styles.heading}>
+                    Describe Profile
+                </h3>
+
                 <TextArea
                     name="profileDescription"
                     onChange={getValue}
@@ -141,7 +162,12 @@ const Page = () => {
                 />
             </div>
             <div className={styles.submitBtn}>
-                <GradientButton title="Submit" onClick={onSubmitFunc} />
+                <GradientButton
+                    title="Submit"
+                    onClick={onSubmitFunc}
+                    background={'var(--homeMainBtn)'}
+
+                />
             </div>
         </div>
     );
