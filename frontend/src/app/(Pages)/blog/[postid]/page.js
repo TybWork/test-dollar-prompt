@@ -34,7 +34,7 @@ const page = ({ params }) => {
                             </p>
                         </article>
                         <address>
-                            <p>Written by <a href="mailto:author@example.com">Author Name</a></p>
+                            <p>Written by <author className={styles.author}>Zee Khan</author></p>
                         </address>
                     </div>
                 )
