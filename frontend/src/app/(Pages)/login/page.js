@@ -68,7 +68,7 @@ const LoginUser = () => {
                     onChange={handleCaptcha}
                 />
                 <input className={styles.submitBtn} type="submit" value="Login" />
-                <div className={styles.borderBottom}></div>
+                <hr className={styles.borderBottom} />
             </form>
             <button className={styles.googleBtn} >
                 <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="google-logo" />
