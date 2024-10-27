@@ -11,6 +11,7 @@
     text-align: center;
     font-weight: normal;
     font-size: 36px;
+    color: var(--homeTertiaryClr);
 }
 
 .logo {
@@ -58,9 +59,11 @@
 .genderInput {
     display: flex;
     gap: 5px;
-    background: var(--tertiaryClr);
+    background: var(--homePrimamryClr);
     padding: 8px;
     border-radius: 4px;
+    color: var(--homeTertiaryClr);
+    border: 2px solid var(--homeMainBtn);
 }
 
 .genderInput input {
@@ -77,17 +80,18 @@
     content: '';
     width: 15px;
     height: 15px;
-    background-color: white;
+    background-color: var(--homeSecondryClr);
     border-radius: 50px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border: 1px solid var(--homeMainBtn);
 }
 
 .genderInput input::after {
     position: absolute;
     content: '';
-    background: var(--tertiaryClr);
+    background: var(--homeMainBtn);
     width: 10px;
     height: 10px;
     top: 50%;
@@ -102,19 +106,19 @@
 
 
 .submitBtn {
-    background: var(--buttonGradient);
+    background: var(--homeMainBtn);
     padding: 8px;
     border-radius: 4px;
     outline: none;
     border: none;
     font-size: 20px;
-    color: var(--primaryClr);
+    color: var(--homePrimaryClr);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .submitBtn:hover {
-    background: var(--buttonGradientHover);
+    background: var(--homeCardGradient);
 }
 
 .borderBottom {
@@ -142,20 +146,21 @@
     font-size: 20px;
     gap: 12px;
     cursor: pointer;
+    color: var(--homeTertiaryClr);
 }
 
 .terms {
     font-size: 13px;
     text-align: center;
-    opacity: .7;
+    color: var(--homeTertiaryClr);
 }
 
 .terms a {
-    color: var(--textClr);
+    color: var(--homeTertiaryClr);
 }
 
 .link {
-    color: var(--textClr);
+    color: var(--homeTertiaryClr);
     text-align: center;
     font-size: 14px;
 }

@@ -100,4 +100,9 @@
     .rightContainer {
         padding: 0px;
     }
+
+    /* 
+    .btns {
+        flex-direction: column;
+    } */
 }

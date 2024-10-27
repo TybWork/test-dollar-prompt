@@ -51,7 +51,10 @@ const CreateUser = () => {
 
                 <InputField name="lastName" id="lastName" onchangeFunc={inputHandler} placeholder="Last Name *" value={user.lastName} />
 
+                <InputField name="country" id="country" onchangeFunc={inputHandler} placeholder="Country *" value={user.country} />
+
                 <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} />
+
 
                 <div className={styles.passwordContainer} >
                     {
@@ -91,7 +94,7 @@ const CreateUser = () => {
             <div className={styles.terms}>By creating an account, you agree to our <Link href="/tandcs">terms of service.</Link></div>
 
             {/* already have account */}
-            <Link className={styles.link} href="">I already have an account</Link>
+            <Link className={styles.link} href="/login">I already have an account</Link>
         </div>
     )
 }
