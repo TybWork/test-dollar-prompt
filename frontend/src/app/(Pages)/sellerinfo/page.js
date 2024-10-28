@@ -11,21 +11,22 @@ import { jwtDecode } from 'jwt-decode'; // Make sure the import is correct
 import { useRouter } from 'next/navigation';
 import NewImageUploader from '@/app/Components/(updatedDesignComp)/NewImageUploader/NewImageUploader';
 import PrimaryBtn from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 
 const Page = () => {
     const router = useRouter();
     const [user, setUser] = useState({});
 
     // Extract token from cookies
-    const getTokenFromCookie = (name) => {
-        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        return match ? decodeURIComponent(match[2]) : null;
-    };
+    // const getTokenFromCookie = (name) => {
+    //     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    //     return match ? decodeURIComponent(match[2]) : null;
+    // };
 
-    const getAuthorizationHeader = () => {
-        const token = getTokenFromCookie('token');
-        return token ? `Bearer ${token}` : '';
-    };
+    // const getAuthorizationHeader = () => {
+    //     const token = getTokenFromCookie('token');
+    //     return token ? `Bearer ${token}` : '';
+    // };
 
     // Handle input and file changes
     const getValue = (val) => {
@@ -56,7 +57,7 @@ const Page = () => {
 
     // Handle becoming a seller
     const becomeSeller = async () => {
-        const token = getTokenFromCookie('token');
+        const token = getTokenFunction().cookie;
         if (!token) return;
 
         try {
@@ -85,20 +86,20 @@ const Page = () => {
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/postdata`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': getAuthorizationHeader()
+                    'Authorization': getTokenFunction().token
                 },
                 withCredentials: true
             });
-
             await becomeSeller(); // Ensure this completes before proceeding
-            const token = getTokenFromCookie('token');
-            const decodedToken = jwtDecode(token);
-            const profileHandle = decodedToken.profileHandle;
-            router.push(`/user/${profileHandle}/seller-dashboard`);
+            router.push(`/user/${user.profileHandle}/seller-dashboard`);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
     };
+
+    console.log('cookie', getTokenFunction().cookie)
+    console.log('type of cookie:', typeof getTokenFunction().cookie)
+    console.log('token', getTokenFunction().token)
 
     return (
         <div className={styles.container}>
@@ -166,7 +167,6 @@ const Page = () => {
                     title="Submit"
                     onClick={onSubmitFunc}
                     background={'var(--homeMainBtn)'}
-
                 />
             </div>
         </div>

@@ -46,14 +46,14 @@ export default function RootLayout({ children }) {
         if (data.userRole == 'admin') {
           return <AdminHeader />
         } else {
-          // return <Header />
-          return <GuestHeader />
+          return <Header />
+          // return <GuestHeader />
         }
       }
     }
 
-    // return <Header />
-    return <GuestHeader />
+    return <Header />
+    // return <GuestHeader />
 
   }
 
