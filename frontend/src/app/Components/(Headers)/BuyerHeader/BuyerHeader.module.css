@@ -1,0 +1,152 @@
+.parentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px var(--mainPadding);
+    background: var(--homePrimaryClr);
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex: 1;
+}
+
+.input {
+    flex: 1;
+}
+
+.logoContainer {
+    display: flex;
+    color: var(--homeTertiaryClr);
+    margin-right: 100px;
+    gap: 8px;
+    align-items: center;
+}
+
+.logoContainer img {
+    width: 42px;
+    height: 42px;
+}
+
+.logoHeading {
+    font-size: 18px;
+    font-weight: bolder;
+    color: var(--homeMainBtn);
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.logoSubHeading {
+    color: var(--homeTertiaryClr);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: medium;
+    text-align: right;
+}
+
+
+.parentContainer .ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: var(--blackClr);
+}
+
+.li {
+    list-style: none;
+}
+
+.li a {
+    color: var(--homeMainBtn);
+    text-decoration: none;
+    padding: 10px;
+    transition: .3s;
+}
+
+.li a:hover {
+    color: var(--homeTertiaryClr);
+}
+
+.hamburgerIcon {
+    color: var(--homeTertiaryClr);
+    display: none;
+    font-size: 32px;
+}
+
+/* media queries */
+@media screen and (max-width:1100px) {
+    .logoContainer {
+        margin-right: 24px;
+    }
+}
+
+@media screen and (max-width:1100px) {
+    .logoContainer {
+        margin-right: 24px;
+    }
+
+    .navLinks {
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .navLinks .ul {
+        display: none;
+    }
+
+    .hamburgerIcon {
+        display: block;
+        margin-left: 32px;
+    }
+
+    .logoContainer {
+        margin-right: 32px;
+    }
+
+    .navLinks {
+        gap: 32px;
+    }
+
+}
+
+@media screen and (max-width:780px) {
+    .parentContainer {
+        padding: 14px 24px;
+        background: var(--homePrimaryClr);
+    }
+
+    .logoText {
+        display: none;
+    }
+
+    .hamburgerIcon {
+        font-size: 26px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .parentContainer {
+        padding: 12px 12px;
+        background: var(--homePrimaryClr);
+    }
+
+    .logoContainer {
+        margin-right: 12px;
+    }
+
+    .navLinks {
+        gap: 12px;
+    }
+
+    .logoContainer img {
+        width: 38px;
+    }
+
+    .input {
+        display: none;
+    }
+}

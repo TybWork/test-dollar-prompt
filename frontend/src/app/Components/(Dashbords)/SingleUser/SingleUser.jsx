@@ -25,7 +25,7 @@ const SingleUser = ({ isActive, picDot, chatClickFunc }) => {
                     <MdDelete />
                 </span>
                 <span>
-                    <IconWithCoutner icon={<IoChatbubblesOutline />} chatClickFunc={chatClickFunc} />
+                    <IconWithCoutner Icon={IoChatbubblesOutline} chatClickFunc={chatClickFunc} />
                 </span>
             </li>
         </ul>

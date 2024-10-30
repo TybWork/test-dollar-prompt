@@ -1,0 +1,4 @@
+.parentContainer {
+    padding: var(--mainPadding);
+    background: var(--infoCardClr);
+}

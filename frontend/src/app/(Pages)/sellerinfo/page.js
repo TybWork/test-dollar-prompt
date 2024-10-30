@@ -97,10 +97,6 @@ const Page = () => {
         }
     };
 
-    console.log('cookie', getTokenFunction().cookie)
-    console.log('type of cookie:', typeof getTokenFunction().cookie)
-    console.log('token', getTokenFunction().token)
-
     return (
         <div className={styles.container}>
             <div>
