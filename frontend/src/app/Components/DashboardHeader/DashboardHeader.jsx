@@ -9,8 +9,8 @@ const DashboardHeader = () => {
         <div className={styles.headerWrapper}>
             <Search placeholder='Search your needs' width="200px" />
             <div className={styles.detail}>
-                <IconWithCoutner icon={<IoChatbubblesOutline />} />
-                <IconWithCoutner icon={<GoBell />} right='-2px' />
+                <IconWithCoutner Icon={IoChatbubblesOutline} />
+                <IconWithCoutner Icon={GoBell} right='-2px' />
                 <PicWithNameRole imgSrc='/assets/imageAssets/ceo_dollarprompt.PNG' name="Muhammad Shabbir" role="Super Admin" />
             </div>
 

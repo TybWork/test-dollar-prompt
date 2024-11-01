@@ -44,6 +44,7 @@
   --categoryClr: #102E13;
   /* new cardGradient */
   --homeCardGradient: linear-gradient(90deg, rgba(5, 236, 28, 1) 0%, rgba(20, 156, 34, 1) 33%, rgba(5, 236, 28, 1) 77%, rgba(20, 156, 34, 1) 100%);
+  --boxShadow: 0px 5px 8px rgba(32, 91, 38, 0.08);
 
   /* utilities */
   --mainPadding: 48px;

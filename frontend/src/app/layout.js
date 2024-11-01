@@ -1,8 +1,6 @@
 'use client'
 import { Finlandica, Inter, Lato } from "next/font/google";
 import "./globals.css";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
 import { Providers } from "./Redux/Provider";
 import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
 import Cart from "./Components/Cart/Cart";
@@ -16,6 +14,8 @@ import { jwtDecode } from "jwt-decode";
 import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
+import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
+import { useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,28 +32,34 @@ const lato = Lato({
 export default function RootLayout({ children }) {
   const data = userData()
   const pathname = usePathname()
+
   const renderHeader = () => {
     if (typeof window !== 'undefined') {
+
       if (pathname.includes('/admin')) {
         return <AdminHeader />
         // } else if (data.userRole == 'seller' || pathname.includes('/sell') || pathname.includes('/seller') || pathname.includes('/updateprompt')) {
-      } else if (pathname.includes('/master-dashboard') && data.userRole === null) {
+      }
+      else if (pathname.includes('/master-dashboard') && data.userRole === null) {
         return null
       }
+      else if (data.userRole == 'user') {
+        return <BuyerHeader />
+      }
       else if (data.userRole == 'seller') {
-        // return <SellerHeader />
-      } else {
+        return <BuyerHeader />
+      }
+      else {
         if (data.userRole == 'admin') {
           return <AdminHeader />
         } else {
-          return <Header />
-          // return <GuestHeader />
+          // return <Header />
+          return <GuestHeader />
+          // <BuyerHeader />
         }
       }
     }
-
-    return <Header />
-    // return <GuestHeader />
+    return <GuestHeader />
 
   }
 
@@ -63,11 +69,11 @@ export default function RootLayout({ children }) {
         return null
       }
       else {
-        // return <Footer />
         return <NewFooter />
       }
     }
   }
+
   return (
     <html lang="en">
       <Providers>

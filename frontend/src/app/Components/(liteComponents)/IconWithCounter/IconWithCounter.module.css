@@ -1,6 +1,6 @@
 .container {
     font-size: 24px;
-    color: var(--textClr);
+    color: var(--homePrimaryClr);
     position: relative;
     width: fit-content;
     cursor: pointer;
@@ -18,6 +18,11 @@
     justify-content: center;
     align-items: center;
     transition: .3s;
+}
+
+.icon {
+    color: var(--homeMainBtn);
+    font-size: 24px;
 }
 
 .container:hover .counter {

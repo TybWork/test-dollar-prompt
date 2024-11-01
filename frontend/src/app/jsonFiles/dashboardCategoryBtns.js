@@ -55,19 +55,19 @@ export const buttons = {
             component: 'Overview Component'
         },
         {
-            id: 0,
+            id: 1,
             icon: <BsPatchQuestion />,
             title: 'Unverified Prompts',
             component: 'unverified prompts component'
         },
         {
-            id: 0,
+            id: 2,
             icon: <BsPatchCheck />,
             title: 'Verified Prompts',
             component: 'verified prompts'
         },
         {
-            id: 0,
+            id: 3,
             icon: <BsPatchExclamation />,
             title: 'Rejected Prompts',
             component: 'Rejected Prompts'
@@ -81,22 +81,48 @@ export const buttons = {
             component: 'prompt detail compoent'
         },
         {
-            id: 0,
+            id: 1,
             icon: <GrAnalytics />,
             title: 'Analytics',
             component: 'analytics component'
         },
         {
-            id: 0,
+            id: 2,
             icon: <HiOutlineCreditCard />,
             title: 'Billing',
             component: 'Billing Component'
         },
         {
-            id: 0,
+            id: 3,
             icon: <RiAiGenerate />,
             title: 'Create Prompt',
             component: 'Create Prompts'
+        },
+    ],
+    buyer: [
+        {
+            id: 0,
+            icon: <GrOverview />,
+            title: 'Buying History',
+            component: 'buy prompt components'
+        },
+        {
+            id: 1,
+            icon: <GrOverview />,
+            title: 'Followings',
+            component: 'Following component'
+        },
+        {
+            id: 2,
+            icon: <GrOverview />,
+            title: 'Favourites',
+            component: 'Favourite component'
+        },
+        {
+            id: 3,
+            icon: <GrOverview />,
+            title: 'Chats',
+            component: 'Chat Component'
         },
     ]
 }

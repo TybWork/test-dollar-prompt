@@ -21,6 +21,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { showCart } from "@/app/Redux/Features/cart/cartSlice";
 import { useCartQuery } from "@/app/utilities/hooks/useCartQuery";
+import NewSearchInput from "../(updatedDesignComp)/NewSearchInput/NewSearchInput";
 
 const Header = () => {
     const router = useRouter();
@@ -78,7 +79,6 @@ const Header = () => {
             document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}; secure; sameSite=None`;
             setSeller({ text: 'Login', link: '/login' });
             setLogout(false);
-            setRole('user');
             router.push('/');
         } catch (error) {
             console.error(`Failed to logout ${error}`);
@@ -129,6 +129,7 @@ const Header = () => {
 
                     {/* search component */}
                     <Search placeholder="Search Prompts" />
+                    {/* <NewSearchInput /> */}
 
                     {/* top nav icons */}
                     <nav className={styles.mainNav}>
