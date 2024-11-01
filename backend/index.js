@@ -10,6 +10,8 @@ import { authRoutes } from './src/routes/authRoutes.js';
 import { adminRoutes } from './src/routes/adminRoutes.js';
 // import { route as user } from './src/routes/User/user.js';
 import { route as dalleRoute } from './src/routes/Prompts/DallE/Dalle.js';
+import { route as Midjourney } from './src/routes/Prompts/Midjourney.js';
+import { route as GPT } from './src/routes/Prompts/Gpt.js';
 
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
@@ -150,6 +152,9 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // app.use('/api/', user);
 app.use('/api', dalleRoute)
+app.use('/api', Midjourney)
+app.use('/api', GPT)
+
 
 // routes
 app.use('/api/user', authRoutes)
