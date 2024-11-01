@@ -1,0 +1,32 @@
+.diffusionContainer {
+    width: 50%;
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--homeTertiaryClr);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.range {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media screen and (max-width:768px) {
+    .diffusionContainer {
+        width: 100%;
+        min-width: 100%;
+    }
+}

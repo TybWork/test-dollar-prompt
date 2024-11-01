@@ -16,9 +16,9 @@ import { getTokenFunction } from "@/app/utilities/getTokenFunction.js"
 import { useRouter } from "next/navigation"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { jwtDecode } from "jwt-decode"
 
-const page = ({ params }) => {
-    const { username } = params
+const page = () => {
     const router = useRouter()
     const bearerToken = getTokenFunction().token
     const [step, setstep] = useState(1);
@@ -28,6 +28,8 @@ const page = ({ params }) => {
     const [user, setuser] = useState({})
     const [data, setdata] = useState(user)
     const [file, setfile] = useState([])
+
+    const [url, seturl] = useState('')
 
     // next button handle
     function handleNext() {
@@ -75,11 +77,71 @@ const page = ({ params }) => {
         setdata(user);
     }
 
-    console.log(data)
+    console.log('this is whole data', user)
 
     // get sample prompts
 
+    useEffect(() => {
+        // set url on base of ai model
+        if (selected === "Dall-E") {
+            seturl('/api/prompt/dalle/create')
+        }
+        else if (selected === 'Midjourney') {
+            seturl('/api/prompt/midjourney/create')
+        }
+        else if (selected === "GPT") {
+            seturl('/api/prompt/gpt/create')
+        }
+        else if (selected === "Leonardo Ai") {
+            seturl('/api/prompt/midjourney/create')
+        }
+        else if (selected === "Llama") {
+            seturl('/api/prompt/midjourney/create')
+        } else if (selected === "Stable Diffusion") {
+            seturl('/api/prompt/diffusion/create')
+        }
+        // else {
+        // }
+    }, [selected])
+
+
+    // role transfer function
+
+    const refreshCookie = async (userId, userRole) => {
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/refreshcookie`, {
+                userId,
+                userRole,
+            }, {
+                withCredentials: true
+            });
+            return response.data.newToken; // Return the new token
+        } catch (error) {
+            console.error('Failed to refresh cookie', error);
+            throw error; // Throw error to be handled in caller
+        }
+    };
+
+    // Handle becoming a seller
+    const becomeSeller = async () => {
+        if (typeof window !== 'undefined') {
+            const token = getTokenFunction().cookie;
+            if (!token) return;
+
+            try {
+                const decodedToken = jwtDecode(token);
+                const userId = decodedToken.userId;
+                const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
+                document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`; // Update cookie
+            } catch (error) {
+                console.error('Failed to decode token or become seller', error);
+            }
+        }
+    };
+
     const handleSubmit = async () => {
+        const payload = user;
+
         const formData = new FormData();
         for (const key in user) {
             if (key === 'myfiles') {
@@ -90,28 +152,32 @@ const page = ({ params }) => {
         }
 
         toast.promise(
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/create`, formData, {
-                headers: {
-                    'Authorization': bearerToken,
-                    'Content-Type': 'multipart/form-data'
-                },
-                withCredentials: true
-            }),
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
+                selected === "GPT" ? payload : formData
+                , {
+                    headers: {
+                        'Authorization': bearerToken,
+                        'Content-Type': selected === 'GPT' ? 'application/json' : undefined
+                    },
+                    withCredentials: true
+                }),
             {
                 pending: 'Prompt Submitting...',
                 success: 'Prompt submitted and is under review...',
                 error: 'Failed to post data!'
             }
         )
-            .then(response => {
+            .then(async response => {
+                await becomeSeller();
+                console.log('Submission response:', response);
+
                 setTimeout(() => {
-                    router.push(`/user/${username}/seller-dashboard`);
+                    // router.push(`/user/${username}/seller-dashboard`);
                 }, 2300);
             })
             .catch(error => {
                 console.error('Submission error:', error);
             });
-
     };
 
     return (

@@ -85,14 +85,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 .select {
-  background-color: var(--tertiaryClr);
+  background-color: var(--homePrimaryClrl);
   width: 150px;
   border-radius: 4px;
   cursor: pointer;
   border: none;
   outline: none;
   padding: 8px;
-  color: var(--textClr);
+  color: var(--homeTertiaryClr);
+  border: 2px solid var(--homeMainBtn);
 }
 
 @keyframes timelineAnim {

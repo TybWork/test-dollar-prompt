@@ -1,0 +1,28 @@
+.parentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: fit-content;
+    font-size: 14px;
+    width: 600px;
+    color: var(--homeTertiaryClr);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.section a {
+    color: var(--homeMainBtn);
+}
+
+@media screen and (max-width:658px) {
+    .parentContainer {
+        width: 100%;
+    }
+}
