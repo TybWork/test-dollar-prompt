@@ -14,7 +14,7 @@ const MidjourneyPromptSchema = new Schema(
         },
         description: {
             type: String,
-            required: true,
+            //required: true,
         },
         price: {
             type: Number,

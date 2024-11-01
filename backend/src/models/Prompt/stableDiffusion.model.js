@@ -1,41 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
-const gptPromptSchema = new Schema(
+const stableDiffusionPromptSchema = new Schema(
     {
-        description: {
-            type: String,
-            required: true,
-        },
-        examplePrompts: {
-            type: [{}],
-            required: true,
-            validate: {
-                validator: function (arr) {
-                    return arr.length === 4
-                },
-                message: "Please upload 4 example Prompts."
-            },
-        },
-        gptLink: {
-            type: String,
-            required: true,
-        },
-        gptPromptType: {
-            type: String,
-            enum: ["Chat gpt-4o", "Chat gpt-4-turbo", "Chat gpt-4", "Chat gpt-3.5-turbo"],
-            default: "Chat gpt-4o",
-            required: true,
-        },
-        price: {
-            type: Number,
-            enum: [2.99, 3.99, 4.99, 5.99, 6.99],
-            default: 2.99,
-            required: true,
-        },
-        promptInstructions: {
-            type: String,
-            required: true
-        },
         promptType: {
             type: String,
             enum: ["Dall-E", "GPT", "Leonardo Ai", "Llama", "Midjourney", "Stable Diffusion"],
@@ -46,15 +12,42 @@ const gptPromptSchema = new Schema(
             type: String,
             required: true,
         },
-        gptType: {
+        description: {
             type: String,
-            enum: ["Completion (Regular Gpt)", "Chat (Chat Gpt)"],
-            default: "Chat (Chat Gpt)",
+            required: true,
+        },
+        price: {
+            type: Number,
+            enum: [2.99, 3.99, 4.99, 5.99, 6.99],
+            default: 2.99,
+            required: true,
+        },
+        version: {
+            type: String,
+            enum: ["DALL-E 2", "DALL-E 3"],
+            default: "DALL-E 2",
+            required: true
+        },
+        describePrompt: {
+            type: String,
+            required: true,
+        },
+        Image_Url: {
+            type: [String],
+            // required: true,
+            validate: {
+                validator: function (arr) {
+                    return arr.length === 7
+                },
+                message: "Please upload 7 example images."
+            },
+        },
+        promptInstruction: {
+            type: String,
             required: true
         },
         country: {
             type: String,
-            // required: true
         },
         status: {
             type: String,
@@ -74,4 +67,4 @@ const gptPromptSchema = new Schema(
     }, { timestamps: true }
 )
 
-export const GPT = mongoose.model("GPT", gptPromptSchema)
+export const stableDiffusion = mongoose.model("stableDiffusion", dallePromptSchema)

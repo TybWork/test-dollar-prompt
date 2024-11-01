@@ -1,8 +1,8 @@
 import express from 'express';
 export const route = express.Router();
-import multerFunc from '../../../middlewares/multer.middle.js';
-import { getUserId } from '../../../middlewares/verifyToken.middle.js';
-import { createMidjourney, deleteMidjourney, getAllMidjourney, getSingleMidjourney, updateMidjourney } from '../../controllers/Prompt/midjourneyPrompt.model.js';
+import { createMidjourney, deleteMidjourney, getAllMidjourney, getFilteredPrompt, getSingleMidjourney, updateMidjourney } from '../../controllers/Prompt/midjourneyPrompt.controller.js';
+import multerFunc from '../../middlewares/multer.middle.js';
+import { getUserId } from '../../middlewares/verifyToken.middle.js';
 
 route.post('/prompt/midjourney/create', getUserId, multerFunc, createMidjourney),
     route.get('/prompt/midjourney/get', getAllMidjourney),

@@ -29,6 +29,8 @@ const page = ({ params }) => {
     const [data, setdata] = useState(user)
     const [file, setfile] = useState([])
 
+    const [url, seturl] = useState('')
+
     // next button handle
     function handleNext() {
         setstep((prev) => prev + 1)
@@ -75,11 +77,39 @@ const page = ({ params }) => {
         setdata(user);
     }
 
-    console.log(data)
+    console.log('this is whole data', user)
 
     // get sample prompts
 
+    useEffect(() => {
+        // set url on base of ai model
+        if (selected === "Dall-E") {
+            seturl('/api/prompt/dalle/create')
+        }
+        else if (selected === 'Midjourney') {
+            seturl('/api/prompt/midjourney/create')
+        }
+        else if (selected === "GPT") {
+            seturl('/api/prompt/gpt/create')
+        }
+        else if (selected === "Leonardo Ai") {
+            seturl('/api/prompt/midjourney/create')
+        }
+        else if (selected === "Llama") {
+            seturl('/api/prompt/midjourney/create')
+        } else if (selected === "Stable Diffusion") {
+            seturl('/api/prompt/diffusion/create')
+        }
+        // else {
+        // }
+    }, [selected])
+
+    console.log('selected', selected)
+
     const handleSubmit = async () => {
+        // Create a hardcoded object
+        const payload = user;
+
         const formData = new FormData();
         for (const key in user) {
             if (key === 'myfiles') {
@@ -90,13 +120,15 @@ const page = ({ params }) => {
         }
 
         toast.promise(
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/create`, formData, {
-                headers: {
-                    'Authorization': bearerToken,
-                    'Content-Type': 'multipart/form-data'
-                },
-                withCredentials: true
-            }),
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
+                selected === "GPT" ? user : formData
+                , {
+                    headers: {
+                        'Authorization': bearerToken,
+                        'Content-Type': selected === 'GPT' ? 'application/json' : undefined
+                    },
+                    withCredentials: true
+                }),
             {
                 pending: 'Prompt Submitting...',
                 success: 'Prompt submitted and is under review...',
@@ -104,6 +136,7 @@ const page = ({ params }) => {
             }
         )
             .then(response => {
+                console.log('Submission response:', response); // Log the response
                 setTimeout(() => {
                     router.push(`/user/${username}/seller-dashboard`);
                 }, 2300);

@@ -68,9 +68,9 @@ body {
   max-width: 1440px;
   font-family: mainFont;
   font-family: var(--primaryFont);
-  background-color: var(--homePrimaryClr);
+  /* background-color: var(--homePrimaryClr); */
   /* background-color: var(--primaryClr); */
-  /* background: black; */
+  background: black;
   color: var(--textClr);
 }
 
