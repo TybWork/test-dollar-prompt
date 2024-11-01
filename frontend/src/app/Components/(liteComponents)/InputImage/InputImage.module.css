@@ -1,6 +1,5 @@
 .imgParentContainer {
     width: 100%;
-    border: 1px solid red;
 }
 
 .ImageContainer {
@@ -14,9 +13,9 @@
     position: relative;
     width: 100px;
     height: 100px;
-    border: 1px solid var(--textClr);
+    border: 2px solid var(--homeMainBtn);
     border-radius: 10px;
-    background-color: var(--primaryClr);
+    background: var(--homePrimaryClr);
     cursor: pointer;
 }
 
@@ -29,7 +28,8 @@
     align-items: center;
     display: flex;
     font-size: 16px;
-    background-color: var(--primaryClr);
+    background: var(--homePrimaryClr);
+    color: var(--homeMainBtn);
 }
 
 .outputImgContainer {

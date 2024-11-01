@@ -3,8 +3,8 @@
     padding: 8px 12px;
     cursor: pointer;
     background: transparent;
-    border: 1px solid var(--textClr);
-    color: var(--textClr);
+    border: 1px solid var(--homeMainBtn);
+    color: var(--homeMainBtn);
     width: fit-content;
     transition: var(--transition);
 }
@@ -13,7 +13,7 @@
     border-radius: 8px;
     padding: 8px 12px;
     cursor: pointer;
-    background: var(--buttonGradient);
+    background: var(--homeCardGradient);
     border: 1px solid transparent;
     color: var(--textClr);
     width: fit-content;

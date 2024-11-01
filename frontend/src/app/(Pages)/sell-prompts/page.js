@@ -43,7 +43,12 @@ const page = () => {
                     </div>
 
                     <div className={styles.buttonContainer}>
-                        <PrimaryBtn width={'100%'} height={'100%'} title={'Join Waitlist'} />
+                        <PrimaryBtn
+                            width={'100%'}
+                            height={'100%'}
+                            title={'Join Waitlist'}
+                            href={'/sell-prompts/sell'}
+                        />
                     </div>
 
 

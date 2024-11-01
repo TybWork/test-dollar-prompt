@@ -15,7 +15,7 @@ import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
-import { useEffect } from "react";
+import SellPromptComp from "./Components/(Dashbords)/SellPromptComp/SellPromptComp";
 
 const inter = Inter({
   subsets: ["latin"],

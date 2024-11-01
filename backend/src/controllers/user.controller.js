@@ -183,12 +183,14 @@ export const refreshCookie = async (req, res) => {
     if (userRole == 'seller') {
         const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
         if (findSeller) {
-            profileHandle = findSeller.profileHandle
+            profileHandle = userId
         }
     }
 
     try {
         const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
+
+        await User.findByIdAndUpdate(userId, { role: userRole }, { new: 1 })
 
         res.cookie('token', newToken, {
             httpOnly: true,

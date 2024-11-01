@@ -8,16 +8,16 @@
 
 .stepsPercentage {
     position: relative;
-    height: 4px;
+    height: 6px;
     width: 90%;
-    background: var(--tertiaryClr);
+    background: var(--homeTertiaryClr);
     border-radius: 50px;
 }
 
 .realPercentage {
     position: absolute;
-    background: var(--textClr);
-    height: 4px;
+    background: var(--homeCardGradient);
+    height: 100%;
     border-radius: 50px;
     transition: var(--transition);
 }
@@ -25,6 +25,7 @@
 .stepCounter {
     font-size: 14px;
     width: 70px;
+    color: var(--homeMainBtn);
 }
 
 .backBtn {
@@ -33,4 +34,5 @@
     gap: 4px;
     cursor: pointer;
     transition: var(--transition);
+    color: var(--homeMainBtn);
 }

@@ -12,7 +12,7 @@ const RangeSlider = ({ title, max, min, value, step, onChange, name }) => {
             <div className={styles.title}>{title}</div>
             <div className={styles.rangeSliderContainer}>
                 <input className={styles.rangeSlider} step={step} value={outPutValue} max={max} min={min} type="range" name={name} id="" onChange={onChangeParent} />
-                <span>{outPutValue}{value}</span>
+                <span className={styles.outputValue}>{outPutValue}{value}</span>
             </div>
         </div>
     )

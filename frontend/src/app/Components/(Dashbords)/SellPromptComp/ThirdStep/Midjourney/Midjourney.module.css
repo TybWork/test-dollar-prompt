@@ -1,0 +1,37 @@
+.parentContainer {
+    width: 50%;
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--homeTertiaryClr);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputFields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.nextBtnContainer {
+    width: 200px;
+}
+
+/* media queries */
+@media screen and (max-width:768px) {
+    .parentContainer {
+        width: 100%;
+        min-width: 100%;
+    }
+}
