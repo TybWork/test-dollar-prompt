@@ -15,11 +15,13 @@ import { jwtDecode } from 'jwt-decode';
 const BuyerHeader = () => {
     const [isSellerView, setisSellerView] = useState(true);
     const [role, setrole] = useState('user')
+    const [profileHandle, setprofileHandle] = useState('')
 
     useEffect(() => {
         const token = getTokenFunction().cookie
         const decode = jwtDecode(token)
         setrole(decode.userRole)
+        setprofileHandle(decode.profileHandle)
     }, [])
 
     return (
@@ -43,7 +45,8 @@ const BuyerHeader = () => {
                     <li className={styles.li}>
                         <Link
                             href={
-                                isSellerView ? '/user/mudasir/buyer-dashboard/buyer' : '/user/mudasir/buyer-dashboard/seller'
+                                role === 'user' ? '/sell-prompts/sell'
+                                    : isSellerView ? `/user/${profileHandle}/buyer-dashboard/buyer` : `/user/${profileHandle}/buyer-dashboard/seller`
                             }
                             onClick={() => setisSellerView(prev => !prev)}
                         >
@@ -75,8 +78,9 @@ const BuyerHeader = () => {
 
                     <li className={styles.li}>
                         <ProfileImgWithPanel
+                            profileUpdateUrl={`/user/${profileHandle}/profile-update`}
                             dashboardUrl={
-                                isSellerView ? '/user/mudasir/buyer-dashboard/seller' : '/user/mudasir/buyer-dashboard/buyer'
+                                isSellerView ? `/user/${profileHandle}/buyer-dashboard/seller` : `/user/${profileHandle}/buyer-dashboard/buyer`
                             }
                         />
                     </li>

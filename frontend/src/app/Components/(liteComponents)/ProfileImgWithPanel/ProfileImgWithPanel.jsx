@@ -5,8 +5,9 @@ import { BsGear } from "react-icons/bs";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
 
-const ProfileImgWithPanel = ({ dashboardUrl }) => {
+const ProfileImgWithPanel = ({ dashboardUrl, profileUpdateUrl }) => {
     const router = useRouter();
     const logoutFunc = async () => {
         try {
@@ -41,10 +42,12 @@ const ProfileImgWithPanel = ({ dashboardUrl }) => {
 
             >
 
-                <li>
-                    Settings
-                    <BsGear />
-                </li>
+                <Link href={profileUpdateUrl || '/'}>
+                    <li>
+                        Settings
+                        <BsGear />
+                    </li>
+                </Link>
                 <li onClick={() => { router.push(dashboardUrl) }}>
                     <span>Dashboard</span>
                     <MdOutlineSpaceDashboard />

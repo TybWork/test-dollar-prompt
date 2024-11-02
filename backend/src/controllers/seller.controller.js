@@ -58,6 +58,50 @@ export const getSellerInfo = async (req, res) => {
     }
 }
 
+
+export const profileUpdate = async (req, res) => {
+    const userId = req.userId;
+
+    try {
+        if (!req.files || !Array.isArray(req.files)) {
+            return res.status(400).json({ msg: 'No files uploaded.' });
+        }
+
+        const urls = [];
+        for (const file of req.files) {
+            const url = await cloudinaryFunc(file);
+            urls.push(url);
+
+            // Delete the file from the server
+            fs.unlink(file.path, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                } else {
+                    console.log('File deleted successfully');
+                }
+            });
+        }
+
+        const updateData = {
+            ...req.body,
+            profileImage: urls[0], // First URL for profileImage
+            profileBanner: urls[1], // Second URL for profileBanner
+        };
+
+        const updateProfile = await SellerProfile.findOneAndUpdate(
+            { userId: userId },
+            updateData,
+            { new: true }
+        );
+
+        return res.status(200).json({ msg: 'Profile updated successfully!!', data: updateProfile });
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return res.status(500).json({ msg: 'Failed to update profile', error: error.message });
+    }
+};
+
+
 // export const getSellerInfo = async (req, res) => {
 //     try {
 //         // Find seller profiles based on query parameters

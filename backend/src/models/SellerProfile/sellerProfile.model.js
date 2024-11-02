@@ -2,12 +2,22 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userProfileSchema = new Schema({
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String
+    },
+    country: {
+        type: String
+    },
     profileBanner: {
         type: [String],
         // required: true
     },
     role: {
         type: String,
+        enum: ['super-admin', 'admin', 'user', 'seller'],
         default: 'user'
     },
     profileImage: {

@@ -67,8 +67,8 @@ const NewImageUploader = ({ title, width, height, radius, onChangeFunc, labelFor
 
             {/* image info */}
             <div className={styles.imageInfo}>
-                <IconWithTitleDesc IconName={GoImage} title={'Image'} description={'JPG, PNG, WEBP'} />
-                <IconWithTitleDesc IconName={RxDimensions} title={'Dimension'} description={imgDimensions || '500 x 500'} />
+                <IconWithTitleDesc IconName={GoImage} title={'Image'} description={'JPG, PNG, WEBP'} IconClass={styles.iconSpan} />
+                <IconWithTitleDesc IconName={RxDimensions} title={'Dimension'} description={imgDimensions || '500 x 500'} IconClass={styles.iconSpan} />
             </div>
 
             {/* drop area */}

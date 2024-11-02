@@ -1,9 +1,19 @@
+'use client'
 import styles from '@/app/(Pages)/sell-prompts/sell-prompts.module.css'
 import PrimaryBtn from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn'
 import EmailNewletter from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNewletter'
 
 import InfoCards from '@/app/Components/(updatedDesignComp)/InfoCards/InfoCards'
+import { getTokenFunction } from '@/app/utilities/getTokenFunction'
+import { useEffect, useState } from 'react'
 const page = () => {
+    const [url, seturl] = useState('/')
+    useEffect(() => {
+        // if (typeof window !== 'undefined') {
+        const token = getTokenFunction().cookie
+        seturl(token === null ? '/login' : '/sell-prompts/sell')
+        // }
+    }, [])
     return (
         <div className={styles.mainContainer}>
 
@@ -47,7 +57,7 @@ const page = () => {
                             width={'100%'}
                             height={'100%'}
                             title={'Join Waitlist'}
-                            href={'/sell-prompts/sell'}
+                            href={url}
                         />
                     </div>
 

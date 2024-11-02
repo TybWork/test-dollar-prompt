@@ -27,8 +27,15 @@ const page = () => {
     const [user, setuser] = useState({})
     const [data, setdata] = useState(user)
     const [file, setfile] = useState([])
-
     const [url, seturl] = useState('')
+    const [profileHandle, setprofileHandle] = useState('')
+
+    useEffect(() => {
+        const myToken = getTokenFunction().cookie
+        const myDecodeToken = jwtDecode(myToken)
+        const myProfileHandle = myDecodeToken.profileHandle
+        setprofileHandle(myProfileHandle)
+    }, [])
 
     // next button handle
     function handleNext() {
@@ -137,11 +144,6 @@ const page = () => {
     };
 
     const handleSubmit = async () => {
-        try {
-            await becomeSeller();
-        } catch (error) {
-            console.log(error)
-        }
 
         const payload = user;
 
@@ -171,11 +173,13 @@ const page = () => {
             }
         )
             .then(async response => {
-                await transferRole();
+                console.log('first', profileHandle)
+                await becomeSeller()
+                console.log('second', profileHandle)
                 console.log('Submission response:', response);
 
                 setTimeout(() => {
-                    // router.push(`/user/${username}/seller-dashboard`);
+                    window.location.href = `/user/${profileHandle}/buyer-dashboard/seller`
                 }, 2300);
             })
             .catch(error => {

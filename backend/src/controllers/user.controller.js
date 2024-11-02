@@ -8,7 +8,7 @@ import axios from 'axios'
 
 // create user
 export const signUp = async (req, res) => {
-    const { firstName, lastName, gender, role, email, password } = req.body;
+    const { firstName, lastName, gender, role, email, country, password } = req.body;
 
     try {
         const existUser = await User.findOne({ email })
@@ -24,10 +24,22 @@ export const signUp = async (req, res) => {
             gender,
             role,
             email,
+            country,
             password: hashedPassword
         })
 
         await user.save()
+
+        const createProfile = new SellerProfile({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userId: user._id,
+            country: user.country,
+            profileHandle: user._id
+        })
+
+        await createProfile.save();
+
         return res.status(200).json({ msg: "user has been created successfully", user })
 
     } catch (error) {
@@ -103,7 +115,7 @@ export const loginUser = async (req, res) => {
 
                 res.cookie('token', token, {
 
-                    httpOnly: true,
+                    httpOnly: false,
                     secure: true,
                     sameSite: 'None',
                     domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
@@ -176,34 +188,65 @@ export const clearCookie = (req, res) => {
 }
 
 // controller for refreshig cookie
+// export const refreshCookie = async (req, res) => {
+//     const { userId, userRole } = req.body;
+
+//     let profileHandle = null
+//     if (userRole == 'seller') {
+//         const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
+//         if (findSeller) {
+//             profileHandle = userId
+//         }
+//     }
+
+//     try {
+//         const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
+
+//         await User.findByIdAndUpdate(userId, { role: userRole }, { new: 1 })
+
+//         res.cookie('token', newToken, {
+//             httpOnly: true,
+//             secure: true,
+//             sameSite: 'None',
+//             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
+//             path: '/'
+//         })
+
+//         return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken })
+//     } catch (error) {
+//         return res.status(400).json({
+//             msg: `Failed to refresh cookie ${error}`
+//         })
+//     }
+// }
+
 export const refreshCookie = async (req, res) => {
     const { userId, userRole } = req.body;
 
-    let profileHandle = null
-    if (userRole == 'seller') {
-        const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
-        if (findSeller) {
-            profileHandle = userId
-        }
-    }
-
     try {
-        const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
 
-        await User.findByIdAndUpdate(userId, { role: userRole }, { new: 1 })
+        const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle userId')
+        const profileHandle = findSeller.profileHandle
+
+        // let profileHandle = null
+        const newToken = jwt.sign({ userId, userRole, profileHandle: profileHandle }, process.env.JWT_SECRET);
+        await User.findByIdAndUpdate(userId, { role: userRole }, { new: true });
+        await SellerProfile.findOneAndUpdate(findSeller.userId,
+            { role: userRole }, { new: true });
 
         res.cookie('token', newToken, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
             path: '/'
-        })
+        });
 
-        return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken })
+        return res.status(200).json({ msg: 'Cookie refreshed successfully!', newToken });
     } catch (error) {
+        console.error('Error refreshing cookie:', error); // Log the error for debugging
         return res.status(400).json({
-            msg: `Failed to refresh cookie ${error}`
-        })
+            msg: `Failed to refresh cookie: ${error.message || error}`
+        });
     }
 }

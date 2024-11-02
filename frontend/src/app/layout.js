@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
         } else {
           // return <Header />
           return <GuestHeader />
-          // <BuyerHeader />
+          // return <BuyerHeader />
         }
       }
     }
