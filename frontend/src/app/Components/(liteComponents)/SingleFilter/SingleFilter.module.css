@@ -1,7 +1,8 @@
 .singleFilterContainer {
     display: flex;
     gap: 8px;
-    background: var(--tertiaryClr);
+    background: var(--homePrimaryClr);
+    color: var(--homeTertiaryClr);
     padding: 8px 16px;
     border-radius: 4px;
     position: relative;
@@ -9,7 +10,6 @@
     margin: 1em 0em;
     font-size: 14px;
 }
-
 
 .line {
     position: absolute;
@@ -36,6 +36,7 @@
     width: 15px;
     height: 15px;
     background-color: var(--textClr);
+    border: 1px solid var(--homeMainBtn);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -58,7 +59,7 @@
 }
 
 .inputBox:checked::before {
-    background: var(--secondryClr);
+    background: var(--homeMainBtn);
 }
 
 .inputBox:checked::after {

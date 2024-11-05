@@ -12,6 +12,9 @@ import ChatComponent from "../Components/(Dashbords)/ChatComponent/ChatComponent
 import Analytics from "../Components/(Dashbords)/Analytics/Analytics";
 import { getTokenFunction } from "../utilities/getTokenFunction";
 import { jwtDecode } from "jwt-decode";
+import SellPromptComp from "../Components/(Dashbords)/SellPromptComp/SellPromptComp";
+import Tab from "../Components/Tab/Tab";
+import PromptsTab from "../Components/(Dashbords)/PromptsTab/PromptsTab";
 
 let userId;
 if (typeof window !== 'undefined') {
@@ -76,27 +79,27 @@ export const buttons = {
     seller: [
         {
             id: 0,
-            icon: <GrOverview />,
-            title: 'Prompts overview',
-            component: 'prompt detail compoent'
+            icon: <RiAiGenerate />,
+            title: 'Create Prompt',
+            component: <SellPromptComp />
         },
         {
             id: 1,
+            icon: <GrOverview />,
+            title: 'Prompts overview',
+            component: <PromptsTab />
+        },
+        {
+            id: 2,
             icon: <GrAnalytics />,
             title: 'Analytics',
             component: 'analytics component'
         },
         {
-            id: 2,
+            id: 3,
             icon: <HiOutlineCreditCard />,
             title: 'Billing',
             component: 'Billing Component'
-        },
-        {
-            id: 3,
-            icon: <RiAiGenerate />,
-            title: 'Create Prompt',
-            component: 'Create Prompts'
         },
     ],
     buyer: [

@@ -93,16 +93,12 @@ export const loginUser = async (req, res) => {
         if (response.data.success) {
             try {
                 const user = await User.findOne({ email })
-                let userName;
-                if (user.role == 'seller') {
-                    let handle = await SellerProfile.find({ userId: user._id })
-                    userName = handle[0].profileHandle
-                } else {
-                    userName = null
-                }
+
                 if (!user) {
                     return res.status(400).json({ msg: "No such user!!" })
                 }
+                let handle = await SellerProfile.find({ userId: user._id })
+                let userName = handle[0].profileHandle
 
                 const compare = bcrypt.compareSync(password, user.password)
                 if (!compare) {

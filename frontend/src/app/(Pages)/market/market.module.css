@@ -1,8 +1,9 @@
 .mainContainer {
     display: flex;
     justify-content: space-between;
-    padding: 32px 64px;
+    padding: 32px var(--mainPadding);
     gap: 20px;
+
 }
 
 .filterComponent {
@@ -17,7 +18,8 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    width: 70%;
+    justify-content: center;
+    flex: 1;
     flex-wrap: wrap;
 }
 

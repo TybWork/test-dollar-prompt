@@ -6,21 +6,29 @@ import PrimaryBtn from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn'
 import SquareBorderBtn from '../SquareBorderBtn/SquareBorderBtn'
 import VerifiedIcon from '@/app/Components/(icons)/VerifiedIcon'
 import StarIcon from '@/app/Components/(icons)/StarIcon'
+import Link from 'next/link'
 
-const AboutSeller = ({ profileHandle }) => {
+const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile }) => {
     return (
         <div className={styles.parentContainer}>
-            <Image width={0} height={0} sizes='100vw' className={styles.image} src={'/assets/imageAssets/logo.webp'} />
+            <Link href={linkToProfile || '/'}>
+                <Image width={0} height={0} sizes='100vw' className={styles.image} src={profileImage || '/assets/imageAssets/dummy.jpg'}
+                />
+            </Link>
             <div className={styles.rightContainer}>
                 <div className={styles.profiling}>
                     <Image width={0} height={0} sizes='100vw' className={styles.profileImg} src={'/assets/imageAssets/logo.webp'} />
                     <div className={styles.profileHandle}>
-                        @{profileHandle || 'Sha12'} <VerifiedIcon />
+                        <Link className={styles.profileHandle} href={linkToProfile || '/'}>
+                            @{profileHandle || 'fetching...'} <VerifiedIcon />
+                        </Link>
                     </div>
                 </div>
                 <div>
                     <div className={styles.profileHandleLarge}>
-                        @{profileHandle || 'Sha12'} <VerifiedIcon />
+                        <Link href={linkToProfile || '/'}>
+                            @{profileHandle || 'fetching...'} <VerifiedIcon />
+                        </Link>
                     </div>
                     <div className={styles.counts}>
                         <HeadingCounts count={50} heading={'Prompts'} />
@@ -35,10 +43,10 @@ const AboutSeller = ({ profileHandle }) => {
                 <hr className={styles.hr} />
                 <div className={styles.btns}>
                     <SquareBorderBtn />
-                    <PrimaryBtn height={'40px'} width={'150px'} />
+                    <PrimaryBtn title={greenBtnText || 'Contact'} height={'40px'} width={'150px'} />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

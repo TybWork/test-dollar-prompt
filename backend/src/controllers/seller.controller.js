@@ -42,22 +42,54 @@ export const postSellerData = async (req, res) => {
 };
 
 // get sellerInfo
+
+// export const getSellerInfo = async (req, res) => {
+//     try {
+//         const filterSeller = await SellerProfile.find(req.query)
+//         const sellerId = filterSeller.map(uniqueId => uniqueId.userId)
+//         // const filteredPrompts = await DallE.find({ userId: sellerId })
+//         const filteredPrompts = await DallE.find({ userId: { $in: sellerId } })
+//         const combinedData = filterSeller.map(seller => ({
+//             ...seller.toObject(), // Convert Mongoose document to a plain object
+//             prompts: filteredPrompts || [] // Attach prompts to each seller
+//         }));
+//         return res.status(200).json(combinedData);
+//     } catch (error) {
+//         return res.status(400).json({ msg: `Failed to get Seller ${error}` })
+//     }
+// }
+
 export const getSellerInfo = async (req, res) => {
     try {
-        const filterSeller = await SellerProfile.find(req.query)
-        const sellerId = filterSeller.map(uniqueId => uniqueId.userId)
-        // const filteredPrompts = await DallE.find({ userId: sellerId })
-        const filteredPrompts = await DallE.find({ userId: { $in: sellerId } })
-        const combinedData = filterSeller.map(seller => ({
-            ...seller.toObject(), // Convert Mongoose document to a plain object
-            prompts: filteredPrompts || [] // Attach prompts to each seller
-        }));
+        const { userId } = req.query; // Assuming userId is passed as a query parameter
+
+        // Validate the userId
+        if (!userId || !mongoose.isValidObjectId(userId)) {
+            return res.status(400).json({ msg: "Invalid userId" });
+        }
+
+        // Fetch the seller profile using the provided userId
+        const sellerProfile = await SellerProfile.findOne({ userId });
+
+        if (!sellerProfile) {
+            return res.status(404).json({ msg: "Seller profile not found" });
+        }
+
+        // Fetch prompts associated with the seller's userId
+        const filteredPrompts = await DallE.find({ userId: sellerProfile.userId });
+
+        // Combine seller data with their prompts
+        const combinedData = {
+            ...sellerProfile.toObject(),
+            prompts: filteredPrompts || [] // Attach prompts to the seller profile
+        };
+
         return res.status(200).json(combinedData);
     } catch (error) {
-        return res.status(400).json({ msg: "Failed to get Seller" })
+        console.error(error); // Log the error for debugging
+        return res.status(500).json({ msg: `Failed to get Seller: ${error.message}` });
     }
-}
-
+};
 
 export const profileUpdate = async (req, res) => {
     const userId = req.userId;

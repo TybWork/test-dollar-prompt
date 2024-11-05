@@ -7,6 +7,7 @@ import SinglePromptCard from '@/app/Components/SinglePromptCard/SinglePromptCard
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import { useRouter } from 'next/navigation';
 import PromptFilterMobile from '@/app/Components/PromptFilterMobile/PromptFilterMobile';
+import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard';
 
 const page = () => {
   const router = useRouter();
@@ -37,7 +38,13 @@ const page = () => {
       <div className={styles.mobileFilterComponent}><PromptFilterMobile /></div>
       <div className={styles.leftContainer}>
         {promptData.map((item, index) => (
-          <SinglePromptCard key={index} image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
+          <AdaptiveCard
+            key={index}
+            mainImage={item.Image_Url[0]}
+            category={item.promptType}
+            title={`${item.title.slice(0, 18)}`}
+            promptUrl={`/prompts/${item._id}`}
+          />
         ))}
       </div>
     </div>

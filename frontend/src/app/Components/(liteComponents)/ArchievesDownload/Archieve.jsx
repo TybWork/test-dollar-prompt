@@ -7,6 +7,8 @@ import { saveAs } from 'file-saver';
 import axios from 'axios';
 import styles from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve.module.css'
 import { IoMdCloudDownload } from "react-icons/io";
+import PrimaryBtn from '../PrimaryBtn/PrimaryBtn';
+import GradientButton from '../../GradientButton/GradientButton';
 
 const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
 
@@ -93,9 +95,21 @@ const Archieve = ({ promptId }) => {
     };
 
     return (
-        <button className={styles.button} onClick={downloadZip} disabled={loading}>
-            {loading ? 'Downloading... ' : 'Get Prompt '} <IoMdCloudDownload style={{ fontSize: '24px' }} />
-        </button>
+        // <button className={styles.button} onClick={downloadZip} disabled={loading}>
+        //     {loading ? 'Downloading... ' : 'Get Prompt '} <IoMdCloudDownload style={{ fontSize: '24px' }} />
+        // </button>
+        // <PrimaryBtn
+        //     width={'100%'}
+        //     height={'100%'}
+        //     title={loading ? 'Downloading... ' : 'Get Prompt '}
+        // />
+        <GradientButton
+            width={'100%'}
+            height={'100%'}
+            title={loading ? 'Downloading... ' : 'Get Prompt '}
+            onClick={downloadZip}
+            disabled={loading}
+        />
     );
 };
 

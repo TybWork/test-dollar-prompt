@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
-const ProfileImgWithPanel = ({ dashboardUrl, profileUpdateUrl }) => {
+const ProfileImgWithPanel = ({ imgUrl, dashboardUrl, profileUpdateUrl }) => {
     const router = useRouter();
     const logoutFunc = async () => {
         try {
@@ -27,7 +27,7 @@ const ProfileImgWithPanel = ({ dashboardUrl, profileUpdateUrl }) => {
         <div className={styles.container}>
             <Image
                 alt='profile-img'
-                src={'/assets/imageAssets/dummy.jpg'}
+                src={imgUrl || '/assets/imageAssets/dummy.jpg'}
                 width={0}
                 height={0}
                 sizes='100vw'

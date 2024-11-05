@@ -18,7 +18,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode"
 
-const page = () => {
+const SellPromptComp = () => {
     const router = useRouter()
     const [step, setstep] = useState(1);
     const [selected, setselected] = useState('');
@@ -29,12 +29,14 @@ const page = () => {
     const [file, setfile] = useState([])
     const [url, seturl] = useState('')
     const [profileHandle, setprofileHandle] = useState('')
+    const [role, setrole] = useState('user')
 
     useEffect(() => {
         const myToken = getTokenFunction().cookie
         const myDecodeToken = jwtDecode(myToken)
         const myProfileHandle = myDecodeToken.profileHandle
         setprofileHandle(myProfileHandle)
+        setrole(myDecodeToken.userRole)
     }, [])
 
     // next button handle
@@ -173,14 +175,13 @@ const page = () => {
             }
         )
             .then(async response => {
-                console.log('first', profileHandle)
-                await becomeSeller()
-                console.log('second', profileHandle)
-                console.log('Submission response:', response);
+                if (role === 'user' || role === '') {
+                    await becomeSeller()
 
-                setTimeout(() => {
-                    window.location.href = `/user/${profileHandle}/buyer-dashboard/seller`
-                }, 2300);
+                    setTimeout(() => {
+                        window.location.href = `/user/${profileHandle}/buyer-dashboard/seller`
+                    }, 2300);
+                }
             })
             .catch(error => {
                 console.error('Submission error:', error);
@@ -245,4 +246,4 @@ const page = () => {
     )
 }
 
-export default page;
+export default SellPromptComp;

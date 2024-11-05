@@ -10,10 +10,12 @@ import NewInput from './Components/(updatedDesignComp)/NewInput/NewInput';
 import { useRef, useEffect, useState } from 'react';
 import Timeline from './Components/(updatedDesignComp)/Timeline/Timeline';
 import EmailNewletter from './Components/(updatedDesignComp)/EmailNewsletter/EmailNewletter';
+import axios from 'axios';
+import Loading from './Components/(liteComponents)/Loading/Loading';
 
 const categoriesArr = [
   {
-    url: '/',
+    url: '/blog',
     title: 'AI News'
   },
   {
@@ -52,6 +54,7 @@ export default function Home() {
   const targetRef = useRef(null);
   const [isOverflowHidden, setIsOverflowHidden] = useState(false);
   const [timelineScroll, settimelineScroll] = useState(false)
+  const [dallePrompts, setdallePrompts] = useState([])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,7 +92,24 @@ export default function Home() {
     }
   }, [isOverflowHidden]);
 
-  console.log(isOverflowHidden)
+
+  // .................prompts fetching function................
+  useEffect(() => {
+    const fetchPrompts = async () => {
+      try {
+        const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get`);
+        setdallePrompts(dalle.data);
+      } catch (error) {
+        console.error("Error fetching seller data:", error);
+      }
+    };
+
+    fetchPrompts();
+  }, []);
+
+  console.log(dallePrompts)
+
+  if (!dallePrompts) return <Loading />
 
   return (
     <div className={styles.parentContainer}>
@@ -107,19 +127,40 @@ export default function Home() {
           slidesArray={
             [
               <div style={{ display: 'flex', gap: '8px' }}>
-                <AdaptiveCard />
-                <AdaptiveCard />
-                <AdaptiveCard />
+                {
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
+                  )
+                }
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
-                <AdaptiveCard />
-                <AdaptiveCard />
-                <AdaptiveCard />
+                {
+                  dallePrompts && dallePrompts.slice(3, 7).map((dalle) =>
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
+                  )
+                }
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
-                <AdaptiveCard />
-                <AdaptiveCard />
-                <AdaptiveCard />
+                {
+                  dallePrompts && dallePrompts.slice(7, 10).map((dalle) =>
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
+                  )
+                }
               </div>,
             ]
           } />
@@ -144,17 +185,20 @@ export default function Home() {
       </div>
 
       {/* Trending prompts */}
-      <div className={styles.promptsSection} >
-
-        {/* main categories section */}
+      <div className={styles.promptsSection}>
         <ShowAllSection
           title={'Trending Prompts'}
           content={
             <div className={styles.cardContainer}>
               {
-                categoriesArr.slice(0, 5).map((btn) =>
+                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
                   <div className={styles.adaptive}>
-                    <AdaptiveCard />
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
                   </div>
                 )
               }
@@ -164,9 +208,7 @@ export default function Home() {
       </div>
 
       {/* Featured Prompt Engineers section */}
-      <div className={styles.promptsSection}>
-
-        {/* main categories section */}
+      {/* <div className={styles.promptsSection}>
         <ShowAllSection
           title={'Featured Prompt Engineers'}
           content={
@@ -181,22 +223,24 @@ export default function Home() {
             </div>
           }
         />
-
-      </div>
+      </div> */}
 
 
       {/* Chat GPT prompts */}
       <div className={styles.promptsSection}>
-
-        {/* main categories section */}
         <ShowAllSection
           title={'Chat GPT prompts'}
           content={
             <div className={styles.cardContainer}>
               {
-                categoriesArr.slice(0, 5).map((btn) =>
+                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
                   <div className={styles.adaptive}>
-                    <AdaptiveCard />
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
                   </div>
                 )
               }
@@ -205,30 +249,56 @@ export default function Home() {
         />
 
       </div>
-      {/* prompts section */}
-      <div className={styles.promptsSection}>
 
-        {/* Dall-E Prompts section */}
+      {/*dalle prompts section */}
+      <div className={styles.promptsSection}>
         <ShowAllSection
           title={'Dall-E Prompts'}
           content={
             <div className={styles.cardContainer}>
               {
-                categoriesArr.slice(0, 5).map((btn) =>
+                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
                   <div className={styles.adaptive}>
-                    <AdaptiveCard />
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
                   </div>
                 )
               }
             </div>
           }
         />
-
       </div>
-      {/* prompts section */}
-      <div className={styles.promptsSection}>
 
-        {/* Stable Diffusion section */}
+
+      {/*midjourney prompts section */}
+      <div className={styles.promptsSection}>
+        <ShowAllSection
+          title={'Midjourney Prompts'}
+          content={
+            <div className={styles.cardContainer}>
+              {
+                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
+                  <div className={styles.adaptive}>
+                    <AdaptiveCard
+                      mainImage={dalle.Image_Url[0]}
+                      promptUrl={`/prompts/${dalle._id}`}
+                      title={dalle.title}
+                      category={dalle.promptType}
+                    />
+                  </div>
+                )
+              }
+            </div>
+          }
+        />
+      </div>
+
+      {/* prompts section */}
+      {/* <div className={styles.promptsSection}>
         <ShowAllSection
           title={'Stable Diffusion'}
           content={
@@ -243,8 +313,8 @@ export default function Home() {
             </div>
           }
         />
+      </div> */}
 
-      </div>
       {/* <AdaptiveCard />
       <FeaturedCardNew /> */}
 

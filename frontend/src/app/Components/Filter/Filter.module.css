@@ -1,9 +1,11 @@
 .parentContainer {
     padding: 2em;
-    background: var(--secondryClr);
+    background: var(--homeMainBtn);
+    color: var(--homePrimaryClr);
+
     width: 300px;
     border-radius: 5px;
-    border: 1px solid var(--cardHoverClr);
+    border: 1px solid var(--homeMainBtn);
     display: flex;
     flex-direction: column;
     gap: 18px;

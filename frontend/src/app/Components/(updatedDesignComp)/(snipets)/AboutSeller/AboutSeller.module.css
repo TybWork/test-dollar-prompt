@@ -10,6 +10,12 @@
     font-weight: bold;
 }
 
+.profileHandle a,
+.profileHandleLarge a {
+    text-decoration: none;
+    color: var(--homeTertiaryClr);
+}
+
 .profileHandleLarge {
     font-size: 24px;
     font-weight: bold;

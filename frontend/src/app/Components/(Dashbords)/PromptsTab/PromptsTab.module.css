@@ -1,0 +1,35 @@
+.parentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ul li {
+    padding: 4px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--homeMainBtn);
+    color: var(--homeMainBtn);
+    list-style: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.ul li:hover {
+    background: var(--homeMainBtn);
+    border-color: var(--homeMainBtn);
+    color: var(--homePrimaryClr);
+}
+
+.innerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}

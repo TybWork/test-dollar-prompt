@@ -6,6 +6,10 @@
     background: var(--homePrimaryClr);
 }
 
+.parentContainer a {
+    text-decoration: none;
+}
+
 .navLinks {
     display: flex;
     align-items: center;

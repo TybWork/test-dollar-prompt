@@ -1,11 +1,13 @@
 import styles from "@/app/Components/GradientButton/GradientButton.module.css"
-const GradientButton = ({ width, title, onClick, type, background }) => {
+const GradientButton = ({ width, height, title, onClick, type, background, disabled }) => {
     return (
         <input
+            disabled={disabled}
             type={type || 'button'}
             value={title || 'button'}
             style={{
                 width: width || 'fitContent',
+                height: height,
                 background: background
             }}
             className={styles.gradientBtn}

@@ -6,26 +6,56 @@ import Reviews from '@/app/Components/(updatedDesignComp)/Reviews/Reviews'
 import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard'
 import ContentWithHeading from '@/app/Components/(updatedDesignComp)/ContentWithHeading/ContentWithHeading'
 import Image from 'next/image'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
 
-const page = () => {
+const page = ({ params }) => {
+    const { profileId } = params
+
+    const [profile, setprofile] = useState({})
+    useEffect(() => {
+        const fetchSellerProfile = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${profileId}`);
+                setprofile(response.data);
+            } catch (error) {
+                console.error("Error fetching seller data:", error);
+            }
+        }
+
+        fetchSellerProfile();
+    }, [profileId]);
+
+    if (!profile) return <Loading />
+
+    const profileImage = (profile.profileImage && profile.profileImage.length > 0) ? profile.profileBanner[0] : '/assets/imageAssets/dummy.jpg'
+
+    const bannerImage = (profile.profileBanner && profile.profileBanner.length > 0)
+        ? profile.profileBanner[0]
+        : "/assets/imageAssets/dummy-banner.png";
+
+    console.log('prolfile', profile)
 
     return (
         <div>
             {/* bannerContainer */}
             <div className={styles.bannerOuterContainer}>
                 <div className={styles.banner}>
-                    <Image className={styles.bannerImage} src={'/assets/imageAssets/profileBanner.webp'} width={0} height={0} sizes='100vw' />
+                    <Image className={styles.bannerImage} src={bannerImage} width={0} height={0} sizes='100vw' />
                 </div>
             </div>
 
             <div className={styles.mainContainer}>
                 {/* profile info container */}
                 <div className={styles.profileInfo}>
-                    <AboutSeller />
+                    <AboutSeller
+                        profileImage={profileImage}
+                        profileHandle={profile.profileHandle}
+                        linkToProfile={`/profile/${profile.userId}`}
+                    />
                     <p className={styles.sellerDescription}>
-                        This prompt generates beautiflly depicitions of vintage junk journal pages. These Nostalgic
-                        and textured desing can be used for scrapbooking , journaling ,invitations , or create projects
-                        , adding a rustic and timless touch to any collection. <Link href={'/'}>read more</Link>
+                        {profile.profileDescription}
                     </p>
 
                     {/* seller prompts sliders */}

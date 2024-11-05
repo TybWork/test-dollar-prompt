@@ -10,7 +10,7 @@ import ArrowIcon from '../../(icons)/ArrowIcon'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import { BiSolidCartAdd } from "react-icons/bi";
 import CartIcon from '../../(icons)/CartIcon'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, category, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff }) => {
+const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray }) => {
 
     return (
         <div className={styles.promptDetail}>
@@ -20,9 +20,11 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
 
             {/* prompt images */}
             <div className={styles.promptImages}>
-                <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || '/assets/imageAssets/sampleCardImage.png'} />
-                <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || '/assets/imageAssets/sampleCardImage.png'} />
-                <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || '/assets/imageAssets/sampleCardImage.png'} />
+                {
+                    imgArray && imgArray.slice(0, 3).map((imgUrl) =>
+                        <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
+                    )
+                }
             </div>
 
             {/* .........aboutPrompt......... */}
@@ -38,7 +40,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             {/* .........category......... */}
             <div className={styles.categoryContainer}>
                 <div className={styles.category}>
-                    Category: <span>{category || 'Digital Marketing'}</span>
+                    Version: <span>{version || ''}</span>
                 </div>
                 <div className={styles.authenticity}>
                     <VerifiedIcon width={'16px'} />
@@ -85,13 +87,15 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     </div>
                     <div className={styles.btns}>
                         <div className={styles.primaryBtn}>
-                            <PrimaryBtn
-                                title={'Buy Prompt'}
-                                height={'100%'}
-                                width={'100%'}
-                            />
+                            {
+                                buyPromptBtn || <PrimaryBtn
+                                    title={'Buy Prompt'}
+                                    height={'100%'}
+                                    width={'100%'}
+                                />
+                            }
                         </div>
-                        <div className={styles.cartIcon}>
+                        <div className={styles.cartIcon} onClick={cartClickFunc}>
                             <CartIcon
                                 width={'100%'}
                             />

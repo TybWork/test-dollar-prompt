@@ -13,7 +13,7 @@ const GuestHeader = () => {
                 <Image src={'/assets/imageAssets/dollarprompt-mobile-logo.svg'} width={0} height={0} sizes='100vw' />
                 <div className={styles.logoText}>
                     <div className={styles.logoHeading}>dollar prompts</div>
-                    <div className={styles.logoSubHeading}>Dollarize your prompts</div>
+                    <div className={styles.logoSubHeading}>Sell your prompt</div>
                 </div>
             </div>
             <div className={styles.navLinks}>

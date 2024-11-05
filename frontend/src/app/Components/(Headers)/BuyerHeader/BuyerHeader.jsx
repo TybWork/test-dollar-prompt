@@ -1,7 +1,6 @@
 import styles from '@/app/Components/(Headers)/BuyerHeader/BuyerHeader.module.css'
-import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 import { RxHamburgerMenu } from "react-icons/rx";
 import NewSearchInput from '../../(updatedDesignComp)/NewSearchInput/NewSearchInput'
 import { BsCartCheckFill } from "react-icons/bs";
@@ -11,28 +10,54 @@ import ProfileImgWithPanel from '../../(liteComponents)/ProfileImgWithPanel/Prof
 import { useEffect, useState } from 'react';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 const BuyerHeader = () => {
     const [isSellerView, setisSellerView] = useState(true);
     const [role, setrole] = useState('user')
+    const [userId, setuserId] = useState('')
     const [profileHandle, setprofileHandle] = useState('')
+    const [profile, setprofile] = useState({})
 
     useEffect(() => {
         const token = getTokenFunction().cookie
         const decode = jwtDecode(token)
         setrole(decode.userRole)
         setprofileHandle(decode.profileHandle)
+        setuserId(decode.userId)
     }, [])
+
+    if (profile.length === 0) return <div>...loading</div>
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
+                console.log(response.data)
+                setprofile(response.data)
+
+            } catch (err) {
+                console.error("Error fetching seller data:", err);
+                setError(err.message); // Capture error message
+            }
+        };
+
+        if (userId) {
+            fetchData();
+        }
+    }, [userId]);
 
     return (
         <div className={styles.parentContainer}>
-            <div className={styles.logoContainer}>
-                <Image src={'/assets/imageAssets/dollarprompt-mobile-logo.svg'} width={0} height={0} sizes='100vw' />
-                <div className={styles.logoText}>
-                    <div className={styles.logoHeading}>dollar prompts</div>
-                    <div className={styles.logoSubHeading}>Dollarize your prompts</div>
+            <Link href={'/'} className={styles.Li}>
+                <div className={styles.logoContainer}>
+                    <Image src={'/assets/imageAssets/dollarprompt-mobile-logo.svg'} width={0} height={0} sizes='100vw' />
+                    <div className={styles.logoText}>
+                        <div className={styles.logoHeading}>dollar prompts</div>
+                        <div className={styles.logoSubHeading}>Sell your prompt</div>
+                    </div>
                 </div>
-            </div>
+            </Link>
             <div className={styles.navLinks}>
                 <div className={styles.input}>
                     <NewSearchInput />
@@ -61,6 +86,7 @@ const BuyerHeader = () => {
                         <IconWithCoutner
                             Icon={GoBell}
                             counterBg={'red'}
+                            counter={'0'}
                         />
                     </li>
 
@@ -73,14 +99,17 @@ const BuyerHeader = () => {
                         <IconWithCoutner
                             Icon={BsCartCheckFill}
                             counterBg={'red'}
+                            counter={0}
                         />
                     </li>
 
                     <li className={styles.li}>
                         <ProfileImgWithPanel
+                            imgUrl={profile.profileImage && profile.profileImage.length > 0 ? profile.profileImage[0] : ''}
                             profileUpdateUrl={`/user/${profileHandle}/profile-update`}
                             dashboardUrl={
-                                isSellerView ? `/user/${profileHandle}/buyer-dashboard/seller` : `/user/${profileHandle}/buyer-dashboard/buyer`
+                                role === 'user' ? `/user/${profileHandle}/buyer-dashboard/buyer` :
+                                    isSellerView ? `/user/${profileHandle}/buyer-dashboard/seller` : `/user/${profileHandle}/buyer-dashboard/buyer`
                             }
                         />
                     </li>

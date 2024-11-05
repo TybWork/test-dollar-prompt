@@ -5,6 +5,7 @@
     overflow-x: scroll;
     text-wrap: nowrap;
     margin: 12px 0px 24px;
+    background: var(--homePrimaryClr);
 }
 
 .mainContainer::-webkit-scrollbar {

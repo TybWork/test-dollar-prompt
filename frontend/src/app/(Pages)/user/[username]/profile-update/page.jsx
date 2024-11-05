@@ -4,12 +4,10 @@ import { useState } from 'react';
 import styles from '@/app/(Pages)/user/[username]/profile-update/profile-update.module.css';
 import TextArea from '@/app/Components/(liteComponents)/TextAreaComponent/TextArea';
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
-import FieldInfo from '@/app/Components/(liteComponents)/FieldInfo/FieldInfo';
-import ImageUploader from '@/app/Components/(liteComponents)/ImageUploader/ImageUploader';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
 import NewImageUploader from '@/app/Components/(updatedDesignComp)/NewImageUploader/NewImageUploader';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
-
+import { jwtDecode } from 'jwt-decode';
 const Page = () => {
     const [user, setUser] = useState({});
 
@@ -20,7 +18,36 @@ const Page = () => {
             [name]: type === 'file' ? files : value
 
         }));
-        console.log(user)
+    };
+
+    const refreshCookie = async (userId, userRole) => {
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/refreshcookie`, {
+                userId,
+                userRole,
+            }, {
+                withCredentials: true
+            });
+            return response.data.newToken; // Return the new token
+        } catch (error) {
+            console.error('Failed to refresh cookie', error);
+            throw error; // Throw error to be handled in caller
+        }
+    };
+
+    // Handle becoming a seller
+    const updateProfile = async () => {
+        const token = getTokenFunction().cookie;
+        if (!token) return;
+
+        try {
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.userId;
+            const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
+            document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`; // Update cookie
+        } catch (error) {
+            console.error('Failed to decode token or become seller', error);
+        }
     };
 
     // Handle form submission
@@ -39,11 +66,13 @@ const Page = () => {
             await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/profile-update`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // 'Content-Type': 'application/json',
                     'Authorization': getTokenFunction().token
                 },
                 withCredentials: true
             });
+
+            await updateProfile();
+            window.location.href = '/'
 
         } catch (error) {
             console.error('Error submitting form:', error);
