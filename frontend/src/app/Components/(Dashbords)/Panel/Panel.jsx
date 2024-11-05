@@ -3,13 +3,21 @@ import styles from '@/app/Components/(Dashbords)/Panel/Panel.module.css'
 import Image from 'next/image'
 import { RxGear } from "react-icons/rx";
 import DashboardButton from '@/app/Components/(liteComponents)/DashboardButton/DashboardButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import { jwtDecode } from 'jwt-decode';
 const Panel = ({ headerComponent, buttonMaping }) => {
+    const router = useRouter()
     const [component, setcomponent] = useState(buttonMaping[0].component)
-
+    const [profileHandle, setprofileHandle] = useState('')
+    useEffect(() => {
+        const token = getTokenFunction().cookie
+        const decode = jwtDecode(token)
+        setprofileHandle(decode.profileHandle)
+    }, [])
     const buttonClick = (component) => {
         setcomponent(component)
-        console.log(component)
     }
     return (
         <div className={styles.parentContainer}>
@@ -33,7 +41,7 @@ const Panel = ({ headerComponent, buttonMaping }) => {
                 <hr className={styles.border} />
 
                 {/* setting button */}
-                <DashboardButton icon={<RxGear />} text='Settings' />
+                <DashboardButton icon={<RxGear />} text='Settings' onClick={() => router.push(`/user/${profileHandle}/profile-update`)} />
 
                 {/*visual illustration  */}
                 <Image width={0} height={0} sizes='100vw' src='/assets/imageAssets/master-dashboard1.svg' alt='super-admin-dashboard' className={styles.illustration} />

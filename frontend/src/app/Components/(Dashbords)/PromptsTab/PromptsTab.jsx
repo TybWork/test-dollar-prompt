@@ -94,6 +94,7 @@ const PromptsTab = () => {
 
                         <AdaptiveCard
                             mainImage={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
+                            isSeller={true}
                         />
                     ))}
                 </div>
