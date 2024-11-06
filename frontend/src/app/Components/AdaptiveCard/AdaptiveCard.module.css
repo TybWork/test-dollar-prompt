@@ -166,3 +166,7 @@
 .shareIcon span:not(.shareIcon span:nth-child(3)) {
     color: var(--ratingClr);
 }
+
+.hideOption:hover {
+    color: red;
+}

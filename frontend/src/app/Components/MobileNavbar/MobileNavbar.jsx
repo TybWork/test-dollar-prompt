@@ -23,7 +23,7 @@ const MobileNavbar = () => {
     const [hideSubCategory, setHideSubCategory] = useState(null);
     const [arrowIcon, setArrowIcon] = useState(null);
     const [subArrowIcon, setSubArrowIcon] = useState(null);
-    const [role, setRole] = useState('user');
+    const [role, setRole] = useState('guest');
     const [profileHandle, setProfileHandle] = useState(null);
     const [userLinks, setUserLinks] = useState(getUserLinks().users);
     const [logout, setLogout] = useState(true);
@@ -45,8 +45,10 @@ const MobileNavbar = () => {
     }, []);
 
     useEffect(() => {
-        if (role === 'user') {
+        if (role === 'guest') {
             setUserLinks(getUserLinks().users);
+        } else if (role === 'user') {
+            setUserLinks(getUserLinks().users)
         } else if (role === 'seller') {
             setUserLinks(getUserLinks(profileHandle).seller);
         } else if (role === 'admin') {

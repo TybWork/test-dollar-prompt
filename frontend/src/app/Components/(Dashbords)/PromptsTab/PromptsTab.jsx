@@ -51,22 +51,35 @@ const PromptsTab = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter/?userId=${sellerId}&&status=${status.toLocaleLowerCase()}`)
-            setPromptsArr(response.data)
-        }
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter/?userId=${sellerId}&&status=${status}`);
+                if (response.data && Array.isArray(response.data)) {
+                    setPromptsArr(response.data);
+                } else {
+                    setPromptsArr([]);
+                }
+            } catch (error) {
+                console.error('Error fetching prompts:', error);
+                setPromptsArr([]);
+            }
+        };
         fetchData()
     }, [sellerId, status])
 
-    console.log('this is prompts array', promptsArr)
-
     if (!promptsArr) return <div>Loading...</div>
+
+    // delete prompt function
+    async function promptDeleteFunc(id) {
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
+        setPromptsArr((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
+    }
 
     return (
         <div className={styles.parentContainer}>
             <ul className={styles.ul}>
                 {tabBtns.map((btn) => (
                     <li
-                        key={btn.id} // Add key for each list item
+                        key={btn.id}
                         onClick={() => detectTab(btn.id)}
                         style={{
                             background: activeTabId === btn.id ? 'var(--homeMainBtn)' : 'var(--homePrimaryClr)',
@@ -81,22 +94,32 @@ const PromptsTab = () => {
             {/* prompts container */}
             <div className={styles.promptsContainer}>
                 <div className={styles.innerContainer}>
-                    {promptsArr.map((prompt, index) => (
-                        // <SellerPromptCard
-                        //     previewPromptLink={`/dallprompt/${prompt._id}`}
-                        //     updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt._id}`}
-                        //     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
-                        //     key={index}
-                        //     label={prompt.promptType}
-                        //     image={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
-                        //     description={prompt.description}
-                        // />
+                    {
+                        promptsArr && promptsArr.length > 0 ? (
+                            promptsArr.map((prompt, index) => (
+                                // <SellerPromptCard
+                                //     previewPromptLink={`/dallprompt/${prompt._id}`}
+                                //     updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt._id}`}
+                                //     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
+                                //     key={index}
+                                //     label={prompt.promptType}
+                                //     image={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
+                                //     description={prompt.description}
+                                // />
 
-                        <AdaptiveCard
-                            mainImage={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
-                            isSeller={true}
-                        />
-                    ))}
+                                <AdaptiveCard
+                                    key={index}
+                                    mainImage={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
+                                    isSeller={true}
+                                    deletePromptFunc={() => promptDeleteFunc(prompt._id)}
+                                    promptId={prompt._id}
+                                    userHandle={sellerHandle}
+                                />
+                            ))
+                        ) : (
+                            <p className={styles.promptsMessage}>Looks like there are no <span>{status}</span> prompts right now!!</p>
+                        )
+                    }
                 </div>
 
             </div>

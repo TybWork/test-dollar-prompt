@@ -5,8 +5,11 @@ import Link from 'next/link'
 import NewSearchInput from '../NewSearchInput/NewSearchInput'
 import Image from 'next/image'
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 
 const GuestHeader = () => {
+    const dispatch = useDispatch();
     return (
         <div className={styles.parentContainer}>
             <div className={styles.logoContainer}>
@@ -34,7 +37,7 @@ const GuestHeader = () => {
 
             </div>
             {/* hamburger icon */}
-            <RxHamburgerMenu className={styles.hamburgerIcon} />
+            <RxHamburgerMenu className={styles.hamburgerIcon} onClick={() => dispatch(showNav())} />
         </div>
     )
 }

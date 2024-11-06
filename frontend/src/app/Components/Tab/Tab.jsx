@@ -34,10 +34,10 @@ const Tab = ({ sellerId, sellerHandle }) => {
             })
     }, [promptState])
 
-    async function promptDeleteFunc(id) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
-        setprompt((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
-    }
+    // async function promptDeleteFunc(id) {
+    //     await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
+    //     setprompt((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
+    // }
 
     return (
         <div className={styles.categories}>
@@ -79,7 +79,7 @@ const Tab = ({ sellerId, sellerHandle }) => {
                             // <Link href={`/dallprompt/${e._id}`}>
                             <SellerPromptCard
                                 previewPromptLink={`/dallprompt/${e._id}`}
-                                updatePromptLink={`/user/${sellerHandle}/updateprompt/${e._id}`}
+                                updatePromptLinkP={`/user/${sellerHandle}/updateprompt/${e._id}`}
                                 deletePromptFunc={() => promptDeleteFunc(e._id)}
                                 key={index}
                                 label={e.promptType}

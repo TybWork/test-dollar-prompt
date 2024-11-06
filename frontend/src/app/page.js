@@ -140,7 +140,7 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(3, 7).map((dalle) =>
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}`}
@@ -152,7 +152,7 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(7, 10).map((dalle) =>
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}`}

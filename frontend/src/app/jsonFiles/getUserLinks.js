@@ -1,5 +1,15 @@
 export const getUserLinks = (profileHandle) => {
     let pageArr = {
+        guest: [
+            {
+                title: "Home",
+                link: "/"
+            },
+            {
+                title: "Marketplace",
+                link: "/market"
+            },
+        ],
         users: [
             {
                 title: "Home",
@@ -8,6 +18,10 @@ export const getUserLinks = (profileHandle) => {
             {
                 title: "Marketplace",
                 link: "/market"
+            },
+            {
+                title: "Profile",
+                link: `user/${profileHandle}/buyer-dashboard/buyer`
             },
         ],
         seller: [
@@ -21,7 +35,7 @@ export const getUserLinks = (profileHandle) => {
             },
             {
                 title: "Profile",
-                link: `/user/${profileHandle}/seller-dashboard`
+                link: `user/${profileHandle}/buyer-dashboard/seller`
             },
         ],
         admin: [

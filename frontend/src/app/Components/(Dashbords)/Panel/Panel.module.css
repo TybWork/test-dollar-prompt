@@ -71,9 +71,14 @@
     margin: 16px auto;
 }
 
+/* mobileTabBtns */
+.mobileTabBtns {
+    display: none;
+}
+
 /* ......right detail tab....... */
 .rightDetailTab {
-    width: calc(100% - 300px);
+    flex: 1;
     overflow-y: auto;
     overflow: hidden;
     background: var(--homePrimaryClr);
@@ -82,4 +87,27 @@
     border: 1px solid var(--homeCardBorder);
     border-radius: 4px;
     padding: 24px;
+}
+
+@media screen and (max-width:1024px) {
+    .leftSettingsTab {
+        width: 240px;
+    }
+}
+
+@media screen and (max-width:840px) {
+    .parentContainer {
+        flex-direction: column;
+    }
+
+    .leftSettingsTab {
+        display: none;
+    }
+
+    .mobileTabBtns {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 }

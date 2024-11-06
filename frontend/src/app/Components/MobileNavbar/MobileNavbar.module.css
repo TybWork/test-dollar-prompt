@@ -4,7 +4,8 @@
     left: 0px;
     width: 100%;
     height: 100vh;
-    background-color: var(--primaryClr);
+    background-color: var(--homePrimaryClr);
+    color: var(--homeTertiaryClr);
     z-index: 10000;
     padding: 1em 1em;
     transition: .5s;
@@ -29,7 +30,7 @@
 }
 
 .explore {
-    opacity: .7;
+    opacity: 1;
 }
 
 /* categories styling */
@@ -78,7 +79,8 @@
     border-bottom: 1px solid var(--customBorder);
     padding-bottom: 1em;
     margin-bottom: 1em;
-    opacity: .7;
+    font-weight: bold;
+    opacity: .9;
 }
 
 .linksContainer {
@@ -87,7 +89,7 @@
 }
 
 .link {
-    color: var(--textClr);
+    color: var(--homeTertiaryClr);
     text-decoration: none;
     margin-bottom: 12px;
     font-weight: 500;

@@ -33,7 +33,7 @@
 }
 
 .outputImgContainer {
-    width: 80%;
+    width: 100%;
     display: flex;
     gap: 30px;
     flex-wrap: wrap;

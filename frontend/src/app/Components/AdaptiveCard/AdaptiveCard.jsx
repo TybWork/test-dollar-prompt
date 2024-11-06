@@ -8,10 +8,11 @@ import ArrowIcon from '../(icons)/ArrowIcon'
 import { MdDelete } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
+import { IoMdOptions } from "react-icons/io";
 import { useState } from 'react'
 import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
-const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, category, deletePromptFunc, updatePromptLink }) => {
+const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, category, deletePromptFunc, updatePromptLink, promptId, userHandle }) => {
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
@@ -44,7 +45,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                         onMouseOver={() => setOptionsPannelBg('radial-gradient(var(--homePrimaryClr), rgb(221, 146, 146))')}
                         onMouseLeave={() => setOptionsPannelBg('var(--homePrimaryClr)')}
                     />
-                    <Link href={updatePromptLink || '/'}>
+                    <Link href={updatePromptLink || `/user/${userHandle}/updateprompt/${promptId}`}>
                         <BiSolidEdit
                             className={styles.sellerIcon}
                             onMouseOver={() => setOptionsPannelBg('radial-gradient(var(--homePrimaryClr), var(--homeMainBtn)')}
@@ -99,7 +100,12 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                                 display: isSeller ? 'flex' : 'none'
                             }}
                         >
-                            <ArrowIcon fill={isEnter ? 'var(--homeMainBtn)' : ''} />
+                            <IoMdOptions style={{
+                                color: isEnter ? 'var(--homeMainBtn)' : 'var(--homeMainBtn)',
+                                fontWeight: 'bold',
+                                fontSize: '24px',
+                                cursor: 'pointer'
+                            }} />
                         </span>
 
                     </div>

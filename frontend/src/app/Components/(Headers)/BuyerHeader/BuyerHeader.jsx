@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
 
 const BuyerHeader = () => {
     const [isSellerView, setisSellerView] = useState(true);
@@ -18,6 +20,7 @@ const BuyerHeader = () => {
     const [userId, setuserId] = useState('')
     const [profileHandle, setprofileHandle] = useState('')
     const [profile, setprofile] = useState({})
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const token = getTokenFunction().cookie
@@ -90,7 +93,7 @@ const BuyerHeader = () => {
                         />
                     </li>
 
-                    <li
+                    {/* <li
                         className={styles.li}
                         style={{
                             display: isSellerView ? 'none' : 'block'
@@ -101,7 +104,7 @@ const BuyerHeader = () => {
                             counterBg={'red'}
                             counter={0}
                         />
-                    </li>
+                    </li> */}
 
                     <li className={styles.li}>
                         <ProfileImgWithPanel
@@ -117,7 +120,7 @@ const BuyerHeader = () => {
 
             </div>
             {/* hamburger icon */}
-            <RxHamburgerMenu className={styles.hamburgerIcon} />
+            <RxHamburgerMenu className={styles.hamburgerIcon} onClick={() => dispatch(showNav())} />
         </div >
     )
 }

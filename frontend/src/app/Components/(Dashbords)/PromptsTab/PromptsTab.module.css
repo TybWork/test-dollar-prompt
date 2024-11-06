@@ -33,3 +33,7 @@
     flex-wrap: wrap;
     gap: 8px;
 }
+
+.promptsMessage span {
+    font-weight: 600;
+}
