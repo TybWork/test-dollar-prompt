@@ -33,7 +33,6 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 <p className={styles.promptDescription}>
                     {promptDescription || 'This prompt generates beautiflly depicitions of vintage junk journal pages. These Nostalgic and textured desing can be used for scrapbooking , journaling ,invitations , or create projects , adding a rustic and timless touch to any collection.'}
                 </p>
-
             </div>
 
 

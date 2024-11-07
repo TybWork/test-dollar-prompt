@@ -15,7 +15,13 @@ function multerFunc(req, res, next) {
 
     // File filter to accept images and videos
     const fileFilter = (req, file, cb) => {
-        const allowedMimeTypes = ['image/jpeg', 'image/png', 'video/mp4', 'video/mpeg', 'video/quicktime'];
+        const allowedMimeTypes = [
+            'image/jpeg',  // JPEG images
+            'image/jpg',
+            'image/png',   // PNG images
+            'image/gif',   // GIF images
+            'image/webp',  // WebP images];
+        ]
         if (allowedMimeTypes.includes(file.mimetype)) {
             cb(null, true);
         } else {

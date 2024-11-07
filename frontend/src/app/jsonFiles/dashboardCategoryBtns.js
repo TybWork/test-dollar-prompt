@@ -15,6 +15,8 @@ import { jwtDecode } from "jwt-decode";
 import SellPromptComp from "../Components/(Dashbords)/SellPromptComp/SellPromptComp";
 import Tab from "../Components/Tab/Tab";
 import PromptsTab from "../Components/(Dashbords)/PromptsTab/PromptsTab";
+import UnverifiedPromptsComponent from "../Components/(Dashbords)/(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent";
+import CreateBlogComponent from "../Components/(Dashbords)/(adminComponents)/CreateBlogComponent/CreateBlogComponent";
 
 let userId;
 if (typeof window !== 'undefined') {
@@ -59,18 +61,24 @@ export const buttons = {
         },
         {
             id: 1,
-            icon: <BsPatchQuestion />,
-            title: 'Unverified Prompts',
-            component: 'unverified prompts component'
+            icon: <GrAnalytics />,
+            title: 'Write Blog',
+            component: <CreateBlogComponent />
         },
         {
             id: 2,
+            icon: <BsPatchQuestion />,
+            title: 'Unverified Prompts',
+            component: <UnverifiedPromptsComponent />
+        },
+        {
+            id: 3,
             icon: <BsPatchCheck />,
             title: 'Verified Prompts',
             component: 'verified prompts'
         },
         {
-            id: 3,
+            id: 4,
             icon: <BsPatchExclamation />,
             title: 'Rejected Prompts',
             component: 'Rejected Prompts'

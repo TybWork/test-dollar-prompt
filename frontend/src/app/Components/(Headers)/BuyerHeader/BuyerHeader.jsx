@@ -106,7 +106,7 @@ const BuyerHeader = () => {
                         />
                     </li> */}
 
-                    <li className={styles.li}>
+                    <li className={styles.profileContainer}>
                         <ProfileImgWithPanel
                             imgUrl={profile.profileImage && profile.profileImage.length > 0 ? profile.profileImage[0] : ''}
                             profileUpdateUrl={`/user/${profileHandle}/profile-update`}

@@ -1,0 +1,16 @@
+.parentContainer {
+    padding: var(--mainPadding);
+    background: var(--infoCardClr);
+}
+
+@media screen and (max-width:768px) {
+    .parentContainer {
+        padding: 36px 24px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .parentContainer {
+        padding: 24px 12px;
+    }
+}

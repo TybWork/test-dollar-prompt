@@ -7,47 +7,21 @@ import axios from 'axios'
 import ReviewCard from '@/app/Components/reviewCard/ReviewCard'
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
 import { getTokenFunction } from '@/app/utilities/getTokenFunction.js'
+import { buttons } from '@/app/jsonFiles/dashboardCategoryBtns'
+import Panel from '@/app/Components/(Dashbords)/Panel/Panel'
 const page = () => {
     const router = useRouter();
     const [isAdmin, setisAdmin] = useState(false)
-    const [prompt, setprompt] = useState('')
-    const [promptData, setpromptData] = useState([])
 
-    function selectCategory(e) {
-        const category = e.target.value;
-        if (category == 'dalle') {
-            setprompt(category)
-        }
-    }
-
-    // const getCookieValue = (name) => {
-    //     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    //     return match ? decodeURIComponent(match[2]) : null;
-    // };
-    // const getTokenFromCookie = () => {
-    //     const token = getCookieValue('token')
-    //     return token ? `Bearer ${token}` : ''
-    // }
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const cookie = getTokenFunction().cookie
-            const token = getTokenFunction().token
             if (cookie) {
                 const decodeCookie = jwtDecode(cookie);
                 const userRole = decodeCookie.userRole;
 
                 if (userRole == 'admin') {
                     setisAdmin(true);
-                    const fetchData = async () => {
-                        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/getprompt?status=pending&promptType=Dall-E`, {
-                            headers: {
-                                'Authorization': token
-                            },
-                            withCredentials: true
-                        })
-                        setpromptData(response.data)
-                    }
-                    fetchData()
                 } else {
                     setisAdmin(false);
                     router.push('/');
@@ -63,24 +37,13 @@ const page = () => {
 
     if (!isAdmin) return null
 
-    if (!promptData) return <Loading />
-
     return (
         <div className={styles.parentContainer}>
-            <select onChange={selectCategory} className='select' defaultValue="select category" name="categories" id="categories">
-                <option key="select category" value="select category" disabled>Select Category</option>
-                <option value="dalle" key="dalle">Dalle Prompts</option>
-                <option value="midjourney" key="midjourney">Midjourney Prompts</option>
-            </select>
-
-            {/* prompts type */}
-            <div className={styles.promptsContainer}>
-                {
-                    promptData.map((e, index) =>
-                        <ReviewCard key={index} label={e.promptType} image={e.Image_Url[0]} description={`${e.description.slice(0, 48)}...`} onClick={() => router.push(`/admin/review/dalle/${e._id}`)} />
-                    )
+            <Panel
+                buttonMaping={
+                    buttons.admin
                 }
-            </div>
+            />
         </div>
     )
 }

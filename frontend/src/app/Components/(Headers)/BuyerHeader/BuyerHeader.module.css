@@ -59,9 +59,15 @@
     color: var(--blackClr);
 }
 
-.li {
+.li,
+.profileContainer {
     list-style: none;
 }
+
+.profileContainer a {
+    padding: 10px 0px;
+}
+
 
 .li a {
     color: var(--homeMainBtn);
