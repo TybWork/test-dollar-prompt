@@ -16,6 +16,7 @@ import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
 import SellPromptComp from "./Components/(Dashbords)/SellPromptComp/SellPromptComp";
+import { useEffect, useState } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,6 +33,17 @@ const lato = Lato({
 export default function RootLayout({ children }) {
   const data = userData()
   const pathname = usePathname()
+
+  // Start the timeout only if the user is NOT on the login or signup page
+  useEffect(() => {
+    if (pathname === '/login' || pathname === '/signup') {
+      return;
+    } else {
+      setTimeout(() => {
+        localStorage.removeItem('redirectTo');
+      }, 3000); // 30 seconds timeout
+    }
+  }, [pathname]);
 
   const renderHeader = () => {
     if (typeof window !== 'undefined') {

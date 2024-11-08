@@ -16,11 +16,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 
 const Page = ({ params }) => {
-    const { promptId } = params;
+    const { promptId, promptModel } = params;
 
     const [prompt, setPrompt] = useState(null);
     const [id, setId] = useState('');
     const [sellerProfile, setSellerProfile] = useState({});
+    const [isUser, setisUser] = useState(false)
 
     const queryClient = useQueryClient();
 
@@ -52,18 +53,23 @@ const Page = ({ params }) => {
         if (cookie) {
             const newUser = jwtDecode(cookie).userId;
             setId(newUser);
+            setisUser(true)
         }
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get/${promptId}`)
+        else {
+            setisUser(false)
+        }
+
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptModel}/get/${promptId}`)
             .then((response) => {
                 setPrompt(response.data);
             });
-    }, [promptId]);
+    }, [promptId, promptModel]);
 
     useEffect(() => {
         const fetchSellerProfile = async () => {
             if (prompt?.userId) {
                 try {
-                    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${prompt.userId}`);
+                    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${prompt.userId}&withPrompts=false`);
                     setSellerProfile(response.data);
                 } catch (error) {
                     console.error("Error fetching seller data:", error);
@@ -101,12 +107,14 @@ const Page = ({ params }) => {
                 <PromptDetail
                     aiTool={prompt.promptType}
                     imgArray={prompt.Image_Url}
+                    promptModel={promptModel}
                     promptTitle={prompt.title}
                     promptDescription={prompt.description}
-                    version={prompt.version}
+                    examplePrompts={prompt.examplePrompts}
+                    version={prompt.version || prompt.gptPromptType}
                     salePrice={prompt.price}
                     cartClickFunc={() => cartMutation.mutate()}
-                    buyPromptBtn={<Archieve promptId={promptId} />}
+                    buyPromptBtn={<Archieve promptId={promptId} promptType={prompt.promptType.toLowerCase()} isUser={isUser} />}
                 />
             </div>
 

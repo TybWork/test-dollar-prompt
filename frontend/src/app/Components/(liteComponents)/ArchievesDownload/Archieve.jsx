@@ -9,12 +9,16 @@ import styles from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve
 import { IoMdCloudDownload } from "react-icons/io";
 import PrimaryBtn from '../PrimaryBtn/PrimaryBtn';
 import GradientButton from '../../GradientButton/GradientButton';
+import { useRouter } from 'next/navigation';
 
 const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
 
-const Archieve = ({ promptId }) => {
+
+const Archieve = ({ promptId, promptType, isUser }) => {
+    const router = useRouter()
     const [loading, setLoading] = useState(false);
     const [promptData, setPromptData] = useState({});
+
 
     useEffect(() => {
         (async function () {
@@ -64,34 +68,41 @@ const Archieve = ({ promptId }) => {
     const downloadZip = async () => {
         setLoading(true);
 
-        try {
-            const zip = new JSZip();
+        if (isUser) {
+            try {
+                const zip = new JSZip();
 
-            // Generate DOCX file and add to ZIP
-            await generateDocument(zip);
+                // Generate DOCX file and add to ZIP
+                await generateDocument(zip);
 
-            // Create a folder for images in the ZIP
-            const imageFolder = zip.folder(`${promptData.title.slice(0, 30)}_Images`);
+                // Create a folder for images in the ZIP
+                const imageFolder = zip.folder(`${promptData.title.slice(0, 30)}_Images`);
 
-            // Add other files (e.g., images) to the ZIP
-            const imageUrls = promptData.Image_Url || [];
+                // Add other files (e.g., images) to the ZIP
+                const imageUrls = promptData.Image_Url || [];
 
-            for (const url of imageUrls) {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Failed to fetch image');
-                const blob = await response.blob();
-                imageFolder.file(url.split('/').pop(), blob);  // Add image to the 'images' folder
+                for (const url of imageUrls) {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Failed to fetch image');
+                    const blob = await response.blob();
+                    imageFolder.file(url.split('/').pop(), blob);  // Add image to the 'images' folder
+                }
+
+                // Generate ZIP file
+                const content = await zip.generateAsync({ type: 'blob' });
+                saveAs(content, `${promptData.title.slice(0, 30)}.zip`);
+
+            } catch (error) {
+                console.error('Error generating ZIP:', error);
+            } finally {
+                setLoading(false);
             }
-
-            // Generate ZIP file
-            const content = await zip.generateAsync({ type: 'blob' });
-            saveAs(content, `${promptData.title.slice(0, 30)}.zip`);
-
-        } catch (error) {
-            console.error('Error generating ZIP:', error);
-        } finally {
-            setLoading(false);
+        } else {
+            localStorage.setItem('redirectTo', `/prompts/${promptId}/${promptType}`)
+            router.push('/login')
         }
+
+
     };
 
     return (
@@ -106,7 +117,7 @@ const Archieve = ({ promptId }) => {
         <GradientButton
             width={'100%'}
             height={'100%'}
-            title={loading ? 'Downloading... ' : 'Get Prompt '}
+            title={isUser ? loading ? 'Downloading... ' : 'Get Prompt ' : 'Get Prompt'}
             onClick={downloadZip}
             disabled={loading}
         />

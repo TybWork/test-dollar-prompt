@@ -36,6 +36,18 @@
     overflow: hidden;
 }
 
+
+.iconBg {
+    background: var(--homePrimaryClr);
+    color: var(--homeMainBtn);
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+}
+
 /* about prompt */
 .aboutPrompt {
     display: flex;
@@ -53,6 +65,43 @@
     font-weight: 400;
 }
 
+/* container for textPrompts like (gpt) */
+
+.sampleTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--homeMainBtn);
+    padding: 20px;
+    border-radius: 4px;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.sampleTextContainer::-webkit-scrollbar {
+    background: var(--categoryClr);
+    width: 6px;
+}
+
+.sampleTextContainer::-webkit-scrollbar-thumb {
+    width: 6px;
+    background: var(--blackClr);
+}
+
+.singleSample {
+    background: var(--blackClr);
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.singleSample h4 {
+    font-weight: 600;
+}
+
+/* ................  */
 .categoryContainer {
     display: flex;
     align-items: center;

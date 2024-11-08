@@ -17,8 +17,10 @@ const page = ({ params }) => {
     useEffect(() => {
         const fetchSellerProfile = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${profileId}`);
-                setprofile(response.data);
+                const profile = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${profileId}&withPrompts=true`);
+                setprofile(profile.data);
+
+                // prompts fetch
             } catch (error) {
                 console.error("Error fetching seller data:", error);
             }
@@ -27,15 +29,15 @@ const page = ({ params }) => {
         fetchSellerProfile();
     }, [profileId]);
 
+
     if (!profile) return <Loading />
+    console.log('profile', profile?.prompts?.dalle)
 
     const profileImage = (profile.profileImage && profile.profileImage.length > 0) ? profile.profileBanner[0] : '/assets/imageAssets/dummy.jpg'
 
     const bannerImage = (profile.profileBanner && profile.profileBanner.length > 0)
         ? profile.profileBanner[0]
         : "/assets/imageAssets/dummy-banner.png";
-
-    console.log('prolfile', profile)
 
     return (
         <div>
@@ -61,7 +63,12 @@ const page = ({ params }) => {
                     {/* seller prompts sliders */}
                     <div className={styles.sellerPromptsContainer}>
                         {/* Dall-E prompts */}
-                        <div className={styles.promptSlider}>
+                        <div
+                            className={styles.promptSlider}
+                            style={{
+                                display: profile?.prompts?.dalle.length > 0 ? 'flex' : 'none'
+                            }}
+                        >
                             <ContentWithHeading
                                 title={'Dall-E'}
                                 linkText={'View All'}
@@ -76,22 +83,31 @@ const page = ({ params }) => {
                                             flexWrap: 'wrap'
                                         }}
                                     >
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
+
+                                        {
+                                            profile?.prompts?.dalle.map((e) => (
+                                                <div className={styles.adaptive}>
+                                                    <AdaptiveCard
+                                                        category={e.promptType}
+                                                        mainImage={e.Image_Url[0]}
+                                                        title={e.title}
+                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                    />
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 }
                             />
                         </div>
 
                         {/* GPT prompts */}
-                        <div className={styles.promptSlider}>
+                        <div
+                            className={styles.promptSlider}
+                            style={{
+                                display: profile?.prompts?.gpt.length > 0 ? 'flex' : 'none'
+                            }}
+                        >
                             <ContentWithHeading
                                 title={'Gpt Prompts'}
                                 linkText={'View All'}
@@ -103,18 +119,63 @@ const page = ({ params }) => {
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             gap: '8px',
-                                            flexWrap: 'wrap'
+                                            flexWrap: 'wrap',
+                                            width: '100%'
                                         }}
                                     >
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
-                                        <div className={styles.adaptive}>
-                                            <AdaptiveCard />
-                                        </div>
+                                        {
+                                            profile?.prompts?.gpt.map((e) => (
+                                                <div className={styles.adaptive}>
+                                                    <AdaptiveCard
+                                                        category={e.promptType}
+                                                        title={e.title}
+                                                        promptType='gpt'
+                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                    />
+                                                </div>
+                                            ))
+                                        }
+
+                                    </div>
+                                }
+                            />
+                        </div>
+
+                        {/* Midjourney prompts */}
+                        <div
+                            className={styles.promptSlider}
+                            style={{
+                                display: profile?.prompts?.midjourney.length > 0 ? 'flex' : 'none'
+                            }}
+                        >
+                            <ContentWithHeading
+                                title={'Midjourney Prompts'}
+                                linkText={'View All'}
+
+                                content={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px',
+                                            flexWrap: 'wrap',
+                                            width: '100%'
+                                        }}
+                                    >
+                                        {
+                                            profile?.prompts?.midjourney.map((e) => (
+                                                <div className={styles.adaptive}>
+                                                    <AdaptiveCard
+                                                        category={e.promptType}
+                                                        mainImage={e.Image_Url[0]}
+                                                        title={e.title}
+                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                    />
+                                                </div>
+                                            ))
+                                        }
+
                                     </div>
                                 }
                             />
@@ -128,7 +189,7 @@ const page = ({ params }) => {
 
 
 
-        </div>
+        </div >
     )
 }
 

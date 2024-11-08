@@ -4,6 +4,8 @@ import { User } from "../models/User/user.model.js";
 import { cloudinaryFunc } from "../utils/cloudinary.utils.js";
 import fs from 'fs';
 import { DallE } from "../models/Prompt/dallePrompt.model.js";
+import { GPT } from "../models/Prompt/gptPrompt.model.js";
+import { Midjourney } from "../models/Prompt/midjourneyPrompt.model.js";
 
 export const postSellerData = async (req, res) => {
     try {
@@ -61,7 +63,7 @@ export const postSellerData = async (req, res) => {
 
 export const getSellerInfo = async (req, res) => {
     try {
-        const { userId } = req.query; // Assuming userId is passed as a query parameter
+        const { userId, withPrompts } = req.query; // Assuming userId is passed as a query parameter
 
         // Validate the userId
         if (!userId || !mongoose.isValidObjectId(userId)) {
@@ -75,14 +77,24 @@ export const getSellerInfo = async (req, res) => {
             return res.status(404).json({ msg: "Seller profile not found" });
         }
 
-        // Fetch prompts associated with the seller's userId
-        const filteredPrompts = await DallE.find({ userId: sellerProfile.userId });
 
         // Combine seller data with their prompts
         const combinedData = {
             ...sellerProfile.toObject(),
-            prompts: filteredPrompts || [] // Attach prompts to the seller profile
         };
+
+        const includePrompts = withPrompts === 'true';
+        if (includePrompts) {
+            // Fetch prompts associated with the seller's userId
+            const dalle = await DallE.find({ userId: userId });
+            const gpt = await GPT.find({ userId: userId })
+            const midjourney = await Midjourney.find({ userId: userId })
+            combinedData.prompts = {
+                dalle: dalle,
+                gpt: gpt,
+                midjourney: midjourney
+            }
+        }
 
         return res.status(200).json(combinedData);
     } catch (error) {

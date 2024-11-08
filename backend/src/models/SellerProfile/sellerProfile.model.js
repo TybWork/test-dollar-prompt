@@ -54,8 +54,24 @@ const userProfileSchema = new Schema({
     prompts: {
         type: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "User"
+                dalle: [
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "User"
+                    }
+                ],
+                gpt: [
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "User"
+                    }
+                ],
+                midjourney: [
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "User"
+                    }
+                ]
             }
         ]
     },

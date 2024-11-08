@@ -12,6 +12,7 @@ import { adminRoutes } from './src/routes/adminRoutes.js';
 import { route as dalleRoute } from './src/routes/Prompts/DallE/Dalle.js';
 import { route as Midjourney } from './src/routes/Prompts/Midjourney.js';
 import { route as GPT } from './src/routes/Prompts/Gpt.js';
+import { route as Prompts } from './src/routes/Prompts/PromptsRoute.js'
 
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
@@ -151,6 +152,7 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 // app.use('/api/', user);
+app.use('/api', Prompts) //for generl prompts filtering
 app.use('/api', dalleRoute)
 app.use('/api', Midjourney)
 app.use('/api', GPT)

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from '@/app/(Pages)/login/login.module.css';
 import Image from "next/image";
 import InputField from "@/app/Components/(liteComponents)/InputField/InputField";
@@ -7,8 +7,12 @@ import Link from "next/link";
 import { post } from "@/app/Services/ApiEndpoint.js";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import ReCAPTCHA from "react-google-recaptcha";
+import { usePathname } from "next/navigation";
 
 const LoginUser = () => {
+
+    const path = usePathname()
+
     const [user, setUser] = useState({ email: "", password: "" });
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [captchaToken, setCaptchaToken] = useState('');
@@ -38,7 +42,8 @@ const LoginUser = () => {
                     withCredentials: true,
                 });
                 document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
-                window.location.href = '/';
+                const redirectToPrompt = localStorage.getItem('redirectTo')
+                window.location.href = redirectToPrompt || '/';
                 captchaRef.current.reset();
             } catch (error) {
                 alert(error.response?.data?.msg || 'Login failed');

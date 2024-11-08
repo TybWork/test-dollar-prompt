@@ -12,7 +12,9 @@ import { IoMdOptions } from "react-icons/io";
 import { useState } from 'react'
 import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
-const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, category, deletePromptFunc, updatePromptLink, promptId, userHandle }) => {
+import { MdTextSnippet } from "react-icons/md";
+
+const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
@@ -55,7 +57,15 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                 </div>
 
                 <div className={styles.imageContainer}>
-                    <Image src={mainImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
+                    {
+                        promptType === 'dall-e' || promptType === 'midjourney' ? (
+                            <Image src={mainImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
+                        ) : (
+                            <div className={styles.iconBg}>
+                                <MdTextSnippet />
+                            </div>
+                        )
+                    }
                     <div className={styles.category}>{category || 'Dall-E'}</div>
                 </div>
                 <div className={styles.contentContainer}>

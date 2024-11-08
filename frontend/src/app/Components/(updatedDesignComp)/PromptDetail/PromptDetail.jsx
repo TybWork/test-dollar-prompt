@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/PromptDetail/PromptDetail.module.css'
 import Image from 'next/image'
 import VerifiedIcon from '../../(icons)/VerifiedIcon'
@@ -10,7 +10,9 @@ import ArrowIcon from '../../(icons)/ArrowIcon'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import { BiSolidCartAdd } from "react-icons/bi";
 import CartIcon from '../../(icons)/CartIcon'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray }) => {
+import { MdTextSnippet } from 'react-icons/md'
+import { getTokenFunction } from '@/app/utilities/getTokenFunction'
+const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptModel = 'dall-e', examplePrompts, isUser }) => {
 
     return (
         <div className={styles.promptDetail}>
@@ -21,9 +23,18 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             {/* prompt images */}
             <div className={styles.promptImages}>
                 {
-                    imgArray && imgArray.slice(0, 3).map((imgUrl) =>
-                        <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
-                    )
+                    promptModel === 'dall-e' || promptModel === 'midjourney' ? (
+                        imgArray && imgArray.slice(0, 3).map((imgUrl) =>
+                            <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
+                        )
+
+                    ) :
+                        (
+
+                            <div className={styles.iconBg}>
+                                <MdTextSnippet />
+                            </div>
+                        )
                 }
             </div>
 
@@ -35,6 +46,32 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 </p>
             </div>
 
+            {/*............. container for textPrompts like (gpt) ............*/}
+            <div
+                className={styles.sampleTextContainer}
+                style={{
+                    display: promptModel === 'dall-e' || promptModel === 'midjourney' ? 'none' : 'flex'
+                }}
+            >
+                {
+                    examplePrompts && examplePrompts.length > 0 ? (
+                        examplePrompts.map((example) =>
+                            <div className={styles.singleSample}>
+                                <h4 className={styles.sampleHeading}>
+                                    {example.title}
+                                </h4>
+                                <p className={styles.sampleText}>
+                                    {
+                                        example.text
+                                    }
+                                </p>
+                            </div>
+                        )
+                    ) : (
+                        <div>Looks like there are no sample prompts</div>
+                    )
+                }
+            </div>
 
             {/* .........category......... */}
             <div className={styles.categoryContainer}>
@@ -86,13 +123,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     </div>
                     <div className={styles.btns}>
                         <div className={styles.primaryBtn}>
-                            {
-                                buyPromptBtn || <PrimaryBtn
-                                    title={'Buy Prompt'}
-                                    height={'100%'}
-                                    width={'100%'}
-                                />
-                            }
+                            {buyPromptBtn}
                         </div>
                         <div className={styles.cartIcon} onClick={cartClickFunc}>
                             <CartIcon

@@ -17,7 +17,7 @@ const page = () => {
     const fetchData = async () => {
       try {
         // const response = await axios.get('http://localhost:4001/api/prompt/dalle/get');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get`);
 
         setPromptData(response.data);
       } catch (error) {
@@ -43,7 +43,7 @@ const page = () => {
             mainImage={item.Image_Url[0]}
             category={item.promptType}
             title={`${item.title.slice(0, 18)}`}
-            promptUrl={`/prompts/${item._id}`}
+            promptUrl={`/prompts/${item._id}/${(item.promptType).toLowerCase()}`}
           />
         ))}
       </div>

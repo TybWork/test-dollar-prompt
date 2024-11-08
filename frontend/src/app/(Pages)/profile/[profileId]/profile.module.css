@@ -74,6 +74,7 @@
 /* profile container */
 .profileInfo {
     max-width: 940px;
+    min-width: 940px;
 }
 
 .sellerDescription {
@@ -139,6 +140,7 @@
 
     .profileInfo {
         max-width: 100%;
+        min-width: 100%;
     }
 }
 

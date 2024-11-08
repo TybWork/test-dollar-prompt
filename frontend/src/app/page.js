@@ -55,6 +55,9 @@ export default function Home() {
   const [isOverflowHidden, setIsOverflowHidden] = useState(false);
   const [timelineScroll, settimelineScroll] = useState(false)
   const [dallePrompts, setdallePrompts] = useState([])
+  const [midjourneyPrompts, setmidjourneyPrompts] = useState([])
+  const [gptPrompts, setgptPrompts] = useState([])
+  const [trendingPrompts, settrendingPrompts] = useState([])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,8 +100,14 @@ export default function Home() {
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
-        const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get`);
+        const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get`);
+        const midjourney = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/get`);
+        const gpt = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`);
+        const trending = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`);
+        settrendingPrompts(trending.data)
         setdallePrompts(dalle.data);
+        setmidjourneyPrompts(midjourney.data)
+        setgptPrompts(gpt.data)
       } catch (error) {
         console.error("Error fetching seller data:", error);
       }
@@ -107,10 +116,10 @@ export default function Home() {
     fetchPrompts();
   }, []);
 
-  console.log(dallePrompts)
 
   if (!dallePrompts) return <Loading />
 
+  // const trendingImg = trendingPrompts?.mainImage[0]
   return (
     <div className={styles.parentContainer}>
 
@@ -131,7 +140,7 @@ export default function Home() {
                   dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
+                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
                     />
@@ -143,7 +152,7 @@ export default function Home() {
                   dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
+                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
                     />
@@ -155,7 +164,7 @@ export default function Home() {
                   dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
+                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
                     />
@@ -191,13 +200,14 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
+                trendingPrompts && trendingPrompts.slice(0, 5).map((trending) =>
                   <div className={styles.adaptive}>
                     <AdaptiveCard
-                      mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
-                      title={dalle.title}
-                      category={dalle.promptType}
+                      mainImage={trending?.Image_Url?.[0]}
+                      promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
+                      title={trending.title}
+                      category={trending.promptType}
+                      promptType={trending.promptType.toLowerCase()}
                     />
                   </div>
                 )
@@ -233,13 +243,13 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
+                gptPrompts && gptPrompts.slice(0, 5).map((gpt) =>
                   <div className={styles.adaptive}>
                     <AdaptiveCard
-                      mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
-                      title={dalle.title}
-                      category={dalle.promptType}
+                      promptType='gpt'
+                      promptUrl={`/prompts/${gpt._id}/${gpt.promptType.toLowerCase()}`}
+                      title={gpt.title}
+                      category={gpt.promptType}
                     />
                   </div>
                 )
@@ -261,7 +271,7 @@ export default function Home() {
                   <div className={styles.adaptive}>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
+                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
                     />
@@ -281,13 +291,13 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
+                midjourneyPrompts && midjourneyPrompts.slice(0, 5).map((midjourney) =>
                   <div className={styles.adaptive}>
                     <AdaptiveCard
-                      mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}`}
-                      title={dalle.title}
-                      category={dalle.promptType}
+                      mainImage={midjourney.Image_Url[0]}
+                      promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
+                      title={midjourney.title}
+                      category={midjourney.promptType}
                     />
                   </div>
                 )

@@ -45,6 +45,10 @@ const MidjourneyPromptSchema = new Schema(
             enum: ['active', 'pending', 'paused'], //unverified:0  verified:1
             default: 'pending'
         },
+        isTrending: {
+            type: Boolean,
+            default: true
+        },
         verifiedBy: {
             type: String,
         },
