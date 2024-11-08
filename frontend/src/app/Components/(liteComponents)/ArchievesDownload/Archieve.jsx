@@ -6,7 +6,6 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
 import styles from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve.module.css'
-import { IoMdCloudDownload } from "react-icons/io";
 import PrimaryBtn from '../PrimaryBtn/PrimaryBtn';
 import GradientButton from '../../GradientButton/GradientButton';
 import { useRouter } from 'next/navigation';
