@@ -125,11 +125,11 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                         <div className={styles.primaryBtn}>
                             {buyPromptBtn}
                         </div>
-                        <div className={styles.cartIcon} onClick={cartClickFunc}>
+                        {/* <div className={styles.cartIcon} onClick={cartClickFunc}>
                             <CartIcon
                                 width={'100%'}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

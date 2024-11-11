@@ -4,31 +4,71 @@ import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import axios from 'axios';
-import styles from '@/app/Components/(liteComponents)/ArchievesDownload/Archieve.module.css'
-import PrimaryBtn from '../PrimaryBtn/PrimaryBtn';
 import GradientButton from '../../GradientButton/GradientButton';
 import { useRouter } from 'next/navigation';
 
-const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
+// const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
 
-
-const Archieve = ({ promptId, promptType, isUser }) => {
-    const router = useRouter()
-    const [loading, setLoading] = useState(false);
-    const [promptData, setPromptData] = useState({});
-
+const Archieve = ({ promptId, promptType, isUser, promptData }) => {
+    const [TEMPLATE_URL, setTEMPLATE_URL] = useState('/assets/example.docx')
+    const [documentData, setdocumentData] = useState({})
 
     useEffect(() => {
-        (async function () {
-            try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter?_id=${promptId}`);
-                setPromptData(response.data[0]);
-            } catch (error) {
-                console.error('Error fetching prompt data:', error);
-            }
-        })();
-    }, []);
+        if (promptType === 'dall-e') {
+            setTEMPLATE_URL('/assets/dalle.docx')
+            setdocumentData({
+                title: promptData.title,
+                description: promptData.description,
+                type: promptData.promptType,
+                version: promptData.version,
+                uses: promptData.describePrompt,
+                instructions: promptData.promptInstruction,
+                price: promptData.price,
+                time: new Date().toLocaleString()  // Current time in local format
+            })
+        } else if (promptType === 'midjourney') {
+            setTEMPLATE_URL('/assets/midjourney.docx')
+            setdocumentData({
+                title: promptData.title,
+                description: promptData.description,
+                type: promptData.promptType,
+                instructions: promptData.promptInstructions,
+                price: promptData.price,
+                time: new Date().toLocaleString()
+            })
+        }
+        else if (promptType === 'gpt') {
+            setTEMPLATE_URL('/assets/gpt.docx')
+            setdocumentData({
+                title: promptData.title,
+                description: promptData.description,
+                type: promptData.promptType,
+                gptType: promptData.gptType,
+                gptPromptType: promptData.gptPromptType,
+                instructions: promptData.promptInstructions,
+                gptLink: promptData.gptLink,
+                price: promptData.price,
+                // exmple prompts
+                exampleTitle1: promptData.examplePrompts[0].title,
+                exampleText1: promptData.examplePrompts[0].text,
+
+                exampleTitle2: promptData.examplePrompts[1].title,
+                exampleText2: promptData.examplePrompts[1].text,
+
+                exampleTitle3: promptData.examplePrompts[2].title,
+                exampleText3: promptData.examplePrompts[2].text,
+
+                exampleTitle4: promptData.examplePrompts[3].title,
+                exampleText4: promptData.examplePrompts[3].text,
+
+                // download time
+                time: new Date().toLocaleString()  // Current time in local format
+            })
+        }
+    }, [])
+
+    const router = useRouter()
+    const [loading, setLoading] = useState(false);
 
     const fetchTemplate = async () => {
         const response = await fetch(TEMPLATE_URL);
@@ -42,16 +82,7 @@ const Archieve = ({ promptId, promptType, isUser }) => {
         const doc = new Docxtemplater(docZip);
 
         // Set the template variables
-        doc.setData({
-            title: promptData.title,
-            description: promptData.description,
-            type: promptData.promptType,
-            version: promptData.version,
-            uses: promptData.describePrompt,
-            instructions: promptData.promptInstruction,
-            price: promptData.price,
-            time: new Date().toLocaleString()  // Current time in local format
-        });
+        doc.setData(documentData);
 
         try {
             doc.render();
@@ -100,19 +131,9 @@ const Archieve = ({ promptId, promptType, isUser }) => {
             localStorage.setItem('redirectTo', `/prompts/${promptId}/${promptType}`)
             router.push('/login')
         }
-
-
     };
 
     return (
-        // <button className={styles.button} onClick={downloadZip} disabled={loading}>
-        //     {loading ? 'Downloading... ' : 'Get Prompt '} <IoMdCloudDownload style={{ fontSize: '24px' }} />
-        // </button>
-        // <PrimaryBtn
-        //     width={'100%'}
-        //     height={'100%'}
-        //     title={loading ? 'Downloading... ' : 'Get Prompt '}
-        // />
         <GradientButton
             width={'100%'}
             height={'100%'}
@@ -122,5 +143,6 @@ const Archieve = ({ promptId, promptType, isUser }) => {
         />
     );
 };
+
 
 export default Archieve;
