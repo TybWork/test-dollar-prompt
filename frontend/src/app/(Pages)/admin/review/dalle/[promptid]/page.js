@@ -53,55 +53,55 @@ const Page = ({ params }) => {
             <div className={styles.leftContainer}>
                 {/* prompt Type */}
                 <div>
-                    <FieldInfo title="Prompt Type" color="yellow" margin="0px" />
+                    <FieldInfo title="Prompt Type" margin="0px" />
                     <div className={styles.detail}>{promptData.promptType}</div>
                 </div>
 
                 {/* prompt version */}
                 <div>
-                    <FieldInfo title="Prompt Version" color="yellow" margin="0px" />
+                    <FieldInfo title="Prompt Version" margin="0px" />
                     <div className={styles.detail}>{promptData.version}</div>
                 </div>
 
                 {/* prompt title */}
                 <div>
-                    <FieldInfo title="Prompt Title" color="yellow" margin="0px" />
+                    <FieldInfo title="Prompt Title" margin="0px" />
                     <div className={styles.detail}>{promptData.title}</div>
                 </div>
 
                 {/* prompt description */}
                 <div>
-                    <FieldInfo title="Prompt Description" color="yellow" margin="0px" />
+                    <FieldInfo title="Prompt Description" margin="0px" />
                     <div className={styles.detail}>{promptData.description}</div>
                 </div>
 
                 {/* prompt instruction */}
                 <div>
-                    <FieldInfo title="Prompt Instruction" color="yellow" margin="0px" />
+                    <FieldInfo title="Prompt Instruction" margin="0px" />
                     <div className={styles.detail}>{promptData.promptInstruction}</div>
                 </div>
 
                 {/* Describe prompt */}
                 <div>
-                    <FieldInfo title="Describe Prompt" color="yellow" margin="0px" />
+                    <FieldInfo title="Describe Prompt" margin="0px" />
                     <div className={styles.detail}>{promptData.describePrompt}</div>
                 </div>
 
                 {/* price */}
                 <div>
-                    <FieldInfo title="Price" color="yellow" margin="0px" />
+                    <FieldInfo title="Price" margin="0px" />
                     <div className={styles.detail}>{promptData.price}</div>
                 </div>
 
                 {/* price */}
                 <div>
-                    <FieldInfo title="Status" color="yellow" margin="0px" />
+                    <FieldInfo title="Status" margin="0px" />
                     <div className={styles.detail}>{promptData.status}</div>
                 </div>
 
                 {/* userId */}
                 <div>
-                    <FieldInfo title="userId" color="yellow" margin="0px" />
+                    <FieldInfo title="userId" margin="0px" />
                     <div className={styles.detail}>{promptData.userId}</div>
                 </div>
 

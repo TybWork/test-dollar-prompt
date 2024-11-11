@@ -56,12 +56,6 @@ const CreateBlogComponent = () => {
         <div className={styles.container}>
             <h1 className={styles.h1}>Create New Posts</h1>
             <div className={styles.imageUploader}>
-                {/* <ImageUploader
-                    containerWidth={'100%'}
-                    containerHeight={'200px'}
-                    labelFor={'banner'}
-                    onChangeFunc={getValue}
-                /> */}
                 <NewImageUploader
                     height={'200px'}
                     mainImgHeight={'200px'}

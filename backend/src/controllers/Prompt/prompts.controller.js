@@ -1,8 +1,6 @@
 // filter prompts
 
 import { DallE } from "../../models/Prompt/dallePrompt.model.js";
-import { GPT } from "../../models/Prompt/gptPrompt.model.js";
-import { Midjourney } from "../../models/Prompt/midjourneyPrompt.model.js";
 
 export const getTrendingPrompts = async (req, res) => {
     try {

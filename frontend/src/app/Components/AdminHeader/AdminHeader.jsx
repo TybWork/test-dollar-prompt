@@ -194,12 +194,9 @@ const AdminHeader = () => {
                         <Link href={'/admin'}>Admin Dashboard</Link>
                     </li>
 
-                    <li className={styles.li}><Link href='/admin/blogpost/create'>Create Blog</Link></li>
-
                     <li className={styles.li}>
                         <Link href={'/market'}>Marketplace</Link>
                     </li>
-
 
                     <li className={styles.li}>
                         <IconWithCoutner

@@ -7,6 +7,7 @@ import { RiAiGenerate } from "react-icons/ri";
 import { BsPatchExclamation } from "react-icons/bs";
 import { BsPatchCheck } from "react-icons/bs";
 import { BsPatchQuestion } from "react-icons/bs";
+import { LiaBlogSolid } from "react-icons/lia";
 import PeopleView from "../Components/(Dashbords)/PeopleView/PeopleView";
 import ChatComponent from "../Components/(Dashbords)/ChatComponent/ChatComponent";
 import Analytics from "../Components/(Dashbords)/Analytics/Analytics";
@@ -61,27 +62,28 @@ export const buttons = {
         },
         {
             id: 1,
-            icon: <GrAnalytics />,
+            icon: <LiaBlogSolid />,
             title: 'Write Blog',
             component: <CreateBlogComponent />
         },
         {
             id: 2,
+
             icon: <BsPatchQuestion />,
             title: 'Unverified Prompts',
-            component: <UnverifiedPromptsComponent />
+            component: <UnverifiedPromptsComponent promptStatus={'pending'} />
         },
         {
             id: 3,
             icon: <BsPatchCheck />,
             title: 'Verified Prompts',
-            component: 'verified prompts'
+            component: <UnverifiedPromptsComponent promptStatus={'active'} />
         },
         {
             id: 4,
             icon: <BsPatchExclamation />,
             title: 'Rejected Prompts',
-            component: 'Rejected Prompts'
+            component: <UnverifiedPromptsComponent promptStatus={'paused'} />
         },
     ],
     seller: [
