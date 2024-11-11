@@ -11,6 +11,23 @@ import { jwtDecode } from 'jwt-decode';
 const Page = () => {
 
     const [user, setUser] = useState({});
+    const [userRole, setuserRole] = useState('')
+    const [userId, setuserId] = useState('')
+
+    useEffect(() => {
+        const myToken = getTokenFunction().cookie
+        if (!myToken) {
+            return;
+        }
+        try {
+            const decodeMyToken = jwtDecode(myToken)
+            setuserRole(decodeMyToken.userRole)
+            setuserId(decodeMyToken.userId)
+        } catch (error) {
+            console.log(`Failed to fetch token ${error}`)
+        }
+
+    }, [])
 
     const getValue = (val) => {
         const { name, value, type, files } = val.target;
@@ -38,16 +55,11 @@ const Page = () => {
 
     // Handle becoming a seller
     const updateProfile = async () => {
-        const token = getTokenFunction().cookie;
-        if (!token) return;
-
         try {
-            const decodedToken = jwtDecode(token);
-            const userId = decodedToken.userId;
-            const newToken = await refreshCookie(userId); // Await the token refresh
+            const newToken = await refreshCookie(userId, userRole); // Await the token refresh
             document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`; // Update cookie
         } catch (error) {
-            console.error('Failed to decode token or become seller', error);
+            console.error('Failed to Refresh token', error);
         }
     };
 

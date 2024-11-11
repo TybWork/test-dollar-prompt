@@ -7,4 +7,4 @@ export const sellerRoutes = express.Router();
 sellerRoutes.post('/postdata', getUserId, multerFunc, postSellerData);
 sellerRoutes.get('/getseller', getSellerInfo)
 // sellerRoutes.put('/profile-update', getUserId, profileUpdate)
-sellerRoutes.put('/profile-update', getUserId, multerFunc, profileUpdate)
+sellerRoutes.put('/profile-update', getUserId, (req, res, next) => { multerFunc(req, res, next, false) }, profileUpdate)

@@ -218,7 +218,6 @@ export const clearCookie = (req, res) => {
 
 export const refreshCookie = async (req, res) => {
     const { userId, userRole } = req.body;
-
     try {
 
         const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle userId')

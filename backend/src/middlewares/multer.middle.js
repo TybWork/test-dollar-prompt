@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer';
 
-function multerFunc(req, res, next) {
+function multerFunc(req, res, next, strictFiles = true) {
     // Multer storage configuration
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -42,7 +42,7 @@ function multerFunc(req, res, next) {
             return res.status(400).json({ error: 'File upload error: ' + err.message });
         }
 
-        if (!req.files || req.files.length === 0) {
+        if (strictFiles && (!req.files || req.files.length === 0)) {
             return res.status(400).json({ error: 'No files uploaded or unsupported file types' });
         }
         next();
