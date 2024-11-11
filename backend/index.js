@@ -177,7 +177,3 @@ app.use('/api/chat', chatRoutes)
 server.listen(port, () => {
     console.log(`App is running on port: ${port}`);
 });
-
-app.get('/', (req, res) => {
-    res.send('hello')
-})

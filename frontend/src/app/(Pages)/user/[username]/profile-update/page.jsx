@@ -1,6 +1,6 @@
 'use client';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '@/app/(Pages)/user/[username]/profile-update/profile-update.module.css';
 import TextArea from '@/app/Components/(liteComponents)/TextAreaComponent/TextArea';
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
@@ -9,6 +9,7 @@ import NewImageUploader from '@/app/Components/(updatedDesignComp)/NewImageUploa
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 const Page = () => {
+
     const [user, setUser] = useState({});
 
     const getValue = (val) => {
@@ -43,14 +44,14 @@ const Page = () => {
         try {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
-            const newToken = await refreshCookie(userId, 'seller'); // Await the token refresh
+            const newToken = await refreshCookie(userId); // Await the token refresh
             document.cookie = `token=${newToken}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`; // Update cookie
         } catch (error) {
             console.error('Failed to decode token or become seller', error);
         }
     };
 
-    // Handle form submission
+    // ............Handle form submission..............
     const onSubmitFunc = async () => {
         try {
 
