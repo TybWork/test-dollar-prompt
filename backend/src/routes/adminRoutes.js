@@ -5,4 +5,5 @@ import { getPrompts, updateDalleStatus } from '../controllers/admin.controller.j
 export const adminRoutes = express.Router();
 
 adminRoutes.get('/getprompt', isAdmin, getPrompts);
-adminRoutes.put('/dalle/update/:id', isAdmin, updateDalleStatus)
+// adminRoutes.put('/dalle/update/:id', isAdmin, updateDalleStatus)
+adminRoutes.put('/prompt-status/update', isAdmin, updateDalleStatus)

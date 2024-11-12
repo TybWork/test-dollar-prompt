@@ -29,7 +29,7 @@ const UnverifiedPromptsComponent = ({ promptStatus }) => {
 
     return (
         <div className={styles.parentContainer}>
-            <select onChange={selectCategory} className='select' defaultValue="select category" name="categories" id="categories">
+            <select onChange={selectCategory} className='select' defaultValue="Dall-E" name="categories" id="categories">
                 <option key="select category" value="select category" disabled>Select Category</option>
                 <option value="Dall-E" key="Dall-E">Dall-E</option>
                 <option value="Midjourney" key="Midjourney">Midjourney</option>
@@ -40,7 +40,7 @@ const UnverifiedPromptsComponent = ({ promptStatus }) => {
             <div className={styles.promptsContainer}>
                 {
                     promptData.map((e, index) =>
-                        <ReviewCard key={index} label={e.promptType} image={e?.Image_Url?.[0]} description={`${e.description.slice(0, 48)}...`} href={`/admin/review/dalle/${e._id}`} promptType={e.promptType} />
+                        <ReviewCard key={index} label={e.promptType} image={e?.Image_Url?.[0]} description={`${e.description.slice(0, 48)}...`} href={`/admin/review/${(e.promptType).toLowerCase()}/${e._id}`} promptType={e.promptType} />
                     )
                 }
             </div>

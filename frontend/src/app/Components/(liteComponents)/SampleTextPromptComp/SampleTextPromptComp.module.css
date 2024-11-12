@@ -1,0 +1,37 @@
+
+/* container for textPrompts like (gpt) */
+
+.sampleTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--homeMainBtn);
+    color: var(--homePrimaryClr);
+    padding: 20px;
+    border-radius: 4px;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.sampleTextContainer::-webkit-scrollbar {
+    background: var(--categoryClr);
+    width: 6px;
+}
+
+.sampleTextContainer::-webkit-scrollbar-thumb {
+    width: 6px;
+    background: var(--blackClr);
+}
+
+.singleSample {
+    background: var(--blackClr);
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.singleSample h4 {
+    font-weight: 600;
+}

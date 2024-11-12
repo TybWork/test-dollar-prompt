@@ -12,6 +12,7 @@ import { BiSolidCartAdd } from "react-icons/bi";
 import CartIcon from '../../(icons)/CartIcon'
 import { MdTextSnippet } from 'react-icons/md'
 import { getTokenFunction } from '@/app/utilities/getTokenFunction'
+import SampleTextPromptComp from '../../(liteComponents)/SampleTextPromptComp/SampleTextPromptComp'
 const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptModel = 'dall-e', examplePrompts, isUser }) => {
 
     return (
@@ -46,32 +47,8 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 </p>
             </div>
 
-            {/*............. container for textPrompts like (gpt) ............*/}
-            <div
-                className={styles.sampleTextContainer}
-                style={{
-                    display: promptModel === 'dall-e' || promptModel === 'midjourney' ? 'none' : 'flex'
-                }}
-            >
-                {
-                    examplePrompts && examplePrompts.length > 0 ? (
-                        examplePrompts.map((example) =>
-                            <div className={styles.singleSample}>
-                                <h4 className={styles.sampleHeading}>
-                                    {example.title}
-                                </h4>
-                                <p className={styles.sampleText}>
-                                    {
-                                        example.text
-                                    }
-                                </p>
-                            </div>
-                        )
-                    ) : (
-                        <div>Looks like there are no sample prompts</div>
-                    )
-                }
-            </div>
+            {/*............. SampleTextComp display on logic base ............*/}
+            <SampleTextPromptComp samplePromptsArr={examplePrompts} promptType={promptModel} />
 
             {/* .........category......... */}
             <div className={styles.categoryContainer}>
