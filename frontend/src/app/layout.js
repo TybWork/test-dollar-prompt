@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
     } else {
       setTimeout(() => {
         localStorage.removeItem('redirectTo');
-      }, 3000); // 30 seconds timeout
+      }, 3000);
     }
   }, [pathname]);
 
