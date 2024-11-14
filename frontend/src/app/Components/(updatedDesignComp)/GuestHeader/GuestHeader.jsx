@@ -7,18 +7,16 @@ import Image from 'next/image'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 
 const GuestHeader = () => {
     const dispatch = useDispatch();
     return (
         <div className={styles.parentContainer}>
-            <div className={styles.logoContainer}>
-                <Image src={'/assets/imageAssets/dollarprompt-mobile-logo.svg'} width={0} height={0} sizes='100vw' />
-                <div className={styles.logoText}>
-                    <div className={styles.logoHeading}>dollar prompts</div>
-                    <div className={styles.logoSubHeading}>Sell your prompt</div>
-                </div>
-            </div>
+            {/* logo  */}
+            <HeaderLogo />
+
+            {/* nav links */}
             <div className={styles.navLinks}>
                 <div className={styles.input}>
                     <NewSearchInput />

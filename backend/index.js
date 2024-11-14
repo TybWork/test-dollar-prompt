@@ -40,6 +40,7 @@ app.use('/api', webhookRoute)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
+
 app.use(cors({
     origin: process.env.CLIENT_BASE_URL, // Replace with your client URL
     methods: ['POST', 'PUT', 'GET', 'DELETE'],
@@ -61,7 +62,7 @@ const server = http.createServer(app);
 // console.log(server)
 const io = new socketIo(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: ['http://localhost:3000',process.env.CLIENT_BASE_URL],
         allowedHeaders: ["Content-Type"],
         methods: ['GET', 'POST'],
         credentials: true,

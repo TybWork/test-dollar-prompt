@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/NewFooter/NewFooter.module.css'
-import Image from 'next/image'
 import Link from 'next/link'
 import FooterLogo from '../FooterLogo/FooterLogo'
 

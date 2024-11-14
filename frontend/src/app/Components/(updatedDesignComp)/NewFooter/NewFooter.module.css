@@ -30,6 +30,12 @@
     gap: 90px;
 }
 
+.hyperlinksContainer .section{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .section li {
     list-style: none;
 }

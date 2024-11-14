@@ -32,19 +32,25 @@
 }
 
 .logoHeading {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bolder;
     color: var(--homeMainBtn);
+    background: linear-gradient(to right, var(--homeMainBtn),var(--homeTertiaryClr));
+    letter-spacing: 1px;
+    background-clip: text;
+    color: transparent;
     text-transform: uppercase;
     text-align: right;
+    font-family: var(--logoBoldFont);
 }
 
 .logoSubHeading {
-    color: var(--homeTertiaryClr);
-    font-size: 10px;
+    color: var(--homeMainBtn);
+    font-size: 12px;
     text-transform: uppercase;
     font-weight: medium;
-    text-align: right;
+    text-align: center;
+    font-weight: 700;
 }
 
 

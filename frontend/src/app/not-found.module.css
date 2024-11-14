@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: var(--mainPadding);
+
+}
+
+.image{
+    width: 500px;
+    height: auto;
+}

@@ -7,15 +7,11 @@ import Cart from "./Components/Cart/Cart";
 import { usePathname } from "next/navigation";
 import AdminHeader from "./Components/AdminHeader/AdminHeader";
 import { userData } from "./utilities/userData";
-import SellerHeader from "./Components/SellerHeader/SellerHeader";
 import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
-import { getTokenFunction } from "./utilities/getTokenFunction";
-import { jwtDecode } from "jwt-decode";
 import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
-import SellPromptComp from "./Components/(Dashbords)/SellPromptComp/SellPromptComp";
 import { useEffect, useState } from "react";
 
 const inter = Inter({

@@ -111,7 +111,7 @@ export const loginUser = async (req, res) => {
 
                 res.cookie('token', token, {
 
-                    httpOnly: false,
+                    httpOnly: true,
                     secure: true,
                     sameSite: 'None',
                     domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
@@ -230,7 +230,7 @@ export const refreshCookie = async (req, res) => {
             { role: userRole }, { new: true });
 
         res.cookie('token', newToken, {
-            httpOnly: false,
+            httpOnly: true,
             secure: true,
             sameSite: 'None',
             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie

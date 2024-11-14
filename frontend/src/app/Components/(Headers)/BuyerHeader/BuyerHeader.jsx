@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { showNav } from "@/app/Redux/Features/navbar/navbarSlice";
+import HeaderLogo from '../../(updatedDesignComp)/HeaderLogo/HeaderLogo';
 
 const BuyerHeader = () => {
     const [isSellerView, setisSellerView] = useState(true);
@@ -53,13 +54,7 @@ const BuyerHeader = () => {
     return (
         <div className={styles.parentContainer}>
             <Link href={'/'} className={styles.Li}>
-                <div className={styles.logoContainer}>
-                    <Image src={'/assets/imageAssets/dollarprompt-mobile-logo.svg'} width={0} height={0} sizes='100vw' />
-                    <div className={styles.logoText}>
-                        <div className={styles.logoHeading}>dollar prompts</div>
-                        <div className={styles.logoSubHeading}>Sell your prompt</div>
-                    </div>
-                </div>
+                <HeaderLogo />
             </Link>
             <div className={styles.navLinks}>
                 <div className={styles.input}>
