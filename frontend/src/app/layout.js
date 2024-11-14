@@ -1,5 +1,6 @@
 'use client'
 import { Finlandica, Inter, Lato } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.css";
 import { Providers } from "./Redux/Provider";
 import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
@@ -14,16 +15,25 @@ import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeade
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
 import { useEffect, useState } from "react";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: '--primaryFont',
-  weight: ['100', '300', '400', '700', '900']
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+//   variable: '--primaryFont',
+//   weight: ['100', '300', '400', '700', '900']
+// });
 
-const lato = Lato({
-  subsets: ['latin'],
+// const lato = Lato({
+//   subsets: ['latin'],
+//   variable: '--secondryFont',
+//   weight: ['100', '300', '400', '700', '900']
+// })
+
+const inter = localFont({
+  src: './fonts/inter.ttf',
+  variable: '--primaryFont',
+})
+const lato = localFont({
+  src: './fonts/inter.ttf',
   variable: '--secondryFont',
-  weight: ['100', '300', '400', '700', '900']
 })
 
 export default function RootLayout({ children }) {
