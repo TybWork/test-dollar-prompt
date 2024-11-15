@@ -20,7 +20,7 @@ const MessageReceiver = ({ text, time, width }) => {
                 <div className={styles.rightSide}>
                 </div>
             </div>
-            <Image src={'/assets/imageAssets/ceo_dollarprompt.PNG'} width={0} height={0} sizes='100vw' className={styles.image} />
+            <Image alt='profile-pic' src={'/assets/imageAssets/ceo_dollarprompt.PNG'} width={0} height={0} sizes='100vw' className={styles.image} />
         </div>
     )
 }

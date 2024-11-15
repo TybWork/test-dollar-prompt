@@ -7,7 +7,7 @@ const Timeline = ({ shouldAnimate }) => {
         <div className={`${styles.parentContainer} ${shouldAnimate ? styles.animate : ''}`}>
             <div className={`${styles.singleTimelineContainer}`}>
                 <div className={styles.timelineItem}>
-                    <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                    <Image alt='gear-icon' className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
                     <div className={styles.timelineItemContent}>
                         <h3>Easy Account Setup</h3>
                         <span>Create your account in minutes and start selling AI prompts.</span>
@@ -16,7 +16,7 @@ const Timeline = ({ shouldAnimate }) => {
             </div>
             <div className={styles.singleTimelineContainer}>
                 <div className={styles.timelineItem}>
-                    <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                    <Image alt='gear-icon' className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
                     <div className={styles.timelineItemContent}>
                         <h3>Earn as You Create</h3>
                         <span>Create your account in minutes and start selling AI prompts.</span>
@@ -25,7 +25,7 @@ const Timeline = ({ shouldAnimate }) => {
             </div>
             <div className={styles.singleTimelineContainer}>
                 <div className={styles.timelineItem}>
-                    <Image className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
+                    <Image alt='gear-icon' className={styles.gearIcon} src={'/assets/imageAssets/gearIcon.png'} width={0} height={0} sizes='100vw' />
                     <div className={styles.timelineItemContent}>
                         <h3>Effortless Payments</h3>
                         <span>Get paid automatically when your prompts sell.</span>

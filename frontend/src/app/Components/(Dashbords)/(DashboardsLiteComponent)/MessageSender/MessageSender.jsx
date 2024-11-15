@@ -11,7 +11,7 @@ const MessageSender = ({ text, time, width }) => {
     }, [time])
     return (
         <div className={styles.mainContainer}>
-            <Image src={'/assets/imageAssets/ceo_dollarprompt.PNG'} width={0} height={0} sizes='100vw' className={styles.image} />
+            <Image alt='sender' src={'/assets/imageAssets/ceo_dollarprompt.PNG'} width={0} height={0} sizes='100vw' className={styles.image} />
             <div className={styles.chatContainer} style={{ width: width || '220px' }}>
                 <div className={styles.topSide}></div>
                 <div className={styles.leftSide}></div>

@@ -19,7 +19,7 @@ const SellerPromptCard = ({ label, description, image, previewPromptLink, update
     }
     return (
         <div className={styles.featuredCardContainer}>
-            <Image className={styles.image} alt='demo_image' src={image} width={350} height={200} />
+            <Image className={styles.image} alt='prompt-image' src={image} width={350} height={200} />
             <div className={styles.label}>{label}</div>
             <div className={styles.shareIconContainer}>
                 <FaShareAlt className={styles.shareIcon} />

@@ -157,7 +157,7 @@ const Tab = ({ sellerId, sellerHandle }) => {
             {
                 activeTab === "REVENUE" &&
                 <div className={styles.prompt}>
-                    <Image className={styles.graph} src="/assets/imageAssets/graph.svg" width={0} height={0} sizes='100vw' />
+                    <Image alt='graph-image' className={styles.graph} src="/assets/imageAssets/graph.svg" width={0} height={0} sizes='100vw' />
                 </div>
             }
 

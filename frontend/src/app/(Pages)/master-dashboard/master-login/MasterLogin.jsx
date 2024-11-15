@@ -9,9 +9,9 @@ const MasterLogin = ({ onChange, onSubmit, imgDisplay }) => {
 
     return (
         <div className={styles.mainContainer}>
-            <Image className={styles.siteLogo} width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' />
+            <Image alt='dollarprompt' className={styles.siteLogo} width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' />
             <div className={styles.container}>
-                <Image className={styles.userImage} width={0} height={0} style={{ display: imgDisplay }} sizes='100vw' src='/assets/imageAssets/ceo_dollarprompt.PNG' />
+                <Image alt='super-admin-image' className={styles.userImage} width={0} height={0} style={{ display: imgDisplay }} sizes='100vw' src='/assets/imageAssets/ceo_dollarprompt.PNG' />
                 <form className={styles.form} onSubmit={onSubmit}>
                     <AdminLoginInput placeholder="login@gmail.com" label={'email'} onChange={onChange} icon={<AiOutlineUser />} />
                     <AdminLoginInput type="password" placeholder="Password" label={'password'} onChange={onChange} icon={<CiLock />} />

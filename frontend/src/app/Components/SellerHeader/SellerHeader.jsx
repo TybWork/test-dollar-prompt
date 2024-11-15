@@ -72,10 +72,10 @@ const SellerHeader = () => {
             <div className={styles.topHeader}>
                 {/* logo  */}
                 <Link className={styles.desktopLogo} href='/'>
-                    <Image src="/assets/imageAssets/dollarprompt-desktop-logo.svg" alt="site-logo" width={150} height={50} />
+                    <Image src="/assets/imageAssets/dollarprompt-desktop-logo.svg" alt="dollarprompt" width={150} height={50} />
                 </Link>
                 <Link className={styles.mobileLogo} href='/'>
-                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" alt="site-logo" width={36} height={36} />
+                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" alt="dollarprompt" width={36} height={36} />
                 </Link>
 
                 {/* top nav icons */}

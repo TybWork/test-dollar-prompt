@@ -44,7 +44,7 @@ const page = ({ params }) => {
             {/* bannerContainer */}
             <div className={styles.bannerOuterContainer}>
                 <div className={styles.banner}>
-                    <Image className={styles.bannerImage} src={bannerImage} width={0} height={0} sizes='100vw' />
+                    <Image alt='banner-image' className={styles.bannerImage} src={bannerImage} width={0} height={0} sizes='100vw' />
                 </div>
             </div>
 

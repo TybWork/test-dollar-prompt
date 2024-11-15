@@ -111,7 +111,7 @@ const page = ({ params }) => {
                 </h1>
                 {/* image section */}
                 <div className={styles.smallImageSection}>
-                    <Image className={styles.image} src={prompt.Image_Url[0]} width={90} height={40} />
+                    <Image alt={prompt.title} className={styles.image} src={prompt.Image_Url[0]} width={90} height={40} />
 
                     {/* favourites Container */}
                     <Favourites icon={<IoMdHeart />} text="Favourites" />
@@ -130,7 +130,7 @@ const page = ({ params }) => {
 
                 {/* designerInfo */}
                 <div className={styles.designerInfoContainer}>
-                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={25} height={25} />
+                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={25} height={25} alt='logo'/>
                     <div className={styles.designerSocialHandle}><Link href={`/profile/${prompt.userId}`}>@{(prompt.userId).slice(0, 5)}</Link></div>
                 </div>
 

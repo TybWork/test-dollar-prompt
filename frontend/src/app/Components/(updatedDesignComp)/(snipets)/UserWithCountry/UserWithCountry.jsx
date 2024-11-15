@@ -27,6 +27,7 @@ const UserWithCountry = ({ firstLetter, imgUrl, profileHandle, country }) => {
             >
                 {firstLetter || 'U'}
                 <Image
+                    alt='user-image'
                     src={imgUrl || '/assets/imageAssets/dummy.jpg'}
                     width={0}
                     height={0}

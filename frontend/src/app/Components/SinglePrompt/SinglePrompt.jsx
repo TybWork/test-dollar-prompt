@@ -5,7 +5,7 @@ const SinglePrompt = () => {
     return (
         <div className={styles.SinglePromptContainer}>
             <div className={styles.counting}>1</div>
-            <Image className={styles.image} alt='myImage' src="/assets/imageAssets/featureCard.webp" width={120} height={60} />
+            <Image className={styles.image} alt='prompt-image' src="/assets/imageAssets/featureCard.webp" width={120} height={60} />
             <div className={styles.content}>
                 <div className={styles.title}>Captured Moments</div>
                 <div className={styles.promptName}>Midjourney</div>

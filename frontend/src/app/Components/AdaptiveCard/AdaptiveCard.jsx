@@ -59,7 +59,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                 <div className={styles.imageContainer}>
                     {
                         promptType === 'dall-e' || promptType === 'midjourney' ? (
-                            <Image src={mainImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
+                            <Image alt='prompt-image' src={mainImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
                         ) : (
                             <div className={styles.iconBg}>
                                 <MdTextSnippet />

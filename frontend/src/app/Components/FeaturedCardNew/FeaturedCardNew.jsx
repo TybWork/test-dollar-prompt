@@ -22,18 +22,18 @@ const FeaturedCardNew = ({ headerImgArray, profileImage, name, profileHandle, ra
                     {
                         headerImgArray ? (
                             headerImgArray.map((url, index) =>
-                                <Image key={index} src={url} width={0} height={0} sizes='100vw' className={styles.image} />
+                                <Image alt='prompt-image' key={index} src={url} width={0} height={0} sizes='100vw' className={styles.image} />
                             )
                         ) : (
                             imgArray.map((url, index) =>
-                                <Image key={index} src={url} width={0} height={0} sizes='100vw' className={styles.image} />
+                                <Image alt='prompt-image' key={index} src={url} width={0} height={0} sizes='100vw' className={styles.image} />
                             )
                         )
                     }
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.profile}>
-                        <Image src={profileImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.profileImg} />
+                        <Image alt='prompt-image' src={profileImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.profileImg} />
                         {/* <div className={styles.userName}>
                             {name || 'Shawan Michel'}
                             <VerifiedIcon />

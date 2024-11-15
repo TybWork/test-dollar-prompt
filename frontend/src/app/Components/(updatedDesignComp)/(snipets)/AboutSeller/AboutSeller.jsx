@@ -12,12 +12,12 @@ const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile 
     return (
         <div className={styles.parentContainer}>
             <Link href={linkToProfile || '/'}>
-                <Image width={0} height={0} sizes='100vw' className={styles.image} src={profileImage || '/assets/imageAssets/dummy.jpg'}
+                <Image alt='profile-image' width={0} height={0} sizes='100vw' className={styles.image} src={profileImage || '/assets/imageAssets/dummy.jpg'}
                 />
             </Link>
             <div className={styles.rightContainer}>
                 <div className={styles.profiling}>
-                    <Image width={0} height={0} sizes='100vw' className={styles.profileImg} src={'/assets/imageAssets/logo.webp'} />
+                    <Image alt='dollarprompt' width={0} height={0} sizes='100vw' className={styles.profileImg} src={'/assets/imageAssets/logo.webp'} />
                     <div className={styles.profileHandle}>
                         <Link className={styles.profileHandle} href={linkToProfile || '/'}>
                             @{profileHandle || 'fetching...'} <VerifiedIcon />

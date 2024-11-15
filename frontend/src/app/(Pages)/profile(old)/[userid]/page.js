@@ -39,10 +39,10 @@ const page = async ({ params }) => {
         <div className={styles.mainContainer}>
             <div className={styles.bannerOuterContainer}>
                 <div className={styles.banner}>
-                    <Image className={styles.bannerImage} src={sellerDetail.profileBanner[0]} width={0} height={0} sizes='100vw' />
+                    <Image alt='banner-image'  className={styles.bannerImage} src={sellerDetail.profileBanner[0]} width={0} height={0} sizes='100vw' />
                 </div>
                 <div className={styles.userLogo}>
-                    <Image className={styles.logoImage} src={sellerDetail.profileImage[0]} width={0} height={0} sizes='100vw' />
+                    <Image alt='dollarprompt' className={styles.logoImage} src={sellerDetail.profileImage[0]} width={0} height={0} sizes='100vw' />
                 </div>
                 {/* follow button */}
                 <div className={styles.mainBtnContainer}>

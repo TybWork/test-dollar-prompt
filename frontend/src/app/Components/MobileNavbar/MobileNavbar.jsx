@@ -88,7 +88,7 @@ const MobileNavbar = () => {
             <div className={styles.header}>
                 <div className={styles.headerContent}>
                     <div className={styles.logo}>
-                        <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={30} height={30} alt="Logo" />
+                        <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={30} height={30} alt="dollar-prompt" />
                     </div>
                     <div className={styles.crossIcon}>
                         <RxCross2 onClick={() => dispatch(hideNav())} />
