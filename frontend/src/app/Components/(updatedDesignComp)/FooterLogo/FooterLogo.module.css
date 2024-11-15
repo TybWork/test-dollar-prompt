@@ -1,34 +1,14 @@
-.logoContainer {
-    display: flex;
-    color: var(--homeTertiaryClr);
-    margin-right: 100px;
-    gap: 8px;
-    align-items: center;
+.svgContainer{
+    width: 232px;
+    height: auto;
 }
-
-.logoContainer img {
-    width: 42px;
-    height: 42px;
+@media screen and (max-width:1024px) {
+    .svgContainer{
+        width: 200px;
+    }
 }
-
-.logoHeading {
-   font-size: 24px;
-    font-weight: bolder;
-    color: var(--homeMainBtn);
-    background: linear-gradient(to right, var(--homeMainBtn),white);
-    letter-spacing: 1px;
-    background-clip: text;
-    color: transparent;
-    text-transform: uppercase;
-    text-align: right;
-    font-family: var(--logoBoldFont);
-}
-
-.logoSubHeading {
-    color: var(--homePrimaryClr);
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: medium;
-    text-align: center;
-    font-weight: 700;
+@media screen and (max-width:768px) {
+    .svgContainer{
+        width: 180px;
+    }
 }
