@@ -26,8 +26,9 @@ const Page = ({ params }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/get/${promptid}`);
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get/${promptid}`);
                 let fetchedData = response.data;
+                console.log('fetchData',fetchData)
                 setpromptData(fetchedData);
             } catch (error) {
                 console.error('Error fetching prompt data:', error);
@@ -36,6 +37,8 @@ const Page = ({ params }) => {
 
         fetchData();
     }, [promptid]);
+
+    console.log('ppp',promptData)
 
     // onchange function
     function handleOnChange(event) {
@@ -53,31 +56,33 @@ const Page = ({ params }) => {
     const updateDataFunc = async () => {
         await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/update/${promptid}`, { ...promptData, status: 'pending' })
         router.push(`/`)
-        // alert("form updated successfully")
-        // const formData = new FormData();
-        // for (const key in promptData) {
-        //     if (key === 'myfiles') {
-        //         Array.from(promptData[key]).forEach(file => formData.append(key, file));
-        //     } else {
-        //         formData.append(key, promptData[key]);
-        //     }
-        // }
 
-        // try {
-        //     await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/update/${promptid}`, formData, {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         },
-        //         withCredentials: true
-        //     });
-        // } catch (error) {
-        //     console.log("myError is here:", error);
-        // }
+        alert("form updated successfully")
+        const formData = new FormData();
+        for (const key in promptData) {
+            if (key === 'myfiles') {
+                Array.from(promptData[key]).forEach(file => formData.append(key, file));
+            } else {
+                formData.append(key, promptData[key]);
+            }
+        }
+
+        try {
+            await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/update/${promptid}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+        } catch (error) {
+            console.log("myError is here:", error);
+        }
     }
 
     if (!promptData) {
         return <Loading />
     }
+    console.log(promptData)
 
     return (
         <div className={styles.parentContainer}>
@@ -175,9 +180,9 @@ const Page = ({ params }) => {
             </div>
 
             {/* *Example images */}
-            {/* <div>
+            <div>
                 <InputImage onChange={handleOnChange} />
-            </div> */}
+            </div>
             <GradientButton title="Update Prompt" onClick={updateDataFunc} />
         </div>
     );
