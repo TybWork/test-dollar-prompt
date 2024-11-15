@@ -85,8 +85,8 @@ const page = ({ params }) => {
                                     >
 
                                         {
-                                            profile?.prompts?.dalle.map((e) => (
-                                                <div className={styles.adaptive}>
+                                            profile?.prompts?.dalle.map((e,index) => (
+                                                <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         mainImage={e.Image_Url[0]}
@@ -124,8 +124,8 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.gpt.map((e) => (
-                                                <div className={styles.adaptive}>
+                                            profile?.prompts?.gpt.map((e,index) => (
+                                                <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         title={e.title}
@@ -164,8 +164,8 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.midjourney.map((e) => (
-                                                <div className={styles.adaptive}>
+                                            profile?.prompts?.midjourney.map((e,index) => (
+                                                <div key={index} className={styles.adaptive}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         mainImage={e.Image_Url[0]}

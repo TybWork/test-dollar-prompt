@@ -144,8 +144,8 @@ const page = async ({ params }) => {
                 {/* prompts */}
                 <AnimatedHeading title="Other prompts by this seller" />
                 <div className={styles.promptsWrapper}>
-                    {prompt.map((item) => (
-                        <SinglePromptCard image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
+                    {prompt.map((item,index) => (
+                        <SinglePromptCard key={index} image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
                     ))}
                 </div>
             </div>

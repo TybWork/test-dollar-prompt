@@ -137,8 +137,9 @@ export default function Home() {
             [
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle,index) =>
                     <AdaptiveCard
+                      key={index}
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
@@ -149,8 +150,9 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle,index) =>
                     <AdaptiveCard
+                      key={index}
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
@@ -161,8 +163,9 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle) =>
+                  dallePrompts && dallePrompts.slice(0, 3).map((dalle,index) =>
                     <AdaptiveCard
+                      key={index}
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
@@ -184,8 +187,8 @@ export default function Home() {
           content={
             <div className={styles.btnsContainer}>
               {
-                categoriesArr.map((btn) =>
-                  <NewCategoryBtn url={btn.url} text={btn.title} />
+                categoriesArr.map((btn,index) =>
+                  <NewCategoryBtn key={index}  url={btn.url} text={btn.title} />
                 )
               }
             </div>
@@ -200,8 +203,8 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                trendingPrompts && trendingPrompts.slice(0, 5).map((trending) =>
-                  <div className={styles.adaptive}>
+                trendingPrompts && trendingPrompts.slice(0, 5).map((trending,index) =>
+                  <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={trending?.Image_Url?.[0]}
                       promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
@@ -243,8 +246,8 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                gptPrompts && gptPrompts.slice(0, 5).map((gpt) =>
-                  <div className={styles.adaptive}>
+                gptPrompts && gptPrompts.slice(0, 5).map((gpt,index) =>
+                  <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       promptType='gpt'
                       promptUrl={`/prompts/${gpt._id}/${gpt.promptType.toLowerCase()}`}
@@ -267,8 +270,8 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                dallePrompts && dallePrompts.slice(0, 5).map((dalle) =>
-                  <div className={styles.adaptive}>
+                dallePrompts && dallePrompts.slice(0, 5).map((dalle,index) =>
+                  <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
@@ -291,8 +294,8 @@ export default function Home() {
           content={
             <div className={styles.cardContainer}>
               {
-                midjourneyPrompts && midjourneyPrompts.slice(0, 5).map((midjourney) =>
-                  <div className={styles.adaptive}>
+                midjourneyPrompts && midjourneyPrompts.slice(0, 5).map((midjourney,index) =>
+                  <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={midjourney.Image_Url[0]}
                       promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}

@@ -20,8 +20,8 @@ const page = ({ params }) => {
     return (
         <div className={styles.parentContainer}>
             {
-                blog && blog.map((content) =>
-                    <div>
+                blog && blog.map((content,index) =>
+                    <div key={index}>
                         <div className={styles.imageContainer}>
                             <Image className={styles.bannerImg} width={0} height={0} sizes='100vw' src={content.banner[0]} alt='banner-image' />
                         </div>

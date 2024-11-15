@@ -25,8 +25,8 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             <div className={styles.promptImages}>
                 {
                     promptModel === 'dall-e' || promptModel === 'midjourney' ? (
-                        imgArray && imgArray.slice(0, 3).map((imgUrl) =>
-                            <Image width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
+                        imgArray && imgArray.slice(0, 3).map((imgUrl, index) =>
+                            <Image key={index} width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
                         )
 
                     ) :

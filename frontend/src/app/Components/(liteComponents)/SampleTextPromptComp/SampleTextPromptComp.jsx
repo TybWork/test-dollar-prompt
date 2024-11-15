@@ -12,8 +12,8 @@ const SampleTextPromptComp = ({ promptType, maxHeight, samplePromptsArr }) => {
         >
             {
                 samplePromptsArr && samplePromptsArr.length > 0 ? (
-                    samplePromptsArr.map((example) =>
-                        <div className={styles.singleSample}>
+                    samplePromptsArr.map((example, index) =>
+                        <div key={index} className={styles.singleSample}>
                             <h4 className={styles.sampleHeading}>
                                 {example.title}
                             </h4>

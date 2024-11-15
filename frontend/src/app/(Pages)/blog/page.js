@@ -27,8 +27,8 @@ const page = () => {
             </h1>
             <div className={styles.blogPostCard}>
                 {
-                    blogs && blogs.map((singleBlog) =>
-                        <BlogPostCard onClick={() => router.push(`/blog/${singleBlog._id}`)} title={singleBlog.title} description={singleBlog.description} />
+                    blogs && blogs.map((singleBlog,index) =>
+                        <BlogPostCard key={index} onClick={() => router.push(`/blog/${singleBlog._id}`)} title={singleBlog.title} description={singleBlog.description} />
                     )
                 }
             </div>

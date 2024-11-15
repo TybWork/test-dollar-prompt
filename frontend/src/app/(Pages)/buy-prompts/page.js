@@ -37,8 +37,8 @@ const page = () => {
                     <div className={styles.cardsContainer}>
 
                         {
-                            trendingPrompts && trendingPrompts.slice(0, 5).map((trending) =>
-                                <div className={styles.singleCard}>
+                            trendingPrompts && trendingPrompts.slice(0, 5).map((trending,index) =>
+                                <div className={styles.singleCard} key={index}>
                                     <AdaptiveCard
                                         mainImage={trending?.Image_Url?.[0]}
                                         promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}

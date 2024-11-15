@@ -178,8 +178,8 @@ const Header = () => {
                 <div className={styles.innerPromptLinksContainer}>
                     <div className={styles.subHeadingTitle}>All {subHeadingTitle}</div>
                     {
-                        innerLinks.map((e) =>
-                            <div className={styles.innerPromptLink}>{e.name}</div>
+                        innerLinks.map((e, index) =>
+                            <div key={index} className={styles.innerPromptLink}>{e.name}</div>
                         )
                     }
                 </div>
