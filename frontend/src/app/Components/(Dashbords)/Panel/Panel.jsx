@@ -15,11 +15,14 @@ const Panel = ({ headerComponent, buttonMaping }) => {
     const [profileHandle, setprofileHandle] = useState('')
     const [mobileTabId, setmobileTabId] = useState(0)
     const [userId, setuserId] = useState('')
+    const [userRole, setuserRole] = useState('')
     useEffect(() => {
         const token = getTokenFunction().cookie
         const decode = jwtDecode(token)
         setprofileHandle(decode.profileHandle)
         setuserId(decode.userId)
+        setuserRole(decode.userRole)
+
 
 
 

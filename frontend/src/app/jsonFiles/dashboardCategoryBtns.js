@@ -89,28 +89,28 @@ export const buttons = {
     seller: [
         {
             id: 0,
-            icon: <RiAiGenerate />,
-            title: 'Create Prompt',
-            component: <SellPromptComp />
-        },
-        {
-            id: 1,
             icon: <GrOverview />,
             title: 'Prompts overview',
             component: <PromptsTab />
         },
         {
-            id: 2,
+            id: 1,
             icon: <GrAnalytics />,
             title: 'Analytics',
             component: 'analytics component'
         },
         {
-            id: 3,
-            icon: <HiOutlineCreditCard />,
-            title: 'Billing',
-            component: 'Billing Component'
+            id: 2,
+            icon: <RiAiGenerate />,
+            title: 'Create Prompt',
+            component: <SellPromptComp />
         },
+        // {
+        //     id: 3,
+        //     icon: <HiOutlineCreditCard />,
+        //     title: 'Billing',
+        //     component: 'Billing Component'
+        // },
     ],
     buyer: [
         {
@@ -119,23 +119,25 @@ export const buttons = {
             title: 'Buying History',
             component: 'buy prompt components'
         },
-        {
-            id: 1,
-            icon: <GrOverview />,
-            title: 'Followings',
-            component: 'Following component'
-        },
-        {
-            id: 2,
-            icon: <GrOverview />,
-            title: 'Favourites',
-            component: 'Favourite component'
-        },
-        {
-            id: 3,
-            icon: <GrOverview />,
-            title: 'Chats',
-            component: 'Chat Component'
-        },
+        // {
+        //     id: 1,
+        //     icon: <GrOverview />,
+        //     title: 'Followings',
+        //     component: 'Following component'
+        // },
+
+        // {
+        //     id: 2,
+        //     icon: <GrOverview />,
+        //     title: 'Favourites',
+        //     component: 'Favourite component'
+        // },
+
+        // {
+        //     id: 3,
+        //     icon: <GrOverview />,
+        //     title: 'Chats',
+        //     component: 'Chat Component'
+        // },
     ]
 }
