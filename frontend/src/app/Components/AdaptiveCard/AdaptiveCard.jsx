@@ -8,7 +8,7 @@ import ArrowIcon from '../(icons)/ArrowIcon'
 import { MdDelete } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
-import { IoMdOptions } from "react-icons/io";
+import { HiDotsHorizontal } from "react-icons/hi";
 import { useState } from 'react'
 import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
@@ -110,7 +110,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                                 display: isSeller ? 'flex' : 'none'
                             }}
                         >
-                            <IoMdOptions style={{
+                            <HiDotsHorizontal style={{
                                 color: isEnter ? 'var(--homeMainBtn)' : 'var(--homeMainBtn)',
                                 fontWeight: 'bold',
                                 fontSize: '24px',

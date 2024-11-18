@@ -85,7 +85,7 @@ const PromptsTab = () => {
 
     // delete prompt function
     async function promptDeleteFunc(id) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL} / api / prompt / dalle / delete/${id}`)
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
         setPromptsArr((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
     }
 
@@ -136,7 +136,7 @@ const PromptsTab = () => {
                                     promptType={category.toLocaleLowerCase()}
                                     mainImage={prompt?.Image_Url?.[0]}
                                     isSeller={true}
-                                    updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt._id}`}
+                                    updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt.promptType.toLocaleLowerCase()}/${prompt._id}`}
                                     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
                                     promptId={prompt._id}
                                     userHandle={sellerHandle}
