@@ -96,23 +96,6 @@ const Page = () => {
         <div className={styles.container}>
 
             <div>
-                <NewImageUploader
-                    onChangeFunc={getValue} labelFor="profileImage"
-                    title={'Upload profile image'} imgDimensions={"400 x 400 or 200 x 200"}
-                    mainImgWidth={'100px'}
-                    mainImgHeight={'100px'}
-                />
-            </div>
-            <div>
-
-                <NewImageUploader
-                    onChangeFunc={getValue} labelFor="profileBanner"
-                    title={'Upload profile banner'} imgDimensions={'1500 x 400 , in app-cropping'}
-                    mainImgWidth={'100%'}
-                    mainImgHeight={'170px'}
-                />
-            </div>
-            <div>
                 {/* <FieldInfo title="Profile Handle" /> */}
                 <h3 className={styles.heading}>
                     Profile Handle
@@ -136,6 +119,24 @@ const Page = () => {
                     placeholder="Short Profile description..."
                     rows={10}
                     margin="0px"
+                />
+            </div>
+
+            <div>
+                <NewImageUploader
+                    onChangeFunc={getValue} labelFor="profileImage"
+                    title={'Upload profile image'} imgDimensions={"400 x 400 or 200 x 200"}
+                    mainImgWidth={'100px'}
+                    mainImgHeight={'100px'}
+                />
+            </div>
+            <div>
+
+                <NewImageUploader
+                    onChangeFunc={getValue} labelFor="profileBanner"
+                    title={'Upload profile banner'} imgDimensions={'1500 x 400 , in app-cropping'}
+                    mainImgWidth={'100%'}
+                    mainImgHeight={'170px'}
                 />
             </div>
 

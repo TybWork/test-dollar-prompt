@@ -3,14 +3,17 @@ import styles from '@/app/(Pages)/user/[username]/updateprompt/[promptid]/update
 import FieldInfo from '@/app/Components/(liteComponents)/FieldInfo/FieldInfo';
 import TextArea from '@/app/Components/(liteComponents)/TextAreaComponent/TextArea';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
+import InputImage from '@/app/Components/(liteComponents)/InputImage/InputImage';
 import InputField from '@/app/Components/(liteComponents)/InputField/InputField';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 
-const Page = ({ params }) => {
+const Page = () => {
     const router = useRouter();
+    const params = useParams()
     const { promptid } = params;
 
     const [promptData, setpromptData] = useState({

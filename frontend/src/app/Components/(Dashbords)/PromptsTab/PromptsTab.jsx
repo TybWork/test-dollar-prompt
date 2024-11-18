@@ -7,6 +7,8 @@ import axios from 'axios';
 import SellerPromptCard from '../../SellerPromptCard/SellerPromptCard';
 import AdaptiveCard from '../../AdaptiveCard/AdaptiveCard';
 import Loading from '../../(liteComponents)/Loading/Loading';
+import UnverifiedPromptsComponent from '../(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent';
+import PromptsOnDropDown from '../PromptsOnDropDown/PromptsOnDropDown';
 
 const PromptsTab = () => {
     const [promptsArr, setPromptsArr] = useState([]);
@@ -14,6 +16,8 @@ const PromptsTab = () => {
     const [status, setstatus] = useState('active')
     const [sellerId, setsellerId] = useState('')
     const [sellerHandle, setsellerHandle] = useState('')
+    const [category, setcategory] = useState('Dall-E')
+
 
     // get seller detail
     useEffect(() => {
@@ -49,10 +53,19 @@ const PromptsTab = () => {
         }
     };
 
+    function selectCategory(e) {
+        const category = e.target.value;
+        setcategory(category)
+        console.log(category)
+    }
+
+    console.log(category, status, sellerId)
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter/?userId=${sellerId}&&status=${status}`);
+                // const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter/?userId=${sellerId}&&status=${status}`);
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/all-filterd-prompt?promptType=${category}&promptStatus=${status}&userId=${sellerId}`);
                 if (response.data && Array.isArray(response.data)) {
                     setPromptsArr(response.data);
                 } else {
@@ -64,13 +77,15 @@ const PromptsTab = () => {
             }
         };
         fetchData()
-    }, [sellerId, status])
+    }, [sellerId, status, category])
 
     if (!promptsArr) return <div>Loading...</div>
+    console.log('promptsArr', promptsArr)
+    console.log(category, status, sellerId)
 
     // delete prompt function
     async function promptDeleteFunc(id) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL} / api / prompt / dalle / delete/${id}`)
         setPromptsArr((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
     }
 
@@ -91,6 +106,14 @@ const PromptsTab = () => {
                 ))}
             </ul>
 
+            {/* select prompt type div */}
+            <select onChange={selectCategory} className='select' defaultValue="Dall-E" name="categories" id="categories">
+                <option key="select category" value="select category" disabled>Select Category</option>
+                <option value="Dall-E" key="Dall-E">Dall-E</option>
+                <option value="Midjourney" key="Midjourney">Midjourney</option>
+                <option value="GPT" key="GPT">GPT</option>
+            </select>
+
             {/* prompts container */}
             <div className={styles.promptsContainer}>
                 <div className={styles.innerContainer}>
@@ -109,12 +132,19 @@ const PromptsTab = () => {
 
                                 <AdaptiveCard
                                     key={index}
-                                    mainImage={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
+                                    title={prompt.title}
+                                    promptType={category.toLocaleLowerCase()}
+                                    mainImage={prompt?.Image_Url?.[0]}
                                     isSeller={true}
+                                    updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt._id}`}
                                     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
                                     promptId={prompt._id}
                                     userHandle={sellerHandle}
+                                    category={category}
+                                    promptUrl={`/prompts/${prompt._id}/${category.toLocaleLowerCase()}`}
+
                                 />
+                                // <PromptsOnDropDown promptStatus={'pending'} />
                             ))
                         ) : (
                             <p className={styles.promptsMessage}>Looks like there are no <span>{status}</span> prompts right now!!</p>
