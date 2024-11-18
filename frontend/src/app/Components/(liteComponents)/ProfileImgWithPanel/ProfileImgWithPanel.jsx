@@ -3,25 +3,25 @@ import styles from '@/app/Components/(liteComponents)/ProfileImgWithPanel/Profil
 import Image from 'next/image'
 import { BsGear } from "react-icons/bs";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 
 const ProfileImgWithPanel = ({ imgUrl, dashboardUrl, profileUpdateUrl }) => {
-    const router = useRouter();
+    const [isPanelVisible, setisPanelVisible] = useState(false)
+
     const logoutFunc = async () => {
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/logout`, {}, {
                 withCredentials: true
             });
             document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}; secure; sameSite=None`;
+            setisPanelVisible(false)
+
             window.location.href = '/'
-            // router.push('/')
         } catch (error) {
             console.error(`Failed to logout ${error}`);
         }
     };
-    const [isPanelVisible, setisPanelVisible] = useState(false)
 
     return (
         <div className={styles.container}>
@@ -39,19 +39,22 @@ const ProfileImgWithPanel = ({ imgUrl, dashboardUrl, profileUpdateUrl }) => {
                 style={{
                     display: isPanelVisible ? 'flex' : 'none'
                 }}
+                onMouseLeave={() => setisPanelVisible(false)}
 
             >
 
-                <Link href={profileUpdateUrl || '/'}>
+                <Link href={profileUpdateUrl || '/'} onClick={() => setisPanelVisible(false)}>
                     <li>
                         Settings
                         <BsGear />
                     </li>
                 </Link>
-                <li onClick={() => { router.push(dashboardUrl) }}>
-                    <span>Dashboard</span>
-                    <MdOutlineSpaceDashboard />
-                </li>
+                <Link href={dashboardUrl || '/'} onClick={() => setisPanelVisible(false)}>
+                    <li>
+                        Dashboard
+                        <MdOutlineSpaceDashboard />
+                    </li>
+                </Link>
 
                 <li>
                     <input className={styles.button} type="button" value="Logout" onClick={logoutFunc} />
