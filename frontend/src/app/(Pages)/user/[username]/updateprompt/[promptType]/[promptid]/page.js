@@ -268,9 +268,9 @@ const Page = () => {
                             <TextArea
                                 placeholder="To get the most out of this prompt you need to.."
                                 rows="18"
-                                name="promptInstruction"
+                                name="promptInstructions"
                                 margin="0px"
-                                id="promptInstruction"
+                                id="promptInstructions"
                                 value={promptData.promptInstructions}
                                 onChange={handleOnChange}
                             />
