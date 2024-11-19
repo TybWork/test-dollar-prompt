@@ -45,3 +45,43 @@ export const createSingleUserLogs = async (req, res) => {
         return res.status(400).json({ msg: `Failed to create new log: ${error.message}` });
     }
 }
+
+
+// get singleUserLogs
+export const getSingleUserLogs = async (req, res) => {
+
+    const { userId } = req.query; // Assuming userId is passed as a query parameter
+
+    try {
+        // If userId is not provided, return an error
+        if (!userId) {
+            return res.status(404).json({ msg: 'User not found!' });
+        }
+
+        // Define common populate fields for each prompt type (dalle, midjourney, gpt)
+        const populateFields = [
+            // selling history
+            { path: 'sellingHistory.dalle', select: 'Image_Url title _id' },
+            { path: 'sellingHistory.midjourney', select: 'Image_Url title _id' },
+            { path: 'sellingHistory.gpt', select: 'imageUrl title _id' },
+
+            // buying history
+            { path: 'buyingHistory.dalle', select: 'Image_Url title _id' },
+            { path: 'buyingHistory.midjourney', select: 'Image_Url imageUrl title _id' },
+            { path: 'buyingHistory.gpt', select: 'title _id' }
+        ];
+
+        // Find the user log by userId and populate the relevant fields
+        const userLog = await SingleUserLog.findOne({ userId }).populate(populateFields);
+
+        // If no user log is found, return a 404 error
+        if (!userLog) {
+            return res.status(404).json({ msg: 'User log not found!' });
+        }
+
+        // Return the populated user log
+        return res.status(200).json(userLog);
+    } catch (error) {
+        return res.status(400).json({ msg: `Failed to get user logs: ${error.message}` });
+    }
+}
