@@ -7,19 +7,19 @@ const userLogs = new Schema({
         ref: "User",
     },
     sellingHistory: {
-        dalle: [
+        "dall-e": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'DallE'
             }
         ],
-        midjourney: [
+        "midjourney": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'Midjourney'
             }
         ],
-        gpt: [
+        "gpt": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'GPT'
@@ -27,19 +27,19 @@ const userLogs = new Schema({
         ]
     },
     buyingHistory: {
-        dalle: [
+        "dall-e": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'DallE'
             }
         ],
-        midjourney: [
+        "midjourney": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'Midjourney'
             }
         ],
-        gpt: [
+        "gpt": [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'GPT'

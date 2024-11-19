@@ -10,13 +10,13 @@ import Loading from '../../(liteComponents)/Loading/Loading';
 import UnverifiedPromptsComponent from '../(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent';
 import PromptsOnDropDown from '../PromptsOnDropDown/PromptsOnDropDown';
 
-const PromptsTab = () => {
+const PromptsTab = ({ isSellerComp = true }) => {
     const [promptsArr, setPromptsArr] = useState([]);
     const [activeTabId, setActiveTabId] = useState(0);
     const [status, setstatus] = useState('active')
     const [sellerId, setsellerId] = useState('')
     const [sellerHandle, setsellerHandle] = useState('')
-    const [category, setcategory] = useState('Dall-E')
+    const [category, setcategory] = useState('dall-e')
 
 
     // get seller detail
@@ -55,34 +55,32 @@ const PromptsTab = () => {
 
     function selectCategory(e) {
         const category = e.target.value;
-        setcategory(category)
-        console.log(category)
+        setcategory(category.toLowerCase())
     }
-
-    console.log(category, status, sellerId)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/filter/?userId=${sellerId}&&status=${status}`);
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/all-filterd-prompt?promptType=${category}&promptStatus=${status}&userId=${sellerId}`);
-                if (response.data && Array.isArray(response.data)) {
-                    setPromptsArr(response.data);
-                } else {
-                    setPromptsArr([]);
+                if (sellerId) {
+                    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?status=${status}&userId=${sellerId}`);
+                    if (response?.data) {
+                        setPromptsArr(isSellerComp ? response.data.sellingHistory : response.data.buyingHistory);
+                    } else {
+                        setPromptsArr([]);
+                    }
                 }
+                // const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/all-filterd-prompt?promptType=${category}&promptStatus=${status}&userId=${sellerId}`);
             } catch (error) {
-                console.error('Error fetching prompts:', error);
+                console.log('Error fetching prompts:', error);
                 setPromptsArr([]);
             }
         };
         fetchData()
-    }, [sellerId, status, category])
+    }, [sellerId, status])
 
     if (!promptsArr) return <div>Loading...</div>
-    console.log('promptsArr', promptsArr)
-    console.log(category, status, sellerId)
 
+    console.log(promptsArr)
     // delete prompt function
     async function promptDeleteFunc(id) {
         await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
@@ -112,31 +110,24 @@ const PromptsTab = () => {
                 <option value="Dall-E" key="Dall-E">Dall-E</option>
                 <option value="Midjourney" key="Midjourney">Midjourney</option>
                 <option value="GPT" key="GPT">GPT</option>
+                {/* <option value="dalle" key="dalle">Dall-E</option>
+                <option value="midjourney" key="midjourney">Midjourney</option>
+                <option value="gpt" key="gpt">GPT</option> */}
             </select>
 
             {/* prompts container */}
             <div className={styles.promptsContainer}>
                 <div className={styles.innerContainer}>
                     {
-                        promptsArr && promptsArr.length > 0 ? (
-                            promptsArr.map((prompt, index) => (
-                                // <SellerPromptCard
-                                //     previewPromptLink={`/dallprompt/${prompt._id}`}
-                                //     updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt._id}`}
-                                //     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
-                                //     key={index}
-                                //     label={prompt.promptType}
-                                //     image={Array.isArray(prompt.Image_Url) && prompt.Image_Url.length > 0 ? prompt.Image_Url[0] : ''}
-                                //     description={prompt.description}
-                                // />
-
+                        promptsArr ? (
+                            promptsArr[category]?.map((prompt, index) => (
                                 <AdaptiveCard
                                     key={index}
+                                    isSeller={true}
                                     title={prompt.title}
                                     promptType={category.toLocaleLowerCase()}
                                     mainImage={prompt?.Image_Url?.[0]}
-                                    isSeller={true}
-                                    updatePromptLink={`/user/${sellerHandle}/updateprompt/${prompt.promptType.toLocaleLowerCase()}/${prompt._id}`}
+                                    updatePromptLink={`/user/${sellerHandle}/updateprompt/${category}/${prompt._id}`}
                                     deletePromptFunc={() => promptDeleteFunc(prompt._id)}
                                     promptId={prompt._id}
                                     userHandle={sellerHandle}
