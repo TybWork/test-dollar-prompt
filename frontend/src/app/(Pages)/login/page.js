@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styles from '@/app/(Pages)/login/login.module.css';
 import Image from "next/image";
 import InputField from "@/app/Components/(liteComponents)/InputField/InputField";
@@ -32,6 +32,7 @@ const LoginUser = () => {
     };
 
     const submitForms = async (e) => {
+        setCaptchaToken("")
         e.preventDefault();
         const token = captchaToken;
         if (!token) {
@@ -47,6 +48,7 @@ const LoginUser = () => {
                 captchaRef.current.reset();
             } catch (error) {
                 alert(error.response?.data?.msg || 'Login failed');
+                captchaRef.current.reset();
             }
         }
     };
@@ -67,7 +69,7 @@ const LoginUser = () => {
                 </div>
                 <ReCAPTCHA
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                    theme="dark"
+                    theme="light"
                     size="normal"
                     ref={captchaRef}
                     onChange={handleCaptcha}
