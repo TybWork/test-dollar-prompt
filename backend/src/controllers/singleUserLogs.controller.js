@@ -85,3 +85,38 @@ export const getSingleUserLogs = async (req, res) => {
         return res.status(400).json({ msg: `Failed to get user logs: ${error.message}` });
     }
 }
+
+// remove any log
+export const deleteSingleUserLog = async (req, res) => {
+    const { userId, promptId, isSeller = false, promptType } = req.query;
+
+    try {
+        // If promptId or promptType is not provided, return an error
+        if (!promptId || !promptType) {
+            return res.status(400).json({ msg: 'Prompt ID and prompt type are required!' });
+        }
+
+        // Define the field to update based on whether it's selling or buying history
+        const historyType = isSeller ? 'sellingHistory' : 'buyingHistory';
+
+        // Define the field to target within the history (dalle, midjourney, gpt)
+        const targetHistoryField = `${historyType}.${promptType}`;
+
+        // Perform the update to remove the promptId from the relevant history field
+        const userLog = await SingleUserLog.findOneAndUpdate(
+            { userId: userId },
+            { $pull: { [targetHistoryField]: promptId } }, // Use $pull to remove the promptId
+            { new: true } // Return the updated document
+        );
+
+        // If no user log is found, return a 404 error
+        if (!userLog) {
+            return res.status(404).json({ msg: 'User log not found!' });
+        }
+
+        // Return the updated user log
+        return res.status(200).json(userLog);
+    } catch (error) {
+        return res.status(400).json({ msg: `Failed to delete log: ${error.message}` });
+    }
+};

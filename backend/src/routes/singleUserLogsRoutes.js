@@ -1,7 +1,7 @@
 import express from 'express'
-import { createSingleUserLogs, getSingleUserLogs } from '../controllers/singleUserLogs.controller.js';
+import { createSingleUserLogs, deleteSingleUserLog, getSingleUserLogs } from '../controllers/singleUserLogs.controller.js';
 export const singleUserLogsRoutes = express.Router();
 
 singleUserLogsRoutes.post('/create-user-logs', createSingleUserLogs)
 singleUserLogsRoutes.get('/fetch-user-logs', getSingleUserLogs)
-// singleUserLogsRoutes.put('/updatelog', updateLog)
+singleUserLogsRoutes.delete('/delete-user-log', deleteSingleUserLog)
