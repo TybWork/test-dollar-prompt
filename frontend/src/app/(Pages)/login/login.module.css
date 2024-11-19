@@ -15,8 +15,8 @@
 }
 
 .logo {
-    width: 36px;
-    height: 36px;
+    width: 56px;
+    height: 56px;
     text-align: center;
     display: flex;
     align-self: center;
@@ -118,6 +118,10 @@
 
     .heading {
         font-size: 24px;
+    }
+    .logo{
+        width: 48px;
+        height: 48px;
     }
 }
 
