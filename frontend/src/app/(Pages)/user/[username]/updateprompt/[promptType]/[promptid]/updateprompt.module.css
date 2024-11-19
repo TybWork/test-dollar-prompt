@@ -7,6 +7,17 @@
     color: var(--homeTertiaryClr);
 }
 
+.newPromptSection{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.singleSample{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .heading {
     font-size: 24px;
     font-weight: 600;

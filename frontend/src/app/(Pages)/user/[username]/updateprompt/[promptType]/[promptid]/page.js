@@ -135,7 +135,7 @@ const Page = () => {
             {/*............... dalle prompt update .................*/}
             {
                 promptType === 'dall-e' ? (
-                    <div>
+                    <div className={styles.newPromptSection}>
                         {/* name field */}
                         <div>
                             <FieldInfo title="Title" description="Suggest a title for this prompt." />
@@ -235,7 +235,7 @@ const Page = () => {
             {/*............... Midjourney prompt update .................*/}
             {
                 promptType === 'midjourney' ? (
-                    <div>
+                    <div className={styles.newPromptSection}>
                         {/* name field */}
                         <div>
                             <FieldInfo title="Title" description="Suggest a title for this prompt." />
@@ -307,7 +307,7 @@ const Page = () => {
 
             {
                 promptType === 'gpt' ? (
-                    <div>
+                    <div className={styles.newPromptSection}>
                         {/* name field */}
                         <div>
                             <FieldInfo title="Title" description="Suggest a title for this prompt." />
@@ -382,28 +382,30 @@ const Page = () => {
                         </div>
 
                         {/* samples container */}
-                        <div className={styles.sampleContainer}>
+                        <div >
                             <FieldInfo title="Prompt Samples" description="Each sample must have a title and sample text" />
                             {
                                 promptData?.examplePrompts?.map((samples, index) =>
-                                    <div key={index}>
+                                    <div key={index} className={styles.sampleContainer}>
                                         <FieldInfo title={`Sample ${index + 1}`} description="" />
-                                        <InputField
-                                            placeholder="Title..."
-                                            name={`title-${index}`}
-                                            id="title"
-                                            value={samples.title}
-                                            onchangeFunc={(e) => handleSamplePrompt(e, index)}
+                                        <div className={styles.singleSample}>
+                                            <InputField
+                                                placeholder="Title..."
+                                                name={`title-${index}`}
+                                                id="title"
+                                                value={samples.title}
+                                                onchangeFunc={(e) => handleSamplePrompt(e, index)}
 
-                                        />
-                                        <TextArea
-                                            name={`text-${index}`}
-                                            id='description'
-                                            placeholder={'Sample prompt...'}
-                                            rows={7}
-                                            value={samples.text}
-                                            onChange={(e) => handleSamplePrompt(e, index)}
-                                        />
+                                            />
+                                            <TextArea
+                                                name={`text-${index}`}
+                                                id='description'
+                                                placeholder={'Sample prompt...'}
+                                                rows={7}
+                                                value={samples.text}
+                                                onChange={(e) => handleSamplePrompt(e, index)}
+                                            />
+                                        </div>
                                     </div>
                                 )
                             }
