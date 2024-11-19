@@ -35,7 +35,7 @@ export const getTrendingPrompts = async (req, res) => {
 // Fetch all prompts on the base of userId and prompt type
 export const getPromptsBasedOnUserIdStatusType = async (req, res) => {
     const { promptType, promptStatus, userId } = req.query
-        console.log(promptType,promptStatus,userId)
+    console.log(promptType, promptStatus, userId)
 
     try {
         const models = {
@@ -47,7 +47,7 @@ export const getPromptsBasedOnUserIdStatusType = async (req, res) => {
         let query = {};
 
         if (promptStatus && userId) {
-            query = {userId:userId, status:promptStatus}
+            query = { userId: userId, status: promptStatus }
         }
 
         if (promptStatus) {
@@ -58,7 +58,7 @@ export const getPromptsBasedOnUserIdStatusType = async (req, res) => {
             query.userId = userId;  // Only add _id if it's provided
         }
 
-        console.log(promptType,promptStatus,userId)
+        console.log(promptType, promptStatus, userId)
 
         const Model = models[promptType.toLowerCase()]
         const prompts = await Model.find(query);
@@ -67,3 +67,36 @@ export const getPromptsBasedOnUserIdStatusType = async (req, res) => {
         return res.status(400).json({ msg: `Failed to get prompt ${error}` })
     }
 }
+
+// // get userPrompts
+// export const updateBuyerPrompts = async (req, res) => {
+//     const { userId, promptId, promptType } = req.query
+
+//     try {
+//         const models = {
+//             "dall-e": DallE,
+//             "midjourney": Midjourney,
+//             "gpt": GPT
+//         }
+
+//         let query = {};
+
+//         if (promptStatus && userId) {
+//             query = { userId: userId, status: promptStatus }
+//         }
+
+//         if (promptStatus) {
+//             query.status = promptStatus;  // Only add status if it's provided
+//         }
+
+//         if (userId) {
+//             query.userId = userId;  // Only add _id if it's provided
+//         }
+
+//         const Model = models[promptType.toLowerCase()]
+//         const prompts = await Model.find(query);
+//         return res.status(200).json(prompts)
+//     } catch (error) {
+//         return res.status(400).json({ msg: `Failed to get prompt ${error}` })
+//     }
+// }

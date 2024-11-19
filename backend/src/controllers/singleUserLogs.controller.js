@@ -1,0 +1,47 @@
+// import { ProductLog } from "../models/singleLog.model.js"
+import { SingleUserLog } from "../models/singleUserLogs.model.js"
+
+export const createSingleUserLogs = async (req, res) => {
+
+    const { isSelling = false, userId, promptType, promptId } = req.query;
+
+    try {
+        // If userId is not provided, return an error
+        if (!userId) {
+            return res.status(404).json({ msg: 'User not found!!!' });
+        }
+
+        // Find the existing user log or create a new one if it doesn't exist
+        let userLog = await SingleUserLog.findOne({ userId });
+
+        // If no existing log is found, create a new one
+        if (!userLog) {
+            userLog = new SingleUserLog({
+                userId,
+                sellingHistory: {},
+                buyingHistory: {},
+            });
+        }
+
+        // Determine the field to update based on the isSelling flag
+        const actionType = isSelling ? 'sellingHistory' : 'buyingHistory';
+
+        // If the promptType doesn't exist in the relevant history, initialize it as an empty array
+        if (!userLog[actionType][promptType]) {
+            userLog[actionType][promptType] = [];
+        }
+
+        // Add the promptId to the corresponding history array (buying or selling)
+        if (!userLog[actionType][promptType].includes(promptId)) {
+            userLog[actionType][promptType].push(promptId);
+        }
+
+        // Save the updated user log
+        await userLog.save();
+
+        // Return the updated log in the response
+        return res.status(200).json(userLog);
+    } catch (error) {
+        return res.status(400).json({ msg: `Failed to create new log: ${error.message}` });
+    }
+}

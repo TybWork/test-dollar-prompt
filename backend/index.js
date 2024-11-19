@@ -26,6 +26,7 @@ import { chatRoutes } from './src/routes/chatRoutes.js';
 // import { Message } from './src/models/message.model.js';
 import { ChatRoom } from './src/models/message.model.js';
 import { createRoom, fetchRooms, sendMessage } from './src/controllers/chat.controller.js';
+import { singleUserLogsRoutes } from './src/routes/singleUserLogsRoutes.js';
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -62,7 +63,7 @@ const server = http.createServer(app);
 // console.log(server)
 const io = new socketIo(server, {
     cors: {
-        origin: ['http://localhost:3000',process.env.CLIENT_BASE_URL],
+        origin: ['http://localhost:3000', process.env.CLIENT_BASE_URL],
         allowedHeaders: ["Content-Type"],
         methods: ['GET', 'POST'],
         credentials: true,
@@ -170,6 +171,9 @@ app.use('/api/blog', blogRoutes)
 
 //log routes
 app.use('/api', logRoutes)
+
+//singleUserLogsRoutes
+app.use('/api', singleUserLogsRoutes)
 
 //chat route
 
