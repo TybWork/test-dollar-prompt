@@ -89,7 +89,7 @@ const PromptsTab = ({ isSellerComp = true }) => {
 
     return (
         <div className={styles.parentContainer}>
-            <ul className={styles.ul}>
+            <ul style={{ display: isSellerComp ? 'flex' : 'none' }} className={styles.ul}>
                 {tabBtns.map((btn) => (
                     <li
                         key={btn.id}
@@ -123,7 +123,7 @@ const PromptsTab = ({ isSellerComp = true }) => {
                             promptsArr[category]?.map((prompt, index) => (
                                 <AdaptiveCard
                                     key={index}
-                                    isSeller={true}
+                                    isSeller={isSellerComp}
                                     title={prompt.title}
                                     promptType={category.toLocaleLowerCase()}
                                     mainImage={prompt?.Image_Url?.[0]}

@@ -90,8 +90,8 @@ export const buttons = {
         {
             id: 0,
             icon: <GrOverview />,
-            title: 'Prompts overview',
-            component: <PromptsTab />
+            title: 'Selling History',
+            component: <PromptsTab isSellerComp={true} />
         },
         {
             id: 1,
@@ -117,7 +117,7 @@ export const buttons = {
             id: 0,
             icon: <GrOverview />,
             title: 'Buying History',
-            component: 'buy prompt components'
+            component: <PromptsTab isSellerComp={false} />
         },
         // {
         //     id: 1,
