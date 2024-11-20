@@ -2,17 +2,29 @@
 import styles from '@/app/(Pages)/buy-prompts/buy-prompts.module.css'
 import PrimaryBtn from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn'
 import EmailNewletter from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNewletter'
+import ShowAllSection from '@/app/Components/(updatedDesignComp)/ShowAllSection/ShowAllSection'
 import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 const page = () => {
+    // const [trendingPrompts, settrendingPrompts] = useState([])
+    const [dallePrompts, setdallePrompts] = useState([])
+    const [midjourneyPrompts, setmidjourneyPrompts] = useState([])
+    const [gptPrompts, setgptPrompts] = useState([])
     const [trendingPrompts, settrendingPrompts] = useState([])
 
+    // .................prompts fetching function................
     useEffect(() => {
         const fetchPrompts = async () => {
             try {
+                const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get`);
+                const midjourney = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/get`);
+                const gpt = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`);
                 const trending = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`);
                 settrendingPrompts(trending.data)
+                setdallePrompts(dalle.data);
+                setmidjourneyPrompts(midjourney.data)
+                setgptPrompts(gpt.data)
             } catch (error) {
                 console.error("Error fetching seller data:", error);
             }
@@ -20,6 +32,7 @@ const page = () => {
 
         fetchPrompts();
     }, []);
+
     return (
         <div className={styles.mainContainer}>
 
@@ -33,11 +46,119 @@ const page = () => {
                     </div>
                 </div>
 
-                <div className={styles.cardsSection}>
+
+                {/* show all prompts container */}
+
+
+
+
+                {/* Trending prompts */}
+                <div className={styles.promptsSection}>
+                    <ShowAllSection
+                        title={'Trending Prompts'}
+                        linkText={'View All Trending Prompts'}
+                        content={
+                            <div className={styles.cardContainer}>
+                                {
+                                    trendingPrompts && trendingPrompts.slice(0, 5).map((trending, index) =>
+                                        <div className={styles.adaptive} key={index}>
+                                            <AdaptiveCard
+                                                mainImage={trending?.Image_Url?.[0]}
+                                                promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
+                                                title={trending.title}
+                                                category={trending.promptType}
+                                                promptType={trending.promptType.toLowerCase()}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+                    />
+                </div>
+
+                {/* Chat GPT prompts */}
+                <div className={styles.promptsSection}>
+                    <ShowAllSection
+                        title={'GPT prompts'}
+                        linkText={'View All GPT Prompts'}
+                        content={
+                            <div className={styles.cardContainer}>
+                                {
+                                    gptPrompts && gptPrompts.slice(0, 5).map((gpt, index) =>
+                                        <div className={styles.adaptive} key={index}>
+                                            <AdaptiveCard
+                                                promptType='gpt'
+                                                promptUrl={`/prompts/${gpt._id}/${gpt.promptType.toLowerCase()}`}
+                                                title={gpt.title}
+                                                category={gpt.promptType}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+                    />
+
+                </div>
+
+                {/*dalle prompts section */}
+                <div className={styles.promptsSection}>
+                    <ShowAllSection
+                        title={'DALL-E Prompts'}
+                        linkText={'View All DALL-E Prompts'}
+                        content={
+                            <div className={styles.cardContainer}>
+                                {
+                                    dallePrompts && dallePrompts.slice(0, 5).map((dalle, index) =>
+                                        <div className={styles.adaptive} key={index}>
+                                            <AdaptiveCard
+                                                mainImage={dalle.Image_Url[0]}
+                                                promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
+                                                title={dalle.title}
+                                                category={dalle.promptType}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+                    />
+                </div>
+
+                {/*midjourney prompts section */}
+                <div className={styles.promptsSection}>
+                    <ShowAllSection
+                        title={'Midjourney Prompts'}
+                        linkText={'View All Midjourney Prompts'}
+                        content={
+                            <div className={styles.cardContainer}>
+                                {
+                                    midjourneyPrompts && midjourneyPrompts.slice(0, 5).map((midjourney, index) =>
+                                        <div className={styles.adaptive} key={index}>
+                                            <AdaptiveCard
+                                                mainImage={midjourney.Image_Url[0]}
+                                                promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
+                                                title={midjourney.title}
+                                                category={midjourney.promptType}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+                    />
+                </div>
+
+
+                {/* ...................................... */}
+
+
+                {/* <div className={styles.cardsSection}>
                     <div className={styles.cardsContainer}>
 
                         {
-                            trendingPrompts && trendingPrompts.slice(0, 5).map((trending,index) =>
+                            trendingPrompts && trendingPrompts.slice(0, 5).map((trending, index) =>
                                 <div className={styles.singleCard} key={index}>
                                     <AdaptiveCard
                                         mainImage={trending?.Image_Url?.[0]}
@@ -50,8 +171,7 @@ const page = () => {
                             )
                         }
                     </div>
-
-                </div>
+                </div> */}
                 {/* email newsletter section */}
                 <EmailNewletter
                     title={"Get News & AI  prompts in your inbox Join Our Creative Community"}

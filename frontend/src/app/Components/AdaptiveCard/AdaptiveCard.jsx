@@ -14,7 +14,7 @@ import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
 import { MdTextSnippet } from "react-icons/md";
 
-const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
+const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
@@ -70,38 +70,47 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.header}>
-                        <div className={styles.title}>{typeof title === 'string' ? title.slice(0, 20) : "Painting Flower Dall-E Prompt generate now"}...</div>
+                        <div className={styles.title}>{title && title.length > 42 ? title.slice(0, 39) + "..." : title || ("Painting Flower Dall-E Prompt generate now").slice(0, 39) + '...'}</div>
                         <PrimaryBtn width={'100%'} href={promptUrl} />
                     </div>
 
                     <hr className={styles.hr} />
 
                     <div className={styles.cardFooter}>
-                        <span className={`${styles.iconText} ${styles.shareIcon}`}>
+
+                        {/* ratings */}
+                        <span
+                            style={{ display: ratingCount > 0 ? 'flex' : 'none' }}
+                            className={`${styles.iconText} ${styles.shareIcon}`}>
                             <span>
                                 <StarIcon fill={isEnter ? '' : ''} />
                             </span>
-                            <span>{`${shares || '4.9'}`}</span>
-                            <span>{`(${shares || '29K'})`}</span>
+                            <span>{`${ratingAverage || '0'}`}</span>
+                            <span>{`(${ratingCount || '0'})`}</span>
                         </span>
 
-                        <span className={styles.iconText}>
+                        <span
+                            style={{ display: views > 0 ? 'flex' : 'none' }}
+                            className={styles.iconText}>
                             <EyeIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
-                            <span>{`${views || '20'}`}</span>
+                            <span>{`${views || '0'}`}</span>
                         </span>
 
-                        <span className={styles.iconText}>
+                        <span
+                            style={{ display: likes > 0 ? 'flex' : 'none' }}
+                            className={styles.iconText}>
                             <HeartIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
-                            <span>{`${likes || "10"}`}</span>
+                            <span>{`${likes || "0"}`}</span>
                         </span>
 
-                        <span className={styles.iconText}
+                        <span
+                            className={styles.iconText}
                             style={{
-                                display: isSeller ? 'none' : 'flex'
+                                display: isSeller ? 'none' : (shares > 0 ? 'flex' : 'none')
                             }}
                         >
                             <ArrowIcon fill={isEnter ? 'var(--homeMainBtn)' : ''} />
-                            <span>{`${shares || '4'}`}</span>
+                            <span>{`${shares || '0'}`}</span>
                         </span>
 
                         <span className={styles.iconText}
@@ -122,7 +131,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

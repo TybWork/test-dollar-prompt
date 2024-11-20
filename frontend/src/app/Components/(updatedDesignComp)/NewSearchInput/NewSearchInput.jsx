@@ -6,11 +6,11 @@ import { useState } from 'react'
 
 const aiTools = [
     {
-        tool: 'Gpt',
+        tool: 'GPT',
         placeholder: 'Search for GPT conversation starters...'
     },
     {
-        tool: 'Dall-E',
+        tool: 'DALL-E',
         placeholder: 'Search for DALL·E image prompts...'
     },
     {
@@ -31,7 +31,7 @@ const NewSearchInput = () => {
     }
 
     const [isActiveDropdown, setisActiveDropdown] = useState(false)
-    const [dropdownText, setdropdownText] = useState('Ai Tool')
+    const [dropdownText, setdropdownText] = useState('AI Tool')
     const [placeholder, setplaceholder] = useState('Search email template...');
     const [placeholderWidth, setplaceholderWidth] = useState('0px')
     const dropdownFunc = () => {

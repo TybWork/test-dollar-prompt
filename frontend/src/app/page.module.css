@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--homeSecondryClr);
+    background: var(--backgroundClr);
     padding-left: var(--mainPadding);
     padding: 72px 0px 72px var(--mainPadding);
 }
@@ -42,7 +42,8 @@
 
 /* prompts section */
 .promptsSection {
-    background: linear-gradient(to top, rgb(248, 253, 248, 0.40) 0%, rgb(246, 255, 247) 53%, rgb(248, 253, 248, 0.40) 100%);
+    /* background: linear-gradient(to top, rgb(248, 253, 248, 0.40) 0%, rgb(246, 255, 247) 53%, rgb(248, 253, 248, 0.40) 100%); */
+    background: var(--backgroundClr);
     padding: 32px var(--mainPadding);
     display: flex;
     gap: 100px;
@@ -111,7 +112,7 @@
     height: 100px;
     width: 100%;
     z-index: 100;
-    background: linear-gradient(to top, var(--homePrimaryClr) 42%, rgb(248, 253, 248, 0.20) 100%);
+    background: linear-gradient(to top, var(--backgroundClr) 42%, rgb(248, 253, 248, 0.20) 100%);
 }
 
 .timelineWraper::-webkit-scrollbar {
@@ -243,7 +244,6 @@
         width: 1330px;
         overflow: hidden;
     }
-
 }
 
 @media screen and (max-width:1244px) {

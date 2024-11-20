@@ -11,7 +11,7 @@
     left: 0;
     width: 48px;
     height: 100%;
-    background: linear-gradient(to right, var(--homeSecondryClr) 42%, rgb(248, 253, 248, 0.20) 100%);
+    background: linear-gradient(to right, var(--backgroundClr) 42%, rgb(248, 253, 248, 0.20) 100%);
     z-index: 1;
 }
 
@@ -22,7 +22,7 @@
     z-index: 1;
     width: 48px;
     height: 100%;
-    background: linear-gradient(to left, var(--homeSecondryClr) 42%, rgb(248, 253, 248, 0.20) 100%);
+    background: linear-gradient(to left, var(--backgroundClr) 42%, rgb(248, 253, 248, 0.20) 100%);
 }
 
 .slides {

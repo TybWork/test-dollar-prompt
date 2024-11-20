@@ -114,7 +114,7 @@ const Page = ({ params }) => {
                     version={prompt.version || prompt.gptPromptType}
                     salePrice={prompt.price}
                     cartClickFunc={() => cartMutation.mutate()}
-                    buyPromptBtn={<Archieve promptId={promptId} promptData={prompt} promptType={prompt.promptType.toLowerCase()} isUser={isUser} />}
+                    buyPromptBtn={<Archieve userId={prompt.userId} promptId={promptId} promptData={prompt} promptType={prompt.promptType.toLowerCase()} isUser={isUser} />}
                 />
             </div>
 

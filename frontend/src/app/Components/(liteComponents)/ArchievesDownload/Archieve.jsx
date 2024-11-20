@@ -6,10 +6,11 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import GradientButton from '../../GradientButton/GradientButton';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 // const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
 
-const Archieve = ({ promptId, promptType, isUser, promptData }) => {
+const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
     const [TEMPLATE_URL, setTEMPLATE_URL] = useState('/assets/example.docx')
     const [documentData, setdocumentData] = useState({})
 
@@ -121,6 +122,9 @@ const Archieve = ({ promptId, promptType, isUser, promptData }) => {
                 // Generate ZIP file
                 const content = await zip.generateAsync({ type: 'blob' });
                 saveAs(content, `${promptData.title.slice(0, 30)}.zip`);
+
+                //generate log
+                await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/create-user-logs?userId=${userId}&promptId=${promptId}&promptType=${promptType}&isSelling=false`)
 
             } catch (error) {
                 console.error('Error generating ZIP:', error);

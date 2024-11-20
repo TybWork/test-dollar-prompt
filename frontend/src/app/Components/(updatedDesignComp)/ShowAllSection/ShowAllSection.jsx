@@ -1,6 +1,6 @@
 import styles from '@/app/Components/(updatedDesignComp)/ShowAllSection/ShowAllSection.module.css'
 import Link from 'next/link'
-const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin, title, link, linkText, content }) => {
+const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin, title, isLink = true, link, linkText, content }) => {
 
     let screenWidth;
     if (typeof window !== 'undefined') {
@@ -21,8 +21,9 @@ const ShowAllSection = ({ leftGradientWidth, rightGradientWidth, padding, margin
                     {title || 'trending prompts'}
                 </div>
 
-                <Link className={styles.link} href={link || '/'}>
-                    {linkText || screenWidth < '500' ? 'View All' : 'View All Categories'}
+                <Link style={{ display: isLink ? 'flex' : 'none' }} className={styles.link} href={link || '/'}>
+                    {linkText ? (screenWidth < 500 ? 'View All' : linkText) : (screenWidth < 500 ? 'View All' : 'View All Categories')
+                    }
                 </Link>
 
 

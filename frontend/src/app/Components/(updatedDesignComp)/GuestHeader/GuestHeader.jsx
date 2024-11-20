@@ -14,7 +14,9 @@ const GuestHeader = () => {
     return (
         <div className={styles.parentContainer}>
             {/* logo  */}
-            <HeaderLogo />
+            <Link href={'/'}>
+                <HeaderLogo />
+            </Link>
 
             {/* nav links */}
             <div className={styles.navLinks}>

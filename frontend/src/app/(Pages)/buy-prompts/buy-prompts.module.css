@@ -1,13 +1,13 @@
 .mainContainer {
     margin: 120px 0px;
     color: var(--homeTertiaryClr);
-    padding: 0px var(--mainPadding);
 }
 
 .topSection {
     gap: 68px;
     display: flex;
     flex-direction: column;
+    
 }
 
 .header {
@@ -15,6 +15,7 @@
     flex-direction: column;
     gap: 26px;
     max-width: 900px;
+    padding: 0px var(--mainPadding);
 }
 
 .header h1 {
@@ -31,6 +32,50 @@
     width: 228px;
     height: 48px;
 }
+
+/* cardContainer for show all prompts section  */
+
+.promptsSection {
+    background: var(--backgroundClr);
+    padding: 32px var(--mainPadding);
+    display: flex;
+    gap: 100px;
+    overflow: auto;
+}
+
+.promptsSection::-webkit-scrollbar {
+    display: none;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    gap: 16px;
+}
+
+.adaptive {
+    flex: 1;
+}
+
+
+@media screen and (max-width:1412px) {
+
+    .cardContainer {
+        width: 1330px;
+        overflow: hidden;
+    }
+}
+
+
+@media screen and (max-width:768px) {
+    .promptsSection {
+        padding: 16px;
+    }
+}
+
+
+/* ............................  */
 
 /* cards section */
 .cardsSection {
@@ -78,6 +123,12 @@
     }
 }
 
+@media screen and (max-width:768px) {
+    .header{
+        padding: 0px 24px;
+    }
+}
+
 @media screen and (max-width:780px) {
     .mainContainer {
         margin: 24px 0px;
@@ -89,11 +140,11 @@
 
     .header h1 {
         font-size: 28px;
-        text-align: center;
+        /* text-align: center; */
     }
 
     .header p {
-        text-align: center;
+        /* text-align: center; */
     }
 
     .topSection {
@@ -117,7 +168,7 @@
     }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width:425px) {
     .mainContainer {
         margin: 12px 0px;
     }
@@ -129,6 +180,7 @@
     .header {
         max-width: 100%;
         gap: 12px;
+        padding: 0px;
     }
 
     .header h1 {
@@ -139,6 +191,9 @@
     .header p {
         text-align: center;
         font-size: 14px;
+    }
+    .headerBtn{
+        margin: auto;
     }
 
 }

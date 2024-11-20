@@ -77,9 +77,9 @@ export const getSingleUserLogs = async (req, res) => {
             },
 
             // buying history (no status filter, just show all)
-            { path: 'buyingHistory.dall-e', select: 'Image_Url title _id' },
-            { path: 'buyingHistory.midjourney', select: 'Image_Url title _id' },
-            { path: 'buyingHistory.gpt', select: 'title _id' }
+            { path: 'buyingHistory.dall-e', select: 'Image_Url title _id status' },
+            { path: 'buyingHistory.midjourney', select: 'Image_Url title _id status' },
+            { path: 'buyingHistory.gpt', select: 'title _id status' }
         ];
 
         // Find the user log by userId and populate the relevant fields
