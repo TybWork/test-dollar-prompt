@@ -1,4 +1,5 @@
 import { DallE } from "../../models/Prompt/dallePrompt.model.js";
+import { SingleUserLog } from "../../models/singleUserLogs.model.js";
 import { cloudinaryFunc } from '../../utils/cloudinary.utils.js'
 import fs from 'fs'
 
@@ -29,6 +30,11 @@ export const createDallE = async (req, res) => {
             userId: req.userId
         })
         const savedPrompt = await newPrompt.save()
+
+        // promptId add to logs
+        // userId, promptId, promptType
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.dall-e': savedPrompt._id } }, { new: true })
+
         return res.status(200).json(savedPrompt);
     } catch (error) {
         return res.status(500).json({ msg: `Failed to create dalle prompt ${error}` })

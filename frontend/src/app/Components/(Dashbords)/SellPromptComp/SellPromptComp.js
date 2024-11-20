@@ -32,11 +32,11 @@ const SellPromptComp = () => {
     const [role, setrole] = useState('user')
 
     useEffect(() => {
-            const myToken = getTokenFunction().cookie
-            const myDecodeToken = jwtDecode(myToken)
-            const myProfileHandle = myDecodeToken.profileHandle
-            setprofileHandle(myProfileHandle)
-            setrole(myDecodeToken.userRole)
+        const myToken = getTokenFunction().cookie
+        const myDecodeToken = jwtDecode(myToken)
+        const myProfileHandle = myDecodeToken.profileHandle
+        setprofileHandle(myProfileHandle)
+        setrole(myDecodeToken.userRole)
     }, [])
 
     // next button handle
@@ -176,7 +176,8 @@ const SellPromptComp = () => {
         )
             .then(async response => {
                 if (role === 'user' || role === '') {
-                    await becomeSeller()
+                    await becomeSeller();
+
 
                     setTimeout(() => {
                         window.location.href = `/user/${profileHandle}/buyer-dashboard/seller`
