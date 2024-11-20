@@ -50,8 +50,9 @@
 
 .buttonContainer {
     min-width: 228px !important;
-    height: 48px !important;
-    margin: auto;
+    /* height: 48px !important; */
+    height: 40px !important;
+    align-self: flex-start;
 }
 
 .message a {
@@ -73,7 +74,7 @@
     }
 }
 
-@media screen and (max-width:780px) {
+@media screen and (max-width:768px) {
     .mainContainer {
         margin: 24px 0px;
     }
@@ -93,6 +94,10 @@
 
     .topSection {
         gap: 56px;
+    }
+    .buttonContainer{
+        margin: auto;
+        height: 32px !important;
     }
 }
 

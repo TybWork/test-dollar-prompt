@@ -3,7 +3,7 @@ import styles from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNe
 import NewInput from '../NewInput/NewInput'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import Link from 'next/link'
-const EmailNewletter = ({ title, description, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, fieldName }) => {
+const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, fieldName }) => {
     return (
         <div className={styles.newsletterContainer}>
             <div className={styles.headerSection}>
@@ -35,7 +35,7 @@ const EmailNewletter = ({ title, description, msg, leftInputPlaceholder, rightIn
                     </div>
                 </div>
                 <div className={styles.primaryBtnContainer}>
-                    <PrimaryBtn title={'Subscribe'} width={'100%'} height={'100%'} />
+                    <PrimaryBtn title={btnText || 'Subscribe'} width={'100%'} height={'100%'} />
                 </div>
             </div>
 

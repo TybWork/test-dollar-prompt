@@ -22,6 +22,14 @@ const page = () => {
                     <h1>Make your AI enthusiasm work and
                         sell the AI prompts you've created.</h1>
                     <p>Dollar Prompts is where AI creators can shine. Upload your best prompts, set your price, and get paid effortlessly when they sell. Build your brand and make your AI work for you.</p>
+                    <div className={styles.buttonContainer}>
+                        <PrimaryBtn
+                            width={'100%'}
+                            height={'100%'}
+                            title={"Get Your Prompt!"}
+                            href={'#submit-form'}
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.cardsSection}>
@@ -52,22 +60,15 @@ const page = () => {
                         </div>
                     </div>
 
-                    <div className={styles.buttonContainer}>
-                        <PrimaryBtn
-                            width={'100%'}
-                            height={'100%'}
-                            title={'Join Waitlist'}
-                            href={url}
-                        />
-                    </div>
-
-
                 </div>
                 {/* email newsletter section */}
-                <EmailNewletter
-                    title={'Are you ready to earn from your side hustle? Start selling your curated AI prompts today!'}
-                    description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Sign up and join our waitlist to start selling."}
-                />
+                <div id='submit-form'>
+                    <EmailNewletter
+                        title={'Are you ready to earn from your side hustle? Start selling your curated AI prompts today!'}
+                        description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Sign up and join our waitlist to start selling."}
+                        btnText={'Submit Form'}
+                    />
+                </div>
             </div>
 
 
