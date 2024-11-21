@@ -1,5 +1,6 @@
 import { Midjourney } from '../../models/Prompt/midjourneyPrompt.model.js';
 import { cloudinaryFunc } from '../../utils/cloudinary.utils.js'
+import { SingleUserLog } from '../../models/singleUserLogs.model.js';
 import fs from 'fs'
 
 // create midjourney prompt
@@ -29,6 +30,10 @@ export const createMidjourney = async (req, res) => {
             userId: req.userId
         })
         const savedPrompt = await newPrompt.save()
+
+        // create midjourney log in userLogInfo
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.midjourney': savedPrompt._id } }, { new: true })
+
         return res.status(200).json(savedPrompt);
     } catch (error) {
         return res.status(500).json({ msg: `Failed to create midjourney prompt ${error}` })

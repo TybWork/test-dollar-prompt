@@ -1,4 +1,5 @@
 import { GPT } from '../../models/Prompt/gptPrompt.model.js';
+import { SingleUserLog } from '../../models/singleUserLogs.model.js';
 
 // create GPT prompt
 export const createGPT = async (req, res) => {
@@ -8,6 +9,10 @@ export const createGPT = async (req, res) => {
             userId: req.userId
         })
         const savedPrompt = await newPrompt.save()
+
+        // create log of singleUser when he buy gpt
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.gpt': savedPrompt._id } }, { new: true })
+
         return res.status(200).json(savedPrompt);
     } catch (error) {
         return res.status(500).json({ msg: `Failed to create gpt prompt ${error}` })
