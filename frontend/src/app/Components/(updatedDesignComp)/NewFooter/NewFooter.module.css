@@ -6,7 +6,8 @@
 .contentSection {
     background: var(--homeTertiaryClr);
     color: var(--homePriamryClr);
-    padding: 36px 48px 16px;
+    /* padding: 36px 48px 16px; */
+    padding: 48px;
     width: calc(100% - 2 * var(--mainPadding));
     margin: auto;
     border-radius: 8px;
@@ -18,14 +19,23 @@
 .topSection {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4vw;
+}
+
+.linksMainSection {
+    display: flex;
+    gap: 4vw;
+    /* justify-content: space-between; */
 }
 
 /* logo section styling */
 .logoSection {
-    width: 428px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-width: 100%;
 }
 
 
@@ -35,6 +45,7 @@
     flex-direction: column;
     gap: 8px;
     padding-top: 16px;
+    width: max-content;
 }
 
 .ul li {
@@ -95,18 +106,108 @@
     font-weight: normal;
 }
 
-@media screen and (max-width:1024px) {
-    .liteContainer {
+.mobileLinks {
+    display: none;
+}
+
+/* privacy policy */
+@media screen and (max-width:1290px) {
+    .topSection {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .logoSection {
         width: 100%;
-        border-radius: 0px;
+    }
+
+    .linksMainSection {
+        gap: 56px;
+    }
+
+    .heading {
+        font-size: 20px;
     }
 }
 
-@media screen and (max-width:772px) {
-    .liteContainer {
+@media screen and (max-width:832px) {
+
+    .ul {
+        padding-top: 0px;
+    }
+
+    .linksMainSection {
+        justify-content: space-between;
+        gap: initial;
+    }
+
+    .bottomLinks {
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        width: 100%;
+        gap: 24px;
+    }
+
+    .desktopLinks {
+        display: none;
+    }
+
+    .mobileLinks {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .topSection {
+        gap: 36px;
+    }
+
+    .contentSection {
+        width: calc(100% - 48px);
+        padding: 36px;
+    }
+
+    .linksMainSection {
+        min-width: 200px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+}
+
+@media screen and (max-width:540px) {
+    .mobileLinks {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .privacyLinks {
+        width: 100%;
+        justify-content: space-between;
+        gap: 16px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .contentSection {
         padding: 16px;
     }
 
-}
+    .bottomLinks {
+        gap: 10px;
+    }
 
-@media screen and (max-width:576px) {}
+    .heading {
+        font-size: 16px;
+    }
+
+    .ul li {
+        font-size: 14px;
+    }
+
+}
