@@ -1,11 +1,11 @@
 .mainContainer {
-    margin: 120px 0px;
+    margin: 100px 0px 0px;
     color: var(--homeTertiaryClr);
     padding: 0px var(--mainPadding);
 }
 
 .topSection {
-    gap: 68px;
+    gap: 100px;
     display: flex;
     flex-direction: column;
 }
@@ -35,17 +35,21 @@
 }
 
 .cardsContainer {
+    width: 100%;
     display: flex;
-    gap: 16px;
+    gap: 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     margin: auto;
     flex-wrap: wrap;
 }
 
 .cardsContainer div {
-    width: 288px;
-    height: 288px;
+    /* width: 288px; */
+    flex: 1;
+    min-width: 288px;
+    height: max-content;
+    min-height: 300px;
 }
 
 .buttonContainer {
@@ -95,7 +99,8 @@
     .topSection {
         gap: 56px;
     }
-    .buttonContainer{
+
+    .buttonContainer {
         margin: auto;
         height: 32px !important;
     }

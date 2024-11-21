@@ -180,21 +180,13 @@ export default function Home() {
 
       {/* main categories section */}
       <div className={styles.categoriesSection}>
-        <ShowAllSection
-          title={' '}
-          isLink={false}
-          leftGradientWidth={'0px'}
-          rightGradientWidth={'0px'}
-          content={
-            <div className={styles.btnsContainer}>
-              {
-                categoriesArr.map((btn, index) =>
-                  <NewCategoryBtn key={index} url={btn.url} text={btn.title} />
-                )
-              }
-            </div>
+        <div className={styles.btnsContainer}>
+          {
+            categoriesArr.map((btn, index) =>
+              <NewCategoryBtn key={index} url={btn.url} text={btn.title} />
+            )
           }
-        />
+        </div>
       </div>
 
 

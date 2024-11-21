@@ -10,7 +10,7 @@
     align-items: center;
     background: var(--backgroundClr);
     padding-left: var(--mainPadding);
-    padding: 72px 0px 72px var(--mainPadding);
+    padding: 100px 0px 100px var(--mainPadding);
 }
 
 .content {
@@ -31,7 +31,7 @@
 }
 
 .categoriesSection {
-    padding: 24px var(--mainPadding) 72px;
+    padding: 30px var(--mainPadding) 94px;
 }
 
 .btnsContainer {
@@ -71,7 +71,7 @@
     /* align-items: center; */
     color: var(--homeTertiaryClr);
     gap: 122px;
-    margin: 80px var(--mainPadding);
+    margin: 100px var(--mainPadding);
     overflow: hidden;
 }
 
