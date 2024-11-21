@@ -3,7 +3,7 @@
     background: var(--homePrimaryClr);
 }
 
-.liteContainer {
+.contentSection {
     background: var(--homeTertiaryClr);
     color: var(--homePriamryClr);
     padding: 36px 48px 16px;
@@ -11,105 +11,94 @@
     margin: auto;
     border-radius: 8px;
     margin-bottom: 24px;
-}
-
-.innerContainer {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 0px 8px;
 }
 
-.innerContainer img {
-    width: 159px;
-    height: auto;
-}
-
-.hyperlinksContainer {
+.topSection {
     display: flex;
-    gap: 90px;
+    justify-content: space-between;
 }
 
-.hyperlinksContainer .section{
+/* logo section styling */
+.logoSection {
+    width: 428px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
-.section li {
+
+/* Links sections */
+.ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+}
+
+.ul li {
     list-style: none;
+    transition: .3s;
 }
 
-.section li a {
-    color: var(--homePrimaryClr);
+.heading {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.ul li a {
     text-decoration: none;
+    color: var(--homePriamryClr);
 }
 
-/* copyright section */
-.copyrightSection {
+.ul li:not(.heading):hover {
+    transform: translateX(4px);
+}
+
+/* hr  */
+.hr {
     width: 100%;
-    position: relative;
-
+    height: 1px;
+    margin: 16px 0px 26px;
+    border: none;
+    outline: none;
+    background: var(--homeIconClr);
 }
 
-.middleSection {
-    width: 200px;
-    margin: auto;
-    text-align: center;
-}
-
-.footerTitle {
-    font-size: 16px;
-    font-weight: bold;
-    padding-bottom: 16px;
-}
-
-.copyright {
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.termsSection {
+/* footer texts */
+.bottomLinks {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    gap: 24px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
 }
 
-.termsSection li {
+.bottomLinks li {
     list-style: none;
 }
 
-.termsSection li a {
-    list-style: none;
-    color: var(--homePrimaryClr);
+.bottomLinks li a {
     text-decoration: none;
+    color: var(--homePriamryClr);
 }
 
-/* media queries */
+.brandName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.privacyLinks {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-weight: normal;
+}
+
 @media screen and (max-width:1024px) {
     .liteContainer {
         width: 100%;
         border-radius: 0px;
-    }
-
-    .termsSection {
-        top: -80px;
-        right: 0px;
-    }
-
-    .termsSection::before {
-        position: absolute;
-        content: '';
-        top: 50%;
-        left: -42px;
-        width: 2px;
-        transform: translate(0%, -50%);
-        height: 56px;
-        background: var(--homePrimaryClr);
     }
 }
 
@@ -118,78 +107,6 @@
         padding: 16px;
     }
 
-    .termsSection {
-        flex-direction: column;
-        gap: 8px;
-        top: -96px;
-        text-align: left;
-        align-items: baseline;
-    }
-
-    .hyperlinksContainer {
-        gap: 48px;
-    }
 }
 
-@media screen and (max-width:576px) {
-    .innerContainer {
-        padding: 0px;
-    }
-
-    .termsSection {
-        top: 0px;
-        left: 0px;
-    }
-
-    .termsSection::before {
-        position: absolute;
-        content: '';
-        top: 50%;
-        left: 0px;
-        width: 48px;
-        transform: translate(0%, -50%);
-        height: 2px;
-        background: var(--homePrimaryClr);
-    }
-
-    .termsSection {
-        flex-direction: row;
-    }
-
-    .termsSection::before {
-        top: -10px;
-        left: 0px;
-        width: 204px;
-        height: 2px;
-    }
-
-    .copyrightSection {
-        padding-top: 12px;
-    }
-
-    .footerTitle {
-        padding-bottom: 4px;
-    }
-
-    .hyperlinksContainer {
-        gap: 48px;
-        flex-direction: column;
-        gap: 24px;
-        /* align-items: center;
-        text-align: center; */
-    }
-
-    .section {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .termsSection {
-        transform: rotate(90deg);
-        top: -257px;
-        left: 0px;
-        transform-origin: left;
-        display: none;
-    }
-}
+@media screen and (max-width:576px) {}

@@ -173,11 +173,13 @@ const page = () => {
                     </div>
                 </div> */}
                 {/* email newsletter section */}
-                <EmailNewletter
-                    title={"Get News & AI  prompts in your inbox Join Our Creative Community"}
-                    description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Subscribe for regular AI news, updates, and tips. Join our growing community"}
-                    msg={<div className={styles.message}>By signing up you are agreeing our <a href="/">Term of Use</a> and <a href="/">Privacy Policy</a></div>}
-                />
+                <div id='newsletter' className={styles.newsletterContainer}>
+                    <EmailNewletter
+                        title={"Get News & AI  prompts in your inbox Join Our Creative Community"}
+                        description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Subscribe for regular AI news, updates, and tips. Join our growing community"}
+                        msg={<div className={styles.message}>By signing up you are agreeing our <a href="/">Term of Use</a> and <a href="/">Privacy Policy</a></div>}
+                    />
+                </div>
             </div>
 
 

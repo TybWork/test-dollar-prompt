@@ -15,26 +15,26 @@ import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeade
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
 import { useEffect, useState } from "react";
 
-// const inter = Inter({
-//   subsets: ["latin"],
-//   variable: '--primaryFont',
-//   weight: ['100', '300', '400', '700', '900']
-// });
-
-// const lato = Lato({
-//   subsets: ['latin'],
-//   variable: '--secondryFont',
-//   weight: ['100', '300', '400', '700', '900']
-// })
-
-const inter = localFont({
-  src: './fonts/inter.ttf',
+const inter = Inter({
+  subsets: ["latin"],
   variable: '--primaryFont',
-})
-const lato = localFont({
-  src: './fonts/inter.ttf',
+  weight: ['100', '300', '400', '700', '900']
+});
+
+const lato = Lato({
+  subsets: ['latin'],
   variable: '--secondryFont',
+  weight: ['100', '300', '400', '700', '900']
 })
+
+// const inter = localFont({
+//   src: './fonts/inter.ttf',
+//   variable: '--primaryFont',
+// })
+// const lato = localFont({
+//   src: './fonts/inter.ttf',
+//   variable: '--secondryFont',
+// })
 
 export default function RootLayout({ children }) {
   const data = userData()

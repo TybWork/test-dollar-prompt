@@ -6,45 +6,65 @@ import FooterLogo from '../FooterLogo/FooterLogo'
 const NewFooter = () => {
     return (
         <footer className={styles.mainContainer}>
-            <div className={styles.liteContainer}>
+            <div className={styles.contentSection}>
 
-                <div className={styles.innerContainer}>
-                    {/* logo */}
-                    <FooterLogo />
-
-                    {/* hyperlinks section */}
-                    <div className={styles.hyperlinksContainer}>
-                        <ul className={styles.section}>
-                            <li><Link href={'/sell-prompts'}>Sell on Dollar Prompt</Link></li>
-                            <li><Link href={'/'}>Categories</Link></li>
-                            <li><Link href={'/'}>AI Tools</Link></li>
-                            <li><Link href={'/blog'}>AI News</Link></li>
-                        </ul>
-
-                        <ul className={styles.section}>
-                            <li><Link href={'/'}>Join our Community</Link></li>
-                            <li><Link href={'/buy-prompts'}>Buy Prompts</Link></li>
-                            <li><Link href={'/signup'}>Sign Up</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* copyright section */}
-                    <div className={styles.copyrightSection}>
-                        <div className={styles.middleSection}>
-                            <div className={styles.footerTitle}> A Project by TYBWORK</div>
-                            <div className={styles.copyright}>© 2024 Dollar Prompts.</div>
+                {/* top section */}
+                <div className={styles.topSection}>
+                    {/* Logo section */}
+                    <div className={styles.logoSection}>
+                        <FooterLogo />
+                        <div className={styles.description}>
+                            Dollar Prompt is a platform that helps prompt creators sell their most valuable prompts to others, bringing ease to their lives. With everyone using AI nowadays, why not get paid for your amazing AI prompts and earn money from them?
                         </div>
-
-                        {/* terms of use links */}
-                        <ul className={styles.termsSection}>
-                            <li><Link href={'/'}>Join our Community</Link></li>
-                            <li><Link href={'/buy-prompts'}>Buy Prompts</Link></li>
-                        </ul>
                     </div>
+
+                    {/* promptsLinks Section */}
+                    <ul className={styles.ul}>
+                        <li className={styles.heading}>Prompts</li>
+                        <li><Link href={'/buy-prompts'}>Buy Prompts</Link></li>
+                        <li><Link href={'/sell-prompts'}>Sell Prompts</Link></li>
+                        <li><Link href={'/market'}>Trending Prompts</Link></li>
+                        <li><Link href={'/signup'}>Sign Up</Link></li>
+                    </ul>
+
+                    {/* Quick Links Section */}
+                    <ul className={styles.ul}>
+                        <li className={styles.heading}>Quick Links</li>
+                        <li><Link href={'/buy-prompts#newsletter'}>Join Our Community</Link></li>
+                        <li><Link href={'/blog'}>AI News</Link></li>
+                        <li><Link href={'/market'}>Trending AI Tools</Link></li>
+                    </ul>
+
+                    {/* Contact Links Section */}
+                    <ul className={styles.ul}>
+                        <li className={styles.heading}>Contact</li>
+                        <li><a href="mailto:Contact@dollarprompt.com">Contact@dollarprompt.com</a></li>
+                        <li><a href="/">Facebook</a></li>
+                        <li><a href="/">YouTube</a></li>
+                    </ul>
 
                 </div>
 
+                {/* hr */}
+                <hr className={styles.hr} />
+
+                {/* footer texts */}
+                <ul className={styles.bottomLinks}>
+                    <li className={styles.brandName}>
+                        A Project by <span>TYBWORK</span>
+                    </li>
+                    <li className={styles.copyrightText}>
+                        © 2024 Dollar Prompts.
+                    </li>
+                    <li className={styles.privacyLinks}>
+                        <Link href={'/tandcs'}>Term of Use</Link>
+                        <Link href={'/privacy-policy'}>Privacy Policy</Link>
+                    </li>
+                </ul>
+
             </div>
+
+
         </footer>
     )
 }
