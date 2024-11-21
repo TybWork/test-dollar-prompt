@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { RxGear } from "react-icons/rx";
 import DashboardButton from '@/app/Components/(liteComponents)/DashboardButton/DashboardButton';
 import { useState } from 'react';
+import FooterLogo from '@/app/Components/(updatedDesignComp)/FooterLogo/FooterLogo';
 const MasterPanel = ({ headerComponent, buttonMaping }) => {
     const [component, setcomponent] = useState(buttonMaping[0].component)
 
@@ -14,9 +15,7 @@ const MasterPanel = ({ headerComponent, buttonMaping }) => {
         <div className={styles.parentContainer}>
             <div className={styles.leftSettingsTab}>
                 {/* logo image  */}
-                <div className={styles.logoContainer}>
-                    <Image width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' alt='dollar-prompt' className={styles.siteLogo} />
-                </div>
+                <FooterLogo />
 
                 {/* buttons */}
                 <div className={styles.btnContainer}>

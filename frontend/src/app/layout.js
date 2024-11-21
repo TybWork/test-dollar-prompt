@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
         return <AdminHeader />
         // } else if (data.userRole == 'seller' || pathname.includes('/sell') || pathname.includes('/seller') || pathname.includes('/updateprompt')) {
       }
-      else if (pathname.includes('/master-dashboard') && data.userRole === null) {
+      else if (pathname.includes('/master-dashboard') || data.userRole === null) {
         return null
       }
       else if (data.userRole == 'user') {

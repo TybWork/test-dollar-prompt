@@ -2,15 +2,16 @@
     padding: 4px 8px;
     width: fit-content;
     border-radius: 4px;
-    color: white;
+    color: var(--homePrimaryClr);
     width: 80px;
     text-align: center;
 }
 
 .active {
-    background-color: rgba(123, 255, 0, 0.308);
+    /* background-color: rgba(36, 128, 0, 0.719); */
+    background: var(--homeMainBtn);
 }
 
 .disabled {
-    background-color: rgba(255, 208, 0, 0.308);
+    background-color: rgb(110, 110, 110);
 }

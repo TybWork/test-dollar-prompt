@@ -18,6 +18,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--homeTertiaryClr);
+    font-weight: 600;
 }
 
 .heading {
@@ -26,7 +28,7 @@
     align-items: center;
     justify-content: space-between;
     text-align: left;
-    background: var(--secondryClr);
+    background: var(--homeMainBtn);
     padding: 12px 0px 16px 16px;
     border-bottom: 1px solid var(--customBorder);
 }

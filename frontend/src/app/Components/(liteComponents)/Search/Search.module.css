@@ -7,17 +7,23 @@
 .inputContainer input {
     width: 100%;
     padding: 12px 48px 12px 12px;
-    background-color: var(--tertiaryClr);
+    background: transparent;
     border-radius: 4px;
     border: none;
     outline: none;
-    color: var(--textClr);
-    font-weight: bold;
+    color: var(--homeTertiaryClr);
+    border: 1px solid var(--homeMainBtn);
+    font-weight: normal;
+    caret: var(--homeTertiaryClr);
 }
 
 .inputContainer input::placeholder {
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.342);
+    color: var(--homeMainBtn);
+}
+
+.inputContainer input:focus {
+    outline: 2px solid var(--homeMainBtn);
 }
 
 .searchIcon {
@@ -25,4 +31,6 @@
     right: 10px;
     font-size: 24px;
     font-weight: 800px;
+    color: var(--homeMainBtn);
+    transition: .3s;
 }

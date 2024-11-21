@@ -1,5 +1,5 @@
 .mainContainer {
-    margin: 100px 0px 0px;
+    margin: 100px 0px;
     color: var(--homeTertiaryClr);
     padding: 0px var(--mainPadding);
 }

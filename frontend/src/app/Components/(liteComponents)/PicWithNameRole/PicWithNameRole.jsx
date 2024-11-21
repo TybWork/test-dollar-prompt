@@ -17,7 +17,7 @@ const PicWithNameRole = ({ imgSrc, name, role, roleWeight, roleColor, picDot, hi
                     style={{
                         width: dotSize || '22px',
                         height: dotSize || '22px',
-                        border: dotBorder || '5px solid var(--primaryClr)',
+                        border: dotBorder || '5px solid var(--homePrimaryClr)',
                         display: hidePicDot === true ? 'none' : hidePicDot === false ? 'block' : 'none'
                     }}
                     className={
