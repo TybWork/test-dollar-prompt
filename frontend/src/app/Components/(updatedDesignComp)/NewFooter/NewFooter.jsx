@@ -84,7 +84,6 @@ const NewFooter = () => {
 
             </div>
 
-
         </footer >
     )
 }
