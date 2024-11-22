@@ -111,8 +111,8 @@ export default function RootLayout({ children }) {
         </body>
       </Providers>
 
-      <GoogleAnalytics gaId={process.env.NEXT_GOOGLE_ANALYTICS_ID} />
-      <GoogleTagManager gtmId={process.env.NEXT_GOOGLE_TAG_ID} />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_ID} />
 
     </html>
   )
