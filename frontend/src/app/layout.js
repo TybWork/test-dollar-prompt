@@ -98,8 +98,6 @@ export default function RootLayout({ children }) {
       <Providers>
         <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
 
-          <GoogleAnalytics measurementId={process.env.NEXT_GOOGLE_ANALYTICS_ID} />
-          <GoogleTagManager gtmId={process.env.NEXT_GOOGLE_TAG_ID} />
           {/* <GoogleTagManager gtmId="" /> */}
 
           {/* condition header rendering */}
@@ -112,6 +110,10 @@ export default function RootLayout({ children }) {
           {renderFooter()}
         </body>
       </Providers>
+
+      <GoogleAnalytics gaId={process.env.NEXT_GOOGLE_ANALYTICS_ID} />
+      <GoogleTagManager gtmId={process.env.NEXT_GOOGLE_TAG_ID} />
+
     </html>
   )
 }
