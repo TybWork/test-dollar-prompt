@@ -14,6 +14,7 @@ import NewFooter from "./Components/(updatedDesignComp)/NewFooter/NewFooter";
 import GuestHeader from "./Components/(updatedDesignComp)/GuestHeader/GuestHeader";
 import BuyerHeader from "./Components/(Headers)/BuyerHeader/BuyerHeader";
 import { useEffect, useState } from "react";
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,7 +59,7 @@ export default function RootLayout({ children }) {
         return <AdminHeader />
         // } else if (data.userRole == 'seller' || pathname.includes('/sell') || pathname.includes('/seller') || pathname.includes('/updateprompt')) {
       }
-      else if (pathname.includes('/master-dashboard') || data.userRole === null) {
+      else if (pathname.includes('/master-dashboard')) {
         return null
       }
       else if (data.userRole == 'user') {
@@ -96,6 +97,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Providers>
         <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
+
+          <GoogleAnalytics measurementId={process.env.NEXT_GOOGLE_ANALYTICS_ID} />
+          <GoogleTagManager gtmId={process.env.NEXT_GOOGLE_TAG_ID} />
+          {/* <GoogleTagManager gtmId="" /> */}
 
           {/* condition header rendering */}
           {renderHeader()}
