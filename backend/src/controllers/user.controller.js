@@ -8,7 +8,7 @@ import axios from 'axios'
 
 // create user
 export const signUp = async (req, res) => {
-    const { firstName, lastName, gender, role, email, country, password } = req.body;
+    const { firstName, lastName, role, email, country, password } = req.body;
 
     try {
         const existUser = await User.findOne({ email })
@@ -21,7 +21,6 @@ export const signUp = async (req, res) => {
         const user = new User({
             firstName,
             lastName,
-            gender,
             role,
             email,
             country,

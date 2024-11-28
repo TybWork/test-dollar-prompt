@@ -67,15 +67,15 @@ const CreateUser = () => {
                     <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
                 </div>
 
-                <div className={styles.genderInputContainer}>
+                {/* <div className={styles.genderInputContainer}>
                     <div className={styles.genderInput}>
                         <input type="radio" id="male" name="gender" value="male" onChange={inputHandler} />
-                        <label htmlFor="male">Male</label><br />
+                        <label htmlFor="male">Male</label><br />s
 
                         <input type="radio" id="female" name="gender" value="female" onChange={inputHandler} />
                         <label htmlFor="female">Female</label><br />
                     </div>
-                </div>
+                </div> */}
 
                 <input className={styles.submitBtn} type="submit" value="Signup" />
 

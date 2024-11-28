@@ -14,10 +14,6 @@ const userSchema = new Schema(
         country: {
             type: String,
         },
-        gender: {
-            type: String,
-            required: true,
-        },
         email: {
             type: String,
             unique: true,

@@ -85,8 +85,6 @@ const SellPromptComp = () => {
         setdata(user);
     }
 
-    console.log('this is whole data', user)
-
     // get sample prompts
 
     useEffect(() => {
@@ -192,7 +190,9 @@ const SellPromptComp = () => {
     return (
         <div className={styles.parentContainer}>
             <ToastContainer />
-            <StepsCounter stepCount={stepCount} onPrev={handlePrev} width={counter} />
+            <div style={{ display: step === 1 ? 'none' : 'block' }}>
+                <StepsCounter stepCount={stepCount} onPrev={handlePrev} width={counter} />
+            </div>
             {step === 1 && <First onNext={handleNext} />}
             {step === 2 && <Second onSelect={handleSelect} onNext={handleNext} onChange={handleOnchange} />}
 
