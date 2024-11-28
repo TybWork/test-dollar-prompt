@@ -23,11 +23,11 @@ const Second = ({ onNext, onSelect, onChange }) => {
                 <select className="select" defaultValue="Select Prompt Type" name="promptType" id="promoptType" onChange={onChange} onClick={onSelect}>
                     <option key="Select Prompt Type" value="Select Prompt Type" disabled>Select Prompt Type</option>
                     <option key="Dall-E" value="Dall-E">Dall-E</option>
-                    <option key="GPT" value="GPT">GPT</option>
-                    <option key="Leonardo Ai" value="Leonardo Ai">Leonardo Ai</option>
-                    <option key="Llama" value="Llama">Llama</option>
                     <option key="Midjourney" value="Midjourney">Midjourney</option>
-                    <option key="Stable Diffusion" value="Stable Diffusion">Stable Diffusion</option>
+                    <option key="GPT" value="GPT">GPT</option>
+                    {/* <option key="Leonardo Ai" value="Leonardo Ai">Leonardo Ai</option> */}
+                    {/* <option key="Llama" value="Llama">Llama</option> */}
+                    {/* <option key="Stable Diffusion" value="Stable Diffusion">Stable Diffusion</option> */}
                 </select>
             </div>
 

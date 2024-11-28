@@ -20,10 +20,10 @@ import { jwtDecode } from "jwt-decode"
 
 const SellPromptComp = () => {
     const router = useRouter()
-    const [step, setstep] = useState(1);
+    const [step, setstep] = useState(0);
     const [selected, setselected] = useState('');
     const [counter, setcounter] = useState(20);
-    const [stepCount, setstepCount] = useState(1)
+    const [stepCount, setstepCount] = useState(0)
     const [user, setuser] = useState({})
     const [data, setdata] = useState(user)
     const [file, setfile] = useState([])
@@ -48,8 +48,8 @@ const SellPromptComp = () => {
 
     // previous button handle
     function handlePrev() {
-        if (stepCount < 2) {
-            setstepCount(1)
+        if (stepCount < 1) {
+            setstepCount(0)
         } else {
             setstep(prev => prev - 1)
             setcounter(prev => prev - 20)
@@ -190,58 +190,58 @@ const SellPromptComp = () => {
     return (
         <div className={styles.parentContainer}>
             <ToastContainer />
-            <div style={{ display: step === 1 ? 'none' : 'block' }}>
+            <div style={{ display: step === 0 ? 'none' : 'block' }}>
                 <StepsCounter stepCount={stepCount} onPrev={handlePrev} width={counter} />
             </div>
-            {step === 1 && <First onNext={handleNext} />}
-            {step === 2 && <Second onSelect={handleSelect} onNext={handleNext} onChange={handleOnchange} />}
+            {step === 0 && <First onNext={handleNext} />}
+            {step === 1 && <Second onSelect={handleSelect} onNext={handleNext} onChange={handleOnchange} />}
 
             {/* *************conditional rendering (step3)*********** */}
 
             {/* dalle prompt sell */}
-            {selected === "Dall-E" && step >= 3 && (
+            {selected === "Dall-E" && step >= 2 && (
                 <div>
-                    {step === 3 && <Dall3 onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
+                    {step === 2 && <Dall3 onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
                 </div>
             )}
 
             {/* dalle prompt sell */}
-            {selected === "GPT" && step >= 3 && (
+            {selected === "GPT" && step >= 2 && (
                 <div>
-                    {step === 3 && <Gpt3 onNext={handleNext} onChange={handleOnchange} promptSamples={getSamplePromptFunc} />}
+                    {step === 2 && <Gpt3 onNext={handleNext} onChange={handleOnchange} promptSamples={getSamplePromptFunc} />}
                 </div>
             )}
 
             {/* Leonardo prompt sell */}
-            {selected === "Leonardo Ai" && step >= 3 && (
+            {selected === "Leonardo Ai" && step >= 2 && (
                 <div>
-                    {step === 3 && <Leonardo onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
+                    {step === 2 && <Leonardo onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
                 </div>
             )}
 
             {/* Leonardo prompt sell */}
-            {selected === "Llama" && step >= 3 && (
+            {selected === "Llama" && step >= 2 && (
                 <div>
                     {step === 3 && <Llama onNext={handleNext} onChange={handleOnchange} promptSamples={getSamplePromptFunc} />}
                 </div>
             )}
 
             {/* Midjourney prompt sell */}
-            {selected === "Midjourney" && step >= 3 && (
+            {selected === "Midjourney" && step >= 2 && (
                 <div>
-                    {step === 3 && <Midjourney onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
+                    {step === 2 && <Midjourney onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
                 </div>
             )}
 
             {/* stable diffusion prompt sell */}
-            {selected === "Stable Diffusion" && step >= 3 && (
+            {selected === "Stable Diffusion" && step >= 2 && (
                 <div>
-                    {step === 3 && <StableDiffusion onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
+                    {step === 2 && <StableDiffusion onNext={handleNext} onChange={handleOnchange} imgFunc={imageChangeFunc} />}
                 </div>
             )}
 
             {/* ************* select Country (step4)*********** */}
-            {step === 4 && <SelectCountry onClick={handleSubmit} />}
+            {step === 3 && <SelectCountry onClick={handleSubmit} />}
 
         </div >
     )

@@ -20,7 +20,7 @@ const StepsCounter = ({ onPrev, width, stepCount }) => {
             <div className={styles.stepsPercentage}>
                 <div className={styles.realPercentage} style={{ width: `${width}%` }}></div>
             </div>
-            <div className={styles.stepCounter}>Step {stepCount}/5</div>
+            <div className={styles.stepCounter}>Step {stepCount}/3</div>
         </div>
     )
 }
