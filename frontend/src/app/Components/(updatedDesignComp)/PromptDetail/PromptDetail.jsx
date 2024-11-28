@@ -69,21 +69,21 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     text={
                         <>
                             <span style={{ color: 'var(--ratingClr)' }}>{promptRating || '0.0'}</span>
-                            (500)
+                            (0)
                         </>
                     }
                 />
                 <IconWithText
                     icon={<EyeIcon stroke={'var(--homeMainBtn)'} width='20px' />}
-                    text={views || 100}
+                    text={views || '0'}
                 />
                 <IconWithText
                     icon={<HeartIcon width='20px' stroke={'var(--homeMainBtn)'} />}
-                    text={favourites || 100}
+                    text={favourites || '0'}
                 />
                 <IconWithText
                     icon={<ArrowIcon width='20px' fill={'var(--homeMainBtn)'} />}
-                    text={shares || 1000}
+                    text={shares || '0'}
                 />
             </div>
 
@@ -94,9 +94,10 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 {/* buttonSection */}
                 <div className={styles.btnSection}>
                     <div className={styles.priceSection}>
-                        <div className={styles.salePrice}>${salePrice || 4.99}</div>
-                        {/* <div className={styles.originalPrice}>$<s>{originalPrice || 8.99}</s></div>
-                        <div className={styles.percentageOff}>${percentageOff || 50}% off</div> */}
+                        {/* <div className={styles.salePrice}>${salePrice || 4.99}</div> */}
+                        {/* <div className={styles.originalPrice}>$<s>{originalPrice || 8.99}</s></div> */}
+                        <div className={styles.originalPrice}>$<s>{salePrice || 8.99}</s></div>
+                        <div className={styles.percentageOff}>Free</div>
                     </div>
                     <div className={styles.btns}>
                         <div className={styles.primaryBtn}>

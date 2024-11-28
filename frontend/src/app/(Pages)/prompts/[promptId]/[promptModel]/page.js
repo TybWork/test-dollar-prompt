@@ -99,9 +99,13 @@ const Page = ({ params }) => {
                         linkToProfile={`/profile/${prompt.userId}`}
                     />
                     <p className={styles.sellerDescription}>
-                        {sellerProfile.profileDescription} <Link href={`/profile/${sellerProfile.userId}`}>read more</Link>
+                        {sellerProfile.profileDescription}
+                        {/* {sellerProfile.profileDescription} <Link href={`/profile/${sellerProfile.userId}`}>read more</Link> */}
                     </p>
-                    <Reviews />
+
+                    {/* ...............reviews component................ */}
+
+                    {/* <Reviews /> */}
                 </div>
 
                 <PromptDetail

@@ -36,20 +36,33 @@ const userProfileSchema = new Schema({
         type: String,
         // required: true
     },
+    promptsCount: {
+        type: Number,
+        default: 0
+    },
     views: {
         type: Number,
+        default: 0
     },
     likes: {
         type: Number,
+        default: 0
     },
     rank: {
         type: Number,
+        default: 0
     },
     following: {
-        type: Number
+        type: Number,
+        default: 0
     },
     followers: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    ranking: {
+        type: Number,
+        default: 0
     },
     prompts: {
         type: [

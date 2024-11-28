@@ -8,7 +8,7 @@ import VerifiedIcon from '@/app/Components/(icons)/VerifiedIcon'
 import StarIcon from '@/app/Components/(icons)/StarIcon'
 import Link from 'next/link'
 
-const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile }) => {
+const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile, promptsCount, followersCount, sellPromptsCount, totalRatings, ratingPercentage }) => {
     return (
         <div className={styles.parentContainer}>
             <Link href={linkToProfile || '/'}>
@@ -31,12 +31,12 @@ const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile 
                         </Link>
                     </div>
                     <div className={styles.counts}>
-                        <HeadingCounts count={50} heading={'Prompts'} />
-                        <HeadingCounts count={5} heading={'Followers'} />
-                        <HeadingCounts count={100} heading={'Prompts Sold'} />
+                        <HeadingCounts count={promptsCount || '0'} heading={'Prompts'} />
+                        <HeadingCounts count={followersCount || '0'} heading={'Followers'} />
+                        <HeadingCounts count={sellPromptsCount || '0'} heading={'Prompts Sold'} />
                         <div className={styles.starIconContainer}>
                             <StarIcon width={'20px'} />
-                            <HeadingCounts heading={'( 159 )'} count={4.9} textAlign={'center'} />
+                            <HeadingCounts heading={totalRatings || '( 0 )'} count={ratingPercentage || '0.0'} textAlign={'center'} />
                         </div>
                     </div>
                 </div>

@@ -96,6 +96,9 @@ export const getSellerInfo = async (req, res) => {
             }
         }
 
+        // other data
+        // promptsCount
+
         return res.status(200).json(combinedData);
     } catch (error) {
         console.error(error); // Log the error for debugging

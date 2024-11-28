@@ -9,6 +9,7 @@ import PiChart from '../(Charts)/PiChart/PiChart';
 import { Pie, Doughnut } from 'react-chartjs-2'
 import LineChart from '../(Charts)/LineChart/LineChart';
 import BarChart from '../(Charts)/BarChart/BarChart';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 
 const Analytics = () => {
     const reduxDate = useSelector(state => state.datepicker.date);
@@ -29,7 +30,7 @@ const Analytics = () => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/super-admin/get-data`,
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization: getTokenFunction().token,
                     },
                     withCredentials: true,
                 }

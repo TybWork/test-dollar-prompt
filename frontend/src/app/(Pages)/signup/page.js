@@ -69,25 +69,25 @@ const CreateUser = () => {
 
                 <div className={styles.genderInputContainer}>
                     <div className={styles.genderInput}>
-                        <label htmlFor="male">Male</label><br />
                         <input type="radio" id="male" name="gender" value="male" onChange={inputHandler} />
+                        <label htmlFor="male">Male</label><br />
 
-                        <label htmlFor="female">Female</label><br />
                         <input type="radio" id="female" name="gender" value="female" onChange={inputHandler} />
+                        <label htmlFor="female">Female</label><br />
                     </div>
                 </div>
 
-                <input className={styles.submitBtn} type="submit" value="Sign Up" />
+                <input className={styles.submitBtn} type="submit" value="Signup" />
 
                 {/* borderbottom  */}
                 <hr className={styles.borderBottom} />
             </form>
 
             {/* google button */}
-            <button className={styles.googleBtn}>
+            {/* <button className={styles.googleBtn}>
                 <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="site-logo" />
                 Google
-            </button>
+            </button> */}
 
             {/* terms & condition */}
             <div className={styles.terms}>By creating an account, you agree to our <Link href="/tandcs">terms of service.</Link></div>

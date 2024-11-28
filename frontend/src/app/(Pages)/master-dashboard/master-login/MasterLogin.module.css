@@ -34,7 +34,7 @@
     width: 96px;
     height: auto;
     border-radius: 50px;
-    border: 6px solid var(--primaryClr);
+    border: 6px solid var(--homePrimaryClr);
 }
 
 .form {
