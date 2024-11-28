@@ -32,7 +32,7 @@
   --homePrimaryClr: #ffffff;
   --homeSecondryClr: #F8FDF8;
   --homeTertiaryClr: #205B26;
-  --backgroundClr:rgb(252,255,252);
+  --backgroundClr: rgb(252, 255, 252);
   --homeMainBtn: #44C151;
   --homeIconClr: #8FAD92;
   --homeCardBorder: #D2DED4;
@@ -63,7 +63,7 @@
 /* 1024px
 658px */
 
-html{
+html {
   scroll-behavior: smooth;
 }
 

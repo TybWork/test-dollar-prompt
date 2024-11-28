@@ -11,13 +11,14 @@ import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 
 const page = () => {
     const [step, setstep] = useState(0)
+    const [userId, setuserId] = useState('')
+    const [profileHandle, setprofileHandle] = useState('')
+    const [profile, setprofile] = useState({})
 
     const [user, setuser] = useState({ email: "", password: "" })
     const getvalue = (e) => {
-        // console.log(e.target.name, ":", e.target.value)
         const { name, value } = e.target
         setuser(prev => ({ ...prev, [name]: value }));
-        console.log(user)
     }
 
     useEffect(() => {
@@ -26,8 +27,20 @@ const page = () => {
             if (adminToken) {
                 try {
                     const decodedToken = jwtDecode(adminToken)
+                    setprofileHandle(decodedToken.profileHandle)
+                    setuserId(decodedToken.userId)
                     if (decodedToken.userRole === 'super-admin') {
                         setstep(1)
+                        const fetchData = async () => {
+                            try {
+                                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
+                                setprofile(response.data)
+
+                            } catch (err) {
+                                console.error("Error fetching seller data:", err);
+                            }
+                        };
+                        fetchData();
                     } else {
                         setstep(0)
                     }
@@ -40,6 +53,8 @@ const page = () => {
             }
         }
     }, [])
+
+    console.log(profile)
 
     const submitForm = async (e) => {
         console.log('submit btn triggered')
@@ -69,7 +84,7 @@ const page = () => {
     }
     return (
         <div>
-            {step === 0 ? <MasterLogin onSubmit={submitForm} onChange={getvalue} /> : <MasterPanel headerComponent={<DashboardHeader />} buttonMaping={buttons.superAdmin} />}
+            {step === 0 ? <MasterLogin onSubmit={submitForm} onChange={getvalue} /> : <MasterPanel headerComponent={<DashboardHeader imgUrl={profile.profileImage && profile.profileImage.length > 0 ? profile.profileImage[0] : '/assets/imageAssets/ceo_dollarprompt.PNG'} profileUpdateUrl={`/user/${profileHandle}/profile-update`} />} buttonMaping={buttons.superAdmin} />}
         </div>
     )
 }

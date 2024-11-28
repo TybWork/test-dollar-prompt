@@ -141,7 +141,8 @@ const editorConfig = {
     uploader: {
         insertImageAsBase64URI: true,
     },
-    width: 800,
+    // width: 800,
+    width: 'calc(100% - 4px)',
     height: 842,
 };
 

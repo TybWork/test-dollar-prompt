@@ -79,6 +79,46 @@ export const isAdmin = async (req, res, next) => {
     }
 };
 
+// is admin or super admin
+
+export const isAdminOrSuperAdmin = async (req, res, next) => {
+    try {
+        // Check for the Authorization header
+        const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+
+        if (!authHeader) {
+            return res.status(401).json({ msg: "Unauthorized: No token provided" });
+        }
+
+        // Extract the token
+        const [bearer, token] = authHeader.split(' ');
+
+        if (bearer !== 'Bearer' || !token) {
+            return res.status(401).json({ msg: "Unauthorized: Invalid token format" });
+        }
+
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId);
+
+        if (!user) {
+            return res.status(401).json({ msg: "Unauthorized: User not found" });
+        }
+
+        // Check if the user is an admin or superadmin
+        if (user.role !== "admin" && user.role !== "super-admin") {
+            return res.status(403).json({ msg: "Forbidden: User is not an admin or superadmin" });
+        }
+
+        // Attach user to request
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error('Authentication error:', error.message);
+        return res.status(401).json({ msg: "Unauthorized: Invalid token or user" });
+    }
+};
+
 // for seller
 
 export const getUserId = async (req, res, next) => {

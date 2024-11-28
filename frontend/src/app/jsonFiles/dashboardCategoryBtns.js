@@ -28,12 +28,12 @@ import CreateBlogComponent from "../Components/(Dashbords)/(adminComponents)/Cre
 
 export const buttons = {
     superAdmin: [
-        {
-            id: 0,
-            icon: <RxDashboard />,
-            title: 'Dashboard',
-            component: <PeopleView />
-        },
+        // {
+        //     id: 0,
+        //     icon: <RxDashboard />,
+        //     title: 'Dashboard',
+        //     component: <PeopleView />
+        // },
         // {
         //     id: 1,
         //     icon: <IoChatbubblesOutline />,
@@ -41,17 +41,23 @@ export const buttons = {
         //     component: <ChatComponent senderIdString={userId} />
         // },
         {
-            id: 2,
+            id: 0,
             icon: <GrAnalytics />,
             title: 'Analytics',
             component: <Analytics />
         },
         {
-            id: 3,
-            icon: <HiOutlineCreditCard />,
-            title: 'Billing',
-            component: 'This Billing'
+            id: 1,
+            icon: <LiaBlogSolid />,
+            title: 'Write Blog',
+            component: <CreateBlogComponent />
         },
+        // {
+        //     id: 3,
+        //     icon: <HiOutlineCreditCard />,
+        //     title: 'Billing',
+        //     component: 'This Billing'
+        // },
     ],
     admin: [
         {
