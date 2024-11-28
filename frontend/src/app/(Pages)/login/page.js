@@ -42,7 +42,7 @@ const LoginUser = () => {
                 const response = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
                     withCredentials: true,
                 });
-                document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
+                document.cookie = `token=${response.data.token}; path=/; httpOnly; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
                 const redirectToPrompt = localStorage.getItem('redirectTo')
                 window.location.href = redirectToPrompt || '/';
                 captchaRef.current.reset();
