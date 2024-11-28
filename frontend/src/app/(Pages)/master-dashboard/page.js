@@ -50,7 +50,7 @@ const page = () => {
                     withCredentials: true
                 }
             )
-            document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
+            // document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
 
             const decodedToken = jwtDecode(response.data.token)
             const role = decodedToken.userRole
