@@ -77,10 +77,10 @@ const LoginUser = () => {
                 <input className={styles.submitBtn} type="submit" value="Login" />
                 <hr className={styles.borderBottom} />
             </form>
-            <button className={styles.googleBtn} >
+            {/* <button className={styles.googleBtn} >
                 <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="google-logo" />
                 Google
-            </button>
+            </button> */}
             <div className={styles.terms}>
                 By creating an account, you agree to our <Link href="/tandcs">terms of service.</Link>
             </div>

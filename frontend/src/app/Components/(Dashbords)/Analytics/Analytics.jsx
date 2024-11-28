@@ -26,7 +26,14 @@ const Analytics = () => {
     // function to get data from api
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/super-admin/get-data`)
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/super-admin/get-data`,
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                    withCredentials: true,
+                }
+            )
             setmainData(response.data)
         }
         fetchData()

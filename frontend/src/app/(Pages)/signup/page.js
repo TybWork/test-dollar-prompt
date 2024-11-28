@@ -77,7 +77,7 @@ const CreateUser = () => {
                     </div>
                 </div>
 
-                <input className={styles.submitBtn} type="submit" value="Register" />
+                <input className={styles.submitBtn} type="submit" value="Sign Up" />
 
                 {/* borderbottom  */}
                 <hr className={styles.borderBottom} />
