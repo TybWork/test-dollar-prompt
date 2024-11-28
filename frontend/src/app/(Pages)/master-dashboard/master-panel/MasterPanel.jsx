@@ -2,15 +2,30 @@ import styles from '@/app/(Pages)/master-dashboard/master-panel/MasterPanel.modu
 import Image from 'next/image'
 import { RxGear } from "react-icons/rx";
 import DashboardButton from '@/app/Components/(liteComponents)/DashboardButton/DashboardButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FooterLogo from '@/app/Components/(updatedDesignComp)/FooterLogo/FooterLogo';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import { jwtDecode } from 'jwt-decode';
 const MasterPanel = ({ headerComponent, buttonMaping }) => {
     const [component, setcomponent] = useState(buttonMaping[0].component)
+    const [userId, setuserId] = useState('')
+    const [userRole, setuserRole] = useState('')
 
     const buttonClick = (component) => {
         setcomponent(component)
         console.log(component)
     }
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const token = getTokenFunction().cookie
+            const decodedToken = jwtDecode(token)
+            setuserId(decodedToken.userId)
+            setuserRole(decodedToken.userRole)
+        }
+    }, [])
+    console.log(userId)
+    console.log(userRole)
     return (
         <div className={styles.parentContainer}>
             <div className={styles.leftSettingsTab}>

@@ -6,6 +6,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    color: var(--homeMainBtn);
 }
 
 .revenue svg {
@@ -30,7 +31,7 @@
 }
 
 .percentage {
-    color: var(--timeClr);
+    color: var(--homeMainBtn);
     display: flex;
     align-items: center;
 }
@@ -40,6 +41,6 @@
 }
 
 .todaySales {
-    color: var(--textClr);
+    color: var(--timeClr);
     opacity: .8;
 }

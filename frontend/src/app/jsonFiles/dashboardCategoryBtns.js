@@ -19,12 +19,12 @@ import PromptsTab from "../Components/(Dashbords)/PromptsTab/PromptsTab";
 import UnverifiedPromptsComponent from "../Components/(Dashbords)/(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent";
 import CreateBlogComponent from "../Components/(Dashbords)/(adminComponents)/CreateBlogComponent/CreateBlogComponent";
 
-let userId;
-if (typeof window !== 'undefined') {
-    const token = getTokenFunction().cookie
-    const decodedToken = jwtDecode(token)
-    userId = decodedToken.userId
-}
+// let userId;
+// if (typeof window !== 'undefined') {
+//     const token = getTokenFunction().cookie
+//     const decodedToken = jwtDecode(token)
+//     userId = decodedToken.userId
+// }
 
 export const buttons = {
     superAdmin: [

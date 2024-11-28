@@ -6,4 +6,4 @@ import { getSuperAdminDashboardData } from '../controllers/SuperAdmin/superAdmin
 export const superAdminRoutes = express.Router();
 
 superAdminRoutes.post('/login', superAdminLogin);
-superAdminRoutes.get('/getdata', getSuperAdminDashboardData)
+superAdminRoutes.get('/get-data', getSuperAdminDashboardData)

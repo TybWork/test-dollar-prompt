@@ -1,11 +1,11 @@
 'use client'
 import styles from '@/app/Components/(Dashbords)/(DashboardsLiteComponent)/InfoCardDashboard/InfoCardDashboard.module.css';
 import { PiShoppingBagOpenFill, PiDotsThreeOutlineFill } from "react-icons/pi";
-import SalesCardContentComp from '../SalesCardContentComp/SalesCardContentComp';
+import SalesCardContentComp from '../(infoCardDashboardComponents)/SalesCardContentComp/SalesCardContentComp';
 import DatePickerComp from '@/app/Components/(liteComponents)/DatePickerComp/DatePickerComp'
 
 // InfoCardDashboard.jsx
-const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDate }) => {
+const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDate, hasCallender = false }) => {
     const handleClick = () => {
         console.log('InfoCardDashboard clicked');
         if (onClick) onClick();
@@ -20,7 +20,11 @@ const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDa
                         <span className={styles.headerText}>{mainTitle || 'dummyTitle'}</span>
                     </div>
                     <PiDotsThreeOutlineFill />
-                    <span>
+                    <span
+                        style={{
+                            display: hasCallender ? 'block' : 'none'
+                        }}
+                    >
                         <DatePickerComp
                             background={'var(--secondryClr)'}
                             fullDate={fullDate}
@@ -35,7 +39,7 @@ const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDa
 
             {/* content */}
             <div className={styles.content}>
-                {contentComponent || <div>Default Content</div>}
+                {contentComponent}
             </div>
         </div>
     );
