@@ -32,6 +32,7 @@
 
 .categoriesSection {
     padding: 30px var(--mainPadding) 94px;
+    overflow: auto;
 }
 
 .btnsContainer {
