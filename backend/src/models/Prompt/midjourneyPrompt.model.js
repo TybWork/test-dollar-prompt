@@ -31,9 +31,9 @@ const MidjourneyPromptSchema = new Schema(
             // required: true,
             validate: {
                 validator: function (arr) {
-                    return arr.length === 7
+                    return arr.length === 3
                 },
-                message: "Please upload 7 example images."
+                message: "Please upload 3 example images."
             },
         },
         country: {

@@ -21,7 +21,6 @@ const Analytics = () => {
 
     function handleComponentClick(component) {
         setActiveComponent(component);
-        console.log(activeComponent)
     }
 
     // function to get data from api
@@ -39,7 +38,6 @@ const Analytics = () => {
         }
         fetchData()
     }, [])
-    console.log('this is main data', mainData)
 
     useEffect(() => {
         if (activeComponent === 'prompts') {

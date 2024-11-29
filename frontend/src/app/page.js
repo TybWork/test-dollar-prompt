@@ -216,7 +216,7 @@ export default function Home() {
       </div>
 
       {/* Chat GPT prompts */}
-      <div className={styles.promptsSection}>
+      {/* <div className={styles.promptsSection}>
         <ShowAllSection
           title={'GPT prompts'}
           linkText={'View All GPT Prompts'}
@@ -238,7 +238,7 @@ export default function Home() {
           }
         />
 
-      </div>
+      </div> */}
 
       {/*dalle prompts section */}
       <div className={styles.promptsSection}>

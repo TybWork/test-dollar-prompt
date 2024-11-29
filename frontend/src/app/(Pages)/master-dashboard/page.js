@@ -14,6 +14,7 @@ const page = () => {
     const [userId, setuserId] = useState('')
     const [profileHandle, setprofileHandle] = useState('')
     const [profile, setprofile] = useState({})
+    const [userRole, setuserRole] = useState('')
 
     const [user, setuser] = useState({ email: "", password: "" })
     const getvalue = (e) => {
@@ -22,25 +23,32 @@ const page = () => {
     }
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const adminToken = getTokenFunction().cookie
-            if (adminToken) {
-                try {
-                    const decodedToken = jwtDecode(adminToken)
-                    setprofileHandle(decodedToken.profileHandle)
-                    setuserId(decodedToken.userId)
-                    if (decodedToken.userRole === 'super-admin') {
-                        setstep(1)
-                        const fetchData = async () => {
-                            try {
-                                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
-                                setprofile(response.data)
+        const adminToken = getTokenFunction().cookie
+        const decodedToken = jwtDecode(adminToken)
+        setprofileHandle(decodedToken.profileHandle)
+        setuserId(decodedToken.userId)
+        setuserRole(decodedToken.userRole)
+    }, [])
 
-                            } catch (err) {
-                                console.error("Error fetching seller data:", err);
-                            }
-                        };
-                        fetchData();
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (getTokenFunction().cookie) {
+
+                const fetchData = async () => {
+                    try {
+                        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
+                        setprofile(response.data)
+                        console.log('response data is here', response.data)
+
+                    } catch (err) {
+                        console.error("Error fetching seller data:", err);
+                    }
+                };
+                fetchData();
+
+                try {
+                    if (userRole === 'super-admin') {
+                        setstep(1)
                     } else {
                         setstep(0)
                     }
@@ -52,7 +60,7 @@ const page = () => {
                 setstep(0)
             }
         }
-    }, [])
+    }, [userId])
 
     console.log(profile)
 
@@ -82,6 +90,7 @@ const page = () => {
             setstep(0)
         }
     }
+
     return (
         <div>
             {step === 0 ? <MasterLogin onSubmit={submitForm} onChange={getvalue} /> : <MasterPanel headerComponent={<DashboardHeader imgUrl={profile.profileImage && profile.profileImage.length > 0 ? profile.profileImage[0] : '/assets/imageAssets/ceo_dollarprompt.PNG'} profileUpdateUrl={`/user/${profileHandle}/profile-update`} />} buttonMaping={buttons.superAdmin} />}

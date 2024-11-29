@@ -13,7 +13,6 @@ const MasterPanel = ({ headerComponent, buttonMaping }) => {
 
     const buttonClick = (component) => {
         setcomponent(component)
-        console.log(component)
     }
 
     useEffect(() => {
@@ -24,8 +23,6 @@ const MasterPanel = ({ headerComponent, buttonMaping }) => {
             setuserRole(decodedToken.userRole)
         }
     }, [])
-    console.log(userId)
-    console.log(userRole)
     return (
         <div className={styles.parentContainer}>
             <div className={styles.leftSettingsTab}>
