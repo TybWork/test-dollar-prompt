@@ -3,7 +3,32 @@ import styles from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNe
 import NewInput from '../NewInput/NewInput'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import Link from 'next/link'
-const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, fieldName }) => {
+const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, firstFieldName, secondeFieldName, formTitle }) => {
+
+    async function handleSubmit(event) {
+        alert('function clicked')
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        formData.append("access_key", process.env.NEXT_PUBLIC_WEB3_EMAIL_SECRET);
+
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: json
+        });
+        const result = await response.json();
+        if (result.success) {
+            console.log(result);
+        }
+    }
+
     return (
         <div className={styles.newsletterContainer}>
             <div className={styles.headerSection}>
@@ -17,27 +42,28 @@ const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder
                 </p>
             </div>
 
-            <div className={styles.emailCredentials}>
+            <form onSubmit={handleSubmit} className={styles.emailCredentials}>
                 <div className={styles.inputsContainer}>
+                    <input type='hidden' name='form_title' value={formTitle || 'Email Newsletter'} />
                     <div className={styles.input}>
                         <NewInput
                             placeholder={leftInputPlaceholder || 'Name'}
                             onChange={onChange}
-                            fieldName={fieldName}
+                            fieldName={firstFieldName}
                         />
                     </div>
                     <div className={styles.input}>
                         <NewInput
                             placeholder={rightInputPlaceholder || 'Email'}
                             onChange={onChange}
-                            fieldName={fieldName}
+                            fieldName={secondeFieldName}
                         />
                     </div>
                 </div>
                 <div className={styles.primaryBtnContainer}>
-                    <PrimaryBtn title={btnText || 'Subscribe'} width={'100%'} height={'100%'} />
+                    <PrimaryBtn isSubmitBtn={true} title={btnText || 'Subscribe'} width={'100%'} height={'100%'} />
                 </div>
-            </div>
+            </form>
 
             <div className={styles.info}>{msg || <div className={styles.message}>By signing up you are agreeing our <Link href="/tandcs">Term of Use</Link> and <Link href="/privacy-policy">Privacy Policy</Link></div>}</div>
 

@@ -335,6 +335,9 @@ export default function Home() {
         description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Subscribe for regular AI news, updates, and tips. Join our growing community"}
         leftInputPlaceholder={'Name'}
         rightInputPlaceholder={'Email Address'}
+        firstFieldName={'Name'}
+        secondeFieldName={'Email'}
+        formTitle={'Email Newsletter'}
       />
 
     </div >

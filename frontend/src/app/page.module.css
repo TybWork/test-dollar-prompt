@@ -274,10 +274,6 @@
         gap: 32px;
     }
 
-    .timelineContent {
-        /* flex: auto */
-    }
-
     .timelineWraper {
         width: 347px;
     }
