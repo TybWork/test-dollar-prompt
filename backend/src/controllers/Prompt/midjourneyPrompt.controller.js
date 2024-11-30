@@ -32,7 +32,7 @@ export const createMidjourney = async (req, res) => {
         const savedPrompt = await newPrompt.save()
 
         // create midjourney log in userLogInfo
-        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.midjourney': savedPrompt._id } }, { new: true })
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.midjourney': savedPrompt._id } }, { new: true, upsert: true })
 
         return res.status(200).json(savedPrompt);
     } catch (error) {

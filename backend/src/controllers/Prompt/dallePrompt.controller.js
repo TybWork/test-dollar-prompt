@@ -30,10 +30,12 @@ export const createDallE = async (req, res) => {
             userId: req.userId
         })
         const savedPrompt = await newPrompt.save()
+        console.log(savedPrompt._id)
+        console.log(savedPrompt.userId)
 
         // promptId add to logs
         // userId, promptId, promptType
-        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.dall-e': savedPrompt._id } }, { new: true })
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.dall-e': savedPrompt._id } }, { new: true, upsert: true })
 
         return res.status(200).json(savedPrompt);
     } catch (error) {

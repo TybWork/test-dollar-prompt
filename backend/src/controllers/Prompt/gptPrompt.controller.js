@@ -11,7 +11,7 @@ export const createGPT = async (req, res) => {
         const savedPrompt = await newPrompt.save()
 
         // create log of singleUser when he buy gpt
-        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.gpt': savedPrompt._id } }, { new: true })
+        await SingleUserLog.findOneAndUpdate({ userId: savedPrompt.userId }, { $push: { 'sellingHistory.gpt': savedPrompt._id } }, { new: true, upsert: true })
 
         return res.status(200).json(savedPrompt);
     } catch (error) {

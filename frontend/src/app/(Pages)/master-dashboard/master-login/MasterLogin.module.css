@@ -19,7 +19,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    background: var(--tertiaryClr);
+    background: var(--homeTertiaryClr);
     border-radius: 8px;
     position: relative;
     padding: 24px;

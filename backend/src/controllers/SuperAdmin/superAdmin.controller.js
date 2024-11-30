@@ -1,4 +1,6 @@
 import { DallE } from "../../models/Prompt/dallePrompt.model.js";
+import { GPT } from "../../models/Prompt/gptPrompt.model.js";
+import { Midjourney } from "../../models/Prompt/midjourneyPrompt.model.js";
 import { SuperAdmin } from "../../models/superAdmin.model.js";
 import { User } from "../../models/User/user.model.js";
 
@@ -11,6 +13,82 @@ export const getSuperAdminDashboardData = async (req, res) => {
         const approvedCount = await DallE.countDocuments({ status: 'active' });
         const pendingCount = await DallE.countDocuments({ status: 'pending' });
         const rejectedCount = await DallE.countDocuments({ status: 'paused' });
+
+
+
+        // ............................... 
+
+        // Define a function to handle aggregation per collection
+        const countPromptsByStatus = async (model, collectionName) => {
+            return await model.aggregate([
+                {
+                    $facet: {
+                        active: [
+                            { $match: { status: 'active' } },
+                            { $count: 'count' }
+                        ],
+                        pending: [
+                            { $match: { status: 'pending' } },
+                            { $count: 'count' }
+                        ],
+                        paused: [
+                            { $match: { status: 'paused' } },
+                            { $count: 'count' }
+                        ],
+                        total: [
+                            { $count: 'count' }
+                        ]
+                    }
+                },
+                {
+                    $project: {
+                        collection: { $literal: collectionName },
+                        active: { $ifNull: [{ $arrayElemAt: ['$active.count', 0] }, 0] },
+                        pending: { $ifNull: [{ $arrayElemAt: ['$pending.count', 0] }, 0] },
+                        paused: { $ifNull: [{ $arrayElemAt: ['$paused.count', 0] }, 0] },
+                        total: { $ifNull: [{ $arrayElemAt: ['$total.count', 0] }, 0] }
+                    }
+                }
+            ]);
+        };
+
+
+        const getPromptCounts = async () => {
+            // Get counts from each collection
+            const [dalleCounts, gptCounts, midJourneyCounts] = await Promise.all([
+                countPromptsByStatus(DallE, 'dalles'),
+                countPromptsByStatus(GPT, 'gpts'),
+                countPromptsByStatus(Midjourney, 'midjourneys')
+            ]);
+
+            // Aggregate all counts
+            const totalActive = dalleCounts[0].active + gptCounts[0].active + midJourneyCounts[0].active;
+            const totalPending = dalleCounts[0].pending + gptCounts[0].pending + midJourneyCounts[0].pending;
+            const totalPaused = dalleCounts[0].paused + gptCounts[0].paused + midJourneyCounts[0].paused;
+            const totalPrompts = dalleCounts[0].total + gptCounts[0].total + midJourneyCounts[0].total;
+
+            // Combine all results into a single object
+            const result = {
+                totalPrompts,
+                totalActive,
+                totalPending,
+                totalPaused,
+                collections: {
+                    dalles: dalleCounts[0],
+                    gpts: gptCounts[0],
+                    midjourneys: midJourneyCounts[0]
+                }
+            };
+
+            return result;
+        };
+
+        const counts = await getPromptCounts();
+        console.log(counts);
+
+
+        // ............................... 
+
 
         // Prepare counts for a specific date
         const dateFunc = (date) => {
@@ -77,6 +155,7 @@ export const getSuperAdminDashboardData = async (req, res) => {
                         pending: pendingCount,
                         rejected: rejectedCount,
                     },
+                    promptsDetail: counts,
 
                     promptsCountOnSpecificDate: {
                         total: totalCountOnDate,
@@ -87,7 +166,7 @@ export const getSuperAdminDashboardData = async (req, res) => {
 
                     rolesCount: {
                         total: totalRolesCount - 1,
-                        users: userCount,
+                        users: userCount - sellerCount,
                         sellers: sellerCount,
                         admins: adminCount,
                     },
@@ -106,7 +185,7 @@ export const getSuperAdminDashboardData = async (req, res) => {
             { new: true, upsert: true }
         );
 
-        console.log('first', userCount)
+        console.log(superAdmin)
         return res.status(200).json(superAdmin);
     } catch (error) {
         console.error(error);

@@ -1,15 +1,15 @@
 import styles from '@/app/(Pages)/master-dashboard/master-login/MasterLogin.module.css'
 import AdminLoginInput from '@/app/Components/(liteComponents)/AdminLoginInput/AdminLoginInput'
+import HeaderLogo from '@/app/Components/(updatedDesignComp)/HeaderLogo/HeaderLogo';
 import GradientButton from '@/app/Components/GradientButton/GradientButton';
 import Image from 'next/image'
 import { AiOutlineUser } from "react-icons/ai";
 import { CiLock } from "react-icons/ci";
 const MasterLogin = ({ onChange, onSubmit, imgDisplay }) => {
 
-
     return (
         <div className={styles.mainContainer}>
-            <Image alt='dollarprompt' className={styles.siteLogo} width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' />
+            <HeaderLogo />
             <div className={styles.container}>
                 <Image alt='super-admin-image' className={styles.userImage} width={0} height={0} style={{ display: imgDisplay }} sizes='100vw' src='/assets/imageAssets/ceo_dollarprompt.PNG' />
                 <form className={styles.form} onSubmit={onSubmit}>

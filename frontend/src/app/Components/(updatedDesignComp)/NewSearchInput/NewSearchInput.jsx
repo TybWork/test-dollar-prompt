@@ -13,10 +13,10 @@ const aiTools = [
         tool: 'DALL-E',
         placeholder: 'Search for DALL·E image prompts...'
     },
-    {
-        tool: 'Stable Diffusion',
-        placeholder: 'Search for Stable Diffusion prompts...'
-    },
+    // {
+    //     tool: 'Stable Diffusion',
+    //     placeholder: 'Search for Stable Diffusion prompts...'
+    // },
     {
         tool: 'Midjourney',
         placeholder: 'Search for MidJourney prompts...'

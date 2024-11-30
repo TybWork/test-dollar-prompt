@@ -23,11 +23,13 @@ const page = () => {
     }
 
     useEffect(() => {
-        const adminToken = getTokenFunction().cookie
-        const decodedToken = jwtDecode(adminToken)
-        setprofileHandle(decodedToken.profileHandle)
-        setuserId(decodedToken.userId)
-        setuserRole(decodedToken.userRole)
+        if (getTokenFunction().cookie) {
+            const adminToken = getTokenFunction().cookie
+            const decodedToken = jwtDecode(adminToken)
+            setprofileHandle(decodedToken.profileHandle)
+            setuserId(decodedToken.userId)
+            setuserRole(decodedToken.userRole)
+        }
     }, [])
 
     useEffect(() => {
