@@ -155,7 +155,6 @@ export const getSuperAdminDashboardData = async (req, res) => {
                         pending: pendingCount,
                         rejected: rejectedCount,
                     },
-                    promptsDetail: counts,
 
                     promptsCountOnSpecificDate: {
                         total: totalCountOnDate,
