@@ -6,7 +6,7 @@ import { getUserId } from '../../../middlewares/verifyToken.middle.js';
 
 route.post('/prompt/dalle/create', getUserId, multerFunc, createDallE),
     route.get('/prompt/dall-e/get', getAllDallE),
-    route.get('/prompt/dalle/filter', getFilteredPrompt),
+    route.get('/prompt/dall-e/filter', getFilteredPrompt),
     route.get('/prompt/dall-e/get/:id', getSingleDallE),
     route.put('/prompt/dall-e/update/:id', updateDallE),
     route.delete('/prompt/dalle/delete/:id', deleteDallE)

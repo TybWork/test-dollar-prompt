@@ -3,26 +3,25 @@
 import { DallE } from "../../models/Prompt/dallePrompt.model.js";
 import { Midjourney } from "../../models/Prompt/midjourneyPrompt.model.js";
 import { GPT } from "../../models/Prompt/gptPrompt.model.js";
-
 export const getTrendingPrompts = async (req, res) => {
     try {
         const trendingPrompts = await DallE.aggregate([
-            { $match: { isTrending: true } },
+            { $match: { isTrending: true, status: 'active' } },
             {
                 $unionWith: {
                     coll: 'midjourneys',
-                    pipeline: [{ $match: { isTrending: true } }]
+                    pipeline: [{ $match: { isTrending: true, status: 'active' } }]
                 }
             },
             {
                 $unionWith: {
                     coll: 'gpts',
                     pipeline: [
-                        { $match: { isTrending: true } }
+                        { $match: { isTrending: true, status: 'active' } }
                     ]
                 }
             },
-            { $limit: 5 }
+            // { $limit: 10 }
         ])
 
         const shuffeledArray = trendingPrompts.sort(() => Math.random() - 0.5)
@@ -31,6 +30,7 @@ export const getTrendingPrompts = async (req, res) => {
         return res.status(400).json({ msg: `Failed to get prompt` })
     }
 }
+
 
 // Fetch all prompts on the base of userId and prompt type
 export const getPromptsBasedOnUserIdStatusType = async (req, res) => {

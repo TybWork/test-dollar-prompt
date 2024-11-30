@@ -26,8 +26,8 @@ const page = () => {
                         <PrimaryBtn
                             width={'100%'}
                             height={'100%'}
-                            title={"Get Your Prompt!"}
-                            href={'#submit-form'}
+                            title={"Sell Prompt"}
+                            href={url}
                         />
                     </div>
                 </div>
