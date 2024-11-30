@@ -67,6 +67,7 @@ const page = () => {
                         title={'Are you ready to earn from your side hustle? Start selling your curated AI prompts today!'}
                         description={"We're committed to supporting AI prompt creators in gaining recognition and expanding their expertise. Sign up and join our waitlist to start selling."}
                         btnText={'Submit Form'}
+                        confirmationText={'Submitted'}
                         // form input details
                         formTitle={'Subscription Form'}
                         firstFieldName={"Name"}

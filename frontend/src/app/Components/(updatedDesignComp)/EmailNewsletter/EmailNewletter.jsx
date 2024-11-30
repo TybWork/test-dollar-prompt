@@ -3,10 +3,11 @@ import styles from '@/app/Components/(updatedDesignComp)/EmailNewsletter/EmailNe
 import NewInput from '../NewInput/NewInput'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import Link from 'next/link'
-const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, firstFieldName, secondeFieldName, formTitle }) => {
+import { useState } from 'react'
+const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder, rightInputPlaceholder, onChange, firstFieldName, secondeFieldName, formTitle, confirmationText }) => {
+    const [btnMessage, setbtnMessage] = useState(btnText)
 
     async function handleSubmit(event) {
-        alert('function clicked')
         event.preventDefault();
         const formData = new FormData(event.target);
 
@@ -25,7 +26,7 @@ const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder
         });
         const result = await response.json();
         if (result.success) {
-            console.log(result);
+            setbtnMessage(confirmationText)
         }
     }
 
@@ -61,7 +62,7 @@ const EmailNewletter = ({ title, description, btnText, msg, leftInputPlaceholder
                     </div>
                 </div>
                 <div className={styles.primaryBtnContainer}>
-                    <PrimaryBtn isSubmitBtn={true} title={btnText || 'Subscribe'} width={'100%'} height={'100%'} />
+                    <PrimaryBtn isSubmitBtn={true} title={btnMessage || 'Subscribe'} width={'100%'} height={'100%'} />
                 </div>
             </form>
 

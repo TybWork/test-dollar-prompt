@@ -338,8 +338,8 @@ export default function Home() {
         firstFieldName={'Name'}
         secondeFieldName={'Email'}
         formTitle={'Email Newsletter'}
+        confirmationText={'Subscribed'}
       />
-
     </div >
   );
 }
