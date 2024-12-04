@@ -8,36 +8,70 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { MdCancel } from "react-icons/md";
+
+import { signupValidation } from "@/app/clientValidations/clientValidations";
 
 const CreateUser = () => {
     const router = useRouter();
     const users = {
         firstName: "",
         lastName: "",
-        gender: "",
         email: "",
         password: "",
-    }
-    const [user, setuser] = useState(users);
-    const [isPasswordHidden, setisPasswordHidden] = useState(true)
+        country: ""
+    };
+    const [user, setUser] = useState(users);
+    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+    const [error, setError] = useState("");
+    const [msg, setMsg] = useState({});
 
-
-    // function to get input handle
+    // Helper function for input handling
     const inputHandler = (e) => {
         const { name, value } = e.target;
-        setuser({ ...user, [name]: value })
+        setUser({ ...user, [name]: value });
     }
 
-    // function to handle submit
+    // Validate the form using Zod
+    const validateForm = () => {
+        try {
+            signupValidation.parse(user); // Validate the user data with the Zod schema
+            return {};  // Return an empty object if validation is successful
+        } catch (error) {
+            // Return the validation errors if any
+            const formErrors = error.errors.reduce((acc, err) => {
+                acc[err.path[0]] = err.message;  // Format errors into an object
+                return acc;
+            }, {});
+            return formErrors;
+        }
+    }
+
+    // Submit form function
     const submitForm = async (e) => {
         e.preventDefault();
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/signup`, user)
-        setuser(users)
-        router.push('/login')
+
+        // Validate form before submission
+        const formErrors = validateForm();
+        if (Object.keys(formErrors).length > 0) {
+            setError(formErrors);  // Show errors
+            return;  // Don't proceed with the form submission
+        }
+
+        try {
+            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/signup`, user);
+            setUser(users);  // Reset user state
+            setError(false)
+            router.push('/login');
+        } catch (error) {
+            setError(true);
+            setMsg(error.response?.data?.msg || "Something went wrong");
+        }
     }
 
     const showPassword = () => {
-        isPasswordHidden ? setisPasswordHidden(false) : setisPasswordHidden(true)
+        setIsPasswordHidden(!isPasswordHidden);
     }
 
     return (
@@ -45,49 +79,74 @@ const CreateUser = () => {
             <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
             {/* heading */}
             <h1 className={styles.heading}>Create An Account</h1>
-            <form onSubmit={submitForm} action="" className={styles.formContainer}>
+            <form onSubmit={submitForm} className={styles.formContainer}>
 
-                <InputField name="firstName" id="firstName" onchangeFunc={inputHandler} placeholder="First Name *" value={user.firstName} />
+                <InputField
+                    isError={error.firstName}
+                    errorMsg={error.firstName}
+                    name="firstName"
+                    id="firstName"
+                    onchangeFunc={inputHandler}
+                    placeholder="First Name *"
+                    value={user.firstName}
+                    outlineColor={error.firstName ? 'red' : 'var(--homeMainBtn)'}
+                />
 
-                <InputField name="lastName" id="lastName" onchangeFunc={inputHandler} placeholder="Last Name *" value={user.lastName} />
+                <InputField
+                    isError={error.lastName}
+                    errorMsg={error.lastName}
+                    name="lastName"
+                    id="lastName"
+                    onchangeFunc={inputHandler}
+                    placeholder="Last Name *"
+                    value={user.lastName}
+                    outlineColor={error.lastName ? 'red' : 'var(--homeMainBtn)'}
+                />
 
-                <InputField name="country" id="country" onchangeFunc={inputHandler} placeholder="Country *" value={user.country} />
+                <InputField
+                    isError={error.country}
+                    errorMsg={error.country}
+                    name="country"
+                    id="country"
+                    onchangeFunc={inputHandler}
+                    placeholder="Country *"
+                    value={user.country}
+                    outlineColor={error.country ? 'red' : 'var(--homeMainBtn)'}
+                />
 
-                <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} />
+                <InputField
+                    isError={error.email}
+                    errorMsg={error.email}
+                    name="email"
+                    id="email"
+                    onchangeFunc={inputHandler}
+                    placeholder="Email *"
+                    value={user.email}
+                    outlineColor={error.email ? 'red' : 'var(--homeMainBtn)'}
+                />
 
-
-                <div className={styles.passwordContainer} >
-                    {
-                        isPasswordHidden ? (
-                            <IoEyeSharp className={styles.showPassword} onClick={showPassword} />
-                        ) : (
-                            <IoEyeOffSharp className={styles.showPassword} onClick={showPassword} />
-                        )
-                    }
-                    <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
+                <div className={styles.passwordContainer}>
+                    <InputField
+                        isError={error.password}
+                        errorMsg={error.password}
+                        name="password"
+                        id="password"
+                        onchangeFunc={inputHandler}
+                        placeholder="Password *"
+                        type={isPasswordHidden ? 'password' : 'text'}
+                        value={user.password}
+                        showIcon={true}
+                        Icon={isPasswordHidden ? IoEyeSharp : IoEyeOffSharp}
+                        onIconClick={showPassword}
+                        outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
+                    />
                 </div>
-
-                {/* <div className={styles.genderInputContainer}>
-                    <div className={styles.genderInput}>
-                        <input type="radio" id="male" name="gender" value="male" onChange={inputHandler} />
-                        <label htmlFor="male">Male</label><br />s
-
-                        <input type="radio" id="female" name="gender" value="female" onChange={inputHandler} />
-                        <label htmlFor="female">Female</label><br />
-                    </div>
-                </div> */}
 
                 <input className={styles.submitBtn} type="submit" value="Signup" />
 
-                {/* borderbottom  */}
+                {/* borderbottom */}
                 <hr className={styles.borderBottom} />
             </form>
-
-            {/* google button */}
-            {/* <button className={styles.googleBtn}>
-                <Image src="/assets/icons/googleIcon.png" width={30} height={30} alt="site-logo" />
-                Google
-            </button> */}
 
             {/* terms & condition */}
             <div className={styles.terms}>By creating an account, you agree to our <Link href="/tandcs">terms of service.</Link></div>
@@ -97,4 +156,5 @@ const CreateUser = () => {
         </div>
     )
 }
+
 export default CreateUser;
