@@ -14,8 +14,6 @@ export const getSuperAdminDashboardData = async (req, res) => {
         const pendingCount = await DallE.countDocuments({ status: 'pending' });
         const rejectedCount = await DallE.countDocuments({ status: 'paused' });
 
-
-
         // ............................... 
 
         // Define a function to handle aggregation per collection
@@ -84,8 +82,7 @@ export const getSuperAdminDashboardData = async (req, res) => {
         };
 
         const counts = await getPromptCounts();
-        console.log(counts);
-
+        console.log(counts)
 
         // ............................... 
 
@@ -149,6 +146,7 @@ export const getSuperAdminDashboardData = async (req, res) => {
             {
                 // the $set will only update this when paramete change in route 
                 $set: {
+                    totalPromptsCounts: counts,
                     promptsCount: {
                         total: totalCount,
                         approved: approvedCount,

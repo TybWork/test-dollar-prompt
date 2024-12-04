@@ -83,7 +83,7 @@ const PromptsTab = ({ isSellerComp = true }) => {
     console.log(promptsArr)
     // delete prompt function
     async function promptDeleteFunc(id) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dalle/delete/${id}`)
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${category}/delete/${id}`)
         setPromptsArr((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
     }
 
