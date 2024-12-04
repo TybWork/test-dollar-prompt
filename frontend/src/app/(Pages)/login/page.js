@@ -8,6 +8,7 @@ import { post } from "@/app/Services/ApiEndpoint.js";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import ReCAPTCHA from "react-google-recaptcha";
 import { usePathname } from "next/navigation";
+import { loginValidation } from "@/app/clientValidations/clientValidations";
 
 const LoginUser = () => {
 
@@ -16,6 +17,8 @@ const LoginUser = () => {
     const [user, setUser] = useState({ email: "", password: "" });
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [captchaToken, setCaptchaToken] = useState('');
+    const [error, setError] = useState("");
+    const [msg, setMsg] = useState({});
     const captchaRef = useRef(null);
 
     const togglePasswordVisibility = () => {
@@ -31,9 +34,33 @@ const LoginUser = () => {
         setCaptchaToken(captchaRef.current.getValue());
     };
 
+
+    // Validate the form using Zod
+    const validateForm = () => {
+        try {
+            loginValidation.parse(user); // Validate the user data with the Zod schema
+            return {};  // Return an empty object if validation is successful
+        } catch (error) {
+            // Return the validation errors if any
+            const formErrors = error.errors.reduce((acc, err) => {
+                acc[err.path[0]] = err.message;  // Format errors into an object
+                return acc;
+            }, {});
+            return formErrors;
+        }
+    }
+
     const submitForms = async (e) => {
-        setCaptchaToken("")
         e.preventDefault();
+        setCaptchaToken("")
+
+        // Validate form before submission
+        const formErrors = validateForm();
+        if (Object.keys(formErrors).length > 0) {
+            setError(formErrors);  // Show errors
+            return;  // Don't proceed with the form submission
+        }
+
         const token = captchaToken;
         if (!token) {
             alert(`To proceed, please verify the reCAPTCHA.`)
@@ -47,8 +74,11 @@ const LoginUser = () => {
                 window.location.href = redirectToPrompt || '/';
                 captchaRef.current.reset();
             } catch (error) {
-                alert(error.response?.data?.msg || 'Login failed');
                 captchaRef.current.reset();
+                alert(error.response?.data?.msg || 'Login failed');
+
+                setError(true);
+                setMsg(error.response?.data?.msg || "Something went wrong");
             }
         }
     };
@@ -58,15 +88,44 @@ const LoginUser = () => {
             <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
             <h1 className={styles.heading}>Account Login</h1>
             <form onSubmit={submitForms} className={styles.formContainer}>
-                <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} />
-                <div className={styles.passwordContainer}>
+                {/* <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} /> */}
+                {/* <div className={styles.passwordContainer}>
                     {isPasswordHidden ? (
                         <IoEyeSharp className={styles.showPassword} onClick={togglePasswordVisibility} />
                     ) : (
                         <IoEyeOffSharp className={styles.showPassword} onClick={togglePasswordVisibility} />
                     )}
                     <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
+                </div> */}
+
+                <InputField
+                    isError={error.email}
+                    errorMsg={error.email}
+                    name="email"
+                    id="email"
+                    onchangeFunc={inputHandler}
+                    placeholder="Email *"
+                    value={user.email}
+                    outlineColor={error.email ? 'red' : 'var(--homeMainBtn)'}
+                />
+
+                <div className={styles.passwordContainer}>
+                    <InputField
+                        isError={error.password}
+                        errorMsg={error.password}
+                        name="password"
+                        id="password"
+                        onchangeFunc={inputHandler}
+                        placeholder="Password *"
+                        type={isPasswordHidden ? 'password' : 'text'}
+                        value={user.password}
+                        showIcon={true}
+                        Icon={isPasswordHidden ? IoEyeSharp : IoEyeOffSharp}
+                        onIconClick={togglePasswordVisibility}
+                        outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
+                    />
                 </div>
+
                 <ReCAPTCHA
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                     theme="light"
