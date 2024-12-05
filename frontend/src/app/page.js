@@ -137,7 +137,7 @@ export default function Home() {
             [
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle, index) =>
+                  dallePrompts?.slice(0, 3).map((dalle, index) =>
                     <AdaptiveCard
                       key={index}
                       mainImage={dalle.Image_Url[0]}
@@ -150,7 +150,7 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle, index) =>
+                  midjourneyPrompts?.slice(0, 3).map((dalle, index) =>
                     <AdaptiveCard
                       key={index}
                       mainImage={dalle.Image_Url[0]}
@@ -163,7 +163,7 @@ export default function Home() {
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  dallePrompts && dallePrompts.slice(0, 3).map((dalle, index) =>
+                  trendingPrompts?.slice(0, 3).map((dalle, index) =>
                     <AdaptiveCard
                       key={index}
                       mainImage={dalle.Image_Url[0]}
