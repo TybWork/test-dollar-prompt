@@ -4,188 +4,174 @@ import { Midjourney } from "../../models/Prompt/midjourneyPrompt.model.js";
 import { SuperAdmin } from "../../models/superAdmin.model.js";
 import { User } from "../../models/User/user.model.js";
 
+// Helper function to format ObjectIds to strings
+const formatObjectIdFields = (obj) => {
+    if (obj._id) obj._id = obj._id.toString();
+    return obj;
+};
+
+// Helper function to aggregate counts by status
+const countPromptsByStatus = async (model, collectionName) => {
+    const result = await model.aggregate([
+        {
+            $facet: {
+                active: [{ $match: { status: "active" } }, { $count: "count" }],
+                pending: [{ $match: { status: "pending" } }, { $count: "count" }],
+                paused: [{ $match: { status: "paused" } }, { $count: "count" }],
+                total: [{ $count: "count" }]
+            }
+        },
+        {
+            $project: {
+                collection: { $literal: collectionName },
+                active: { $ifNull: [{ $arrayElemAt: ["$active.count", 0] }, 0] },
+                pending: { $ifNull: [{ $arrayElemAt: ["$pending.count", 0] }, 0] },
+                paused: { $ifNull: [{ $arrayElemAt: ["$paused.count", 0] }, 0] },
+                total: { $ifNull: [{ $arrayElemAt: ["$total.count", 0] }, 0] }
+            }
+        }
+    ]);
+
+    return result[0];
+};
+
+// Helper function to calculate date ranges
+const getDateRange = (date) => {
+    const startDate = date ? new Date(date) : new Date();
+    startDate.setHours(0, 0, 0, 0); // Start of the day
+
+    const endDate = new Date(startDate);
+    endDate.setHours(23, 59, 59, 999); // End of the same day
+
+    return { startDate, endDate };
+};
+
+// Main Controller Function
 export const getSuperAdminDashboardData = async (req, res) => {
-    const { promptsDate, rolesDate } = req.query; // Date should be passed as a query parameter
+    const { promptsDate, rolesDate } = req.query;
 
     try {
-        // Calculate overall counts
-        const totalCount = await DallE.countDocuments();
-        const approvedCount = await DallE.countDocuments({ status: 'active' });
-        const pendingCount = await DallE.countDocuments({ status: 'pending' });
-        const rejectedCount = await DallE.countDocuments({ status: 'paused' });
+        // Aggregate prompt counts across collections
+        const [dalleCounts, gptCounts, midJourneyCounts] = await Promise.all([
+            countPromptsByStatus(DallE, "dalles"),
+            countPromptsByStatus(GPT, "gpts"),
+            countPromptsByStatus(Midjourney, "midjourneys")
+        ]);
 
-        // ............................... 
+        // Calculate overall prompt counts
+        const totalPrompts = dalleCounts.total + gptCounts.total + midJourneyCounts.total;
+        const totalActive = dalleCounts.active + gptCounts.active + midJourneyCounts.active;
+        const totalPending = dalleCounts.pending + gptCounts.pending + midJourneyCounts.pending;
+        const totalPaused = dalleCounts.paused + gptCounts.paused + midJourneyCounts.paused;
 
-        // Define a function to handle aggregation per collection
-        const countPromptsByStatus = async (model, collectionName) => {
-            return await model.aggregate([
-                {
-                    $facet: {
-                        active: [
-                            { $match: { status: 'active' } },
-                            { $count: 'count' }
-                        ],
-                        pending: [
-                            { $match: { status: 'pending' } },
-                            { $count: 'count' }
-                        ],
-                        paused: [
-                            { $match: { status: 'paused' } },
-                            { $count: 'count' }
-                        ],
-                        total: [
-                            { $count: 'count' }
-                        ]
-                    }
-                },
-                {
-                    $project: {
-                        collection: { $literal: collectionName },
-                        active: { $ifNull: [{ $arrayElemAt: ['$active.count', 0] }, 0] },
-                        pending: { $ifNull: [{ $arrayElemAt: ['$pending.count', 0] }, 0] },
-                        paused: { $ifNull: [{ $arrayElemAt: ['$paused.count', 0] }, 0] },
-                        total: { $ifNull: [{ $arrayElemAt: ['$total.count', 0] }, 0] }
-                    }
-                }
-            ]);
+        const totalPromptsCounts = {
+            collections: {
+                dalles: dalleCounts,
+                gpts: gptCounts,
+                midjourneys: midJourneyCounts
+            },
+            totalPrompts,
+            totalActive,
+            totalPending,
+            totalPaused
         };
 
+        // Prepare date range for prompts
+        const { startDate: ptStartDate, endDate: ptEndDate } = getDateRange(promptsDate);
 
-        const getPromptCounts = async () => {
-            // Get counts from each collection
-            const [dalleCounts, gptCounts, midJourneyCounts] = await Promise.all([
-                countPromptsByStatus(DallE, 'dalles'),
-                countPromptsByStatus(GPT, 'gpts'),
-                countPromptsByStatus(Midjourney, 'midjourneys')
-            ]);
-
-            // Aggregate all counts
-            const totalActive = dalleCounts[0].active + gptCounts[0].active + midJourneyCounts[0].active;
-            const totalPending = dalleCounts[0].pending + gptCounts[0].pending + midJourneyCounts[0].pending;
-            const totalPaused = dalleCounts[0].paused + gptCounts[0].paused + midJourneyCounts[0].paused;
-            const totalPrompts = dalleCounts[0].total + gptCounts[0].total + midJourneyCounts[0].total;
-
-            // Combine all results into a single object
-            const result = {
-                totalPrompts,
-                totalActive,
-                totalPending,
-                totalPaused,
-                collections: {
-                    dalles: dalleCounts[0],
-                    gpts: gptCounts[0],
-                    midjourneys: midJourneyCounts[0]
-                }
-            };
-
-            return result;
-        };
-
-        const counts = await getPromptCounts();
-        console.log(counts)
-
-        // ............................... 
-
-
-        // Prepare counts for a specific date
-        const dateFunc = (date) => {
-            const startDate = date ? new Date(date) : new Date();
-            const endDate = new Date(startDate);
-            endDate.setDate(endDate.getDate() + 1);
-            return { startDate, endDate }
-        }
-
-        const { startDate: ptStartDate, endDate: ptEndDate } = dateFunc(promptsDate);
-        const { startDate: roleStartDate, endDate: roleEndDate } = dateFunc(rolesDate);
-
-
+        // Prompt counts for a specific date
         const totalCountOnDate = await DallE.countDocuments({
-            createdAt: { $gte: ptStartDate, $lt: ptEndDate }
+            createdAt: { $gte: ptStartDate, $lte: ptEndDate }
         });
         const approvedCountOnDate = await DallE.countDocuments({
-            status: 'active',
-            createdAt: { $gte: ptStartDate, $lt: ptEndDate }
+            status: "active",
+            createdAt: { $gte: ptStartDate, $lte: ptEndDate }
         });
         const pendingCountOnDate = await DallE.countDocuments({
-            status: 'pending',
-            createdAt: { $gte: ptStartDate, $lt: ptEndDate }
+            status: "pending",
+            createdAt: { $gte: ptStartDate, $lte: ptEndDate }
         });
         const rejectedCountOnDate = await DallE.countDocuments({
-            status: 'paused',
-            createdAt: { $gte: ptStartDate, $lt: ptEndDate }
+            status: "paused",
+            createdAt: { $gte: ptStartDate, $lte: ptEndDate }
         });
 
-        // Role based counting
-        const totalRolesCount = await User.countDocuments()
-        const userCount = await User.countDocuments({ role: 'user' })
-        const sellerCount = await User.countDocuments({ role: 'seller' })
-        const adminCount = await User.countDocuments({ role: 'admin' })
+        const promptsCountOnSpecificDate = {
+            total: totalCountOnDate,
+            approved: approvedCountOnDate,
+            pending: pendingCountOnDate,
+            rejected: rejectedCountOnDate
+        };
 
-        // Role based counting on specific date
+        // Role-based counting
+        const totalRolesCount = await User.countDocuments();
+        const userCount = await User.countDocuments({ role: "user" });
+        const sellerCount = await User.countDocuments({ role: "seller" });
+        const adminCount = await User.countDocuments({ role: "admin" });
+
+        // Role counts on a specific date
+        const { startDate: roleStartDate, endDate: roleEndDate } = getDateRange(rolesDate);
         const totalRolesCountOnDate = await User.countDocuments({
-            createdAt: { $gte: roleStartDate, $lt: roleEndDate }
+            createdAt: { $gte: roleStartDate, $lte: roleEndDate }
         });
         const usersCountOnDate = await User.countDocuments({
-            createdAt: { $gte: roleStartDate, $lt: roleEndDate },
-            role: 'user'
+            role: "user",
+            createdAt: { $gte: roleStartDate, $lte: roleEndDate }
         });
         const sellersCountOnDate = await User.countDocuments({
-            updatedAt: { $gte: roleStartDate, $lt: roleEndDate },
-            role: 'seller'
-
-
+            role: "seller",
+            createdAt: { $gte: roleStartDate, $lte: roleEndDate }
         });
 
-        // Sales count 
-        const totalSales = 43232;
-        const totalProfit = (10 / 100) * totalSales
+        const rolesCount = {
+            total: totalRolesCount,
+            users: userCount,
+            sellers: sellerCount,
+            admins: adminCount
+        };
 
-        // Find or create SuperAdmin document and update counts
+        const rolesCountOnSpecificDate = {
+            total: totalRolesCountOnDate,
+            users: usersCountOnDate,
+            sellers: sellersCountOnDate
+        };
+
+        // Sales and revenue data
+        const totalSales = Math.floor(434);
+        const totalProfit = Math.floor((10 / 100) * totalSales);
+
+        const revenue = {
+            sales: totalSales,
+            profits: totalProfit,
+            payouts: totalSales - totalProfit
+        };
+
+        // Find or create the SuperAdmin document
         const superAdmin = await SuperAdmin.findOneAndUpdate(
             {},
             {
-                // the $set will only update this when paramete change in route 
                 $set: {
-                    totalPromptsCounts: counts,
-                    promptsCount: {
-                        total: totalCount,
-                        approved: approvedCount,
-                        pending: pendingCount,
-                        rejected: rejectedCount,
-                    },
-
-                    promptsCountOnSpecificDate: {
-                        total: totalCountOnDate,
-                        approved: approvedCountOnDate,
-                        pending: pendingCountOnDate,
-                        rejected: rejectedCountOnDate
-                    },
-
-                    rolesCount: {
-                        total: totalRolesCount - 1,
-                        users: userCount - sellerCount,
-                        sellers: sellerCount,
-                        admins: adminCount,
-                    },
-                    rolesCountOnSpecificDate: {
-                        total: totalRolesCountOnDate,
-                        users: usersCountOnDate,
-                        sellers: sellersCountOnDate
-                    },
-                    revenue: {
-                        sales: totalSales,
-                        profits: totalProfit,
-                        payouts: totalSales - totalProfit
-                    }
-                },
+                    totalPromptsCounts,
+                    promptsCountOnSpecificDate,
+                    rolesCount,
+                    rolesCountOnSpecificDate,
+                    revenue
+                }
             },
             { new: true, upsert: true }
         );
 
-        console.log(superAdmin)
-        return res.status(200).json(superAdmin);
+        // Format ObjectId fields for client readability
+        const formattedSuperAdmin = formatObjectIdFields(superAdmin.toObject());
+
+        // Remove the `promptsCount` object from the response
+        delete formattedSuperAdmin.promptsCount;
+
+        // Return the modified object
+        return res.status(200).json(formattedSuperAdmin);
+
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'An error occurred while updating data.' });
+        return res.status(500).json({ message: "An error occurred while fetching dashboard data." });
     }
 };

@@ -28,15 +28,6 @@ const lato = Lato({
   weight: ['100', '300', '400', '700', '900']
 })
 
-// const inter = localFont({
-//   src: './fonts/inter.ttf',
-//   variable: '--primaryFont',
-// })
-// const lato = localFont({
-//   src: './fonts/inter.ttf',
-//   variable: '--secondryFont',
-// })
-
 export default function RootLayout({ children }) {
   const data = userData()
   const pathname = usePathname()
@@ -97,10 +88,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Providers>
         <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
-
-          {/* <GoogleTagManager gtmId="" /> */}
-
-          {/* condition header rendering */}
           {renderHeader()}
           <MobileNavbar />
           <Cart />

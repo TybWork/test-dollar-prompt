@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
+// Schema for total prompts and their collections
 const totalPromptsSchema = new Schema({
-    totalPrompts: { type: Number },
-    totalActive: { type: Number },
-    totalPending: { type: Number },
-    totalPaused: { type: Number },
+    totalPrompts: { type: Number, default: 0 },
+    totalActive: { type: Number, default: 0 },
+    totalPending: { type: Number, default: 0 },
+    totalPaused: { type: Number, default: 0 },
     collections: {
         dalles: {
             type: new Schema({
@@ -13,7 +14,7 @@ const totalPromptsSchema = new Schema({
                 pending: { type: Number, default: 0 },
                 paused: { type: Number, default: 0 },
                 total: { type: Number, default: 0 }
-            }, { _id: false }), // _id: false prevents Mongoose from creating an extra _id field in the nested objects
+            }, { _id: false }),
             default: {}
         },
         gpts: {
@@ -35,62 +36,32 @@ const totalPromptsSchema = new Schema({
             default: {}
         }
     }
-});
+}, { _id: false });
 
-
+// Schema for prompt status counts
 const promptStatusSchema = new Schema({
-    total: {
-        type: Number,
-        default: 0
-    },
-    pending: {
-        type: Number,
-        default: 0
-    },
-    approved: {
-        type: Number,
-        default: 0
-    },
-    rejected: {
-        type: Number,
-        default: 0
-    }
-});
+    total: { type: Number, default: 0 },
+    pending: { type: Number, default: 0 },
+    approved: { type: Number, default: 0 },
+    rejected: { type: Number, default: 0 }
+}, { _id: false });
 
+// Schema for role counts
 const roleCountSchema = new Schema({
-    total: {
-        type: Number,
-        default: 0
-    },
-    users: {
-        type: Number,
-        default: 0
-    },
-    sellers: {
-        type: Number,
-        default: 0
-    },
-    admins: {
-        type: Number,
-        default: 0
-    },
-});
+    total: { type: Number, default: 0 },
+    users: { type: Number, default: 0 },
+    sellers: { type: Number, default: 0 },
+    admins: { type: Number, default: 0 }
+}, { _id: false });
 
+// Schema for revenue counts
 const revenueCountSchema = new Schema({
-    sales: {
-        type: Number,
-        default: 0
-    },
-    profits: {
-        type: Number,
-        default: 0 //get 10% of sales
-    },
-    payouts: {
-        type: Number,
-        default: 0 //sales-10%
-    }
-})
+    sales: { type: Number, default: 0 },
+    profits: { type: Number, default: 0 }, // 10% of sales
+    payouts: { type: Number, default: 0 }  // sales - 10%
+}, { _id: false });
 
+// Main Super Admin schema
 const superAdminSchema = new Schema({
     totalPromptsCounts: {
         type: totalPromptsSchema,
@@ -101,7 +72,7 @@ const superAdminSchema = new Schema({
         default: {}
     },
     promptsCountOnSpecificDate: {
-        type: Schema.Types.Mixed, // Using a mixed type for flexibility
+        type: Schema.Types.Mixed, // Flexible field to store data for specific dates
         default: {}
     },
     rolesCount: {
@@ -109,7 +80,7 @@ const superAdminSchema = new Schema({
         default: {}
     },
     rolesCountOnSpecificDate: {
-        type: Schema.Types.Mixed,
+        type: Schema.Types.Mixed, // Flexible field to store data for specific dates
         default: {}
     },
     revenue: {

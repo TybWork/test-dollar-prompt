@@ -99,12 +99,12 @@ export const buttons = {
             title: 'Selling History',
             component: <PromptsTab isSellerComp={true} />
         },
-        {
-            id: 1,
-            icon: <GrAnalytics />,
-            title: 'Analytics',
-            component: 'analytics component'
-        },
+        // {
+        //     id: 1,
+        //     icon: <GrAnalytics />,
+        //     title: 'Analytics',
+        //     component: 'analytics component'
+        // },
         {
             id: 2,
             icon: <RiAiGenerate />,
