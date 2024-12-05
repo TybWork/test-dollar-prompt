@@ -13,24 +13,32 @@ ChartJs.register(
     Legend,
 )
 
-const LineChart = () => {
+const LineChart = ({ labels, datasets }) => {
 
     const data = {
-        labels: ["A", 'B', 'C', 'D', 'E', 'F', 'G'],
-        datasets: [
+        labels: labels || ["Dall-E", 'Midjourney', 'GPT'],
+        datasets: datasets || [
             {
-                label: 'My First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                label: 'Active Prompts',
+                data: [5, 2, 3],
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: 'green',
                 tension: .5,
                 pointHoverRadius: 8
             },
             {
-                label: 'My second Dataset',
-                data: [23, 100, 20, 8, 56, 25, 10],
+                label: 'Pending Prompts',
+                data: [3, 3, 2],
                 fill: true,
-                borderColor: 'yellow',
+                borderColor: 'gray',
+                tension: .5,
+                pointHoverRadius: 8,
+            },
+            {
+                label: 'Rejected Prompts',
+                data: [2, 4, 1],
+                fill: true,
+                borderColor: 'red',
                 tension: .5,
                 pointHoverRadius: 8,
             },

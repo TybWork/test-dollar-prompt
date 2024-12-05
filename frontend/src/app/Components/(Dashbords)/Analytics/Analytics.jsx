@@ -68,10 +68,10 @@ const Analytics = () => {
                 contentComponent={
                     <PiChart
                         labels={[
-                            `${mainData?.promptsCount?.total} Total`,
-                            `${mainData?.promptsCount?.approved} Approved`,
-                            `${mainData?.promptsCount?.pending} Pending`,
-                            `${mainData?.promptsCount?.rejected} Rejected`
+                            `${mainData?.totalPromptsCounts?.totalPrompts} Total`,
+                            `${mainData?.totalPromptsCounts?.totalActive} Approved`,
+                            `${mainData?.totalPromptsCounts?.totalPending} Pending`,
+                            `${mainData?.totalPromptsCounts?.totalPaused} Rejected`
                         ]}
                         bgColors={[
                             'rgb(68,193,81)',
@@ -79,24 +79,30 @@ const Analytics = () => {
                             'rgb(255, 204, 0)',
                             'rgb(255, 55, 0, 0.3)'
                         ]}
-                        myData={[mainData?.promptsCount?.total, mainData?.promptsCount?.approved, mainData?.promptsCount?.pending, mainData?.promptsCount?.rejected]}
+                        myData={[
+                            mainData?.totalPromptsCounts?.totalPrompts,
+                            mainData?.totalPromptsCounts?.totalActive,
+                            mainData?.totalPromptsCounts?.totalPending,
+                            mainData?.totalPromptsCounts?.totalPaused
+                        ]}
                     />
                 }
 
             />
 
+            {/* Dall-E prompts stats */}
             <InfoCardDashboard
-                mainTitle={'Prompts Stats'}
+                mainTitle={'Dall-E Stats'}
                 width={'max-content'}
                 onClick={() => handleComponentClick('sales')}
                 fullDate={salesDate}
                 contentComponent={
                     <PiChart
                         labels={[
-                            `${mainData?.promptsCount?.total} Total`,
-                            `${mainData?.promptsCount?.approved} Approved`,
-                            `${mainData?.promptsCount?.pending} Pending`,
-                            `${mainData?.promptsCount?.rejected} Rejected`
+                            `${mainData?.totalPromptsCounts?.collections?.dalles?.total} Total`,
+                            `${mainData?.totalPromptsCounts?.collections?.dalles?.active} Approved`,
+                            `${mainData?.totalPromptsCounts?.collections?.dalles?.pending} Pending`,
+                            `${mainData?.totalPromptsCounts?.collections?.dalles?.paused} Rejected`
                         ]}
                         bgColors={[
                             'rgb(68,193,81)',
@@ -104,7 +110,74 @@ const Analytics = () => {
                             'rgb(255, 204, 0)',
                             'rgb(255, 55, 0, 0.3)'
                         ]}
-                        myData={[mainData?.promptsCount?.total, mainData?.promptsCount?.approved, mainData?.promptsCount?.pending, mainData?.promptsCount?.rejected]}
+                        myData={[
+                            mainData?.totalPromptsCounts?.collections?.dalles?.total,
+                            mainData?.totalPromptsCounts?.collections?.dalles?.active,
+                            mainData?.totalPromptsCounts?.collections?.dalles?.pending,
+                            mainData?.totalPromptsCounts?.collections?.dalles?.paused
+                        ]}
+                    />
+                }
+
+            />
+
+            {/* Midjourney prompts stats */}
+            <InfoCardDashboard
+                mainTitle={'Midjourney Stats'}
+                width={'max-content'}
+                onClick={() => handleComponentClick('sales')}
+                fullDate={salesDate}
+                contentComponent={
+                    <PiChart
+                        labels={[
+                            `${mainData?.totalPromptsCounts?.collections?.midjourneys?.total} Total`,
+                            `${mainData?.totalPromptsCounts?.collections?.midjourneys?.active} Approved`,
+                            `${mainData?.totalPromptsCounts?.collections?.midjourneys?.pending} Pending`,
+                            `${mainData?.totalPromptsCounts?.collections?.midjourneys?.paused} Rejected`
+                        ]}
+                        bgColors={[
+                            'rgb(68,193,81)',
+                            'rgb(0, 162, 255)',
+                            'rgb(255, 204, 0)',
+                            'rgb(255, 55, 0, 0.3)'
+                        ]}
+                        myData={[
+                            mainData?.totalPromptsCounts?.collections?.midjourneys?.total,
+                            mainData?.totalPromptsCounts?.collections?.midjourneys?.active,
+                            mainData?.totalPromptsCounts?.collections?.midjourneys?.pending,
+                            mainData?.totalPromptsCounts?.collections?.midjourneys?.paused
+                        ]}
+                    />
+                }
+
+            />
+
+            {/* Gpt prompts stats */}
+            <InfoCardDashboard
+                mainTitle={'GPT Stats'}
+                width={'max-content'}
+                onClick={() => handleComponentClick('sales')}
+                fullDate={salesDate}
+                contentComponent={
+                    <PiChart
+                        labels={[
+                            `${mainData?.totalPromptsCounts?.collections?.gpts?.total} Total`,
+                            `${mainData?.totalPromptsCounts?.collections?.gpts?.active} Approved`,
+                            `${mainData?.totalPromptsCounts?.collections?.gpts?.pending} Pending`,
+                            `${mainData?.totalPromptsCounts?.collections?.gpts?.paused} Rejected`
+                        ]}
+                        bgColors={[
+                            'rgb(68,193,81)',
+                            'rgb(0, 162, 255)',
+                            'rgb(255, 204, 0)',
+                            'rgb(255, 55, 0, 0.3)'
+                        ]}
+                        myData={[
+                            mainData?.totalPromptsCounts?.collections?.gpts?.total,
+                            mainData?.totalPromptsCounts?.collections?.gpts?.active,
+                            mainData?.totalPromptsCounts?.collections?.gpts?.pending,
+                            mainData?.totalPromptsCounts?.collections?.gpts?.paused
+                        ]}
                     />
                 }
 
@@ -140,7 +213,70 @@ const Analytics = () => {
                 }
             />
 
+            {/* prompts comparison */}
+
             {/* revenue chart */}
+            <InfoCardDashboard
+                mainTitle={'Prompts Stats'}
+                width={'max-content'}
+                onClick={() => handleComponentClick('sales')}
+                fullDate={salesDate}
+                contentComponent={
+                    <LineChart
+                        labels={
+                            [
+                                'Dall-E',
+                                'Midjourney',
+                                'GPT',
+                            ]
+                        }
+                        datasets={
+                            (() => {
+                                return [
+                                    {
+                                        label: 'Active Prompts',
+                                        data: [
+                                            mainData?.totalPromptsCounts?.collections?.dalles?.active,
+                                            mainData?.totalPromptsCounts?.collections?.midjourneys?.active,
+                                            mainData?.totalPromptsCounts?.collections?.gpts?.active,
+                                        ],
+                                        fill: false,
+                                        borderColor: 'green',
+                                        tension: .5,
+                                        pointHoverRadius: 8
+                                    },
+                                    {
+                                        label: 'Pending Prompts',
+                                        data: [
+                                            mainData?.totalPromptsCounts?.collections?.dalles?.pending,
+                                            mainData?.totalPromptsCounts?.collections?.midjourneys?.pending,
+                                            mainData?.totalPromptsCounts?.collections?.gpts?.pending,
+                                        ],
+                                        fill: true,
+                                        borderColor: 'gray',
+                                        tension: .5,
+                                        pointHoverRadius: 8,
+                                    },
+                                    {
+                                        label: 'Rejected Prompts',
+                                        data: [
+                                            mainData?.totalPromptsCounts?.collections?.dalles?.paused,
+                                            mainData?.totalPromptsCounts?.collections?.midjourneys?.paused,
+                                            mainData?.totalPromptsCounts?.collections?.gpts?.paused,
+                                        ],
+                                        fill: true,
+                                        borderColor: 'red',
+                                        tension: .5,
+                                        pointHoverRadius: 8,
+                                    },
+                                ]
+                            })()
+                        }
+                    />
+                }
+            />
+
+            {/* Revenue charts */}
             <InfoCardDashboard
                 mainTitle={'Users Stats'}
                 width={'max-content'}
@@ -164,14 +300,14 @@ const Analytics = () => {
                 }
             />
 
-            {/* revenue chart */}
-            <InfoCardDashboard
+            {/* prompts chart */}
+            {/* <InfoCardDashboard
                 mainTitle={'Users Stats'}
                 width={'max-content'}
                 onClick={() => handleComponentClick('sales')}
                 fullDate={salesDate}
                 contentComponent={
-                    <LineChart
+                    <BarChart
                         labels={
                             [
                                 `${mainData?.revenue?.sales} Sales`,
@@ -186,7 +322,7 @@ const Analytics = () => {
 
                     />
                 }
-            />
+            /> */}
 
         </div>
     );
