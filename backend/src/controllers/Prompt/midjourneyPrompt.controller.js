@@ -88,6 +88,7 @@ export const deleteMidjourney = async (req, res) => {
     const id = req.params.id;
     try {
         await Midjourney.findByIdAndDelete(id);
+        await SingleUserLog.findOneAndDelete({ 'sellingHistory.midjourney': id })
         return res.status(200).json({ msg: "midjourney prompt has been deleted successfully" })
     } catch (error) {
         return res.status(400).json({ msg: "Failed to delete prompt" })

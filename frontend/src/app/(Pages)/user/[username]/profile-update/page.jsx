@@ -12,6 +12,7 @@ const Page = () => {
 
     const [user, setUser] = useState({});
     const [userRole, setuserRole] = useState('')
+    const [profileHandle, setProfileHandle] = useState('')
     const [userId, setuserId] = useState('')
 
     useEffect(() => {
@@ -23,6 +24,7 @@ const Page = () => {
             const decodeMyToken = jwtDecode(myToken)
             setuserRole(decodeMyToken.userRole)
             setuserId(decodeMyToken.userId)
+            setProfileHandle(decodeMyToken.profileHandle)
         } catch (error) {
             console.log(`Failed to fetch token ${error}`)
         }
@@ -85,7 +87,7 @@ const Page = () => {
             });
 
             await updateProfile();
-            window.location.href = '/'
+            window.location.href = `/user/${profileHandle}/buyer-dashboard/buyer`
 
         } catch (error) {
             console.error('Error submitting form:', error);

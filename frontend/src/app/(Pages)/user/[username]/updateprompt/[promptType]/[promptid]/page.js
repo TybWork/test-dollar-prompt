@@ -10,12 +10,15 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
+import { getTokenFunction } from '@/app/utilities/getTokenFunction';
+import { jwtDecode } from 'jwt-decode';
 
 const Page = () => {
     const router = useRouter();
     const params = useParams()
     const { promptType, promptid } = params;
 
+    const [profileHandle, setprofileHandle] = useState('')
     const [promptData, setpromptData] = useState(
         () => {
             if (promptType === 'dall-e') {
@@ -53,6 +56,11 @@ const Page = () => {
     );
 
     useEffect(() => {
+        const token = getTokenFunction().cookie
+        if (token) {
+            const decodeToken = jwtDecode(token)
+            setprofileHandle(decodeToken.profileHandle)
+        }
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptType}/get/${promptid}`);
@@ -100,7 +108,7 @@ const Page = () => {
 
     const updateDataFunc = async () => {
         await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptType}/update/${promptid}`, { ...promptData, status: 'pending' })
-        router.push(`/`)
+        router.push(`/user/${profileHandle}/buyer-dashboard/seller`)
 
         alert("form updated successfully")
         const formData = new FormData();

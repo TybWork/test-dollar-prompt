@@ -67,6 +67,7 @@ export const deleteGPT = async (req, res) => {
     const id = req.params.id;
     try {
         await GPT.findByIdAndDelete(id);
+        await SingleUserLog.findOneAndDelete({ 'sellingHistory.dall-e': id })
         return res.status(200).json({ msg: "GPT prompt has been deleted successfully" })
     } catch (error) {
         return res.status(400).json({ msg: "Failed to delete prompt" })

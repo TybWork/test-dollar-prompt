@@ -58,23 +58,25 @@ const PromptsTab = ({ isSellerComp = true }) => {
         setcategory(category.toLowerCase())
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (sellerId) {
-                    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?status=${status}&userId=${sellerId}`);
-                    if (response?.data) {
-                        setPromptsArr(isSellerComp ? response.data.sellingHistory : response.data.buyingHistory);
-                    } else {
-                        setPromptsArr([]);
-                    }
+    // fetch prompts data
+    const fetchData = async () => {
+        try {
+            if (sellerId) {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?status=${status}&userId=${sellerId}`);
+                if (response?.data) {
+                    setPromptsArr(isSellerComp ? response.data.sellingHistory : response.data.buyingHistory);
+                } else {
+                    setPromptsArr([]);
                 }
-                // const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/all-filterd-prompt?promptType=${category}&promptStatus=${status}&userId=${sellerId}`);
-            } catch (error) {
-                console.log('Error fetching prompts:', error);
-                setPromptsArr([]);
             }
-        };
+            // const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/all-filterd-prompt?promptType=${category}&promptStatus=${status}&userId=${sellerId}`);
+        } catch (error) {
+            console.log('Error fetching prompts:', error);
+            setPromptsArr([]);
+        }
+    };
+
+    useEffect(() => {
         fetchData()
     }, [sellerId, status])
 
@@ -84,7 +86,7 @@ const PromptsTab = ({ isSellerComp = true }) => {
     // delete prompt function
     async function promptDeleteFunc(id) {
         await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${category}/delete/${id}`)
-        setPromptsArr((prevPrompts) => prevPrompts.filter((prompt) => prompt._id !== id))
+        fetchData()
     }
 
     return (

@@ -1,6 +1,6 @@
 .parentContainer {
     padding: var(--mainPadding);
-    background: var(--infoCardClr);
+    background: var(--homePrimaryClr);
 }
 
 @media screen and (max-width:768px) {

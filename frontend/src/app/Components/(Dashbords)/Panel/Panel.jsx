@@ -9,7 +9,9 @@ import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 import MultiFuntionBtn from '../../(liteComponents)/MultiFunctionBtn/MultiFuntionBtn';
 import TabButton from '../(DashboardsLiteComponent)/TabButton/TabButton';
+import { usePathname } from 'next/navigation';
 const Panel = ({ headerComponent, buttonMaping }) => {
+    const pathname = usePathname();
     const router = useRouter()
     const [component, setcomponent] = useState(buttonMaping[0].component)
     const [profileHandle, setprofileHandle] = useState('')
@@ -23,9 +25,6 @@ const Panel = ({ headerComponent, buttonMaping }) => {
         setuserId(decode.userId)
         setuserRole(decode.userRole)
 
-
-
-
     }, [])
     const buttonClick = (component, id) => {
         setcomponent(component)
@@ -35,9 +34,22 @@ const Panel = ({ headerComponent, buttonMaping }) => {
         <div className={styles.parentContainer}>
             <div className={styles.leftSettingsTab}>
                 {/* logo image  */}
-                <div className={styles.logoContainer}>
-                    {/* <Image width={0} height={0} sizes='100vw' src='/assets/imageAssets/dollarprompt-desktop-logo.svg' alt='dollar-prompt' className={styles.siteLogo} /> */}
-                    <Image width={0} height={0} sizes='100vw' src='/assets/imageAssets/dummy.jpg' alt='dollar-prompt' className={styles.profileLogo} />
+                <div className={styles.sidebarHeaderWrapper}>
+                    <h3 className={styles.sidbarHead}>
+                        {
+                            (() => {
+                                if (pathname.includes('/seller')) {
+                                    return 'Seller Dashboard'
+                                } else if (pathname.includes('/buyer')) {
+                                    return 'Buyer Dashboard'
+                                } else {
+                                    return 'Admin Panel'
+                                }
+                            })()
+                        }
+                    </h3>
+                    <p className={styles.sidebarProfileHandle}>@{profileHandle}</p>
+
                 </div>
 
                 {/* buttons */}

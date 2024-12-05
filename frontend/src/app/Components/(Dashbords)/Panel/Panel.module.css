@@ -16,12 +16,13 @@
     top: 0;
 }
 
-.logoContainer {
-    height: 69px;
+.sidebarHeaderWrapper {
+    min-height: 68px;
     border-bottom: 1px solid var(--customBorder);
     display: flex;
-    align-items: center;
+    flex-direction: column;
     margin-bottom: 24px;
+    gap: 4px;
 }
 
 .siteLogo {
