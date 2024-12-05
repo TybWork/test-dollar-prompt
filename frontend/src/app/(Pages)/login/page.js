@@ -18,7 +18,7 @@ const LoginUser = () => {
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [captchaToken, setCaptchaToken] = useState('');
     const [error, setError] = useState("");
-    const [msg, setMsg] = useState({});
+    const [msg, setMsg] = useState(null);
     const captchaRef = useRef(null);
 
     const togglePasswordVisibility = () => {
@@ -63,7 +63,8 @@ const LoginUser = () => {
 
         const token = captchaToken;
         if (!token) {
-            alert(`To proceed, please verify the reCAPTCHA.`)
+            setError("")  //remaining fields will remove error
+            setMsg('To proceed, please verify the reCAPTCHA')
         } else {
             try {
                 const response = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
@@ -75,9 +76,7 @@ const LoginUser = () => {
                 captchaRef.current.reset();
             } catch (error) {
                 captchaRef.current.reset();
-                alert(error.response?.data?.msg || 'Login failed');
-
-                setError(true);
+                setError(error.response?.data?.msg);
                 setMsg(error.response?.data?.msg || "Something went wrong");
             }
         }
@@ -88,15 +87,6 @@ const LoginUser = () => {
             <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={0} height={0} className={styles.logo} sizes="100vw" alt="site-logo" />
             <h1 className={styles.heading}>Account Login</h1>
             <form onSubmit={submitForms} className={styles.formContainer}>
-                {/* <InputField name="email" id="email" onchangeFunc={inputHandler} placeholder="Email *" value={user.email} /> */}
-                {/* <div className={styles.passwordContainer}>
-                    {isPasswordHidden ? (
-                        <IoEyeSharp className={styles.showPassword} onClick={togglePasswordVisibility} />
-                    ) : (
-                        <IoEyeOffSharp className={styles.showPassword} onClick={togglePasswordVisibility} />
-                    )}
-                    <InputField name="password" id="password" onchangeFunc={inputHandler} placeholder="Password *" type={isPasswordHidden ? 'password' : 'text'} value={user.password} />
-                </div> */}
 
                 <InputField
                     isError={error.email}
@@ -109,21 +99,23 @@ const LoginUser = () => {
                     outlineColor={error.email ? 'red' : 'var(--homeMainBtn)'}
                 />
 
-                <div className={styles.passwordContainer}>
-                    <InputField
-                        isError={error.password}
-                        errorMsg={error.password}
-                        name="password"
-                        id="password"
-                        onchangeFunc={inputHandler}
-                        placeholder="Password *"
-                        type={isPasswordHidden ? 'password' : 'text'}
-                        value={user.password}
-                        showIcon={true}
-                        Icon={isPasswordHidden ? IoEyeSharp : IoEyeOffSharp}
-                        onIconClick={togglePasswordVisibility}
-                        outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
-                    />
+                <InputField
+                    isError={error.password}
+                    errorMsg={error.password}
+                    name="password"
+                    id="password"
+                    onchangeFunc={inputHandler}
+                    placeholder="Password *"
+                    type={isPasswordHidden ? 'password' : 'text'}
+                    value={user.password}
+                    showIcon={true}
+                    Icon={isPasswordHidden ? IoEyeSharp : IoEyeOffSharp}
+                    onIconClick={togglePasswordVisibility}
+                    outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
+                />
+                <div
+                    className={styles.error}>
+                    {msg}
                 </div>
 
                 <ReCAPTCHA
