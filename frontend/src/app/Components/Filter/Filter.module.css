@@ -1,11 +1,11 @@
 .parentContainer {
-    padding: 2em;
-    background: var(--homeMainBtn);
-    color: var(--homePrimaryClr);
+    /* padding: 16px; */
+    background: var(--homePrimaryClr);
+    color: var(--homeMainBtn);
 
-    width: 300px;
+    width: 150px;
     border-radius: 5px;
-    border: 1px solid var(--homeMainBtn);
+    /* border: 1px solid var(--homeMainBtn); */
     display: flex;
     flex-direction: column;
     gap: 18px;
