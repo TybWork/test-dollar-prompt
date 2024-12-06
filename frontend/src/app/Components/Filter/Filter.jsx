@@ -1,15 +1,16 @@
 'use client'
 import styles from '@/app/Components/Filter/Filter.module.css';
 import SingleFilter from '../(liteComponents)/SingleFilter/SingleFilter';
+import { useState } from 'react';
 
 const Filter = ({ setFilterObject }) => {
+    const [selectedCategory, setselectedCategory] = useState('dall-e')
+    const [selectedSort, setselectedSort] = useState('trending')
     const handleFilterChange = (key, value) => {
-        // Update the filterObject in the parent
         setFilterObject((prev) => ({
             ...prev,
             [key]: value
         }));
-
     };
 
 
@@ -18,22 +19,72 @@ const Filter = ({ setFilterObject }) => {
             <div>
                 {/* products */}
                 <div className={styles.heading}>Product</div>
-                <SingleFilter label="Dall-E" name="category" onClick={() => handleFilterChange('category', 'dall-e')} />
-                <SingleFilter label="Midjourney" name="category" onClick={() => handleFilterChange('category', 'midjourney')} />
-                <SingleFilter label="GPT" name="category" onClick={() => handleFilterChange('category', 'gpt')} />
-                <SingleFilter label="All" name="category" onClick={() => handleFilterChange('category', 'all')} />
-
-                {/* Type */}
-                {/* <div className={styles.heading}>Type</div>
-                <SingleFilter label="All" name="type" onClick={() => handleFilterChange('type', 'all')} />
-                <SingleFilter label="Image" name="type" onClick={() => handleFilterChange('type', 'image')} />
-                <SingleFilter label="Text" name="type" onClick={() => handleFilterChange('type', 'text')} /> */}
+                <SingleFilter
+                    label="Dall-E"
+                    name="category"
+                    isChecked={selectedCategory === 'dall-e'}
+                    onClick={() => (
+                        setselectedCategory('dall-e'),
+                        handleFilterChange('category', 'dall-e')
+                    )}
+                />
+                <SingleFilter
+                    label="Midjourney"
+                    name="category"
+                    isChecked={selectedCategory === 'midjourney'}
+                    onClick={() => (
+                        setselectedCategory('midjourney'),
+                        handleFilterChange('category', 'midjourney')
+                    )}
+                />
+                <SingleFilter
+                    label="GPT"
+                    name="category"
+                    isChecked={selectedCategory === 'gpt'}
+                    onClick={() => (
+                        setselectedCategory('gpt'),
+                        handleFilterChange('category', 'gpt')
+                    )}
+                />
+                <SingleFilter
+                    label="All"
+                    name="category"
+                    isChecked={selectedCategory === 'all'}
+                    onClick={() => (
+                        setselectedCategory('all'),
+                        handleFilterChange('category', 'all')
+                    )}
+                />
 
                 {/* Sort by */}
                 <div className={styles.heading}>Sort by</div>
-                <SingleFilter label="Trending" name="sort" onClick={() => handleFilterChange('sort', 'trending')} />
-                <SingleFilter label="Most Popular" name="sort" onClick={() => handleFilterChange('sort', 'popular')} />
-                <SingleFilter label="Newest" name="sort" onClick={() => handleFilterChange('sort', 'newest')} />
+                <SingleFilter
+                    label="Trending"
+                    name="sort"
+                    isChecked={selectedSort === 'trending'}
+                    onClick={() => (
+                        setselectedSort('trending'),
+                        handleFilterChange('sort', 'trending')
+                    )}
+                />
+                <SingleFilter
+                    label="Most Popular"
+                    name="sort"
+                    isChecked={selectedSort === 'popular'}
+                    onClick={() => (
+                        setselectedSort('popular'),
+                        handleFilterChange('sort', 'popular')
+                    )}
+                />
+                <SingleFilter
+                    label="Newest"
+                    name="sort"
+                    isChecked={selectedSort === 'newest'}
+                    onClick={() => (
+                        setselectedSort('newest'),
+                        handleFilterChange('sort', 'newest')
+                    )}
+                />
             </div>
         </div>
     );
