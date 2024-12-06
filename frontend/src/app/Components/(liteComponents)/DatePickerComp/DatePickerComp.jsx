@@ -9,7 +9,6 @@ const DatePickerComp = ({ onClick, background, fullDate }) => {
             className={styles.pickDateButton}
             style={{ background: background || 'var(--tertiaryClr)' }}
             onClick={() => {
-                console.log('DatePickerComp clicked');
                 if (onClick) onClick();
             }}
         >

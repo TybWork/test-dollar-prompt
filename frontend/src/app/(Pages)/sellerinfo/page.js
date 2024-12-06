@@ -38,7 +38,6 @@ const Page = () => {
         }));
     };
 
-    console.log('This is sellerIno', user)
     // Refresh cookie after user becomes a seller
     const refreshCookie = async (userId, userRole) => {
         try {

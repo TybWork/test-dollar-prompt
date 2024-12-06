@@ -7,7 +7,6 @@ import DatePickerComp from '@/app/Components/(liteComponents)/DatePickerComp/Dat
 // InfoCardDashboard.jsx
 const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDate, hasCallender = false }) => {
     const handleClick = () => {
-        console.log('InfoCardDashboard clicked');
         if (onClick) onClick();
     };
 
@@ -29,7 +28,6 @@ const InfoCardDashboard = ({ mainTitle, contentComponent, width, onClick, fullDa
                             background={'var(--secondryClr)'}
                             fullDate={fullDate}
                             onClick={() => {
-                                console.log('DatePickerComp inside InfoCardDashboard clicked');
                                 if (onClick) onClick();
                             }}
                         />

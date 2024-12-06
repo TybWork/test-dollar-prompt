@@ -6,7 +6,7 @@ import GradientButton from '../../GradientButton/GradientButton';
 const ConfirmBox = () => {
 
     function cancelFunc() {
-        console.log("cancel")
+        // console.log("cancel")
     }
 
     return (

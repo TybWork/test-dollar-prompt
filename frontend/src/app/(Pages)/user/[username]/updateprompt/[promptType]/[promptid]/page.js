@@ -65,7 +65,6 @@ const Page = () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptType}/get/${promptid}`);
                 let fetchedData = response.data;
-                console.log('fetchData', fetchData)
                 setpromptData(fetchedData);
             } catch (error) {
                 console.error('Error fetching prompt data:', error);
@@ -103,8 +102,6 @@ const Page = () => {
             return { ...prevPromptData, examplePrompts: updatedPrompt }
         })
     }
-
-    console.log('promptData', promptData)
 
     const updateDataFunc = async () => {
         await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptType}/update/${promptid}`, { ...promptData, status: 'pending' })

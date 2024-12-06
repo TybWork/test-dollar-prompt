@@ -30,8 +30,6 @@ export const createDallE = async (req, res) => {
             userId: req.userId
         })
         const savedPrompt = await newPrompt.save()
-        console.log(savedPrompt._id)
-        console.log(savedPrompt.userId)
 
         // promptId add to logs
         // userId, promptId, promptType

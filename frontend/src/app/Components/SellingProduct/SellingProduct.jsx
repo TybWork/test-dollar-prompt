@@ -5,7 +5,6 @@ import { useState } from "react"
 const SellingProduct = () => {
     const [sellPromptBtn, setsellPromptBtn] = useState('flex')
     function clickTest() {
-        console.log("Button Clicked")
         setsellPromptBtn("none")
     }
     return (

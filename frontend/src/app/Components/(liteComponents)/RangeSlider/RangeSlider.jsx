@@ -3,7 +3,6 @@ import { useState } from 'react'
 const RangeSlider = ({ title, max, min, value, step, onChange, name }) => {
     const [outPutValue, setOutPutValue] = useState(0)
     function onChangeParent(e) {
-        console.log(e.target.value)
         setOutPutValue(e.target.value)
         onChange(e)
     }

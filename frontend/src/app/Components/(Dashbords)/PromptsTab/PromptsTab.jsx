@@ -82,7 +82,6 @@ const PromptsTab = ({ isSellerComp = true }) => {
 
     if (!promptsArr) return <div>Loading...</div>
 
-    console.log(promptsArr)
     // delete prompt function
     async function promptDeleteFunc(id) {
         await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${category}/delete/${id}`)

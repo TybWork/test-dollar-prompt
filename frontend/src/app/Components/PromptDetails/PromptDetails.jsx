@@ -7,7 +7,6 @@ import { useState } from "react";
 const PromptDetails = () => {
     const [sellPromptBtn, setsellPromptBtn] = useState('block')
     function clickTest() {
-        console.log("Button Clicked")
         setsellPromptBtn("none")
     }
     return (

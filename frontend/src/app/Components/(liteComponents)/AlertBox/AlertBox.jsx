@@ -4,7 +4,7 @@ import GradientButton from '../../GradientButton/GradientButton';
 
 const AlertBox = () => {
     function cancelFunc() {
-        console.log("cancel")
+        // console.log("cancel")
     }
     return (
         <div className={styles.parentContainer}>

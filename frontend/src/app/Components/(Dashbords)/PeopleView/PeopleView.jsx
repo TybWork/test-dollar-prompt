@@ -3,7 +3,7 @@ import SingleUser from '../SingleUser/SingleUser'
 import Search from '../../(liteComponents)/Search/Search'
 const PeopleView = () => {
     const showChat = () => {
-        console.log('chat pressed')
+        // console.log('chat pressed')
     }
     return (
         <div className={styles.container}>

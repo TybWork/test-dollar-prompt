@@ -77,8 +77,6 @@ const page = ({ params }) => {
         setdata(user);
     }
 
-    console.log('this is whole data', user)
-
     // get sample prompts
 
     useEffect(() => {
@@ -103,8 +101,6 @@ const page = ({ params }) => {
         // else {
         // }
     }, [selected])
-
-    console.log('selected', selected)
 
     const handleSubmit = async () => {
         // Create a hardcoded object
@@ -136,7 +132,6 @@ const page = ({ params }) => {
             }
         )
             .then(response => {
-                console.log('Submission response:', response); // Log the response
                 setTimeout(() => {
                     router.push(`/user/${username}/seller-dashboard`);
                 }, 2300);

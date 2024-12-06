@@ -38,7 +38,6 @@ const CreateBlogComponent = () => {
                     formData.append(key, data[key]);
                 }
             }
-            console.log(formData)
 
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/create`, formData, {
                 headers: {

@@ -84,9 +84,7 @@ const page = ({ params }) => {
     }
 
     function heartFunc() {
-        console.log('heart clicked')
         setheart(prev => !prev)
-        console.log(window.Notification)
     }
 
     return (
@@ -130,7 +128,7 @@ const page = ({ params }) => {
 
                 {/* designerInfo */}
                 <div className={styles.designerInfoContainer}>
-                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={25} height={25} alt='logo'/>
+                    <Image src="/assets/imageAssets/dollarprompt-mobile-logo.svg" width={25} height={25} alt='logo' />
                     <div className={styles.designerSocialHandle}><Link href={`/profile/${prompt.userId}`}>@{(prompt.userId).slice(0, 5)}</Link></div>
                 </div>
 

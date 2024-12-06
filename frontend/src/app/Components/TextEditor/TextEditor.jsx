@@ -4,7 +4,6 @@ import JoditEditorComp from "../JoditEditor/JoditEditor";
 
 const TextEditor = () => {
     const [data, setData] = useState("");
-    console.log(data)
 
     return (
         <div className={styles.appContainers}>

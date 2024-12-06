@@ -31,7 +31,6 @@ const page = ({ params }) => {
 
 
     if (!profile) return <Loading />
-    console.log('profile', profile?.prompts?.dalle)
 
     const profileImage = (profile.profileImage && profile.profileImage.length > 0) ? profile.profileBanner[0] : '/assets/imageAssets/dummy.jpg'
 
@@ -85,7 +84,7 @@ const page = ({ params }) => {
                                     >
 
                                         {
-                                            profile?.prompts?.dalle.map((e,index) => (
+                                            profile?.prompts?.dalle.map((e, index) => (
                                                 <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
@@ -124,7 +123,7 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.gpt.map((e,index) => (
+                                            profile?.prompts?.gpt.map((e, index) => (
                                                 <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
@@ -164,7 +163,7 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.midjourney.map((e,index) => (
+                                            profile?.prompts?.midjourney.map((e, index) => (
                                                 <div key={index} className={styles.adaptive}>
                                                     <AdaptiveCard
                                                         category={e.promptType}

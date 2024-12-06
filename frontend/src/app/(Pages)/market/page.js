@@ -17,7 +17,6 @@ const Page = () => {
   const fetchData = async () => {
     try {
       const query = new URLSearchParams(filterObject).toString();
-      console.log(query)
       const response = await axios.get(
         // `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get?${query}`
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?${query}`
@@ -40,7 +39,6 @@ const Page = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.filterComponent}>
-        {/* Pass setFilterObject to Filter */}
         <Filter setFilterObject={setFilterObject} />
       </div>
       <div className={styles.leftContainer}>

@@ -55,8 +55,6 @@ export const getPromptsBasedOnUserIdStatusType = async (req, res) => {
             query.userId = userId;  // Only add _id if it's provided
         }
 
-        console.log(promptType, promptStatus, userId)
-
         const Model = models[promptType.toLowerCase()]
         const prompts = await Model.find(query);
         return res.status(200).json(prompts)

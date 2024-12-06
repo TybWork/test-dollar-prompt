@@ -9,7 +9,6 @@ const PromptFile = () => {
 
     const [sellPromptBtn, setsellPromptBtn] = useState('block')
     function clickTest() {
-        console.log("Button Clicked")
         setsellPromptBtn("none")
     }
     return (

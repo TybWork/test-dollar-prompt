@@ -40,7 +40,6 @@ const page = () => {
                     try {
                         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
                         setprofile(response.data)
-                        console.log('response data is here', response.data)
 
                     } catch (err) {
                         console.error("Error fetching seller data:", err);
@@ -64,10 +63,7 @@ const page = () => {
         }
     }, [userId])
 
-    console.log(profile)
-
     const submitForm = async (e) => {
-        console.log('submit btn triggered')
         e.preventDefault()
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/super-admin/login`, user,

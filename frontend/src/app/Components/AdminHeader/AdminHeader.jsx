@@ -163,7 +163,6 @@ const AdminHeader = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${userId}`);
-                console.log(response.data)
                 setprofile(response.data)
 
             } catch (err) {

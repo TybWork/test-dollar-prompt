@@ -55,7 +55,6 @@ const ChatComponent = ({ senderIdString, receiverIdString }) => {
 
     useEffect(() => {
         const handleIncomingMessage = (message) => {
-            console.log('this is message', message)
             setChatRoom([message])
         };
 
@@ -66,7 +65,6 @@ const ChatComponent = ({ senderIdString, receiverIdString }) => {
         };
     }, [chatRoom]);
 
-    console.log(separateRoom)
 
     if (!chatRoom) return <div>Loading...</div>;
 
