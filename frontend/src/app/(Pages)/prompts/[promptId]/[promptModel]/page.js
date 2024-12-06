@@ -17,6 +17,7 @@ import { useState, useEffect } from 'react';
 
 const Page = ({ params }) => {
     const { promptId, promptModel } = params;
+    const [fetchPrompts, setfetchPrompts] = useState([])
 
     const [prompt, setPrompt] = useState(null);
     const [id, setId] = useState('');
@@ -70,7 +71,12 @@ const Page = ({ params }) => {
             if (prompt?.userId) {
                 try {
                     const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${prompt.userId}&withPrompts=false`);
+                    const prompts = await axios.get(
+                        // `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get?${query}`
+                        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?category=${promptModel}&sort=trending`
+                    );
                     setSellerProfile(response.data);
+                    setfetchPrompts(prompts.data)
                 } catch (error) {
                     console.error("Error fetching seller data:", error);
                 }
@@ -124,20 +130,34 @@ const Page = ({ params }) => {
 
             <div className={styles.promptSlider}>
                 <ContentWithHeading
-                    title={'Similar Prompts'}
+                    title={'Trending Prompts'}
                     linkText={'View All'}
+                    link={'/market'}
                     content={
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            flexWrap: 'wrap',
-                        }}>
-                            <div className={styles.adaptive}>
-                                <AdaptiveCard />
-                            </div>
-                            {/* Add more AdaptiveCards as needed */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                flexWrap: 'wrap',
+                                width: '100%'
+                            }}
+                        >
+                            {
+                                fetchPrompts &&
+                                fetchPrompts?.map((e, index) => (
+                                    <div key={index} className={styles.adaptive}>
+                                        <AdaptiveCard
+                                            category={e.promptType}
+                                            mainImage={e.Image_Url[0]}
+                                            title={e.title}
+                                            promptUrl={`/prompts/${e._id}/midjourney`}
+                                        />
+                                    </div>
+                                ))
+                            }
+
                         </div>
                     }
                 />

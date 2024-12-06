@@ -199,6 +199,7 @@ export default function Home() {
         <ShowAllSection
           title={'Trending Prompts'}
           linkText={'View All Trending Prompts'}
+          link={'/market'}
           content={
             <div className={styles.cardContainer}>
               {
@@ -249,6 +250,7 @@ export default function Home() {
         <ShowAllSection
           title={'DALL-E Prompts'}
           linkText={'View All DALL-E Prompts'}
+          link={'/market'}
           content={
             <div className={styles.cardContainer}>
               {
@@ -273,6 +275,7 @@ export default function Home() {
         <ShowAllSection
           title={'Midjourney Prompts'}
           linkText={'View All Midjourney Prompts'}
+          link={'/market'}
           content={
             <div className={styles.cardContainer}>
               {

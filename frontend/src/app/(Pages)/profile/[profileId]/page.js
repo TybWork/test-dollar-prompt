@@ -1,24 +1,26 @@
 'use client'
 import AboutSeller from '@/app/Components/(updatedDesignComp)/(snipets)/AboutSeller/AboutSeller'
 import styles from '@/app/(Pages)/profile/[profileId]/profile.module.css'
-import Link from 'next/link'
-import Reviews from '@/app/Components/(updatedDesignComp)/Reviews/Reviews'
 import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard'
 import ContentWithHeading from '@/app/Components/(updatedDesignComp)/ContentWithHeading/ContentWithHeading'
 import Image from 'next/image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
+import Reviews from '@/app/Components/(updatedDesignComp)/Reviews/Reviews'
 
 const page = ({ params }) => {
     const { profileId } = params
 
     const [profile, setprofile] = useState({})
+    const [fetchPrompts, setfetchPrompts] = useState({})
     useEffect(() => {
         const fetchSellerProfile = async () => {
             try {
                 const profile = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/seller/getseller?userId=${profileId}&withPrompts=true`);
+                const prompts = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${profileId}&status=active`)
                 setprofile(profile.data);
+                setfetchPrompts(prompts.data.sellingHistory);
 
                 // prompts fetch
             } catch (error) {
@@ -29,6 +31,7 @@ const page = ({ params }) => {
         fetchSellerProfile();
     }, [profileId]);
 
+    console.log(fetchPrompts.gpt)
 
     if (!profile) return <Loading />
 
@@ -65,12 +68,15 @@ const page = ({ params }) => {
                         <div
                             className={styles.promptSlider}
                             style={{
-                                display: profile?.prompts?.dalle.length > 0 ? 'flex' : 'none'
+                                display: fetchPrompts &&
+                                    fetchPrompts['dall-e'] &&
+                                    fetchPrompts['dall-e']?.length > 0 ? 'flex' : 'none'
                             }}
                         >
                             <ContentWithHeading
                                 title={'Dall-E'}
                                 linkText={'View All'}
+                                link={'/market'}
 
                                 content={
                                     <div
@@ -79,22 +85,26 @@ const page = ({ params }) => {
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             gap: '8px',
-                                            flexWrap: 'wrap'
+                                            flexWrap: 'wrap',
                                         }}
                                     >
 
                                         {
-                                            profile?.prompts?.dalle.map((e, index) => (
+                                            fetchPrompts &&
+                                            fetchPrompts['dall-e'] &&
+                                            fetchPrompts['dall-e'].length > 0 &&
+                                            fetchPrompts['dall-e'].map((e, index) => (
                                                 <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
-                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                        promptUrl={`/prompts/${e._id}/dall-e`}
                                                     />
                                                 </div>
                                             ))
                                         }
+
                                     </div>
                                 }
                             />
@@ -104,12 +114,15 @@ const page = ({ params }) => {
                         <div
                             className={styles.promptSlider}
                             style={{
-                                display: profile?.prompts?.gpt.length > 0 ? 'flex' : 'none'
+                                display: fetchPrompts &&
+                                    fetchPrompts['gpt'] &&
+                                    fetchPrompts['gpt']?.length > 0 ? 'flex' : 'none'
                             }}
                         >
                             <ContentWithHeading
                                 title={'Gpt Prompts'}
                                 linkText={'View All'}
+                                link={'/market'}
 
                                 content={
                                     <div
@@ -123,13 +136,16 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.gpt.map((e, index) => (
+                                            fetchPrompts &&
+                                            fetchPrompts['gpt'] &&
+                                            fetchPrompts['gpt'].length > 0 &&
+                                            fetchPrompts['gpt']?.map((e, index) => (
                                                 <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         title={e.title}
                                                         promptType='gpt'
-                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                        promptUrl={`/prompts/${e._id}/gpt`}
                                                     />
                                                 </div>
                                             ))
@@ -144,12 +160,15 @@ const page = ({ params }) => {
                         <div
                             className={styles.promptSlider}
                             style={{
-                                display: profile?.prompts?.midjourney.length > 0 ? 'flex' : 'none'
+                                display: fetchPrompts &&
+                                    fetchPrompts['midjourney'] &&
+                                    fetchPrompts['midjourney']?.length > 0 ? 'flex' : 'none'
                             }}
                         >
                             <ContentWithHeading
                                 title={'Midjourney Prompts'}
                                 linkText={'View All'}
+                                link={'/market'}
 
                                 content={
                                     <div
@@ -163,13 +182,15 @@ const page = ({ params }) => {
                                         }}
                                     >
                                         {
-                                            profile?.prompts?.midjourney.map((e, index) => (
+                                            fetchPrompts &&
+                                            fetchPrompts['midjourney'] &&
+                                            fetchPrompts['midjourney']?.map((e, index) => (
                                                 <div key={index} className={styles.adaptive}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
-                                                        promptUrl={`/prompts/${e._id}/${e.promptType.toLowerCase()}`}
+                                                        promptUrl={`/prompts/${e._id}/midjourney`}
                                                     />
                                                 </div>
                                             ))
@@ -181,7 +202,8 @@ const page = ({ params }) => {
                         </div>
                     </div>
 
-                    <Reviews />
+                    {/*----------------- reviews section ------------------*/}
+                    {/* <Reviews /> */}
                 </div>
 
             </div>
