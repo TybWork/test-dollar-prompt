@@ -60,12 +60,12 @@ export const buttons = {
         // },
     ],
     admin: [
-        {
-            id: 0,
-            icon: <GrAnalytics />,
-            title: 'Overview',
-            component: 'Overview Component'
-        },
+        // {
+        //     id: 0,
+        //     icon: <GrAnalytics />,
+        //     title: 'Overview',
+        //     component: 'Overview Component'
+        // },
         {
             id: 1,
             icon: <LiaBlogSolid />,

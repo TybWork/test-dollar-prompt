@@ -18,29 +18,33 @@ const categoriesArr = [
     url: '/blog',
     title: 'AI News'
   },
+  // {
+  //   url: '/',
+  //   title: 'Marketing Prompts'
+  // },
   {
-    url: '/',
-    title: 'Marketing Prompts'
-  },
-  {
-    url: '/',
+    url: '/market',
     title: 'Midjourney Prompts'
   },
   {
-    url: '/',
-    title: 'ChatGPT Prompts'
+    url: '/market',
+    title: 'GPT Prompts'
   },
+  // {
+  //   url: '/',
+  //   title: 'Leonardo AI Prompts'
+  // },
+  // {
+  //   url: '/',
+  //   title: 'Stable Diffusion Prompts'
+  // },
   {
-    url: '/',
-    title: 'Leonardo AI Prompts'
-  },
-  {
-    url: '/',
-    title: 'Stable Diffusion Prompts'
-  },
-  {
-    url: '/',
+    url: '/market',
     title: 'Dall-E Prompts'
+  },
+  {
+    url: '/market',
+    title: 'All Prompts'
   },
 ]
 

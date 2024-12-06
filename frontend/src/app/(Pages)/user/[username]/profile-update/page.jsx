@@ -87,7 +87,16 @@ const Page = () => {
             });
 
             await updateProfile();
-            window.location.href = `/user/${profileHandle}/buyer-dashboard/buyer`
+            window.location.href = (() => {
+                if (userRole === 'user' || userRole === 'seller') {
+                    return `/user/${profileHandle}/buyer-dashboard/buyer`
+                } else if (userRole === 'admin') {
+                    return `/admin`
+                } else if (userRole === 'super-admin') {
+                    return '/master-dashboard'
+                }
+            })()
+
 
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -133,7 +142,6 @@ const Page = () => {
                 />
             </div>
             <div>
-
                 <NewImageUploader
                     onChangeFunc={getValue} labelFor="profileBanner"
                     title={'Upload profile banner'} imgDimensions={'1500 x 400 , in app-cropping'}
