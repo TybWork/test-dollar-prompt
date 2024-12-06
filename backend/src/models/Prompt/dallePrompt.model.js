@@ -58,6 +58,10 @@ const dallePromptSchema = new Schema(
             type: Boolean,
             default: true
         },
+        views: {
+            type: Number,
+            default: 0
+        },
         verifiedBy: {
             type: String,
         },

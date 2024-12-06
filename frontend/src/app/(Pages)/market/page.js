@@ -49,7 +49,7 @@ const Page = () => {
             key={index}
             mainImage={item.Image_Url[0]}
             category={item.promptType}
-            title={`${item.title.slice(0, 18)}`}
+            title={item.title}
             promptUrl={`/prompts/${item._id}/${item.promptType.toLowerCase()}`}
           />
         ))}

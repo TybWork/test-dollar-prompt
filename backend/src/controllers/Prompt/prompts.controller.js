@@ -87,7 +87,7 @@ export const majorFilteredPrompt = async (req, res) => {
                 query.isTrending = true;
                 sortCondition = { createdAt: -1 }; // Sort trending by most recent
             } else if (sort === "popular") {
-                query.isPopular = true;
+                // query.isPopular = true;
                 sortCondition = { views: -1 }; // Sort popular by views
             } else if (sort === "newest") {
                 sortCondition = { createdAt: -1 }; // Sort by most recent
@@ -110,8 +110,7 @@ export const majorFilteredPrompt = async (req, res) => {
                         pipeline: [{ $match: query }],
                     },
                 },
-                { $sort: sortCondition }, // Apply sorting
-                { $limit: 50 }, // Optional: Limit results for better performance
+                { $sort: sortCondition },
             ]);
 
             return res.status(200).json(combinePrompts); // Return combined results
