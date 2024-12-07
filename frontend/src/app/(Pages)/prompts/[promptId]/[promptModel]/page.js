@@ -91,9 +91,7 @@ const Page = ({ params }) => {
         return <LoadingCircle />;
     }
 
-    const profileImage = sellerProfile.profileImage && sellerProfile.profileImage.length > 0
-        ? sellerProfile.profileImage[0]
-        : null;
+    const profileImage = sellerProfile?.profileImage && sellerProfile?.profileImage.length > 0 ? sellerProfile?.profileImage[0] : null;
 
 
     return (
@@ -101,12 +99,12 @@ const Page = ({ params }) => {
             <div className={styles.mainContainer}>
                 <div className={styles.profileInfo}>
                     <AboutSeller
-                        profileHandle={sellerProfile.profileHandle}
+                        profileHandle={sellerProfile?.profileHandle}
                         profileImage={profileImage}
                         linkToProfile={`/profile/${prompt.userId}`}
                     />
                     <p className={styles.sellerDescription}>
-                        {sellerProfile.profileDescription}
+                        {sellerProfile?.profileDescription}
                         {/* {sellerProfile.profileDescription} <Link href={`/profile/${sellerProfile.userId}`}>read more</Link> */}
                     </p>
 
