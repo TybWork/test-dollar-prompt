@@ -3,7 +3,7 @@ import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/Loadi
 const page = () => {
     return (
         <div className={styles.parentContainer}>
-            <LoadingCircle />
+            {/* <LoadingCircle /> */}
             <div className={styles.headingContainer}>
                 <h1 className={styles.mainHeading}>Dollar Prompts Terms of Use</h1>
                 <div>Last Updated: 10.10.2024</div>
