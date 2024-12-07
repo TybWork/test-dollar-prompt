@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
 import Reviews from '@/app/Components/(updatedDesignComp)/Reviews/Reviews'
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle'
 
 const page = ({ params }) => {
     const { profileId } = params
@@ -33,7 +34,7 @@ const page = ({ params }) => {
 
     console.log(fetchPrompts.gpt)
 
-    if (!profile) return <Loading />
+    if (!profile && !fetchPrompts) return <LoadingCircle />
 
     const profileImage = (profile.profileImage && profile.profileImage.length > 0) ? profile.profileBanner[0] : '/assets/imageAssets/dummy.jpg'
 

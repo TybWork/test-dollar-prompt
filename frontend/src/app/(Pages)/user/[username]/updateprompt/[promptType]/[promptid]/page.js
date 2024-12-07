@@ -12,6 +12,7 @@ import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
 const Page = () => {
     const router = useRouter();
@@ -130,7 +131,7 @@ const Page = () => {
     }
 
     if (!promptData) {
-        return <Loading />
+        return <LoadingCircle />
     }
 
     return (

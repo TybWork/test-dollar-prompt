@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard';
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
 const Page = () => {
   const [filterObject, setFilterObject] = useState({
@@ -33,7 +34,7 @@ const Page = () => {
   }, [filterObject]);
 
   if (!promptData) {
-    return <Loading />;
+    return <LoadingCircle />;
   }
 
   return (

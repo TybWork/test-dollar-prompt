@@ -9,6 +9,7 @@ import Image from "next/image";
 import Loading from "@/app/Components/(liteComponents)/Loading/Loading";
 import { getTokenFunction } from "@/app/utilities/getTokenFunction";
 import SampleTextPromptComp from "@/app/Components/(liteComponents)/SampleTextPromptComp/SampleTextPromptComp";
+import LoadingCircle from "@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle";
 
 const Page = ({ params }) => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const Page = ({ params }) => {
     };
     fetchData();
   }, [promptid]);
-  if (!promptData) return <Loading />;
+  if (!promptData) return <LoadingCircle />;
 
   const updateStatus = async (promptStatus) => {
     await axios.put(

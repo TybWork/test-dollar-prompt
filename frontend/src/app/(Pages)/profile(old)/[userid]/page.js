@@ -12,11 +12,11 @@ import { MdStar } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import Search from '@/app/Components/(liteComponents)/Search/Search';
 import axios from 'axios';
-import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import SinglePromptCard from '@/app/Components/SinglePromptCard/SinglePromptCard';
 import AnimatedHeading from '@/app/Components/(liteComponents)/AnimatedHeading/AnimatedHeading';
 import { IoChatbubblesSharp } from "react-icons/io5";
 import Link from 'next/link';
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 const page = async ({ params }) => {
     const [prompt, setprompt] = useState(null)
     const [sellerDetail, setsellerDetail] = useState(null)
@@ -34,12 +34,12 @@ const page = async ({ params }) => {
             })
     }, [userid])
 
-    if (!prompt || !sellerDetail) return <Loading />
+    if (!prompt && !sellerDetail) return <LoadingCircle />
     return (
         <div className={styles.mainContainer}>
             <div className={styles.bannerOuterContainer}>
                 <div className={styles.banner}>
-                    <Image alt='banner-image'  className={styles.bannerImage} src={sellerDetail.profileBanner[0]} width={0} height={0} sizes='100vw' />
+                    <Image alt='banner-image' className={styles.bannerImage} src={sellerDetail.profileBanner[0]} width={0} height={0} sizes='100vw' />
                 </div>
                 <div className={styles.userLogo}>
                     <Image alt='dollarprompt' className={styles.logoImage} src={sellerDetail.profileImage[0]} width={0} height={0} sizes='100vw' />
@@ -144,7 +144,7 @@ const page = async ({ params }) => {
                 {/* prompts */}
                 <AnimatedHeading title="Other prompts by this seller" />
                 <div className={styles.promptsWrapper}>
-                    {prompt.map((item,index) => (
+                    {prompt.map((item, index) => (
                         <SinglePromptCard key={index} image={item.Image_Url[0]} label={item.promptType} title={`${item.title.slice(0, 18)} . . .`} price={item.price} link={`/dallprompt/${item._id}`} />
                     ))}
                 </div>

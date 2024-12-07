@@ -20,6 +20,7 @@ import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
 const page = ({ params }) => {
     const { promptid } = params;
@@ -69,7 +70,7 @@ const page = ({ params }) => {
     }, [promptid])
 
     if (!prompt) {
-        return <Loading />
+        return <LoadingCircle />
     }
 
 
