@@ -64,6 +64,10 @@ const userProfileSchema = new Schema({
         type: Number,
         default: 0
     },
+    promptsCount: {
+        type: Number,
+        default: 0
+    },
     prompts: {
         type: [
             {

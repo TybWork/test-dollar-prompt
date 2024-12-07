@@ -1,7 +1,9 @@
 import styles from '@/app/(Pages)/tandcs/tandcs.module.css'
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle'
 const page = () => {
     return (
         <div className={styles.parentContainer}>
+            <LoadingCircle />
             <div className={styles.headingContainer}>
                 <h1 className={styles.mainHeading}>Dollar Prompts Terms of Use</h1>
                 <div>Last Updated: 10.10.2024</div>
