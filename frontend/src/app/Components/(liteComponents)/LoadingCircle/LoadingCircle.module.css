@@ -1,6 +1,40 @@
+.mainContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .parent {
     width: 46px;
     height: 46px;
     border-radius: 50px;
     border: 2px solid var(--homeCardBorder);
+    background: linear-gradient(var(--homeMainBtn), var(--homeTertiaryClr));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.parent span {
+    width: 6px;
+    height: 11px;
+    background: var(--homePrimaryClr);
+    border-radius: 2.6px;
+    transform: rotate(38deg);
+    opacity: 1;
+    /* display: none; */
+    animation: loader .4s linear;
+}
+
+@keyframes loader {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

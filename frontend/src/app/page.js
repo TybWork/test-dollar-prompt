@@ -12,6 +12,7 @@ import Timeline from './Components/(updatedDesignComp)/Timeline/Timeline';
 import EmailNewletter from './Components/(updatedDesignComp)/EmailNewsletter/EmailNewletter';
 import axios from 'axios';
 import Loading from './Components/(liteComponents)/Loading/Loading';
+import LoadingCircle from './Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
 const categoriesArr = [
   {
@@ -58,10 +59,10 @@ export default function Home() {
   const targetRef = useRef(null);
   const [isOverflowHidden, setIsOverflowHidden] = useState(false);
   const [timelineScroll, settimelineScroll] = useState(false)
-  const [dallePrompts, setdallePrompts] = useState([])
-  const [midjourneyPrompts, setmidjourneyPrompts] = useState([])
-  const [gptPrompts, setgptPrompts] = useState([])
-  const [trendingPrompts, settrendingPrompts] = useState([])
+  const [dallePrompts, setdallePrompts] = useState(null)
+  const [midjourneyPrompts, setmidjourneyPrompts] = useState(null)
+  const [gptPrompts, setgptPrompts] = useState(null)
+  const [trendingPrompts, settrendingPrompts] = useState(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,7 +122,7 @@ export default function Home() {
   }, []);
 
 
-  if (!dallePrompts) return <Loading />
+  if (!dallePrompts && !trendingPrompts && !midjourneyPrompts && !gptPrompts) return <LoadingCircle />
 
   // const trendingImg = trendingPrompts?.mainImage[0]
   return (

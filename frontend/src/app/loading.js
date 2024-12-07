@@ -1,9 +1,11 @@
 import React from 'react'
-import Loading from './Components/(liteComponents)/Loading/Loading'
+import LoadingCircle from './Components/(liteComponents)/LoadingCircle/LoadingCircle'
 
 const loading = () => {
     return (
-        <Loading />
+        <>
+            <LoadingCircle />
+        </>
     )
 }
 
