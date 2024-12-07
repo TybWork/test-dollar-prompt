@@ -8,7 +8,7 @@ const LoadingCircle = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % 3); // Cycles through 0, 1, 2
-        }, 200);
+        }, 500);
         return () => clearInterval(interval);
     }, []);
 
