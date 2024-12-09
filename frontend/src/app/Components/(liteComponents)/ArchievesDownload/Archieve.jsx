@@ -22,7 +22,7 @@ const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
                 description: promptData.description,
                 type: promptData.promptType,
                 version: promptData.version,
-                uses: promptData.describePrompt,
+                prompt: promptData.describePrompt,
                 instructions: promptData.promptInstruction,
                 price: promptData.price,
                 time: new Date().toLocaleString()  // Current time in local format
@@ -33,6 +33,7 @@ const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
                 title: promptData.title,
                 description: promptData.description,
                 type: promptData.promptType,
+                prompt: promptData.prompt,
                 instructions: promptData.promptInstructions,
                 price: promptData.price,
                 time: new Date().toLocaleString()
@@ -50,17 +51,17 @@ const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
                 gptLink: promptData.gptLink,
                 price: promptData.price,
                 // exmple prompts
-                exampleTitle1: promptData.examplePrompts[0].title,
-                exampleText1: promptData.examplePrompts[0].text,
+                firstPrompt: promptData.examplePrompts[0].title,
+                firstOutput: promptData.examplePrompts[0].text,
 
-                exampleTitle2: promptData.examplePrompts[1].title,
-                exampleText2: promptData.examplePrompts[1].text,
+                secondPrompt: promptData.examplePrompts[1].title,
+                secondOutput: promptData.examplePrompts[1].text,
 
-                exampleTitle3: promptData.examplePrompts[2].title,
-                exampleText3: promptData.examplePrompts[2].text,
+                thirdPrompt: promptData.examplePrompts[2].title,
+                thirdOutput: promptData.examplePrompts[2].text,
 
-                exampleTitle4: promptData.examplePrompts[3].title,
-                exampleText4: promptData.examplePrompts[3].text,
+                fourthPrompt: promptData.examplePrompts[3].title,
+                fourthOutput: promptData.examplePrompts[3].text,
 
                 // download time
                 time: new Date().toLocaleString()  // Current time in local format

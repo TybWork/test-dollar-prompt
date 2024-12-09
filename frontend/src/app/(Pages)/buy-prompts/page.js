@@ -8,19 +8,29 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 const page = () => {
     // const [trendingPrompts, settrendingPrompts] = useState([])
-    const [dallePrompts, setdallePrompts] = useState([])
-    const [midjourneyPrompts, setmidjourneyPrompts] = useState([])
-    const [gptPrompts, setgptPrompts] = useState([])
-    const [trendingPrompts, settrendingPrompts] = useState([])
+    const [dallePrompts, setdallePrompts] = useState(null)
+    const [midjourneyPrompts, setmidjourneyPrompts] = useState(null)
+    const [gptPrompts, setgptPrompts] = useState(null)
+    const [trendingPrompts, settrendingPrompts] = useState(null)
 
     // .................prompts fetching function................
     useEffect(() => {
         const fetchPrompts = async () => {
             try {
-                const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get`);
-                const midjourney = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/get`);
-                const gpt = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`);
                 const trending = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`);
+                // ........................
+                const dalle = await axios.get(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?category=dall-e&sort=trending`
+                );
+                const midjourney = await axios.get(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?category=midjourney&sort=trending`
+                );
+                const gpt = await axios.get(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?category=gpt&sort=trending`
+                );
+
+                // ........................
+
                 settrendingPrompts(trending.data)
                 setdallePrompts(dalle.data);
                 setmidjourneyPrompts(midjourney.data)
@@ -46,17 +56,19 @@ const page = () => {
                     </div>
                 </div>
 
-
                 {/* show all prompts container */}
 
-
-
-
                 {/* Trending prompts */}
-                <div className={styles.promptsSection}>
+                <div
+                    className={styles.promptsSection}
+                    style={{
+                        display: trendingPrompts && trendingPrompts.length > 0 ? 'flex' : 'none'
+                    }}
+                >
                     <ShowAllSection
                         title={'Trending Prompts'}
                         linkText={'View All Trending Prompts'}
+                        link={'/market'}
                         content={
                             <div className={styles.cardContainer}>
                                 {
@@ -78,12 +90,20 @@ const page = () => {
                 </div>
 
                 {/* Chat GPT prompts */}
-                <div className={styles.promptsSection}>
+                <div
+                    className={styles.promptsSection}
+                    style={{
+                        display: gptPrompts && gptPrompts.length > 0 ? 'flex' : 'none'
+                    }}
+                >
                     <ShowAllSection
                         title={'GPT prompts'}
                         linkText={'View All GPT Prompts'}
+                        link={'/market'}
                         content={
-                            <div className={styles.cardContainer}>
+                            <div
+                                className={styles.cardContainer}
+                            >
                                 {
                                     gptPrompts && gptPrompts.slice(0, 5).map((gpt, index) =>
                                         <div className={styles.adaptive} key={index}>
@@ -103,10 +123,16 @@ const page = () => {
                 </div>
 
                 {/*dalle prompts section */}
-                <div className={styles.promptsSection}>
+                <div
+                    className={styles.promptsSection}
+                    style={{
+                        display: dallePrompts && dallePrompts.length > 0 ? 'flex' : 'none'
+                    }}
+                >
                     <ShowAllSection
                         title={'DALL-E Prompts'}
                         linkText={'View All DALL-E Prompts'}
+                        link={'/market'}
                         content={
                             <div className={styles.cardContainer}>
                                 {
@@ -127,10 +153,16 @@ const page = () => {
                 </div>
 
                 {/*midjourney prompts section */}
-                <div className={styles.promptsSection}>
+                <div
+                    className={styles.promptsSection}
+                    style={{
+                        display: midjourneyPrompts && midjourneyPrompts.length > 0 ? 'flex' : 'none'
+                    }}
+                >
                     <ShowAllSection
                         title={'Midjourney Prompts'}
                         linkText={'View All Midjourney Prompts'}
+                        link={'/market'}
                         content={
                             <div className={styles.cardContainer}>
                                 {
@@ -153,25 +185,6 @@ const page = () => {
 
                 {/* ...................................... */}
 
-
-                {/* <div className={styles.cardsSection}>
-                    <div className={styles.cardsContainer}>
-
-                        {
-                            trendingPrompts && trendingPrompts.slice(0, 5).map((trending, index) =>
-                                <div className={styles.singleCard} key={index}>
-                                    <AdaptiveCard
-                                        mainImage={trending?.Image_Url?.[0]}
-                                        promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
-                                        title={trending.title}
-                                        category={trending.promptType}
-                                        promptType={trending.promptType.toLowerCase()}
-                                    />
-                                </div>
-                            )
-                        }
-                    </div>
-                </div> */}
                 {/* email newsletter section */}
                 <div id='newsletter' className={styles.newsletterContainer}>
                     <EmailNewletter
