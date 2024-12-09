@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { SellerProfile } from "../models/SellerProfile/sellerProfile.model.js";
 import axios from 'axios'
+import Token from "../models/emailToken.model.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 // create user
 export const signUp = async (req, res) => {
@@ -39,7 +41,23 @@ export const signUp = async (req, res) => {
 
         await createProfile.save();
 
-        return res.status(200).json({ msg: "user has been created successfully", user })
+        const token = await new Token({
+            userId: user._id,
+            token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        }).save();
+
+        const url = `http://localhost:4001/api/user/${user._id}/verify/${token.token}`
+
+        const subject = " Please Verify Email";
+        const message = `
+      <h3>Hello ${user.firstName} ${user.lastName}</h3>
+      <p>Thanks yor for registering on dollar prompt.</p>
+      <p>Click this link <a href="${url}">here</a> to verify your email</p>
+    `;
+        await sendEmail(user.email, subject, message);
+        return res.status(201).send({ message: "An Email sent to your account please check email" });
+
+        // return res.status(200).json({ msg: "user has been created successfully", user })
 
     } catch (error) {
         return res.status(400).json({ msg: `Failed to create a new user ${error}` })
@@ -104,7 +122,10 @@ export const loginUser = async (req, res) => {
                     return res.status(400).json({ msg: "Password not matched!!" })
                 }
 
-                // const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName[0].profileHandle }, process.env.JWT_SECRET)
+                if (!user.verified) {
+                    return res.status(400).json({ msg: "First verify your email!!" })
+                }
+
                 const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName }, process.env.JWT_SECRET)
 
 
