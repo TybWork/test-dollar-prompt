@@ -9,6 +9,7 @@ import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import ReCAPTCHA from "react-google-recaptcha";
 import { usePathname } from "next/navigation";
 import { loginValidation } from "@/app/clientValidations/clientValidations";
+import axios from "axios";
 
 const LoginUser = () => {
 
@@ -50,6 +51,7 @@ const LoginUser = () => {
         }
     }
 
+    // submit form function
     const submitForms = async (e) => {
         e.preventDefault();
         setCaptchaToken("")
@@ -67,7 +69,7 @@ const LoginUser = () => {
             setMsg('To proceed, please verify the reCAPTCHA')
         } else {
             try {
-                const response = await post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
                     withCredentials: true,
                 });
                 document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
@@ -113,6 +115,7 @@ const LoginUser = () => {
                     onIconClick={togglePasswordVisibility}
                     outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
                 />
+                <Link className={styles.forgotLink} href={'/password-reset'}>Forgot Password?</Link>
                 <div
                     className={styles.error}>
                     {msg}

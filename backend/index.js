@@ -27,6 +27,7 @@ import { chatRoutes } from './src/routes/chatRoutes.js';
 import { ChatRoom } from './src/models/message.model.js';
 import { createRoom, fetchRooms, sendMessage } from './src/controllers/chat.controller.js';
 import { singleUserLogsRoutes } from './src/routes/singleUserLogsRoutes.js';
+import { pwdResetRoute } from './src/routes/forgetPasswordRoutes.js';
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -166,6 +167,7 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/seller', sellerRoutes)
 app.use('/api/cart', cartRoutes)
 app.use('/api/super-admin', superAdminRoutes)
+app.use('/api/password-change', pwdResetRoute)
 
 app.use('/api/blog', blogRoutes)
 

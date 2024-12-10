@@ -1,3 +1,4 @@
+'use client'
 import styles from '@/app/Components/(liteComponents)/ScrollToTop/ScrollToTop.module.css'
 import { LuArrowUpFromDot } from "react-icons/lu";
 import { useEffect, useState } from 'react'
