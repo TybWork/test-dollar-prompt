@@ -12,7 +12,6 @@ const LoadingCircle = () => {
         return () => clearInterval(interval);
     }, []);
 
-    console.log(index)
 
     return (
         <div className={styles.mainContainer}>

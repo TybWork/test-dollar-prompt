@@ -85,7 +85,6 @@ const SellPromptComp = () => {
         setdata(user);
     }
 
-    console.log('data is here', data)
     // get sample prompts
 
     useEffect(() => {

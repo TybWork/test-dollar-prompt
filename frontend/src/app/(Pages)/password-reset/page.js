@@ -21,7 +21,6 @@ const page = () => {
     const id = searchParams.get('id')
     const token = searchParams.get('token')
 
-    console.log(`topId${id} topToken=${token}`)
 
     // toggle password visibility
     const togglePasswordVisibility = () => {
@@ -34,7 +33,6 @@ const page = () => {
         setUser(prev => ({ ...prev, [name]: value }));
     };
 
-    console.log(user)
 
     const submitForm = async (e) => {
         e.preventDefault()
@@ -48,7 +46,6 @@ const page = () => {
             }
             else {
                 setisPwdMatch(true)
-                console.log(id, token)
                 await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/password-change/${id}/${token}`, user)
                 router.push('/login')
             }
