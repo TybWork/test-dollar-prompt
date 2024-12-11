@@ -26,9 +26,9 @@ export const metadata = {
   title: {
     default: 'Dollarprompt'
   },
-  // meta: {
-  //   'google-site-verification': 'sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc'
-  // }
+  verification: {
+    'google': 'sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc'
+  }
 
 }
 export default function RootLayout({ children }) {
@@ -37,9 +37,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Providers>
         <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
-          <Head>
-            <meta name="google-site-verification" content="sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc" />
-          </Head>
           <MobileNavbar />
           <Cart />
           <div style={{ display: 'none' }}> <CalendarComp /></div>
