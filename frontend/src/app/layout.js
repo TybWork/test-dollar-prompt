@@ -27,7 +27,7 @@ export const metadata = {
     default: 'Dollarprompt'
   },
   meta: {
-    'googleverify': 'hellasffasfo'
+    'google-site-verification': 'sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc'
   }
 
 }
