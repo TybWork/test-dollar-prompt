@@ -3,7 +3,6 @@ import Filter from '@/app/Components/Filter/Filter';
 import styles from '@/app/(Pages)/market/market.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Loading from '@/app/Components/(liteComponents)/Loading/Loading';
 import AdaptiveCard from '@/app/Components/AdaptiveCard/AdaptiveCard';
 import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
@@ -19,7 +18,6 @@ const Page = () => {
     try {
       const query = new URLSearchParams(filterObject).toString();
       const response = await axios.get(
-        // `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/get?${query}`
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/major-filter?${query}`
       );
       setPromptData(response.data);
