@@ -8,7 +8,6 @@ import ScrollToTop from "./Components/(liteComponents)/ScrollToTop/ScrollToTop";
 import CalendarComp from "./Components/CalendarComp/CalendarComp";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import RootFileData from "./utilities/RootFileData";
-import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
