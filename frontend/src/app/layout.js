@@ -36,14 +36,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
+        {/* Google Analytics Script (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MHLD5JDND"></script>
+
+        {/* Inline Google Analytics Script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-5MHLD5JDND');
+              gtag('config', 'G-5MHLD5JDND', { page_path: window.location.pathname });
             `
           }}
         />
