@@ -43,10 +43,19 @@ export default function RootLayout({ children }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-5MHLD5JDND', { page_path: window.location.pathname });
+              (function() {
+                var script = document.createElement('script');
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5MHLD5JDND';
+                script.async = false;  // Make sure it loads synchronously for verification
+                document.head.appendChild(script);
+
+                script.onload = function() {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag() { dataLayer.push(arguments); }
+                  gtag('js', new Date());
+                  gtag('config', 'G-5MHLD5JDND', { page_path: window.location.pathname });
+                }
+              })();
             `
           }}
         />
