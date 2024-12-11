@@ -35,11 +35,11 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <Head>
-        <meta name="google-site-verification" content="sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc" />
-      </Head>
       <Providers>
         <body className={`${inter.variable} ${lato.variable}`} style={{ display: 'flex', height: '100vh', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden' }}>
+          <Head>
+            <meta name="google-site-verification" content="sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc" />
+          </Head>
           <MobileNavbar />
           <Cart />
           <div style={{ display: 'none' }}> <CalendarComp /></div>
