@@ -56,47 +56,11 @@ export const signUp = async (req, res) => {
     `;
         await sendEmail(user.email, subject, message);
         return res.status(201).send({ message: "An Email sent to your account please check email" });
-
         // return res.status(200).json({ msg: "user has been created successfully", user })
-
     } catch (error) {
         return res.status(400).json({ msg: `Failed to create a new user ${error}` })
     }
 }
-
-//login user
-// export const loginUser = async (req, res) => {
-//     const { email, password } = req.body
-//     try {
-//         const user = await User.findOne({ email })
-//         const userName = await SellerProfile.find({ userId: user._id })
-//         if (!user) {
-//             return res.status(400).json({ msg: "No such user!!" })
-//         }
-
-//         const compare = bcrypt.compareSync(password, user.password)
-//         if (!compare) {
-//             return res.status(400).json({ msg: "Password not matched!!" })
-//         }
-
-//         const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName[0].profileHandle }, process.env.JWT_SECRET)
-
-//         res.cookie('token', token, {
-
-//             httpOnly: true,
-//             secure: true,
-//             sameSite: 'None',
-//             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
-//             path: '/'
-//         });
-
-
-//         return res.status(200).json({ msg: "User loged in successfully!!", user, token })
-
-//     } catch (error) {
-//         console.log(`User log in failed ${error}`)
-//     }
-// }
 
 // login user with recaptcha enabled
 export const loginUser = async (req, res) => {
@@ -202,39 +166,6 @@ export const clearCookie = (req, res) => {
         return res.status(400).json({ msg: `Failed to delete cookie ${error}` })
     }
 }
-
-// controller for refreshig cookie
-// export const refreshCookie = async (req, res) => {
-//     const { userId, userRole } = req.body;
-
-//     let profileHandle = null
-//     if (userRole == 'seller') {
-//         const findSeller = await SellerProfile.findOne({ userId: userId }).select('profileHandle')
-//         if (findSeller) {
-//             profileHandle = userId
-//         }
-//     }
-
-//     try {
-//         const newToken = jwt.sign({ userId, userRole, profileHandle }, process.env.JWT_SECRET)
-
-//         await User.findByIdAndUpdate(userId, { role: userRole }, { new: 1 })
-
-//         res.cookie('token', newToken, {
-//             httpOnly: true,
-//             secure: true,
-//             sameSite: 'None',
-//             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
-//             path: '/'
-//         })
-
-//         return res.status(200).json({ msg: 'Cookie refreshed successfully!!', newToken })
-//     } catch (error) {
-//         return res.status(400).json({
-//             msg: `Failed to refresh cookie ${error}`
-//         })
-//     }
-// }
 
 export const refreshCookie = async (req, res) => {
     const { userId, userRole } = req.body;

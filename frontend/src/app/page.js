@@ -105,10 +105,19 @@ export default function Home() {
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
-        const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/filter?status=active`);
-        const midjourney = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/filter?status=active`);
-        const gpt = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`);
-        const trending = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`);
+        // const dalle = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/filter?status=active`);
+        // const midjourney = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/filter?status=active`);
+        // const gpt = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`);
+        // const trending = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`);
+
+        const [dalle, midjourney, gpt, trending] = await Promise.all(
+          [
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/dall-e/filter?status=active`),
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/midjourney/filter?status=active`),
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/gpt/get`),
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/get/trending`),
+          ]
+        )
         settrendingPrompts(trending.data)
         setdallePrompts(dalle.data);
         setmidjourneyPrompts(midjourney.data)
