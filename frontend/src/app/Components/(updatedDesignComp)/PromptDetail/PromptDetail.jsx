@@ -48,7 +48,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             </div>
 
             {/*............. SampleTextComp display on logic base ............*/}
-            <SampleTextPromptComp samplePromptsArr={examplePrompts} promptType={promptModel} />
+            {/* <SampleTextPromptComp samplePromptsArr={examplePrompts} promptType={promptModel} /> */}
 
             {/* .........category......... */}
             <div className={styles.categoryContainer}>

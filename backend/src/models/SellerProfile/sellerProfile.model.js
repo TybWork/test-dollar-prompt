@@ -52,14 +52,26 @@ const userProfileSchema = new Schema({
         type: Number,
         default: 0
     },
-    following: {
-        type: Number,
-        default: 0
-    },
-    followers: {
-        type: Number,
-        default: 0
-    },
+    // following: {
+    //     type: Number,
+    //     default: 0
+    // },
+    // followers: {
+    //     type: Number,
+    //     default: 0
+    // },
+    followers: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    following: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     ranking: {
         type: Number,
         default: 0

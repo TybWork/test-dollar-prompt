@@ -44,23 +44,6 @@ export const postSellerData = async (req, res) => {
 };
 
 // get sellerInfo
-
-// export const getSellerInfo = async (req, res) => {
-//     try {
-//         const filterSeller = await SellerProfile.find(req.query)
-//         const sellerId = filterSeller.map(uniqueId => uniqueId.userId)
-//         // const filteredPrompts = await DallE.find({ userId: sellerId })
-//         const filteredPrompts = await DallE.find({ userId: { $in: sellerId } })
-//         const combinedData = filterSeller.map(seller => ({
-//             ...seller.toObject(), // Convert Mongoose document to a plain object
-//             prompts: filteredPrompts || [] // Attach prompts to each seller
-//         }));
-//         return res.status(200).json(combinedData);
-//     } catch (error) {
-//         return res.status(400).json({ msg: `Failed to get Seller ${error}` })
-//     }
-// }
-
 export const getSellerInfo = async (req, res) => {
     try {
         const { userId, withPrompts } = req.query; // Assuming userId is passed as a query parameter
@@ -148,36 +131,28 @@ export const profileUpdate = async (req, res) => {
     }
 };
 
-
-// export const getSellerInfo = async (req, res) => {
-//     try {
-//         // Find seller profiles based on query parameters
-//         const sellers = await SellerProfile.find(req.query);
-
-//         // Collect all user IDs from the seller profiles
-//         const sellerIds = sellers.map(seller => seller.userId);
-
-//         // Find prompts related to the seller user IDs
-//         const allPrompts = await DallE.find({ userId: { $in: sellerIds } });
-
-//         // Create a map of prompts grouped by user ID
-//         const promptsMap = allPrompts.reduce((acc, prompt) => {
-//             if (!acc[prompt.userId]) {
-//                 acc[prompt.userId] = [];
-//             }
-//             acc[prompt.userId].push(prompt);
-//             return acc;
-//         }, {});
-
-//         // Combine seller data with their respective prompts
-//         const combinedData = sellers.map(seller => ({
-//             ...seller.toObject(),
-//             prompts: promptsMap || []
-//         }));
-
-//         return res.status(200).json(combinedData);
-//     } catch (error) {
-//         console.error('Error fetching seller info:', error);
-//         return res.status(400).json({ msg: "Failed to get Seller" });
-//     }
-// }
+export const addFollower = async (req, res) => {
+    const { myId, secondId } = req.query
+    try {
+        // const myProfile = await SellerProfile.findOne({ userId: myId })
+        // const secondProfile = await SellerProfile.findOne({ userId: secondId })
+        const [myProfile, secondProfile] = await Promise.all([
+            SellerProfile.findOne({ userId: myId }),
+            SellerProfile.findOne({ userId: secondId })
+        ])
+        if (!myProfile.following.includes(secondId)) {
+            myProfile.following.push(secondId)
+            if (!secondProfile.followers.includes(myId)) {
+                secondProfile.followers.push(myId);
+            }
+            // await myProfile.save()
+            // await secondProfile.save()
+            await Promise.all([myProfile.save(), secondProfile.save()])
+            return res.status(200).json({ msg: `You are now following (${secondId}) ` })
+        } else {
+            return res.status(400).json({ msg: `Your are already following This profile` })
+        }
+    } catch (error) {
+        return res.status(400).json({ msg: `Failed to follow ${error}` })
+    }
+}

@@ -12,6 +12,10 @@ const MidjourneyPromptSchema = new Schema(
             type: String,
             required: true,
         },
+        prompt: {
+            type: String,
+            required: true
+        },
         description: {
             type: String,
             //required: true,

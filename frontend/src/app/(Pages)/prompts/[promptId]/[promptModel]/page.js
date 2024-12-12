@@ -14,14 +14,15 @@ import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import { jwtDecode } from 'jwt-decode';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
+import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 
 const Page = ({ params }) => {
     const { promptId, promptModel } = params;
-    const [fetchPrompts, setfetchPrompts] = useState([])
+    const [fetchPrompts, setfetchPrompts] = useState(null)
 
     const [prompt, setPrompt] = useState(null);
     const [id, setId] = useState('');
-    const [sellerProfile, setSellerProfile] = useState({});
+    const [sellerProfile, setSellerProfile] = useState(null);
     const [isUser, setisUser] = useState(false)
 
     const queryClient = useQueryClient();
@@ -86,13 +87,11 @@ const Page = ({ params }) => {
         fetchSellerProfile();
     }, [prompt]);
 
-    if (!prompt) {
-        return <Loading />;
+    if (!prompt && !fetchPrompts && !sellerProfile) {
+        return <LoadingCircle />;
     }
 
-    const profileImage = sellerProfile.profileImage && sellerProfile.profileImage.length > 0
-        ? sellerProfile.profileImage[0]
-        : null;
+    const profileImage = sellerProfile?.profileImage && sellerProfile?.profileImage.length > 0 ? sellerProfile?.profileImage[0] : null;
 
 
     return (
@@ -100,12 +99,12 @@ const Page = ({ params }) => {
             <div className={styles.mainContainer}>
                 <div className={styles.profileInfo}>
                     <AboutSeller
-                        profileHandle={sellerProfile.profileHandle}
+                        profileHandle={sellerProfile?.profileHandle}
                         profileImage={profileImage}
                         linkToProfile={`/profile/${prompt.userId}`}
                     />
                     <p className={styles.sellerDescription}>
-                        {sellerProfile.profileDescription}
+                        {sellerProfile?.profileDescription}
                         {/* {sellerProfile.profileDescription} <Link href={`/profile/${sellerProfile.userId}`}>read more</Link> */}
                     </p>
 

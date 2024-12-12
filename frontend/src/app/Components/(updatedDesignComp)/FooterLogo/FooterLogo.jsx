@@ -31,7 +31,7 @@ const FooterLogo = ({ width, lightClr, darkClr }) => {
                     height={9.70732}
                     rx={2.22683}
                     transform="rotate(38.2606 18.6253 25.5618)"
-                    fill="url(#paint1_linear_494_674)"
+                    fill="#F3F9F4"
                     stroke="#F3F9F4"
                     strokeWidth={0.8}
                 />
@@ -42,7 +42,7 @@ const FooterLogo = ({ width, lightClr, darkClr }) => {
                     height={9.70732}
                     rx={2.22683}
                     transform="rotate(38.2606 29.2571 25.5618)"
-                    fill="url(#paint2_linear_494_674)"
+                    fill="#F3F9F4"
                     stroke="#F3F9F4"
                     strokeWidth={0.8}
                 />
@@ -53,7 +53,7 @@ const FooterLogo = ({ width, lightClr, darkClr }) => {
                     height={9.70732}
                     rx={2.22683}
                     transform="rotate(38.2606 39.8888 25.5618)"
-                    fill="url(#paint3_linear_494_674)"
+                    fill="#F3F9F4"
                     stroke="#F3F9F4"
                     strokeWidth={0.8}
                 />

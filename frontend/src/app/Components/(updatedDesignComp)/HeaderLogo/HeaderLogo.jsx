@@ -35,7 +35,7 @@ const HeaderLogo = ({ lightClr, darkClr }) => {
                 height={9.70732}
                 rx={2.22683}
                 transform="rotate(38.2606 21.6253 25.81)"
-                fill="url(#paint1_linear_484_664)"
+                fill="#F3F9F4"
                 stroke="#F3F9F4"
                 strokeWidth={0.8}
             />
@@ -46,7 +46,7 @@ const HeaderLogo = ({ lightClr, darkClr }) => {
                 height={9.70732}
                 rx={2.22683}
                 transform="rotate(38.2606 32.2571 25.81)"
-                fill="url(#paint2_linear_484_664)"
+                fill="#F3F9F4"
                 stroke="#F3F9F4"
                 strokeWidth={0.8}
             />
@@ -57,7 +57,7 @@ const HeaderLogo = ({ lightClr, darkClr }) => {
                 height={9.70732}
                 rx={2.22683}
                 transform="rotate(38.2606 42.8888 25.81)"
-                fill="url(#paint3_linear_484_664)"
+                fill="#F3F9F4"
                 stroke="#F3F9F4"
                 strokeWidth={0.8}
             />
