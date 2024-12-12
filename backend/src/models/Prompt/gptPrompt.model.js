@@ -65,6 +65,18 @@ const gptPromptSchema = new Schema(
             type: Boolean,
             default: true
         },
+        likes: {
+            type: Number,
+            default: 0
+        },
+        views: {
+            type: Number,
+            default: 0
+        },
+        shares: {
+            type: Number,
+            default: 0
+        },
         verifiedBy: {
             type: String,
         },

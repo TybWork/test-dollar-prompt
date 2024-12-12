@@ -9,3 +9,5 @@ route.post('/prompt/gpt/create', getUserId, createGPT),
     route.get('/prompt/gpt/get/:id', getSingleGPT),
     route.put('/prompt/gpt/update/:id', updateGPT),
     route.delete('/prompt/gpt/delete/:id', deleteGPT)
+
+

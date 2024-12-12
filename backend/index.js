@@ -27,6 +27,7 @@ import { chatRoutes } from './src/routes/chatRoutes.js';
 import { ChatRoom } from './src/models/message.model.js';
 import { createRoom, fetchRooms, sendMessage } from './src/controllers/chat.controller.js';
 import { singleUserLogsRoutes } from './src/routes/singleUserLogsRoutes.js';
+import { interactionsRoute } from './src/routes/likeViewShareRoutes.js';
 
 dotenv.config();
 const stripeData = stripe(process.env.STRIPE_SECRET_KEY)
@@ -158,6 +159,7 @@ app.use('/api', Prompts) //for generl prompts filtering
 app.use('/api', dalleRoute)
 app.use('/api', Midjourney)
 app.use('/api', GPT)
+app.use('/api/interactions', interactionsRoute)
 
 
 // routes

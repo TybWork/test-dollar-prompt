@@ -1,6 +1,7 @@
 import { GPT } from '../../models/Prompt/gptPrompt.model.js';
 import { SingleUserLog } from '../../models/singleUserLogs.model.js';
 
+
 // create GPT prompt
 export const createGPT = async (req, res) => {
     try {

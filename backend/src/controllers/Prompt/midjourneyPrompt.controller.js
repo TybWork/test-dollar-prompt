@@ -3,6 +3,9 @@ import { cloudinaryFunc } from '../../utils/cloudinary.utils.js'
 import { SingleUserLog } from '../../models/singleUserLogs.model.js';
 import fs from 'fs'
 
+
+
+
 // create midjourney prompt
 export const createMidjourney = async (req, res) => {
     try {
