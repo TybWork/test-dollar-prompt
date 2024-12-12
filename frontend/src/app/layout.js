@@ -28,7 +28,6 @@ export const metadata = {
   verification: {
     'google': 'sACVgSyawT8fUnDMokEIaj-pIMMN__hEGAeYh7ApIfc'
   }
-
 }
 export default function RootLayout({ children }) {
 
