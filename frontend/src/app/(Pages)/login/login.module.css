@@ -111,12 +111,16 @@
 }
 
 .forgotLink {
-    width: 100%;
+    align-self: flex-end;
     color: var(--homeMainBtn);
     text-align: right;
     text-decoration: none;
     font-size: 14px;
+    transition: .3s;
+}
 
+.forgotLink:hover {
+    color: var(--homeTertiaryClr);
 }
 
 @media screen and (max-width:768px) {
