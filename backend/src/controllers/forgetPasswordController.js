@@ -17,13 +17,12 @@ export const passwordLink = async (req, res) => {
                 token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
             }).save()
         }
-        const url = `http://localhost:4001/api/password-change/${user._id}/${token.token}`
+        const url = `${process.env.SERVER_URL}/api/password-change/${user._id}/${token.token}`
         const subject = "Password Reset";
         const message = `
-      <p>Here is a link to reset your password</p>
-      <p>Click thi link <a href="${url}">here</a> to reset your password</p>
-      `;
-        console.log('url is here', url)
+                        <p>Here is a link to reset your password</p>
+                        <p>Click this link <a href="${url}">here</a> to reset your password</p>
+                        `;
 
         await sendEmail(user.email, subject, message);
 

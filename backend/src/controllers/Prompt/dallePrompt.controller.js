@@ -66,9 +66,7 @@ export const getSingleDallE = async (req, res) => {
 export const getFilteredPrompt = async (req, res) => {
     // `${process.env.NEXT_PUBLIC_SERVER_URL}/api/endpoint?userId=234&username='john'
     try {
-        const start = Date.now()
         const filter = await DallE.find(req.query);
-        console.log(`query time is ${Date.now() - start}`)
         return res.status(200).json(filter)
     } catch (error) {
         return res.status(400).json({ msg: `Failed to get prompt` })

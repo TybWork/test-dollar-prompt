@@ -69,7 +69,7 @@ const page = () => {
                         btnText={'Submit Form'}
                         confirmationText={'Submitted'}
                         // form input details
-                        formTitle={'Subscription Form'}
+                        formTitle={'Signup Form'}
                         firstFieldName={"Name"}
                         secondeFieldName={"Email"}
                     />

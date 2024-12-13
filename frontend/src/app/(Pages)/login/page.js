@@ -115,7 +115,7 @@ const LoginUser = () => {
                     onIconClick={togglePasswordVisibility}
                     outlineColor={error.password ? 'red' : 'var(--homeMainBtn)'}
                 />
-                {/* <Link className={styles.forgotLink} href={'/password-reset'}>Forgot Password?</Link> */}
+                <Link className={styles.forgotLink} href={'/password-reset'}>Forgot Password?</Link>
                 <div
                     className={styles.error}>
                     {msg}
