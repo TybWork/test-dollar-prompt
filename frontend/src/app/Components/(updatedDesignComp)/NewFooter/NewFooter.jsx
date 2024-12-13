@@ -41,7 +41,7 @@ const NewFooter = () => {
                             <li className={styles.heading}>Contact</li>
                             <li><a href="mailto:Contact@dollarprompt.com">Contact@dollarprompt.com</a></li>
                             <li><a href="/">Facebook</a></li>
-                            <li><a href="/www.youtube.com/@dollarprompt">YouTube</a></li>
+                            <li><a href="https://www.youtube.com/@dollarprompt">YouTube</a></li>
                         </ul>
                     </div>
 
