@@ -43,7 +43,7 @@ export const signUp = async (req, res) => {
 
         const token = await new Token({
             userId: user._id,
-            token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+            token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: 10 * 60 * 1000 })
         }).save();
 
         const url = `${process.env.SERVER_URL}/api/user/${user._id}/verify/${token.token}`
@@ -78,6 +78,7 @@ export const loginUser = async (req, res) => {
                 if (!user) {
                     return res.status(400).json({ msg: "No such user!!" })
                 }
+
                 let handle = await SellerProfile.find({ userId: user._id })
                 let userName = handle[0].profileHandle
 
@@ -86,8 +87,25 @@ export const loginUser = async (req, res) => {
                     return res.status(400).json({ msg: "Password not matched!!" })
                 }
 
+                // if user is not verified user
                 if (!user.verified) {
-                    return res.status(400).json({ msg: "First verify your email!!" })
+
+                    await Token.findOneAndDelete({ userId: user._id });
+                    const token = await new Token({
+                        userId: user._id,
+                        token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: 10 * 60 * 1000 })
+                    }).save();
+
+                    const url = `${process.env.SERVER_URL}/api/user/${user._id}/verify/${token.token}`
+
+                    const subject = " Please Verify Email";
+                    const message = `
+                                    <h3>Hello ${user.firstName} ${user.lastName}</h3>
+                                    <p>Thanks for registering on dollar prompt.</p>
+                                    <p>Click this link <a href="${url}">here</a> to verify your email</p>
+                                    `;
+                    await sendEmail(user.email, subject, message);
+                    return res.status(202).send({ message: "An Email sent to your account please check email" });
                 }
 
                 const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName }, process.env.JWT_SECRET)

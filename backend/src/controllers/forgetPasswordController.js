@@ -44,7 +44,7 @@ export const verifyUrl = async (req, res) => {
         if (!token) return res.status(400).send({ message: "Invalid Link" })
 
         // res.status(200).send({ message: "Valid Url" })
-        res.redirect(`${process.env.CLIENT_BASE_URL}/password-reset?id=${user._id}&token=${token.token}`)
+        return res.redirect(`${process.env.CLIENT_BASE_URL}/password-reset?id=${user._id}&token=${token.token}`)
     } catch (error) {
         res.status(500).send({ message: "Internal server error" })
     }

@@ -62,8 +62,9 @@ const CreateUser = () => {
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/signup`, user);
             setUser(users);  // Reset user state
-            setError(false)
-            router.push('/login');
+            setError(false);
+            alert('Please check your inbox for a verification email and click the link to verify your account.')
+            // router.push('/login');
         } catch (error) {
             setError(true);
             setMsg(error.response?.data?.msg || "Something went wrong");

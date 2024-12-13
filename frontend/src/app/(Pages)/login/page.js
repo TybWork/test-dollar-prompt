@@ -72,9 +72,17 @@ const LoginUser = () => {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/login`, { ...user, token }, {
                     withCredentials: true,
                 });
-                document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
-                const redirectToPrompt = localStorage.getItem('redirectTo')
-                window.location.href = redirectToPrompt || '/';
+                console.log('this is response', response)
+                if (response.status === 202) { //202 response code is for email send response
+                    alert('An Email sent to your account please check email')
+                    captchaRef.current.reset();
+                    return;
+                } else {
+                    document.cookie = `token=${response.data.token}; path=/; secure; sameSite=None; domain=${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
+                    const redirectToPrompt = localStorage.getItem('redirectTo')
+                    window.location.href = redirectToPrompt || '/';
+                    captchaRef.current.reset();
+                }
                 captchaRef.current.reset();
             } catch (error) {
                 captchaRef.current.reset();

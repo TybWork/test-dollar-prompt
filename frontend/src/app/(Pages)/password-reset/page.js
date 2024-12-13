@@ -39,6 +39,7 @@ const page = () => {
 
         if (!id && !token) {
             await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/password-change/passwordreset`, user)
+            alert('A password reset email has been sent. Please check your inbox or spam folder.')
         } else {
             if (user.password !== user.confirmPassword) {
                 setisPwdMatch(false)
