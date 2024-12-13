@@ -46,12 +46,12 @@ export const signUp = async (req, res) => {
             token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
         }).save();
 
-        const url = `http://localhost:4001/api/user/${user._id}/verify/${token.token}`
+        const url = `${process.env.SERVER_URL}/api/user/${user._id}/verify/${token.token}`
 
         const subject = " Please Verify Email";
         const message = `
       <h3>Hello ${user.firstName} ${user.lastName}</h3>
-      <p>Thanks yor for registering on dollar prompt.</p>
+      <p>Thanks for registering on dollar prompt.</p>
       <p>Click this link <a href="${url}">here</a> to verify your email</p>
     `;
         await sendEmail(user.email, subject, message);

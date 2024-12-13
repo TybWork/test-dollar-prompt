@@ -14,7 +14,7 @@ export const passwordLink = async (req, res) => {
         if (!token) {
             token = await new Token({
                 userId: user._id,
-                token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+                token: jwt.sign({ email: user.email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: 10 * 60 * 1000 })
             }).save()
         }
         const url = `${process.env.SERVER_URL}/api/password-change/${user._id}/${token.token}`
