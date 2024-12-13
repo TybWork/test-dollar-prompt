@@ -41,7 +41,7 @@ const NewFooter = () => {
                             <li className={styles.heading}>Contact</li>
                             <li><a href="mailto:Contact@dollarprompt.com">Contact@dollarprompt.com</a></li>
                             <li><a href="/">Facebook</a></li>
-                            <li><a href="/">YouTube</a></li>
+                            <li><a href="/www.youtube.com/@dollarprompt">YouTube</a></li>
                         </ul>
                     </div>
 
@@ -53,11 +53,11 @@ const NewFooter = () => {
                 {/* footer texts */}
                 <ul className={styles.bottomLinks}>
                     <li className={`${styles.desktopLinks} ${styles.brandName}`}>
-                        A Project by <span>TYBWORK</span>
+                        A Project by <Link href={'https://www.tybwork.com'}>TYBWORK</Link>
                     </li>
 
                     <li className={`${styles.copyrightText} ${styles.mobileLinksLinks}`}>
-                        © 2024 Dollar Prompts.
+                        © 2024 Dollarprompt
                     </li>
 
 
@@ -72,7 +72,7 @@ const NewFooter = () => {
                             © 2024 Dollar Prompts.
                         </li> */}
                         <li className={styles.brandName}>
-                            A Project by <span>TYBWORK</span>
+                            A Project by <Link href={'https://www.tybwork.com'}>TYBWORK</Link>
                         </li>
 
                         <li className={styles.privacyLinks}>

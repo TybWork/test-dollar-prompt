@@ -14,8 +14,7 @@ export const emailLink = async (req, res) => {
         if (!token) return res.status(400).send({ message: "inValid Link" });
         await User.updateOne({ _id: user._id }, { verified: true });
         await Token.findOneAndDelete({ userId: user._id });
-
-        return res.status(200).send({ message: "Email Verified successfully" })
+        res.redirect(`${process.env.CLIENT_BASE_URL}/login`)
     } catch (error) {
         return res.status(500).send({ message: "Internal Server Error" });
     }

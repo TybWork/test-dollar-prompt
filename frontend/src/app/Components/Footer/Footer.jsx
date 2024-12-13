@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <footer className={styles.footerContainer}>
             {/* copyright text */}
-            <div className={styles.copyrightText}>&copy; DollarPrompt 2024 | <span>A project by <a href="/" target='_blank'>TYBWork</a></span></div>
+            <div className={styles.copyrightText}>&copy; DollarPrompt 2024 | <span>A project by <a href="https://www.typbwork.com" target='_blank'>TYBWork</a></span></div>
 
             {/* external Links */}
             <nav className={styles.footerNav}>

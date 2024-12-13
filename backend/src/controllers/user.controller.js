@@ -95,7 +95,7 @@ export const loginUser = async (req, res) => {
 
                 res.cookie('token', token, {
 
-                    httpOnly: true,
+                    httpOnly: false,
                     secure: true,
                     sameSite: 'None',
                     domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
@@ -133,7 +133,7 @@ export const superAdminLogin = async (req, res) => {
         // const token = jwt.sign({ userId: user._id, userRole: user.role, profileHandle: userName[0].profileHandle }, process.env.JWT_SECRET)
         const token = jwt.sign({ userId: user._id, userRole: user.role }, process.env.JWT_SECRET)
         res.cookie('token', token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
@@ -155,7 +155,7 @@ export const clearCookie = (req, res) => {
     const cookieName = 'token';
     try {
         res.clearCookie(cookieName, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
@@ -181,7 +181,7 @@ export const refreshCookie = async (req, res) => {
             { role: userRole }, { new: true });
 
         res.cookie('token', newToken, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,
             sameSite: 'None',
             domain: process.env.PUBLIC_DOMAIN_NAME, // Must match domain used when setting cookie
