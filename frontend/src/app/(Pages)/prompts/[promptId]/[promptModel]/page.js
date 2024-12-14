@@ -152,6 +152,7 @@ const Page = ({ params }) => {
                                             mainImage={e.Image_Url[0]}
                                             title={e.title}
                                             promptUrl={`/prompts/${e._id}/midjourney`}
+                                            promptId={e._id}
                                         />
                                     </div>
                                 ))

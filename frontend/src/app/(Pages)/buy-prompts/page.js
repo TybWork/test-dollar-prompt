@@ -80,6 +80,7 @@ const page = () => {
                                                 title={trending.title}
                                                 category={trending.promptType}
                                                 promptType={trending.promptType.toLowerCase()}
+                                                promptId={trending._id}
                                             />
                                         </div>
                                     )
@@ -112,6 +113,7 @@ const page = () => {
                                                 promptUrl={`/prompts/${gpt._id}/${gpt.promptType.toLowerCase()}`}
                                                 title={gpt.title}
                                                 category={gpt.promptType}
+                                                promptId={gpt._id}
                                             />
                                         </div>
                                     )
@@ -143,6 +145,7 @@ const page = () => {
                                                 promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                                                 title={dalle.title}
                                                 category={dalle.promptType}
+                                                promptId={dalle._id}
                                             />
                                         </div>
                                     )
@@ -173,6 +176,7 @@ const page = () => {
                                                 promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
                                                 title={midjourney.title}
                                                 category={midjourney.promptType}
+                                                promptId={midjourney._id}
                                             />
                                         </div>
                                     )

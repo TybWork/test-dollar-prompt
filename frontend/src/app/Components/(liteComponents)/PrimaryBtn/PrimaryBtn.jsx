@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '@/app/Components/(liteComponents)/PrimaryBtn/PrimaryBtn.module.css'
 import Link from 'next/link'
-const PrimaryBtn = ({ title, width, padding, height, href, borderRadius, isSubmitBtn = false }) => {
+const PrimaryBtn = ({ title, width, padding, height, href, onClick, borderRadius, isSubmitBtn = false }) => {
 
     return (
         <>
@@ -9,7 +9,9 @@ const PrimaryBtn = ({ title, width, padding, height, href, borderRadius, isSubmi
                 style={{
                     display: isSubmitBtn ? 'none' : 'block'
                 }}
-                href={href || '/'}>
+                onClick={onClick}
+                href={href || '/'}
+            >
                 <button
                     style={{
                         width: width || '118px',
@@ -34,6 +36,7 @@ const PrimaryBtn = ({ title, width, padding, height, href, borderRadius, isSubmi
                 }}
                 className={styles.btns}
                 type={isSubmitBtn ? 'submit' : 'button'}
+                onClick={onClick}
             >
                 {title || 'View Prompt'}
             </button>

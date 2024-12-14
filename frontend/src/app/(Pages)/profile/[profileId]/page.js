@@ -6,13 +6,11 @@ import ContentWithHeading from '@/app/Components/(updatedDesignComp)/ContentWith
 import Image from 'next/image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import Loading from '@/app/Components/(liteComponents)/Loading/Loading'
 import Reviews from '@/app/Components/(updatedDesignComp)/Reviews/Reviews'
 import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle'
 
 const page = ({ params }) => {
     const { profileId } = params
-
     const [profile, setprofile] = useState({})
     const [fetchPrompts, setfetchPrompts] = useState({})
     useEffect(() => {
@@ -101,6 +99,7 @@ const page = ({ params }) => {
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
                                                         promptUrl={`/prompts/${e._id}/dall-e`}
+                                                        promptId={e._id}
                                                     />
                                                 </div>
                                             ))
@@ -147,6 +146,7 @@ const page = ({ params }) => {
                                                         title={e.title}
                                                         promptType='gpt'
                                                         promptUrl={`/prompts/${e._id}/gpt`}
+                                                        promptId={e._id}
                                                     />
                                                 </div>
                                             ))
@@ -192,6 +192,7 @@ const page = ({ params }) => {
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
                                                         promptUrl={`/prompts/${e._id}/midjourney`}
+                                                        promptId={e._id}
                                                     />
                                                 </div>
                                             ))

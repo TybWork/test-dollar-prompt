@@ -152,6 +152,7 @@ export default function Home() {
                       mainImage={dalle.Image_Url[0]}
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
+                      promptId={dalle._id}
                       category={dalle.promptType}
                     />
                   )
@@ -166,6 +167,7 @@ export default function Home() {
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
+                      promptId={dalle._id}
                     />
                   )
                 }
@@ -179,6 +181,7 @@ export default function Home() {
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
+                      promptId={dalle._id}
                     />
                   )
                 }
@@ -216,6 +219,7 @@ export default function Home() {
                       title={trending.title}
                       category={trending.promptType}
                       promptType={trending.promptType.toLowerCase()}
+                      promptId={trending._id}
                     />
                   </div>
                 )
@@ -266,6 +270,7 @@ export default function Home() {
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
+                      promptId={dalle._id}
                     />
                   </div>
                 )
@@ -291,6 +296,7 @@ export default function Home() {
                       promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
                       title={midjourney.title}
                       category={midjourney.promptType}
+                      promptId={midjourney._id}
                     />
                   </div>
                 )

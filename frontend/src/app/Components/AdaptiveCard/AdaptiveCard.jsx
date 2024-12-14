@@ -13,6 +13,7 @@ import { useState } from 'react'
 import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
 import { MdTextSnippet } from "react-icons/md";
+import axios from 'axios'
 
 const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
     const [isEnter, setisEnter] = useState(false)
@@ -23,6 +24,10 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
     }
     const mouseLeave = () => {
         setisEnter(prev => !prev)
+    }
+
+    const viewIncrementFunc = async () => {
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/view?id=${promptId}&type=${promptType}`)
     }
 
     return (
@@ -71,7 +76,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                 <div className={styles.contentContainer}>
                     <div className={styles.header}>
                         <div className={styles.title}>{title && title.length > 42 ? title.slice(0, 39) + "..." : title || ("Painting Flower Dall-E Prompt generate now").slice(0, 39) + '...'}</div>
-                        <PrimaryBtn width={'100%'} href={promptUrl} />
+                        <PrimaryBtn width={'100%'} href={promptUrl} onClick={viewIncrementFunc} />
                     </div>
 
                     <hr className={styles.hr} />
