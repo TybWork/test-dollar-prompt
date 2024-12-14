@@ -79,8 +79,11 @@ const page = () => {
                                                 promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
                                                 title={trending.title}
                                                 category={trending.promptType}
-                                                promptType={trending.promptType.toLowerCase()}
+                                                promptType={trending.promptType}
                                                 promptId={trending._id}
+                                                views={trending.views}
+                                                likes={trending.likes}
+                                                shares={trending.shares}
                                             />
                                         </div>
                                     )
@@ -114,6 +117,9 @@ const page = () => {
                                                 title={gpt.title}
                                                 category={gpt.promptType}
                                                 promptId={gpt._id}
+                                                views={gpt.views}
+                                                likes={gpt.likes}
+                                                shares={gpt.shares}
                                             />
                                         </div>
                                     )
@@ -142,10 +148,14 @@ const page = () => {
                                         <div className={styles.adaptive} key={index}>
                                             <AdaptiveCard
                                                 mainImage={dalle.Image_Url[0]}
+                                                promptType={dalle.promptType}
                                                 promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                                                 title={dalle.title}
                                                 category={dalle.promptType}
                                                 promptId={dalle._id}
+                                                views={dalle.views}
+                                                likes={dalle.likes}
+                                                shares={dalle.shares}
                                             />
                                         </div>
                                     )
@@ -176,7 +186,11 @@ const page = () => {
                                                 promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
                                                 title={midjourney.title}
                                                 category={midjourney.promptType}
+                                                promptType={midjourney.promptType}
                                                 promptId={midjourney._id}
+                                                views={midjourney.views}
+                                                likes={midjourney.likes}
+                                                shares={midjourney.shares}
                                             />
                                         </div>
                                     )

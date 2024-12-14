@@ -154,34 +154,46 @@ export default function Home() {
                       title={dalle.title}
                       promptId={dalle._id}
                       category={dalle.promptType}
+                      promptType={dalle.promptType}
+                      likes={dalle.likes}
+                      views={dalle.views}
+                      shares={dalle.shares}
                     />
                   )
                 }
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  midjourneyPrompts?.slice(0, 3).map((dalle, index) =>
+                  midjourneyPrompts?.slice(0, 3).map((midjourney, index) =>
                     <AdaptiveCard
                       key={index}
-                      mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
-                      title={dalle.title}
-                      category={dalle.promptType}
-                      promptId={dalle._id}
+                      mainImage={midjourney.Image_Url[0]}
+                      promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
+                      title={midjourney.title}
+                      category={midjourney.promptType}
+                      promptType={midjourney.promptType}
+                      promptId={midjourney._id}
+                      views={midjourney.views}
+                      likes={midjourney.likes}
+                      shares={midjourney.shares}
                     />
                   )
                 }
               </div>,
               <div style={{ display: 'flex', gap: '8px' }}>
                 {
-                  trendingPrompts?.slice(0, 3).map((dalle, index) =>
+                  trendingPrompts?.slice(0, 3).map((trending, index) =>
                     <AdaptiveCard
                       key={index}
-                      mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
-                      title={dalle.title}
-                      category={dalle.promptType}
-                      promptId={dalle._id}
+                      mainImage={trending.Image_Url[0]}
+                      promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
+                      title={trending.title}
+                      category={trending.promptType}
+                      promptType={trending.promptType}
+                      promptId={trending._id}
+                      views={trending.views}
+                      likes={trending.likes}
+                      shares={trending.shares}
                     />
                   )
                 }
@@ -218,8 +230,11 @@ export default function Home() {
                       promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
                       title={trending.title}
                       category={trending.promptType}
-                      promptType={trending.promptType.toLowerCase()}
+                      promptType={trending.promptType}
                       promptId={trending._id}
+                      views={trending.views}
+                      likes={trending.likes}
+                      shares={trending.shares}
                     />
                   </div>
                 )
@@ -270,7 +285,11 @@ export default function Home() {
                       promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
                       title={dalle.title}
                       category={dalle.promptType}
+                      promptType={dalle.promptType}
                       promptId={dalle._id}
+                      views={dalle.views}
+                      likes={dalle.likes}
+                      shares={dalle.shares}
                     />
                   </div>
                 )
@@ -296,7 +315,11 @@ export default function Home() {
                       promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
                       title={midjourney.title}
                       category={midjourney.promptType}
+                      promptType={midjourney.promptType}
                       promptId={midjourney._id}
+                      views={midjourney.views}
+                      likes={midjourney.likes}
+                      shares={midjourney.shares}
                     />
                   </div>
                 )

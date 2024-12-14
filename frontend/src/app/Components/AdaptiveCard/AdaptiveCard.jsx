@@ -16,6 +16,7 @@ import { MdTextSnippet } from "react-icons/md";
 import axios from 'axios'
 
 const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
+    const memorizedPromptType = promptType.toLocaleLowerCase()
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
@@ -27,7 +28,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
     }
 
     const viewIncrementFunc = async () => {
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/view?id=${promptId}&type=${promptType}`)
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/view?id=${promptId}&type=${memorizedPromptType}`)
     }
 
     return (
@@ -63,7 +64,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
 
                 <div className={styles.imageContainer}>
                     {
-                        promptType === 'dall-e' || promptType === 'midjourney' ? (
+                        memorizedPromptType === 'dall-e' || memorizedPromptType === 'midjourney' ? (
                             <Image alt='prompt-image' src={mainImage || '/assets/imageAssets/sampleCardImage.png'} width={0} height={0} sizes='100vw' className={styles.image} />
                         ) : (
                             <div className={styles.iconBg}>
@@ -84,25 +85,25 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                     <div className={styles.cardFooter}>
 
                         {/* ratings */}
-                        <span
-                            style={{ display: ratingCount > 0 ? 'flex' : 'none' }}
+                        {/* <span
+                            style={{ display: ratingCount > 0 ? 'flex' : 'flex' }}
                             className={`${styles.iconText} ${styles.shareIcon}`}>
                             <span>
                                 <StarIcon fill={isEnter ? '' : ''} />
                             </span>
                             <span>{`${ratingAverage || '0'}`}</span>
                             <span>{`(${ratingCount || '0'})`}</span>
-                        </span>
+                        </span> */}
 
                         <span
-                            style={{ display: views > 0 ? 'flex' : 'none' }}
+                            style={{ display: views >= 0 ? 'flex' : 'flex' }}
                             className={styles.iconText}>
                             <EyeIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
                             <span>{`${views || '0'}`}</span>
                         </span>
 
                         <span
-                            style={{ display: likes > 0 ? 'flex' : 'none' }}
+                            style={{ display: likes > 0 ? 'flex' : 'flex' }}
                             className={styles.iconText}>
                             <HeartIcon stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
                             <span>{`${likes || "0"}`}</span>
@@ -111,7 +112,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                         <span
                             className={styles.iconText}
                             style={{
-                                display: isSeller ? 'none' : (shares > 0 ? 'flex' : 'none')
+                                display: isSeller ? 'none' : (shares > 0 ? 'flex' : 'flex')
                             }}
                         >
                             <ArrowIcon fill={isEnter ? 'var(--homeMainBtn)' : ''} />

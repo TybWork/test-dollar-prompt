@@ -87,7 +87,8 @@
 .parametersContainer {
     display: flex;
     margin-top: 24px;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20%;
     align-items: center;
 }
 

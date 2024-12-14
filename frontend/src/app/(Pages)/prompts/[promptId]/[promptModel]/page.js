@@ -124,6 +124,10 @@ const Page = ({ params }) => {
                     salePrice={prompt.price}
                     cartClickFunc={() => cartMutation.mutate()}
                     buyPromptBtn={<Archieve userId={prompt.userId} promptId={promptId} promptData={prompt} promptType={prompt.promptType.toLowerCase()} isUser={isUser} />}
+                    views={prompt.views}
+                    likes={prompt.likes}
+                    shares={prompt.shares}
+
                 />
             </div>
 
@@ -151,8 +155,12 @@ const Page = ({ params }) => {
                                             category={e.promptType}
                                             mainImage={e.Image_Url[0]}
                                             title={e.title}
-                                            promptUrl={`/prompts/${e._id}/midjourney`}
+                                            promptUrl={`/prompts/${e._id}/${(e.promptType).toLowerCase()}`}
+                                            promptType={e.promptType}
                                             promptId={e._id}
+                                            views={e.views}
+                                            likes={e.likes}
+                                            shares={e.shares}
                                         />
                                     </div>
                                 ))

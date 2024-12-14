@@ -157,7 +157,7 @@
 /* cardfooter */
 .cardFooter {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: center;
     gap: 26px;
     align-items: center;
 }

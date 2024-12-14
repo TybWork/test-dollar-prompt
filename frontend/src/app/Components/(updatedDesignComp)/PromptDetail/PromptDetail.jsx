@@ -13,7 +13,7 @@ import CartIcon from '../../(icons)/CartIcon'
 import { MdTextSnippet } from 'react-icons/md'
 import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 import SampleTextPromptComp from '../../(liteComponents)/SampleTextPromptComp/SampleTextPromptComp'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, favourites, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptModel = 'dall-e', examplePrompts, isUser }) => {
+const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptModel = 'dall-e', examplePrompts, isUser }) => {
 
     return (
         <div className={styles.promptDetail}>
@@ -64,7 +64,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
 
             {/* .........parameters......... */}
             <div className={styles.parametersContainer}>
-                <IconWithText
+                {/* <IconWithText
                     icon={<StarIcon width='14px' />}
                     text={
                         <>
@@ -72,14 +72,14 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                             (0)
                         </>
                     }
-                />
+                /> */}
                 <IconWithText
                     icon={<EyeIcon stroke={'var(--homeMainBtn)'} width='20px' />}
                     text={views || '0'}
                 />
                 <IconWithText
                     icon={<HeartIcon width='20px' stroke={'var(--homeMainBtn)'} />}
-                    text={favourites || '0'}
+                    text={likes || '0'}
                 />
                 <IconWithText
                     icon={<ArrowIcon width='20px' fill={'var(--homeMainBtn)'} />}

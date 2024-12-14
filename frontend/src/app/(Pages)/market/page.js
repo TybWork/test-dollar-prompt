@@ -48,7 +48,11 @@ const Page = () => {
             category={item.promptType}
             title={item.title}
             promptUrl={`/prompts/${item._id}/${item.promptType.toLowerCase()}`}
+            promptType={item.promptType}
             promptId={item._id}
+            views={item.views}
+            likes={item.likes}
+            shares={item.shares}
           />
         ))}
       </div>

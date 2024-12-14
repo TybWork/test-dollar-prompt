@@ -96,10 +96,14 @@ const page = ({ params }) => {
                                                 <div className={styles.adaptive} key={index}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
+                                                        promptType={'dall-e'}
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
                                                         promptUrl={`/prompts/${e._id}/dall-e`}
                                                         promptId={e._id}
+                                                        views={e.views}
+                                                        likes={e.likes}
+                                                        shares={e.shares}
                                                     />
                                                 </div>
                                             ))
@@ -147,6 +151,9 @@ const page = ({ params }) => {
                                                         promptType='gpt'
                                                         promptUrl={`/prompts/${e._id}/gpt`}
                                                         promptId={e._id}
+                                                        views={e.views}
+                                                        likes={e.likes}
+                                                        shares={e.shares}
                                                     />
                                                 </div>
                                             ))
@@ -189,10 +196,14 @@ const page = ({ params }) => {
                                                 <div key={index} className={styles.adaptive}>
                                                     <AdaptiveCard
                                                         category={e.promptType}
+                                                        promptType='midjourney'
                                                         mainImage={e.Image_Url[0]}
                                                         title={e.title}
                                                         promptUrl={`/prompts/${e._id}/midjourney`}
                                                         promptId={e._id}
+                                                        views={e.views}
+                                                        likes={e.likes}
+                                                        shares={e.shares}
                                                     />
                                                 </div>
                                             ))
