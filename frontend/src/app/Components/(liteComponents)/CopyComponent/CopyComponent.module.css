@@ -1,0 +1,35 @@
+.parent {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--homeTertiaryClr);
+    border-radius: 50px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input {
+    color: var(--homeMainBtn);
+    /* flex: 1; */
+    width: 100%;
+    padding: 0px 11px;
+    border: none;
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--homeIconClr);
+}
+
+.copyBtn {
+    background: #1877F2;
+    border-radius: 50px;
+    color: var(--homePrimaryClr);
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 84px;
+    min-width: 84px;
+    cursor: pointer;
+}

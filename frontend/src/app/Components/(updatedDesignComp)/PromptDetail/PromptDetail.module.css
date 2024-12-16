@@ -10,6 +10,7 @@
     gap: 24px;
     background: var(--homeTertiaryClr);
     color: var(--homePrimaryClr);
+    position: relative;
 }
 
 .aiToolBadge {
@@ -87,7 +88,7 @@
 .parametersContainer {
     display: flex;
     margin-top: 24px;
-    justify-content: center;
+    justify-content: space-between;
     gap: 20%;
     align-items: center;
 }
@@ -158,6 +159,18 @@
 
 .note {
     font-size: 14px;
+}
+
+.shareContainer {
+    position: absolute;
+    max-width: 336px;
+    width: calc(100% - 16px);
+    height: max-content;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s;
+    transform-origin: center;
 }
 
 /* media queries */

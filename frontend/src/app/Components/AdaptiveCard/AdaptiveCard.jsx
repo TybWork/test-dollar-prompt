@@ -116,7 +116,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                             }}
                         >
                             <ArrowIcon fill={isEnter ? 'var(--homeMainBtn)' : ''} />
-                            <span>{`${shares || '0'}`}</span>
+                            <span>{''}</span>
                         </span>
 
                         <span className={styles.iconText}

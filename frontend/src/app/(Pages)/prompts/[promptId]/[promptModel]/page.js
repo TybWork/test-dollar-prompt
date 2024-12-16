@@ -127,6 +127,7 @@ const Page = ({ params }) => {
                     views={prompt.views}
                     likes={prompt.likes}
                     shares={prompt.shares}
+                    promptId={promptId}
 
                 />
             </div>

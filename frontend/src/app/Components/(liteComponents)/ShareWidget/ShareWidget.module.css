@@ -1,0 +1,41 @@
+.widgetContainer {
+    width: 100%;
+    height: 200px;
+    background: var(--homePrimaryClr);
+    padding: 28px 20px;
+    border-radius: 22px;
+    color: var(--categoryClr);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.widgetContainer svg {
+    font-size: 24px;
+}
+
+.facebookIcon {
+    color: #1877F2;
+}
+
+.redditIcon {
+    color: #FF4500;
+}
+
+.linkedinIcon {
+    color: #0A66C2;
+}
+
+.twitterIcon {
+    color: #000000;
+}

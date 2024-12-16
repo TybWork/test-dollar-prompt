@@ -131,28 +131,49 @@ export const profileUpdate = async (req, res) => {
     }
 };
 
+// follower update 
+
 export const addFollower = async (req, res) => {
     const { myId, secondId } = req.query
     try {
-        // const myProfile = await SellerProfile.findOne({ userId: myId })
-        // const secondProfile = await SellerProfile.findOne({ userId: secondId })
-        const [myProfile, secondProfile] = await Promise.all([
-            SellerProfile.findOne({ userId: myId }),
-            SellerProfile.findOne({ userId: secondId })
-        ])
-        if (!myProfile.following.includes(secondId)) {
-            myProfile.following.push(secondId)
-            if (!secondProfile.followers.includes(myId)) {
-                secondProfile.followers.push(myId);
-            }
-            // await myProfile.save()
-            // await secondProfile.save()
-            await Promise.all([myProfile.save(), secondProfile.save()])
-            return res.status(200).json({ msg: `You are now following (${secondId}) ` })
+        const [myProfile, secondProfile] = await Promise.all(
+            [
+                SellerProfile.findOne({ userId: myId }),
+                SellerProfile.findOne({ userId: secondId })
+            ]
+        )
+
+        if (!myProfile || !secondProfile) {
+            return res.status(400).json({ msg: "The user doesn't exist" })
+        }
+
+        if (myProfile.following.includes(secondId)) {
+            // unfollow logic
+            await Promise.all([
+                SellerProfile.updateOne(
+                    { userId: myId },
+                    { $pull: { following: secondId } }
+                ),
+                SellerProfile.updateOne(
+                    { userId: secondId },
+                    { $pull: { followers: myId } }
+                )
+            ])
+            return res.status(204).json({ msg: `You unfollowed ${secondId}` })
         } else {
-            return res.status(400).json({ msg: `Your are already following This profile` })
+            await Promise.all([
+                SellerProfile.updateOne(
+                    { userId: myId },
+                    { $addToSet: { following: secondId } }
+                ),
+                SellerProfile.updateOne(
+                    { userId: secondId },
+                    { $addToSet: { followers: myId } }
+                )
+            ])
+            return res.status(200).json({ msg: `You are now following ${secondId}` })
         }
     } catch (error) {
-        return res.status(400).json({ msg: `Failed to follow ${error}` })
+        return res.status(400).json({ msg: `An unexpected error occured ${error.message}` })
     }
 }

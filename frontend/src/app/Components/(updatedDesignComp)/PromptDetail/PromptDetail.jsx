@@ -13,10 +13,36 @@ import CartIcon from '../../(icons)/CartIcon'
 import { MdTextSnippet } from 'react-icons/md'
 import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 import SampleTextPromptComp from '../../(liteComponents)/SampleTextPromptComp/SampleTextPromptComp'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptModel = 'dall-e', examplePrompts, isUser }) => {
+import ShareWidget from '../../(liteComponents)/ShareWidget/ShareWidget'
+const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptId, promptModel = 'dall-e', examplePrompts, isUser }) => {
+
+    const [isShare, setisShare] = useState(false)
+
+    const shareFunc = () => {
+        setisShare(prev => !prev)
+    }
 
     return (
         <div className={styles.promptDetail}>
+            {
+                <div
+                    style={{
+                        transform: `translateX(-50%) ${isShare ? 'scale(1)' : 'scale(0)'}`
+                    }}
+                    className={styles.shareContainer}>
+                    <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
+                </div>
+            }
+
+            {/* {
+                isShare ? (
+                    <div className={styles.shareContainer}>
+                        <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
+                    </div>
+                ) : (
+                    null
+                )
+            } */}
 
             {/* ......1.ai tool....... */}
             <span className={styles.aiToolBadge}>{aiTool || 'Dall-E'}</span>
@@ -81,9 +107,11 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     icon={<HeartIcon width='20px' stroke={'var(--homeMainBtn)'} />}
                     text={likes || '0'}
                 />
+
                 <IconWithText
                     icon={<ArrowIcon width='20px' fill={'var(--homeMainBtn)'} />}
-                    text={shares || '0'}
+                    text={''}
+                    onClick={shareFunc}
                 />
             </div>
 
@@ -115,9 +143,6 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     After purchase use this prompt in {aiTool || 'Dall-E'} to get desired result.
                 </p>
             </div>
-
-
-
 
         </div>
     )
