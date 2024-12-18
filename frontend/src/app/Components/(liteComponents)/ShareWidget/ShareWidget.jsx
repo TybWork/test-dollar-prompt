@@ -4,10 +4,20 @@ import { RedditShareButton, TwitterShareButton, LinkedinShareButton, FacebookSha
 import { FaFacebook, FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin, FaReddit } from "react-icons/fa";
 import CopyComponent from '../CopyComponent/CopyComponent';
+import { RxCross2 } from "react-icons/rx";
 
-const ShareWidget = ({ title, url }) => {
+const ShareWidget = ({ title, url, crossFunc, height, borderRadius, justifyContent, isCross = false }) => {
     return (
-        <div className={styles.widgetContainer}>
+        <div
+            className={styles.widgetContainer}
+            style={{
+                height: height,
+                borderRadius: borderRadius,
+                justifyContent: justifyContent,
+            }}
+        >
+            <RxCross2 style={{ display: isCross ? 'block' : 'none' }} onClick={crossFunc} className={styles.crossIcon} />
+
             <div className={styles.title}>{title || 'Share to'}</div>
             <div className={styles.iconContainer}>
 

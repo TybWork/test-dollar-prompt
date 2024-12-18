@@ -44,7 +44,6 @@ const Cart = () => {
         onError: (error) => {
             console.log('error', error)
         }
-
     })
     return (
         <div className={styles.container} style={{ right: cartVisible ? '0%' : "-175%" }}>

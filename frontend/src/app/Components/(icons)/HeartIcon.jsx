@@ -1,9 +1,9 @@
 import * as React from "react"
-const HeartIcon = ({ width, stroke }) => (
+const HeartIcon = ({ width, stroke, fill }) => (
     <svg
         width={width || 20}
         height={width || 20}
-        fill="none"
+        fill={fill || 'none'}
     >
         <path
             stroke={stroke || "#8FAD92"}

@@ -46,6 +46,26 @@ const userLogs = new Schema({
             }
         ]
     },
+    likedPrompts: {
+        "dall-e": [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'DallE'
+            }
+        ],
+        "midjourney": [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'Midjourney'
+            }
+        ],
+        "gpt": [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'GPT'
+            }
+        ]
+    },
 }, { timestamps: true }
 )
 

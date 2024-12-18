@@ -30,3 +30,20 @@ export const useCartQuery = () => {
         enabled: userRole === 'user'
     })
 }
+
+export const useLikeQuery = (promptId, promptModel) => {
+    return useQuery({
+        queryKey: ['like', promptId],  // Adding `promptId` to the query key ensures the query is unique per prompt.
+        queryFn: async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptModel}/get/${promptId}`
+                );
+                return response.data;  // Assume the server responds with a 'likes' count.
+            } catch (error) {
+                console.error('Error fetching likes:', error);
+                throw error;  // This will allow React Query to catch the error and handle it.
+            }
+        },
+    });
+};

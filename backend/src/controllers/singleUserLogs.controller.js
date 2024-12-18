@@ -50,7 +50,7 @@ export const createSingleUserLogs = async (req, res) => {
 // get singleUserLogs
 
 export const getSingleUserLogs = async (req, res) => {
-    const { userId, status = 'active' } = req.query; // Assuming `status` is optional, defaulting to 'pending'
+    const { userId, status = 'active', isLiked } = req.query; // Assuming `status` is optional, defaulting to 'pending'
 
     try {
         if (!userId) {
@@ -79,23 +79,40 @@ export const getSingleUserLogs = async (req, res) => {
             // buying history (no status filter, just show all)
             { path: 'buyingHistory.dall-e', select: 'Image_Url title _id status' },
             { path: 'buyingHistory.midjourney', select: 'Image_Url title _id status' },
-            { path: 'buyingHistory.gpt', select: 'title _id status' }
+            { path: 'buyingHistory.gpt', select: 'title _id status' },
         ];
-
         // Find the user log by userId and populate the relevant fields
-        const userLog = await SingleUserLog.findOne({ userId }).populate(populateFields);
-
-        if (!userLog) {
-            return res.status(404).json({ msg: 'User log not found!' });
+        if (isLiked === 'true') {
+            // const userLog = await SingleUserLog.findOne({ userId }).select('likedPrompts')
+            const userLog = await SingleUserLog.findOne({ userId }).select('likedPrompts')
+                .populate({
+                    path: 'likedPrompts.midjourney',
+                    select: 'title Image_Url _id status likes views'
+                })
+                .populate({
+                    path: 'likedPrompts.dall-e',
+                    select: 'title Image_Url _id status likes views' // or any other fields you want to populate
+                })
+                .populate({
+                    path: 'likedPrompts.gpt',
+                    select: 'title Image_Url _id status likes views' // or any other fields you want to populate
+                });
+            if (!userLog) {
+                return res.status(404).json({ msg: 'User log not found!' });
+            }
+            console.log('first')
+            return res.status(200).json(userLog);
+        } else {
+            const userLog = await SingleUserLog.findOne({ userId }).populate(populateFields);
+            if (!userLog) {
+                return res.status(404).json({ msg: 'User log not found!' });
+            }
+            return res.status(200).json(userLog);
         }
-
-        // Return the populated user log
-        return res.status(200).json(userLog);
     } catch (error) {
         return res.status(400).json({ msg: `Failed to get user logs: ${error.message}` });
     }
 };
-
 
 // export const getSingleUserLogs = async (req, res) => {
 

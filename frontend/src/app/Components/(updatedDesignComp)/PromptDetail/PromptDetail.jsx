@@ -9,40 +9,73 @@ import HeartIcon from '../../(icons)/HeartIcon'
 import ArrowIcon from '../../(icons)/ArrowIcon'
 import PrimaryBtn from '../../(liteComponents)/PrimaryBtn/PrimaryBtn'
 import { BiSolidCartAdd } from "react-icons/bi";
+import { useLikeQuery } from '@/app/utilities/hooks/useCartQuery'
 import CartIcon from '../../(icons)/CartIcon'
 import { MdTextSnippet } from 'react-icons/md'
 import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 import SampleTextPromptComp from '../../(liteComponents)/SampleTextPromptComp/SampleTextPromptComp'
 import ShareWidget from '../../(liteComponents)/ShareWidget/ShareWidget'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, promptId, promptModel = 'dall-e', examplePrompts, isUser }) => {
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
+const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, visiterId, promptId, promptModel = 'dall-e', examplePrompts, isUser }) => {
 
+    const router = useRouter()
     const [isShare, setisShare] = useState(false)
+    const [isLiked, setisLiked] = useState(null)
 
     const shareFunc = () => {
         setisShare(prev => !prev)
     }
 
+    const likeFunc = async () => {
+        if (!visiterId) {
+            router.push('/login')
+        } else {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/like?userId=${visiterId}&id=${promptId}&type=${promptModel.toLocaleLowerCase()}`)
+            if (response.data.message === 'Liked') {
+                setisLiked(true)
+            } else {
+                setisLiked(false)
+            }
+        }
+    }
+
+    const queryClient = useQueryClient()
+    const likeMutation = useMutation({
+        mutationFn: likeFunc,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['like'] });
+        },
+        onError: (error) => {
+            console.log('Error:', error);
+        },
+    });
+
+    useEffect(() => {
+        const fetchpromptId = async () => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
+            const findItem = response.data.likedPrompts[promptModel].includes(promptId)
+            if (findItem) {
+                setisLiked(true)
+            } else {
+                setisLiked(false)
+            }
+        }
+        if (visiterId) {
+            fetchpromptId();
+        }
+    }, [visiterId, promptId, promptModel])
+
     return (
         <div className={styles.promptDetail}>
-            {
-                <div
-                    style={{
-                        transform: `translateX(-50%) ${isShare ? 'scale(1)' : 'scale(0)'}`
-                    }}
-                    className={styles.shareContainer}>
-                    <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
-                </div>
-            }
-
-            {/* {
-                isShare ? (
-                    <div className={styles.shareContainer}>
-                        <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
-                    </div>
-                ) : (
-                    null
-                )
-            } */}
+            <div
+                style={{
+                    transform: `translateX(-50%) ${isShare ? 'scale(1)' : 'scale(0)'}`
+                }}
+                className={styles.shareContainer}>
+                <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
+            </div>
 
             {/* ......1.ai tool....... */}
             <span className={styles.aiToolBadge}>{aiTool || 'Dall-E'}</span>
@@ -82,33 +115,29 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     Version: <span>{version || ''}</span>
                 </div>
                 <div className={styles.authenticity}>
-                    <VerifiedIcon width={'16px'} />
                     <span>Tested</span>
+                    <VerifiedIcon width={'16px'} />
                 </div>
             </div>
 
 
             {/* .........parameters......... */}
             <div className={styles.parametersContainer}>
-                {/* <IconWithText
-                    icon={<StarIcon width='14px' />}
-                    text={
-                        <>
-                            <span style={{ color: 'var(--ratingClr)' }}>{promptRating || '0.0'}</span>
-                            (0)
-                        </>
-                    }
-                /> */}
                 <IconWithText
                     icon={<EyeIcon stroke={'var(--homeMainBtn)'} width='20px' />}
                     text={views || '0'}
                 />
                 <IconWithText
-                    icon={<HeartIcon width='20px' stroke={'var(--homeMainBtn)'} />}
+                    doHover={true}
+                    icon={
+                        <HeartIcon fill={isLiked ? 'var(--homeMainBtn)' : 'none'} width='20px' stroke={'var(--homeMainBtn)'} />
+                    }
                     text={likes || '0'}
+                    onClick={() => likeMutation.mutate()}
                 />
 
                 <IconWithText
+                    doHover={true}
                     icon={<ArrowIcon width='20px' fill={'var(--homeMainBtn)'} />}
                     text={''}
                     onClick={shareFunc}
@@ -143,9 +172,8 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     After purchase use this prompt in {aiTool || 'Dall-E'} to get desired result.
                 </p>
             </div>
-
         </div>
     )
 }
 
-export default PromptDetail
+export default PromptDetail;

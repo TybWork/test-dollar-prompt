@@ -4,6 +4,7 @@ import { dalleInteraction } from '../../models/dalleInteraction.model.js';
 import { DallE } from '../../models/Prompt/dallePrompt.model.js';
 import { midjourneyInteraction } from '../../models/midjourneyInteraction.model.js';
 import { Midjourney } from '../../models/Prompt/midjourneyPrompt.model.js';
+import { SingleUserLog } from '../../models/singleUserLogs.model.js';
 
 let interaction, Model
 const typeSwitch = (type) => {
@@ -44,6 +45,12 @@ export const likeFunction = async (req, res) => {
             await interaction.create({ userId, id, liked: true });
             await Model.findByIdAndUpdate(id, { $inc: { likes: 1 } });
             res.status(200).json({ message: 'Liked' });
+            await SingleUserLog.updateOne(
+                { userId: userId },
+                {
+                    $addToSet: { [`likedPrompts.${type}`]: id }
+                }
+            )
         } else {
             Interaction.liked = !Interaction.liked;
             await Interaction.save();
@@ -51,6 +58,21 @@ export const likeFunction = async (req, res) => {
                 id,
                 { $inc: { likes: Interaction.liked ? 1 : -1 } }
             );
+            if (Interaction.liked) {
+                await SingleUserLog.updateOne(
+                    { userId: userId },
+                    {
+                        $addToSet: { [`likedPrompts.${type}`]: id }
+                    }
+                )
+            } else {
+                await SingleUserLog.updateOne(
+                    { userId: userId },
+                    {
+                        $pull: { [`likedPrompts.${type}`]: id }
+                    }
+                )
+            }
             res.status(200).json({ message: Interaction.liked ? 'Liked' : 'Unliked' });
         }
     } catch (error) {

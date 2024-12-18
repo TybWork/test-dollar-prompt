@@ -15,10 +15,14 @@ import { jwtDecode } from 'jwt-decode';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
+import { useLikeQuery } from '@/app/utilities/hooks/useCartQuery';
 
 const Page = ({ params }) => {
     const { promptId, promptModel } = params;
     const [fetchPrompts, setfetchPrompts] = useState(null)
+
+    const { data } = useLikeQuery(promptId, promptModel)
+    console.log('amdata', data)
 
     const [prompt, setPrompt] = useState(null);
     const [id, setId] = useState('');
@@ -125,10 +129,10 @@ const Page = ({ params }) => {
                     cartClickFunc={() => cartMutation.mutate()}
                     buyPromptBtn={<Archieve userId={prompt.userId} promptId={promptId} promptData={prompt} promptType={prompt.promptType.toLowerCase()} isUser={isUser} />}
                     views={prompt.views}
-                    likes={prompt.likes}
+                    likes={data.likes}
                     shares={prompt.shares}
                     promptId={promptId}
-
+                    visiterId={id}
                 />
             </div>
 

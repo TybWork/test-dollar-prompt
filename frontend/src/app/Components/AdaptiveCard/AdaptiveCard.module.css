@@ -182,3 +182,17 @@
 .hideOption:hover {
     color: red;
 }
+
+.shareContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    top: 4px;
+    left: px;
+    transition: .3s;
+    transform-origin: center;
+    z-index: 232342342;
+}

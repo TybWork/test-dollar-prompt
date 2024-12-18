@@ -14,12 +14,20 @@ import StarIcon from '../(icons)/StarIcon'
 import Link from 'next/link'
 import { MdTextSnippet } from "react-icons/md";
 import axios from 'axios'
+import ShareWidget from '../(liteComponents)/ShareWidget/ShareWidget'
 
 const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
     const memorizedPromptType = promptType.toLocaleLowerCase()
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
+    const [isShare, setisShare] = useState(false)
+    // const [isLiked, setisLiked] = useState(false)
+
+    const shareFunc = () => {
+        setisShare(prev => !prev)
+    }
+
     const mouseEnter = () => {
         setisEnter(prev => !prev)
     }
@@ -33,6 +41,20 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
 
     return (
         <div className={styles.mainContainer}>
+
+            <div
+                style={{
+                    left: `${isShare ? '8px' : '-100%'}`,
+                }}
+                className={styles.shareContainer}>
+                <ShareWidget
+                    isCross={true}
+                    crossFunc={() => setisShare(false)}
+                    height={'100%'}
+                    borderRadius={'0px'}
+                    justifyContent={'center'}
+                    url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${category.toLocaleLowerCase()}`} />
+            </div>
 
             <div className={styles.coloredContainer}>
             </div>
@@ -110,8 +132,10 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                         </span>
 
                         <span
+                            onClick={shareFunc}
                             className={styles.iconText}
                             style={{
+                                cursor: 'pointer',
                                 display: isSeller ? 'none' : (shares > 0 ? 'flex' : 'flex')
                             }}
                         >

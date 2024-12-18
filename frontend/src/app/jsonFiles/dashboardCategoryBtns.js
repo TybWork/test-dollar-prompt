@@ -18,6 +18,8 @@ import Tab from "../Components/Tab/Tab";
 import PromptsTab from "../Components/(Dashbords)/PromptsTab/PromptsTab";
 import UnverifiedPromptsComponent from "../Components/(Dashbords)/(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent";
 import CreateBlogComponent from "../Components/(Dashbords)/(adminComponents)/CreateBlogComponent/CreateBlogComponent";
+import { IoIosHeart } from "react-icons/io";
+import FavouritePrompts from "../Components/(Dashbords)/FavouritePrompts/FavouritePrompts";
 
 // let userId;
 // if (typeof window !== 'undefined') {
@@ -125,6 +127,12 @@ export const buttons = {
             title: 'Buying History',
             component: <PromptsTab isSellerComp={false} />
         },
+        {
+            id: 1,
+            icon: <IoIosHeart />,
+            title: 'Favourites',
+            component: <FavouritePrompts />
+        }
         // {
         //     id: 1,
         //     icon: <GrOverview />,
