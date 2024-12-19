@@ -33,6 +33,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             router.push('/login')
         } else {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/like?userId=${visiterId}&id=${promptId}&type=${promptModel.toLocaleLowerCase()}`)
+            console.log('this is response', response)
             if (response.data.message === 'Liked') {
                 setisLiked(true)
             } else {
@@ -40,6 +41,8 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             }
         }
     }
+
+    console.log('is liked value', isLiked)
 
     const queryClient = useQueryClient()
     const likeMutation = useMutation({
@@ -55,7 +58,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
     useEffect(() => {
         const fetchpromptId = async () => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
-            const findItem = response.data.likedPrompts[promptModel].includes(promptId)
+            const findItem = response.data.likedPrompts[promptModel.toLocaleLowerCase()].some((item) => item._id === promptId)
             if (findItem) {
                 setisLiked(true)
             } else {
@@ -74,7 +77,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     transform: `translateX(-50%) ${isShare ? 'scale(1)' : 'scale(0)'}`
                 }}
                 className={styles.shareContainer}>
-                <ShareWidget url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
+                <ShareWidget isCross={true} crossFunc={() => setisShare(prev => !prev)} url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
             </div>
 
             {/* ......1.ai tool....... */}

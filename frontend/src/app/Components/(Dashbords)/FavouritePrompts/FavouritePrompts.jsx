@@ -41,7 +41,8 @@ const FavouritePrompts = () => {
                                 mainImage={e?.Image_Url?.[0]}
                                 promptUrl={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${e._id}/dall-e`}
                                 views={e.views}
-                                likes={e.likes}
+                                promptId={e._id}
+                                promptType={'dall-e'}
                             />
                         )
                     }
@@ -69,7 +70,8 @@ const FavouritePrompts = () => {
                                 mainImage={e?.Image_Url?.[0]}
                                 promptUrl={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${e._id}/midjourney`}
                                 views={e.views}
-                                likes={e.likes}
+                                promptId={e._id}
+                                promptType={'midjourney'}
                             />
                         )
                     }
@@ -86,7 +88,7 @@ const FavouritePrompts = () => {
                         ? 'flex' : 'none'
                 }}
             >
-                <h3 className={styles.title}>Midjourney Prompts</h3>
+                <h3 className={styles.title}>GPT Prompts</h3>
                 <div className={styles.promptsWrapper}>
                     {
                         prompts?.['gpt']?.map((e) =>
@@ -97,7 +99,8 @@ const FavouritePrompts = () => {
                                 mainImage={e?.Image_Url?.[0]}
                                 promptUrl={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${e._id}/gpt`}
                                 views={e.views}
-                                likes={e.likes}
+                                promptId={e._id}
+                                promptType={'gpt'}
                             />
                         )
                     }
