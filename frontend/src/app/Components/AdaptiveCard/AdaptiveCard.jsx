@@ -19,12 +19,14 @@ import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { useLikeQuery } from '@/app/utilities/hooks/useCartQuery';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 import { jwtDecode } from 'jwt-decode'
+import { useRouter } from 'next/navigation'
 
 
 const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
     const memorizedPromptType = promptType.toLocaleLowerCase()
+    const router = useRouter();
     const [isLiked, setisLiked] = useState(null)
-    const [visiterId, setVisiterId] = useState(null)
+    const [visiterId, setVisiterId] = useState('')
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
@@ -55,20 +57,26 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                 setVisiterId(decodeToken.userId)
             }
         }
-    }, [promptId, promptType])
+    }, [])
 
     useEffect(() => {
-        const fetchpromptId = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
-            const findItem = response.data.likedPrompts[promptType.toLocaleLowerCase()].some((item) => item._id === promptId)
-            if (findItem) {
-                setisLiked(true)
-            } else {
-                setisLiked(false)
+        if (visiterId) {
+            const fetchpromptId = async () => {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
+                const findItem = response.data.likedPrompts[promptType.toLocaleLowerCase()].some((item) => item._id === promptId)
+                if (findItem) {
+                    setisLiked(true)
+                } else {
+                    setisLiked(false)
+                }
             }
+            fetchpromptId();
+        } else {
+            return
         }
-        fetchpromptId();
     }, [visiterId])
+
+
 
     const likeFunc = async () => {
         if (!visiterId) {
@@ -181,7 +189,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
 
                         <span
                             onClick={() => likeMutation.mutate()}
-                            style={{ display: likes > 0 ? 'flex' : 'flex' }}
+                            style={{ display: likes > 0 ? 'flex' : 'flex', cursor: 'pointer' }}
                             className={styles.iconText}>
                             <HeartIcon fill={isLiked ? 'var(--homeMainBtn)' : 'none'} stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
                             <span>{`${data?.likes || "0"}`}</span>

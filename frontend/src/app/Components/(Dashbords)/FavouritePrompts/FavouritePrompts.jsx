@@ -3,18 +3,31 @@ import React, { useState, useEffect } from 'react'
 import styles from '@/app/Components/(Dashbords)/FavouritePrompts/FavouritePrompts.module.css'
 import AdaptiveCard from '../../AdaptiveCard/AdaptiveCard'
 import axios from 'axios'
+import { getTokenFunction } from '@/app/utilities/getTokenFunction'
+import { jwtDecode } from 'jwt-decode'
 
 const FavouritePrompts = () => {
 
     const [prompts, setprompts] = useState(null)
+    const [visiterId, setvisiterId] = useState('')
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const token = getTokenFunction().cookie
+            if (token) {
+                const decodeToken = jwtDecode(token)
+                setvisiterId(decodeToken.userId)
+            }
+        }
+    }, [])
 
     useEffect(() => {
         const fetchLikedPrompts = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=6749f3131fff24b8617a3c13&status=active&isLiked=true`)
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
             setprompts(response.data.likedPrompts)
         }
         fetchLikedPrompts()
-    }, [])
+    }, [visiterId])
 
     console.log(prompts)
 
