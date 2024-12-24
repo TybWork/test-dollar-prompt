@@ -4,6 +4,7 @@ import styles from '@/app/(Pages)/blog/blog.module.css'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { formatCreatedAt } from '@/app/utilities/formateCreatedAt'
 const page = () => {
     const router = useRouter()
     const [blogs, setblogs] = useState([])
@@ -27,8 +28,8 @@ const page = () => {
             </h1>
             <div className={styles.blogPostCard}>
                 {
-                    blogs && blogs.map((singleBlog,index) =>
-                        <BlogPostCard key={index} onClick={() => router.push(`/blog/${singleBlog._id}`)} title={singleBlog.title} description={singleBlog.description} />
+                    blogs && blogs.map((singleBlog, index) =>
+                        <BlogPostCard key={index} onClick={() => router.push(`/blog/${singleBlog._id}`)} title={singleBlog.title} description={singleBlog.description} createdAt={formatCreatedAt(singleBlog.createdAt)} />
                     )
                 }
             </div>

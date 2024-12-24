@@ -1,5 +1,6 @@
 'use client'
 import styles from '@/app/(Pages)/blog/[postid]/blogpost.module.css'
+import { formatCreatedAt } from '@/app/utilities/formateCreatedAt'
 import axios from 'axios'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -20,7 +21,7 @@ const page = ({ params }) => {
     return (
         <div className={styles.parentContainer}>
             {
-                blog && blog.map((content,index) =>
+                blog && blog.map((content, index) =>
                     <div key={index}>
                         <div className={styles.imageContainer}>
                             <Image className={styles.bannerImg} width={0} height={0} sizes='100vw' src={content.banner[0]} alt='banner-image' />
@@ -28,13 +29,13 @@ const page = ({ params }) => {
 
                         <article className={styles.article}>
                             <h1 className={styles.postTitle}>{content.title}</h1>
-                            <time className={styles.time} datetime="">01 Aug 2024</time>
+                            <time className={styles.time} datetime="">{formatCreatedAt(content?.createdAt)}</time>
                             <p className={styles.content} dangerouslySetInnerHTML={{ __html: content.content }}>
 
                             </p>
                         </article>
                         <address>
-                            <p>Written by <author className={styles.author}>Zee Khan</author></p>
+                            <p>Written by <author className={styles.author}>Admin</author></p>
                         </address>
                     </div>
                 )

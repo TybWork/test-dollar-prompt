@@ -1,6 +1,6 @@
 import styles from '@/app/Components/(liteComponents)/BlogPostCard/BlogPostCard.module.css'
 import PicWithNameRole from '../PicWithNameRole/PicWithNameRole'
-const BlogPostCard = ({ onClick, title, description }) => {
+const BlogPostCard = ({ onClick, title, description, createdAt }) => {
     return (
         <div className={styles.cardContainer} onClick={onClick}>
             <h2 className={styles.h2}>{title}</h2>
@@ -10,7 +10,7 @@ const BlogPostCard = ({ onClick, title, description }) => {
                 <PicWithNameRole
                     width={'40px'}
                     name={"Admin"}
-                    role={'12 Aug 2024'}
+                    role={createdAt}
                     roleColor={'var(--homeMainBtn'}
                     roleWeight={700}
                 />
