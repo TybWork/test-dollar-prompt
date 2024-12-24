@@ -8,6 +8,7 @@ import JoditEditorComp from '@/app/Components/JoditEditor/JoditEditor';
 import { getTokenFunction } from '@/app/utilities/getTokenFunction';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 const CreateBlogComponent = () => {
     const [data, setData] = useState({});
@@ -29,30 +30,35 @@ const CreateBlogComponent = () => {
     };
 
     const onSubmitFunc = async () => {
-        try {
-            const formData = new FormData();
-            for (const key in data) {
-                if (data[key] instanceof FileList) {
-                    Array.from(data[key]).forEach(file => formData.append(key, file));
-                } else {
-                    formData.append(key, data[key]);
-                }
+        // try {
+        const formData = new FormData();
+        for (const key in data) {
+            if (data[key] instanceof FileList) {
+                Array.from(data[key]).forEach(file => formData.append(key, file));
+            } else {
+                formData.append(key, data[key]);
             }
+        }
 
-            await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/create`, formData, {
+        toast.promise(
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/create`, formData, {
                 headers: {
                     'Authorization': getTokenFunction().token,
                     'Content-Type': 'multipart/form-data'
                 }
-            });
-
-            alert('Post created successfully!');
-        } catch (error) {
-            console.error('Error creating post:', error);
-        }
+            }),
+            {
+                pending: 'Post Sumbitting...',
+                success: 'Post Submitted',
+                error: 'Failed!!'
+            }
+        ).catch(error => {
+            console.log(`Something went wrong ${error}`)
+        })
     };
     return (
         <div className={styles.container}>
+            <ToastContainer />
             <h1 className={styles.h1}>Create New Posts</h1>
             <div className={styles.imageUploader}>
                 <NewImageUploader
