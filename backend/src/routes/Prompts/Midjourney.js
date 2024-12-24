@@ -8,5 +8,5 @@ route.post('/prompt/midjourney/create', getUserId, multerFunc, createMidjourney)
     route.get('/prompt/midjourney/get', getAllMidjourney),
     route.get('/prompt/midjourney/filter', getFilteredPrompt),
     route.get('/prompt/midjourney/get/:id', getSingleMidjourney),
-    route.put('/prompt/midjourney/update/:id', updateMidjourney),
-    route.delete('/prompt/midjourney/delete/:id', deleteMidjourney)
+    route.put('/prompt/midjourney/update/:id', getUserId, updateMidjourney),
+    route.delete('/prompt/midjourney/delete/:id', getUserId, deleteMidjourney)

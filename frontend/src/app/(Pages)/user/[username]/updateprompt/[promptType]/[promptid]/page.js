@@ -121,6 +121,7 @@ const Page = () => {
         try {
             await axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptType}/update/${promptid}`, formData, {
                 headers: {
+                    'Authorization': getTokenFunction().token,
                     'Content-Type': 'multipart/form-data'
                 },
                 withCredentials: true

@@ -7,7 +7,7 @@ route.post('/prompt/gpt/create', getUserId, createGPT),
     route.get('/prompt/gpt/get', getAllGPT),
     route.get('/prompt/gpt/filter', getFilteredPrompt),
     route.get('/prompt/gpt/get/:id', getSingleGPT),
-    route.put('/prompt/gpt/update/:id', updateGPT),
-    route.delete('/prompt/gpt/delete/:id', deleteGPT)
+    route.put('/prompt/gpt/update/:id', getUserId, updateGPT),
+    route.delete('/prompt/gpt/delete/:id', getUserId, deleteGPT)
 
 
