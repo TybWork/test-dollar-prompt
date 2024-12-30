@@ -30,9 +30,8 @@ const page = ({ params }) => {
                         <article className={styles.article}>
                             <h1 className={styles.postTitle}>{content.title}</h1>
                             <time className={styles.time} datetime="">{formatCreatedAt(content?.createdAt)}</time>
-                            <p className={styles.content} dangerouslySetInnerHTML={{ __html: content.content }}>
-
-                            </p>
+                            <div className={styles.content} dangerouslySetInnerHTML={{ __html: content.content }}>
+                            </div>
                         </article>
                         <address>
                             <p>Written by <author className={styles.author}>Admin</author></p>
