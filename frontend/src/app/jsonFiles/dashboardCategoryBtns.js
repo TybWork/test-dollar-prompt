@@ -3,7 +3,7 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { GrAnalytics } from "react-icons/gr";
 import { HiOutlineCreditCard } from "react-icons/hi2";
 import { GrOverview } from "react-icons/gr";
-import { RiAiGenerate } from "react-icons/ri";
+import { RiAiGenerate, RiQuillPenLine } from "react-icons/ri";
 import { BsPatchExclamation } from "react-icons/bs";
 import { BsPatchCheck } from "react-icons/bs";
 import { BsPatchQuestion } from "react-icons/bs";
@@ -19,7 +19,9 @@ import PromptsTab from "../Components/(Dashbords)/PromptsTab/PromptsTab";
 import UnverifiedPromptsComponent from "../Components/(Dashbords)/(adminComponents)/UnverifiedPromptsComponent/UnverifiedPromptsComponent";
 import CreateBlogComponent from "../Components/(Dashbords)/(adminComponents)/CreateBlogComponent/CreateBlogComponent";
 import { IoIosHeart } from "react-icons/io";
+import { RiQuillPenAiFill } from "react-icons/ri";
 import FavouritePrompts from "../Components/(Dashbords)/FavouritePrompts/FavouritePrompts";
+import ManageBlogComp from "../Components/(Dashbords)/(adminComponents)/ManageBlogComp/ManageBlogComp";
 
 // let userId;
 // if (typeof window !== 'undefined') {
@@ -51,6 +53,12 @@ export const buttons = {
         {
             id: 1,
             icon: <LiaBlogSolid />,
+            title: 'Blogs Overview',
+            component: <ManageBlogComp />
+        },
+        {
+            id: 2,
+            icon: <RiQuillPenLine />,
             title: 'Write Blog',
             component: <CreateBlogComponent />
         },

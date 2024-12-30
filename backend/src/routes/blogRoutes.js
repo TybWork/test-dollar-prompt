@@ -7,7 +7,7 @@ export const blogRoutes = express.Router()
 
 // blogRoutes.post('/create', multerFunc, isAdmin, isSuperAdmin, createBlog)
 blogRoutes.post('/create', multerFunc, isAdminOrSuperAdmin, createBlog)
-blogRoutes.delete('/delete/:id', isAdmin, deleteBlog)
+blogRoutes.delete('/delete/:id', isAdminOrSuperAdmin, deleteBlog)
 blogRoutes.get('/get', getAllBlog)
 blogRoutes.put('/update/:id', isAdmin, updateBlog)
 blogRoutes.get('/filter', getFilteredBlogs)
