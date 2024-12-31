@@ -1,18 +1,45 @@
+.parentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: calc(100% - 200px);
+    overflow: hidden;
+}
+
 .container {
     width: 100%;
-    height: calc(100% - 200px);
-    margin: 32px auto;
-    /* height: 1500px; */
+    height: 100%;
     display: flex;
-    gap: 24px;
     flex-direction: column;
     overflow-y: auto;
+    gap: 24px;
 }
 
 .container::-webkit-scrollbar {
     width: 8px;
-    /* background: black; */
+}
 
+.backBtnContainer {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--homeMainBtn);
+    color: var(--homePrimaryClr);
+    transition: .3s;
+    cursor: pointer;
+}
+
+.backBtn {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--homePrimaryClr);
+    font-size: 20px;
 }
 
 .h1 {

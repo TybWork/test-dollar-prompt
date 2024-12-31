@@ -36,6 +36,43 @@ export const createBlog = async (req, res) => {
     }
 }
 
+//update single blog
+export const updateBlog = async (req, res) => {
+    const id = req.params.id
+    try {
+        // cloudinary setup
+        const urls = []
+
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const url = await cloudinaryFunc(file)
+                urls.push(url);
+                fs.unlink(file.path, (err) => {
+                    if (err) {
+                        console.error(`error while deleting file ${err}`)
+                    } else {
+                        console.log('file deleted successfully')
+                    }
+                })
+            }
+        }
+
+        const updateData = { ...req.body };
+
+        if (urls.length > 0) {
+            updateData.banner = urls
+        }
+
+        const updateBlog = await Blog.findByIdAndUpdate(
+            id,
+            updateData,
+            { new: true });
+        return res.status(200).json(updateBlog);
+    } catch (error) {
+        res.status(500).json({ msg: `Failed to update blog:${error}` })
+    }
+}
+
 //get all blogs
 export const getAllBlog = async (req, res) => {
     try {
@@ -65,17 +102,6 @@ export const getFilteredBlogs = async (req, res) => {
         return res.status(200).json(filter)
     } catch (error) {
         return res.status(400).json({ msg: `Failed to get blog` })
-    }
-}
-
-//update single blog
-export const updateBlog = async (req, res) => {
-    const id = req.params.id
-    try {
-        const updateBlog = await Blog.findByIdAndUpdate(id, req.body, { new: true });
-        return res.status(200).json(updateBlog);
-    } catch (error) {
-        res.status(500).json({ msg: `Failed to update blog:${error}` })
     }
 }
 

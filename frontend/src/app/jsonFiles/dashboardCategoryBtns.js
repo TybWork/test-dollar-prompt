@@ -53,15 +53,15 @@ export const buttons = {
         {
             id: 1,
             icon: <LiaBlogSolid />,
-            title: 'Blogs Overview',
+            title: 'Blogs',
             component: <ManageBlogComp />
         },
-        {
-            id: 2,
-            icon: <RiQuillPenLine />,
-            title: 'Write Blog',
-            component: <CreateBlogComponent />
-        },
+        // {
+        //     id: 2,
+        //     icon: <RiQuillPenLine />,
+        //     title: 'Write Blog',
+        //     component: <CreateBlogComponent />
+        // },
         // {
         //     id: 3,
         //     icon: <HiOutlineCreditCard />,
