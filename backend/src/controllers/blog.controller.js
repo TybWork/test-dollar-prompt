@@ -1,6 +1,7 @@
 import { cloudinaryFunc } from '../utils/cloudinary.utils.js'
 import fs from 'fs'
 import { Blog } from '../models/Blog/blog.model.js';
+import slugify from 'slugify'
 
 // create Blog
 export const createBlog = async (req, res) => {
@@ -23,12 +24,27 @@ export const createBlog = async (req, res) => {
         }
 
         // ...............
+
+        // extract title
+        const title = req.body.title;
+        const slugString = slugify(
+            title,
+            {
+                replacement: '-',
+                lower: true,
+                trim: true,
+                remove: /[^a-zA-Z0-9\s-]/g
+            }
+        )
+
         const newBlog = new Blog({
             ...req.body,
             banner: urls,
+            slug: slugString,
             //adminId: req.userId
             adminId: "6662ff2b1c4e19a5896f2bfe"
         })
+
         const savedBlog = await newBlog.save()
         return res.status(200).json(savedBlog);
     } catch (error) {
@@ -57,7 +73,19 @@ export const updateBlog = async (req, res) => {
             }
         }
 
-        const updateData = { ...req.body };
+        // extract title
+        const title = req.body.title;
+        const slugString = slugify(
+            title,
+            {
+                replacement: '-',
+                lower: true,
+                trim: true,
+                remove: /[^a-zA-Z0-9\s-]/g
+            }
+        )
+
+        const updateData = { ...req.body, slug: slugString };
 
         if (urls.length > 0) {
             updateData.banner = urls

@@ -127,6 +127,7 @@ body::-webkit-scrollbar-thumb {
   color: var(--homeTertiaryClr);
   height: max-content !important;
   min-height: 300px !important;
+  max-height: 400px !important;
 }
 
 /* header of jodit container */

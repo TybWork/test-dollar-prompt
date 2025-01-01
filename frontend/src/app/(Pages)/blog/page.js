@@ -29,7 +29,7 @@ const page = () => {
             <div className={styles.blogPostCard}>
                 {
                     blogs && blogs.map((singleBlog, index) =>
-                        <BlogPostCard key={index} onClick={() => router.push(`/blog/${singleBlog._id}`)} title={singleBlog.title} description={singleBlog.description} createdAt={formatCreatedAt(singleBlog.createdAt)} />
+                        <BlogPostCard key={index} onClick={() => router.push(`/blog/${singleBlog.slug}`)} title={singleBlog.title} description={singleBlog.description} createdAt={formatCreatedAt(singleBlog.createdAt)} />
                     )
                 }
             </div>

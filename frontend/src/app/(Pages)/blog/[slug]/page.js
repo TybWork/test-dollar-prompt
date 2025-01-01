@@ -1,23 +1,47 @@
-'use client'
-import styles from '@/app/(Pages)/blog/[postid]/blogpost.module.css'
+import styles from '@/app/(Pages)/blog/[slug]/blogpost.module.css'
 import { formatCreatedAt } from '@/app/utilities/formateCreatedAt'
-import axios from 'axios'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-const page = ({ params }) => {
-    const { postid } = params
-    const [blog, setblog] = useState(null)
-    useEffect(() => {
-        const fetchBlog = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/filter?_id=${postid}`)
-            setblog(response.data)
-        }
-        fetchBlog();
-    }, [])
+import { fetchDataFunc } from '@/app/utilities/fetchDataFunc'
+
+export async function generateMetadata({ params }) {
+    // read route params
+    const { slug } = params
+
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/filter?slug=${slug}`
+    const { data: blog, error } = await fetchDataFunc(url)
 
     if (!blog) {
-        return <div>loading...</div>
+        return null;
     }
+
+    return {
+        title: blog[0]?.title,
+        description: blog[0]?.description,
+        openGraph: {
+            title: blog[0]?.title,
+            description: blog[0]?.description,
+            siteName: 'Dollarprompt',
+            image: blog[0]?.banner[0],
+            url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/blog/${blog[0]?.slug}`,
+            type: 'article',
+            locale: 'en_US'
+        }
+    }
+}
+
+const page = async ({ params }) => {
+    const { slug } = await params
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blog/filter?slug=${slug}`
+    const { data: blog, error } = await fetchDataFunc(url)
+
+    if (error) {
+        return <div>Something went wrong</div>
+    }
+
+    if (!blog) {
+        return <div>Failed to Fetch blog</div>
+    }
+
     return (
         <div className={styles.parentContainer}>
             {
