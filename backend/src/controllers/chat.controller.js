@@ -87,7 +87,6 @@ export const sendMessage = async (roomId, senderId, receiverId, message) => {
     }
 };
 
-
 export const fetchRooms = async (id) => {
     try {
         const commonRooms = await ChatRoom.find({

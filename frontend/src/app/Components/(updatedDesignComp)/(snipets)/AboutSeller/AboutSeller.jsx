@@ -31,7 +31,7 @@ const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile,
                         </Link>
                     </div>
                     <div className={styles.counts}>
-                        <HeadingCounts count={promptsCount || '0'} heading={'Prompts'} />
+                        <HeadingCounts count={promptsCount || '10'} heading={'Prompts'} />
                         <HeadingCounts count={followersCount || '0'} heading={'Followers'} />
                         <HeadingCounts count={sellPromptsCount || '0'} heading={'Prompts Sold'} />
                         <div className={styles.starIconContainer}>
@@ -42,8 +42,8 @@ const AboutSeller = ({ profileHandle, profileImage, greenBtnText, linkToProfile,
                 </div>
                 <hr className={styles.hr} />
                 <div className={styles.btns}>
-                    <SquareBorderBtn />
-                    <PrimaryBtn title={greenBtnText || 'Contact'} height={'40px'} width={'150px'} />
+                    {/* <SquareBorderBtn /> */}
+                    {/* <PrimaryBtn title={greenBtnText || 'Follow'} height={'40px'} width={'150px'} /> */}
                 </div>
             </div>
         </div >

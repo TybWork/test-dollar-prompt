@@ -9,7 +9,7 @@ const BlogPostCard = ({ onClick, title, description, createdAt }) => {
             <div>
                 <PicWithNameRole
                     width={'40px'}
-                    name={"Admin"}
+                    name={"Sha"}
                     role={createdAt}
                     roleColor={'var(--homeMainBtn'}
                     roleWeight={700}

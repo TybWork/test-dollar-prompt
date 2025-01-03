@@ -10,6 +10,28 @@ import Archieve from '@/app/Components/(liteComponents)/ArchievesDownload/Archie
 import LoadingCircle from '@/app/Components/(liteComponents)/LoadingCircle/LoadingCircle';
 import { fetchDataFunc } from '@/app/utilities/fetchDataFunc';
 
+export async function generateMetadata({ params }) {
+    const { promptModel, slug } = params
+
+    let { data: prompt } = await fetchDataFunc(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptModel}/filter?slug=${slug}`)
+    prompt = prompt[0]
+
+    return {
+        title: prompt?.title,
+        description: prompt.description,
+        // keywords: 'hello, one,two',
+        openGraph: {
+            title: prompt?.title,
+            description: prompt?.description,
+            siteName: 'Dollarprompt',
+            image: prompt?.Image_Url[0],
+            url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/${promptModel}/${prompt?.slug}`,
+            locale: 'en_US'
+        }
+    }
+
+}
+
 const Page = async ({ params }) => {
     const { promptModel, slug } = await params;
 
