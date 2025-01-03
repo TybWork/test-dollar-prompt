@@ -21,18 +21,17 @@ import { getTokenFunction } from '@/app/utilities/getTokenFunction'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/navigation'
 
-
-const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e' }) => {
+const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, likes, shares, ratingAverage, ratingCount, category, deletePromptFunc, updatePromptLink, promptId, userHandle, promptType = 'dall-e', slug }) => {
     const memorizedPromptType = promptType.toLocaleLowerCase()
     const router = useRouter();
     const [isLiked, setisLiked] = useState(null)
     const [visiterId, setVisiterId] = useState('')
+    const [isLogedIn, setisLogedIn] = useState(false)
     const [isEnter, setisEnter] = useState(false)
     const [isOptionsVisible, setisOptionsVisible] = useState(false)
     const [optionsPannelBg, setOptionsPannelBg] = useState('var(--homePrimaryClr)')
     const [isShare, setisShare] = useState(false)
-    const { data } = useLikeQuery(promptId, promptType.toLocaleLowerCase())
-    // const [isLiked, setisLiked] = useState(false)
+    const { data } = useLikeQuery(promptType, slug)
 
     const shareFunc = () => {
         setisShare(prev => !prev)
@@ -55,6 +54,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
             if (token) {
                 const decodeToken = jwtDecode(token)
                 setVisiterId(decodeToken.userId)
+                setisLogedIn(true)
             }
         }
     }, [])
@@ -74,7 +74,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
         } else {
             return
         }
-    }, [visiterId])
+    }, [visiterId, data])
 
 
 
@@ -116,7 +116,8 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                     height={'100%'}
                     borderRadius={'0px'}
                     justifyContent={'center'}
-                    url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${category.toLocaleLowerCase()}`} />
+                    // url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${category.toLocaleLowerCase()}`} />
+                    url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${category.toLocaleLowerCase()}/${slug}`} />
             </div>
 
             <div className={styles.coloredContainer}>
@@ -192,7 +193,7 @@ const AdaptiveCard = ({ isSeller = false, mainImage, title, promptUrl, views, li
                             style={{ display: likes > 0 ? 'flex' : 'flex', cursor: 'pointer' }}
                             className={styles.iconText}>
                             <HeartIcon fill={isLiked ? 'var(--homeMainBtn)' : 'none'} stroke={isEnter ? 'var(--homeMainBtn)' : ''} />
-                            <span>{`${data?.likes || "0"}`}</span>
+                            <span>{`${isLogedIn === true ? data?.likes : likes || "0"}`}</span>
                         </span>
 
                         <span

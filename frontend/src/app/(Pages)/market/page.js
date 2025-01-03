@@ -47,12 +47,13 @@ const Page = () => {
             mainImage={item.Image_Url[0]}
             category={item.promptType}
             title={item.title}
-            promptUrl={`/prompts/${item._id}/${item.promptType.toLowerCase()}`}
+            promptUrl={`/prompts/${item.promptType.toLowerCase()}/${item.slug}`}
             promptType={item.promptType}
             promptId={item._id}
             views={item.views}
-            likes={item.likes}
             shares={item.shares}
+            likes={item.likes}
+            slug={item.slug}
           />
         ))}
       </div>

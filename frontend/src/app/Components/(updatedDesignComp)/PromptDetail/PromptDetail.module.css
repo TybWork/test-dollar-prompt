@@ -161,6 +161,10 @@
     font-size: 14px;
 }
 
+.note span {
+    font-weight: 600;
+}
+
 .shareContainer {
     position: absolute;
     max-width: 336px;

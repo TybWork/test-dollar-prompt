@@ -150,7 +150,7 @@ export default function Home() {
                     <AdaptiveCard
                       key={index}
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${dalle.promptType.toLowerCase()}/${dalle.slug}`}
                       title={dalle.title}
                       promptId={dalle._id}
                       category={dalle.promptType}
@@ -158,6 +158,7 @@ export default function Home() {
                       likes={dalle.likes}
                       views={dalle.views}
                       shares={dalle.shares}
+                      slug={dalle.slug}
                     />
                   )
                 }
@@ -168,7 +169,7 @@ export default function Home() {
                     <AdaptiveCard
                       key={index}
                       mainImage={midjourney.Image_Url[0]}
-                      promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${midjourney.promptType.toLowerCase()}/${midjourney.slug}`}
                       title={midjourney.title}
                       category={midjourney.promptType}
                       promptType={midjourney.promptType}
@@ -176,6 +177,7 @@ export default function Home() {
                       views={midjourney.views}
                       likes={midjourney.likes}
                       shares={midjourney.shares}
+                      slug={midjourney.slug}
                     />
                   )
                 }
@@ -186,7 +188,7 @@ export default function Home() {
                     <AdaptiveCard
                       key={index}
                       mainImage={trending.Image_Url[0]}
-                      promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${trending.promptType.toLowerCase()}/${trending.slug}`}
                       title={trending.title}
                       category={trending.promptType}
                       promptType={trending.promptType}
@@ -194,6 +196,7 @@ export default function Home() {
                       views={trending.views}
                       likes={trending.likes}
                       shares={trending.shares}
+                      slug={trending.slug}
                     />
                   )
                 }
@@ -227,7 +230,7 @@ export default function Home() {
                   <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={trending?.Image_Url?.[0]}
-                      promptUrl={`/prompts/${trending._id}/${trending.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${trending.promptType.toLowerCase()}/${trending.slug}`}
                       title={trending.title}
                       category={trending.promptType}
                       promptType={trending.promptType}
@@ -235,6 +238,7 @@ export default function Home() {
                       views={trending.views}
                       likes={trending.likes}
                       shares={trending.shares}
+                      slug={trending.slug}
                     />
                   </div>
                 )
@@ -282,7 +286,7 @@ export default function Home() {
                   <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={dalle.Image_Url[0]}
-                      promptUrl={`/prompts/${dalle._id}/${dalle.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${dalle.promptType.toLowerCase()}/${dalle.slug}`}
                       title={dalle.title}
                       category={dalle.promptType}
                       promptType={dalle.promptType}
@@ -290,6 +294,7 @@ export default function Home() {
                       views={dalle.views}
                       likes={dalle.likes}
                       shares={dalle.shares}
+                      slug={dalle.slug}
                     />
                   </div>
                 )
@@ -312,7 +317,7 @@ export default function Home() {
                   <div className={styles.adaptive} key={index}>
                     <AdaptiveCard
                       mainImage={midjourney.Image_Url[0]}
-                      promptUrl={`/prompts/${midjourney._id}/${midjourney.promptType.toLowerCase()}`}
+                      promptUrl={`/prompts/${midjourney.promptType.toLowerCase()}/${midjourney.slug}`}
                       title={midjourney.title}
                       category={midjourney.promptType}
                       promptType={midjourney.promptType}
@@ -320,6 +325,7 @@ export default function Home() {
                       views={midjourney.views}
                       likes={midjourney.likes}
                       shares={midjourney.shares}
+                      slug={midjourney.slug}
                     />
                   </div>
                 )

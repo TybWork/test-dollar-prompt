@@ -10,7 +10,7 @@ import axios from 'axios';
 
 // const TEMPLATE_URL = '/assets/example.docx'; // Path to your DOCX template
 
-const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
+const Archieve = ({ userId, promptId, promptType, isUser, promptData, slug }) => {
     const [TEMPLATE_URL, setTEMPLATE_URL] = useState('/assets/example.docx')
     const [documentData, setdocumentData] = useState({})
 
@@ -133,7 +133,7 @@ const Archieve = ({ userId, promptId, promptType, isUser, promptData }) => {
                 setLoading(false);
             }
         } else {
-            localStorage.setItem('redirectTo', `/prompts/${promptId}/${promptType}`)
+            localStorage.setItem('redirectTo', `/prompts/${promptType}/${slug}`)
             router.push('/login')
         }
     };

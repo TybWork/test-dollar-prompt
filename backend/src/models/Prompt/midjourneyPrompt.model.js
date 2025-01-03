@@ -12,6 +12,11 @@ const MidjourneyPromptSchema = new Schema(
             type: String,
             required: true,
         },
+        slug: {
+            type: String,
+            required: true,
+            unique: true
+        },
         prompt: {
             type: String,
             required: true

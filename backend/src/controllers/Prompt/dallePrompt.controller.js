@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { DallE } from "../../models/Prompt/dallePrompt.model.js";
 import { SingleUserLog } from "../../models/singleUserLogs.model.js";
 import { cloudinaryFunc } from '../../utils/cloudinary.utils.js'
@@ -23,11 +24,25 @@ export const createDallE = async (req, res) => {
             });
         }
 
+        // slug creating
+
+        const title = req.body.title;
+        const slugString = slugify(
+            title,
+            {
+                replacement: '-',
+                lower: true,
+                trim: true,
+                remove: /[^a-zA-Z0-9\s-]/g
+            }
+        )
+
         // ...............
         const newPrompt = new DallE({
             ...req.body,
             Image_Url: urls,
-            userId: req.userId
+            userId: req.userId,
+            slug: slugString
         })
         const savedPrompt = await newPrompt.save()
 
@@ -53,9 +68,9 @@ export const getAllDallE = async (req, res) => {
 
 //get single prompt
 export const getSingleDallE = async (req, res) => {
-    const id = req.params.id;
+    const slug = req.params.slug;
     try {
-        const dallPrompt = await DallE.findById(id);
+        const dallPrompt = await DallE.findOne({ slug: slug });
         return res.status(200).json(dallPrompt);
     } catch (error) {
         return res.status(500).json({ msg: `Failed to get single dalle prompt` })

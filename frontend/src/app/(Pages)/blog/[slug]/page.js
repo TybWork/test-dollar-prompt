@@ -58,7 +58,7 @@ const page = async ({ params }) => {
                             </div>
                         </article>
                         <address>
-                            <p>Written by <author className={styles.author}>Admin</author></p>
+                            <p>Written by <author className={styles.author}>Sha</author></p>
                         </address>
                     </div>
                 )

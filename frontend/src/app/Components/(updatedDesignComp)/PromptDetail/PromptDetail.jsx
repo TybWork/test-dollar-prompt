@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import styles from '@/app/Components/(updatedDesignComp)/PromptDetail/PromptDetail.module.css'
 import Image from 'next/image'
@@ -18,22 +19,35 @@ import ShareWidget from '../../(liteComponents)/ShareWidget/ShareWidget'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, version, promptRating, views, likes, shares, originalPrice, salePrice, percentageOff, cartClickFunc, buyPromptBtn, imgArray, visiterId, promptId, promptModel = 'dall-e', examplePrompts, isUser }) => {
+import { jwtDecode } from 'jwt-decode'
+import Archieve from '../../(liteComponents)/ArchievesDownload/Archieve'
+const PromptDetail = ({ promptModel = 'dall-e', slug, promptData }) => {
 
     const router = useRouter()
     const [isShare, setisShare] = useState(false)
     const [isLiked, setisLiked] = useState(null)
+    const [visiterId, setvisiterId] = useState(null)
+    const [isLogedIn, setisLogedIn] = useState(false)
+    const { data } = useLikeQuery(promptModel, slug)
 
     const shareFunc = () => {
         setisShare(prev => !prev)
     }
 
+    useEffect(() => {
+        const cookie = getTokenFunction().cookie;
+        if (cookie) {
+            const logedInUser = jwtDecode(cookie).userId;
+            setvisiterId(logedInUser)
+            setisLogedIn(true)
+        }
+    }, [])
+
     const likeFunc = async () => {
         if (!visiterId) {
             router.push('/login')
         } else {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/like?userId=${visiterId}&id=${promptId}&type=${promptModel.toLocaleLowerCase()}`)
-            console.log('this is response', response)
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/interactions/like?userId=${visiterId}&id=${promptData._id}&type=${promptModel.toLocaleLowerCase()}`)
             if (response.data.message === 'Liked') {
                 setisLiked(true)
             } else {
@@ -41,8 +55,6 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             }
         }
     }
-
-    console.log('is liked value', isLiked)
 
     const queryClient = useQueryClient()
     const likeMutation = useMutation({
@@ -58,7 +70,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
     useEffect(() => {
         const fetchpromptId = async () => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/fetch-user-logs?userId=${visiterId}&status=active&isLiked=true`)
-            const findItem = response.data.likedPrompts[promptModel.toLocaleLowerCase()].some((item) => item._id === promptId)
+            const findItem = response.data.likedPrompts[promptModel.toLocaleLowerCase()].some((item) => item._id === promptData._id)
             if (findItem) {
                 setisLiked(true)
             } else {
@@ -68,7 +80,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
         if (visiterId) {
             fetchpromptId();
         }
-    }, [visiterId, promptId, promptModel])
+    }, [visiterId, promptData._id, promptModel, data])
 
     return (
         <div className={styles.promptDetail}>
@@ -77,20 +89,19 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     transform: `translateX(-50%) ${isShare ? 'scale(1)' : 'scale(0)'}`
                 }}
                 className={styles.shareContainer}>
-                <ShareWidget isCross={true} crossFunc={() => setisShare(prev => !prev)} url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptId}/${promptModel.toLocaleLowerCase()}`} />
+                <ShareWidget isCross={true} crossFunc={() => setisShare(prev => !prev)} url={`${process.env.NEXT_PUBLIC_CLIENT_URL}/prompts/${promptModel.toLocaleLowerCase()}/${slug}`} />
             </div>
 
             {/* ......1.ai tool....... */}
-            <span className={styles.aiToolBadge}>{aiTool || 'Dall-E'}</span>
+            <span className={styles.aiToolBadge}>{promptData.promptType || 'Dall-E'}</span>
 
             {/* prompt images */}
             <div className={styles.promptImages}>
                 {
                     promptModel === 'dall-e' || promptModel === 'midjourney' ? (
-                        imgArray && imgArray.slice(0, 3).map((imgUrl, index) =>
-                            <Image alt='prompt-image' key={index} width={0} height={0} sizes='100vw' className={styles.img} src={promptImageUrl || imgUrl} />
+                        promptData?.Image_Url && promptData?.Image_Url.slice(0, 3).map((imgUrl, index) =>
+                            <Image alt='prompt-image' key={index} width={0} height={0} sizes='100vw' className={styles.img} src={imgUrl} />
                         )
-
                     ) :
                         (
 
@@ -103,9 +114,9 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
 
             {/* .........aboutPrompt......... */}
             <div className={styles.aboutPrompt}>
-                <h3 className={styles.title}>{promptTitle || 'Vintage Junk Journal Pages'}</h3>
+                <h3 className={styles.title}>{promptData.title || 'Vintage Junk Journal Pages'}</h3>
                 <p className={styles.promptDescription}>
-                    {promptDescription || 'This prompt generates beautiflly depicitions of vintage junk journal pages. These Nostalgic and textured desing can be used for scrapbooking , journaling ,invitations , or create projects , adding a rustic and timless touch to any collection.'}
+                    {promptData.description || 'This prompt generates beautiflly depicitions of vintage junk journal pages. These Nostalgic and textured desing can be used for scrapbooking , journaling ,invitations , or create projects , adding a rustic and timless touch to any collection.'}
                 </p>
             </div>
 
@@ -114,9 +125,17 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
 
             {/* .........category......... */}
             <div className={styles.categoryContainer}>
-                <div className={styles.category}>
-                    Version: <span>{version || ''}</span>
-                </div>
+                {
+                    (() => {
+                        if (promptData.promptType === 'Dall-E' || promptData.promptType === 'GPT') {
+                            return <div className={styles.category}>
+                                Version: <span>{promptData.version || promptData.gptPromptType || '0'}</span>
+                            </div>
+                        } else {
+                            return null
+                        }
+                    })()
+                }
                 <div className={styles.authenticity}>
                     <span>Tested</span>
                     <VerifiedIcon width={'16px'} />
@@ -128,14 +147,14 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
             <div className={styles.parametersContainer}>
                 <IconWithText
                     icon={<EyeIcon stroke={'var(--homeMainBtn)'} width='20px' />}
-                    text={views || '0'}
+                    text={promptData.views || '0'}
                 />
                 <IconWithText
                     doHover={true}
                     icon={
                         <HeartIcon fill={isLiked ? 'var(--homeMainBtn)' : 'none'} width='20px' stroke={'var(--homeMainBtn)'} />
                     }
-                    text={likes || '0'}
+                    text={data?.likes || '0'}
                     onClick={() => likeMutation.mutate()}
                 />
 
@@ -156,12 +175,12 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                     <div className={styles.priceSection}>
                         {/* <div className={styles.salePrice}>${salePrice || 4.99}</div> */}
                         {/* <div className={styles.originalPrice}>$<s>{originalPrice || 8.99}</s></div> */}
-                        <div className={styles.originalPrice}>$<s>{salePrice || 8.99}</s></div>
+                        <div className={styles.originalPrice}>$<s>{promptData.price || 8.99}</s></div>
                         <div className={styles.percentageOff}>Free</div>
                     </div>
                     <div className={styles.btns}>
                         <div className={styles.primaryBtn}>
-                            {buyPromptBtn}
+                            <Archieve userId={promptData.userId} promptId={prompt._id} slug={slug} promptData={promptData} promptType={promptModel} isUser={isLogedIn} />
                         </div>
                         {/* <div className={styles.cartIcon} onClick={cartClickFunc}>
                             <CartIcon
@@ -172,7 +191,7 @@ const PromptDetail = ({ promptImageUrl, aiTool, promptTitle, promptDescription, 
                 </div>
 
                 <p className={styles.note}>
-                    After purchase use this prompt in {aiTool || 'Dall-E'} to get desired result.
+                    After purchase use this prompt in <span>{promptData.promptType || 'Dall-E'}</span> to get desired result.
                 </p>
             </div>
         </div>

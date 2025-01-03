@@ -46,6 +46,11 @@ const gptPromptSchema = new Schema(
             type: String,
             required: true,
         },
+        slug: {
+            type: String,
+            required: true,
+            unique: true
+        },
         gptType: {
             type: String,
             enum: ["Completion (Regular Gpt)", "Chat (Chat Gpt)"],
